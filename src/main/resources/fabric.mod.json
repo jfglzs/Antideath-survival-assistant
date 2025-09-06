@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "asa",
+	"version": "${version}",
+	"name": "ad-sur-assistant",
+	"description": "masa extension mod that provides some useful features for your game.",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/asa/icon.png",
+	"environment": "*",
+	"entrypoints": {
+        "client": [
+          "io.github.jfglzs.AsaMod"
+        ]
+	},
+	"mixins": [
+		"ad-sur-assistant.mixins.json"
+	],
+    "accessWidener": "asa.accesswidener",
+	"depends": {
+		"fabricloader": "*",
+		"minecraft": "${minecraft_requirement_version}",
+		"java": ">=21",
+		"fabric-api": "*",
+        "malilib": "${malilib_requirement_version}"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
