@@ -10,15 +10,19 @@ import static io.github.jfglzs.config.Configs.*;
 import static io.github.jfglzs.feature.asaSwitchServer.switchServer;
 import static io.github.jfglzs.utils.CommandUtils.runCommand;
 
-public class HotkeysCallback implements IHotkeyCallback {
+public class HotkeysCallback implements IHotkeyCallback
+{
     MinecraftClient client = MinecraftClient.getInstance();
 
     @Override
-    public boolean onKeyAction(KeyAction action, IKeybind key) {
-        if (key == ASA.getKeybind()) {
+    public boolean onKeyAction(KeyAction action, IKeybind key)
+    {
+        if (key == ASA.getKeybind())
+        {
             client.setScreen(new ConfigUi());
             return true;
-        } else if (key == SWITCH_SERVER.getKeybind()) {
+        } else if (key == SWITCH_SERVER.getKeybind())
+        {
             switchServer();
             return true;
         }
@@ -26,10 +30,12 @@ public class HotkeysCallback implements IHotkeyCallback {
         return false;
     }
 
-    public static void init(){
+    public static void init()
+    {
         HotkeysCallback hotkeysCallback = new HotkeysCallback();
 
-        for (ConfigHotkey configHotkey : Configs.KEY_LIST) {
+        for (ConfigHotkey configHotkey : Configs.KEY_LIST)
+        {
             configHotkey.getKeybind().setCallback(hotkeysCallback);
         }
     }

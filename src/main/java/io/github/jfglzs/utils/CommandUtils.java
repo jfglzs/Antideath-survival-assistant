@@ -4,11 +4,14 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class CommandUtils {
+public class CommandUtils
+{
     private static final Queue<String> commandQueue = new LinkedList<>();
 
-    static {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+    static
+    {
+        ClientTickEvents.END_CLIENT_TICK.register(client ->
+        {
             if (client.player != null && !commandQueue.isEmpty()) {
                 String cmd = commandQueue.poll();
                 client.player.networkHandler.sendChatCommand(cmd);
@@ -16,7 +19,8 @@ public class CommandUtils {
         });
     }
 
-    public static void runCommand(String command) {
+    public static void runCommand(String command)
+    {
         commandQueue.add(command);
     }
 }

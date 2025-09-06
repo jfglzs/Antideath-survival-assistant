@@ -10,25 +10,25 @@ import net.fabricmc.api.ClientModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AsaMod implements ClientModInitializer {
+public class AsaMod implements ClientModInitializer
+{
     public static final String SPACE = " ";
     public static final String MOD_ID = "ASA";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-
-
 	@Override
-	public void onInitializeClient() {
+	public void onInitializeClient()
+    {
         LOGGER.info("AsaMod is loading...");
         masaRegister();
 	}
 
-    void masaRegister() {
+    void masaRegister()
+    {
         Configs.INSTANCE.load();
         ConfigManager.getInstance().registerConfigHandler(MOD_ID, Configs.INSTANCE);
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
         HotkeysCallback.init();
     }
-
 }

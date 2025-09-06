@@ -16,7 +16,8 @@ import java.util.List;
 
 import static io.github.jfglzs.AsaMod.MOD_ID;
 
-public class Configs implements IConfigHandler{
+public class Configs implements IConfigHandler
+{
     public static Configs INSTANCE = new Configs();
     private static final String FILE_PATH = "./config/" + MOD_ID + ".json";
     private static final File CONFIG_DIR = new File("./config");
@@ -28,7 +29,8 @@ public class Configs implements IConfigHandler{
     public static final ConfigStringList SWITCH_SERVER_LIST = new ConfigStringList( "服务器列表",ImmutableList.of("survival","creative"),"自动切换服务器时的服务器列表");
 
     public static final ImmutableList<IConfigBase> ALL = addCompatibility();
-    public static ImmutableList<IConfigBase> addCompatibility(){
+    public static ImmutableList<IConfigBase> addCompatibility()
+    {
         List<IConfigBase> list = new ArrayList<>();
         list.add(ASA);
         list.add(SWITCH_SERVER);
@@ -57,11 +59,14 @@ public class Configs implements IConfigHandler{
 
 
     @Override
-    public void load() {
+    public void load()
+    {
         File settingFile = new File(FILE_PATH);
-        if (settingFile.isFile() && settingFile.exists()) {
+        if (settingFile.isFile() && settingFile.exists())
+        {
             JsonElement jsonElement = JsonUtils.parseJsonFile(settingFile);
-            if (jsonElement != null && jsonElement.isJsonObject()) {
+            if (jsonElement != null && jsonElement.isJsonObject())
+            {
                 JsonObject obj = jsonElement.getAsJsonObject();
                 ConfigUtils.readConfigBase(obj, MOD_ID, ALL_CONFIGS);
             }
@@ -69,8 +74,10 @@ public class Configs implements IConfigHandler{
     }
 
     @Override
-    public void save() {
-        if ((CONFIG_DIR.exists() && CONFIG_DIR.isDirectory()) || CONFIG_DIR.mkdirs()) {
+    public void save()
+    {
+        if ((CONFIG_DIR.exists() && CONFIG_DIR.isDirectory()) || CONFIG_DIR.mkdirs())
+        {
             JsonObject configRoot = new JsonObject();
             ConfigUtils.writeConfigBase(configRoot, MOD_ID, ALL_CONFIGS);
             JsonUtils.writeJsonToFile(configRoot, new File(FILE_PATH));
