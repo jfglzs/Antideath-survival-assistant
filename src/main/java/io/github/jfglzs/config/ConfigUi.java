@@ -10,16 +10,19 @@ import java.util.List;
 
 import static io.github.jfglzs.AsaMod.MOD_ID;
 
-public class ConfigUi extends GuiConfigsBase {
+public class ConfigUi extends GuiConfigsBase
+{
     private static Tab tab = Tab.ALL;
 
 
-    public ConfigUi() {
+    public ConfigUi()
+    {
         super(10, 50, MOD_ID, null, "Antideath-survival-assistant");
     }
 
     @Override
-    public void initGui() {
+    public void initGui()
+    {
         super.initGui();
         this.clearOptions();
 
@@ -31,7 +34,8 @@ public class ConfigUi extends GuiConfigsBase {
 
     }
 
-    private int createButton(int x, int y, int width, Tab tab) {
+    private int createButton(int x, int y, int width, Tab tab)
+    {
         ButtonGeneric button = new ButtonGeneric(x, y, width, 20, tab.name);
         button.setEnabled(ConfigUi.tab != tab);
         this.addButton(button, new ButtonListener(tab, this));
@@ -40,28 +44,34 @@ public class ConfigUi extends GuiConfigsBase {
     }
 
     @Override
-    public List<ConfigOptionWrapper> getConfigs() {
+    public List<ConfigOptionWrapper> getConfigs()
+    {
         List<? extends IConfigBase> configs;
         Tab tab = ConfigUi.tab;
-        if (tab == Tab.ALL) {
+        if (tab == Tab.ALL)
+        {
             configs = Configs.ALL_CONFIGS;
-        } else {
+        } else
+        {
             configs = Configs.ALL_CONFIGS;
         }
         return ConfigOptionWrapper.createFor(configs);
     }
 
-    private static class ButtonListener implements IButtonActionListener {
+    private static class ButtonListener implements IButtonActionListener
+    {
         private final ConfigUi parent;
         private final Tab tab;
 
-        public ButtonListener(Tab tab, ConfigUi parent) {
+        public ButtonListener(Tab tab, ConfigUi parent)
+        {
             this.tab = tab;
             this.parent = parent;
         }
 
         @Override
-        public void actionPerformedWithButton(ButtonBase button, int mouseButton) {
+        public void actionPerformedWithButton(ButtonBase button, int mouseButton)
+        {
             ConfigUi.tab = this.tab;
             this.parent.reCreateListWidget();
             this.parent.getListWidget().resetScrollbarPosition();
@@ -69,7 +79,8 @@ public class ConfigUi extends GuiConfigsBase {
         }
     }
 
-    public enum Tab {
+    public enum Tab
+    {
         ALL("全部"),
         ;
 
