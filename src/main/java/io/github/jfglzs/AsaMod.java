@@ -5,7 +5,7 @@ import fi.dy.masa.malilib.event.InputEventHandler;
 import io.github.jfglzs.config.Configs;
 import io.github.jfglzs.config.HotkeysCallback;
 import io.github.jfglzs.config.InputHandler;
-import io.github.jfglzs.feature.creeperWarner.CreeperCheckClient;
+import io.github.jfglzs.feature.creeperwarner.CreeperCheckClient;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import static io.github.jfglzs.config.Configs.CREEPER_WARN;
 import static io.github.jfglzs.config.Configs.ELYTRA_WARN;
-import static io.github.jfglzs.feature.elytraWarn.ElytraDurationWarn.warnPlayer;
+import static io.github.jfglzs.feature.elytrawarn.ElytraDurationWarn.warnPlayer;
 import static io.github.jfglzs.utils.ChatUtils.sendMessWithSound;
 
 public class AsaMod implements ClientModInitializer

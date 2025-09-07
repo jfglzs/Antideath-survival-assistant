@@ -1,4 +1,4 @@
-package io.github.jfglzs.feature.switchServer;
+package io.github.jfglzs.feature.switchserver;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +10,7 @@ import static io.github.jfglzs.config.Configs.SWITCH_SERVER_LIST;
 import static io.github.jfglzs.utils.ChatUtils.sendMessOnlyClientVisible;
 import static io.github.jfglzs.utils.CommandUtils.runCommand;
 
-public class AsaSwitchServer
+public class SwitchServer
 {
     private static int index = 0;
 

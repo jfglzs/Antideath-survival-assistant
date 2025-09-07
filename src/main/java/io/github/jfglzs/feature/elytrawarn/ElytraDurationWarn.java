@@ -1,4 +1,4 @@
-package io.github.jfglzs.feature.elytraWarn;
+package io.github.jfglzs.feature.elytrawarn;
 
 import net.minecraft.sound.SoundEvents;
 
