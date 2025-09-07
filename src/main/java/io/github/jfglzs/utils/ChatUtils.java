@@ -10,9 +10,13 @@ import net.minecraft.text.Text;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import static io.github.jfglzs.AsaMod.MOD_ID;
+import static io.github.jfglzs.AsaMod.SPACE;
+
 public class ChatUtils
 {
     private static final Queue<String> chatQueue = new LinkedList<>();
+    private static final String AsaInfo = "[" + MOD_ID + "]";
 
     static
     {
@@ -36,15 +40,15 @@ public class ChatUtils
         MinecraftClient client = MinecraftClient.getInstance();
         client.player.sendMessage(Text.of(chat), false);
     }
-    public static void sendMessWithNoteBlockSound(String chat , float volume, float pitch)
+    public static void sendMessWithSound(String chat , SoundEvent sound , float volume , float pitch)
     {
         MinecraftClient client = MinecraftClient.getInstance();
         ClientPlayerEntity player = client.player;
         player.playSound(
-                SoundEvents.ENTITY_TNT_PRIMED,
+                sound,
                 volume,
                 pitch
                 );
-        client.player.sendMessage(Text.of(chat), false);
+        client.player.sendMessage(Text.of(AsaInfo + SPACE + chat), false);
     }
 }

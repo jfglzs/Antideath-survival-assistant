@@ -38,12 +38,16 @@ public class Configs implements IConfigHandler
     public static final ConfigBooleanHotkeyed CREEPER_WARN = new ConfigBooleanHotkeyed( "苦力怕预警器", true,"","当玩家8x8x8(默认)的范围存在苦力怕时 自动预警");
     public static final ConfigDouble CREEPER_WARN_RANGE = new ConfigDouble( "苦力怕预警器范围",8,0,64,"苦力怕预警器范围(以玩家为中心)");
 
+    public static final ConfigBooleanHotkeyed ELYTRA_WARN = new ConfigBooleanHotkeyed( "鞘翅耐久警报器", true,"","当鞘翅耐久低于特定值时向玩家发出警报");
+    public static final ConfigInteger ELYTRA_WARN_DUR = new ConfigInteger( "鞘翅耐久报警器阀值",32,0,432,"当鞘翅耐久小于或者等于阀值发出警报");
+
     public static final ImmutableList<IConfigBase> ALL = addCompatibility();
     public static ImmutableList<IConfigBase> addCompatibility()
     {
         List<IConfigBase> list = new ArrayList<>();
         list.add(ASA);
         list.add(CREEPER_WARN);
+        list.add(ELYTRA_WARN);
         list.add(SWITCH_SERVER);
         list.add(SWITCH_SERVER_SINGLE_1);
         list.add(SWITCH_SERVER_SINGLE_2);
@@ -56,14 +60,32 @@ public class Configs implements IConfigHandler
         list.add(SWITCH_SERVER_SINGLE_1S);
         list.add(SWITCH_SERVER_SINGLE_2S);
         list.add(SWITCH_SERVER_SINGLE_3S);
+        list.add(ELYTRA_WARN_DUR);
+
+        return ImmutableList.copyOf(list);
+    }
 
 
+    public static final ImmutableList<IConfigBase> TOOLS = addTools();
+    public static ImmutableList<IConfigBase> addTools()
+    {
+        List<IConfigBase> list = new ArrayList<>();
+
+        list.add(CREEPER_WARN);
+        list.add(ELYTRA_WARN);
+        list.add(SWITCH_SERVER);
+        list.add(SWITCH_SERVER_SINGLE_1);
+        list.add(SWITCH_SERVER_SINGLE_2);
+        list.add(SWITCH_SERVER_SINGLE_3);
 
 
         return ImmutableList.copyOf(list);
     }
 
+
     public static final ImmutableList<IHotkeyTogglable> SWITCH_KEY = ImmutableList.of(
+            CREEPER_WARN,
+            ELYTRA_WARN
 
     );
 
@@ -79,6 +101,14 @@ public class Configs implements IConfigHandler
     public static ImmutableList<IConfigBase> addAllConfigs(){
         List<IConfigBase> list = new ArrayList<>();
         list.addAll(ALL);
+
+        return ImmutableList.copyOf(list);
+    }
+
+    public static final ImmutableList<IConfigBase> TOOLS_CONFIGS = addTOOLSConfigs();
+    public static ImmutableList<IConfigBase> addTOOLSConfigs(){
+        List<IConfigBase> list = new ArrayList<>();
+        list.addAll(TOOLS);
 
         return ImmutableList.copyOf(list);
     }

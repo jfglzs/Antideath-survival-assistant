@@ -51,10 +51,14 @@ public class ConfigUi extends GuiConfigsBase
         if (tab == Tab.ALL)
         {
             configs = Configs.ALL_CONFIGS;
+        } else if (tab == Tab.TOOLS)
+        {
+            configs = Configs.TOOLS_CONFIGS;
         } else
         {
             configs = Configs.ALL_CONFIGS;
         }
+
         return ConfigOptionWrapper.createFor(configs);
     }
 
@@ -82,6 +86,7 @@ public class ConfigUi extends GuiConfigsBase
     public enum Tab
     {
         ALL("全部"),
+        TOOLS("工具"),
         ;
 
         public final String name;

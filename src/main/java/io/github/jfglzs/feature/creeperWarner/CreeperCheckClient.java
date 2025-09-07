@@ -1,4 +1,4 @@
-package io.github.jfglzs.feature.creeperwarn;
+package io.github.jfglzs.feature.creeperWarner;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;

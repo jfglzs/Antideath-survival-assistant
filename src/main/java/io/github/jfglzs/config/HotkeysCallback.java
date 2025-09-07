@@ -7,7 +7,7 @@ import fi.dy.masa.malilib.hotkeys.KeyAction;
 import net.minecraft.client.MinecraftClient;
 
 import static io.github.jfglzs.config.Configs.*;
-import static io.github.jfglzs.feature.switchserver.asaSwitchServer.switchServer;
+import static io.github.jfglzs.feature.switchServer.AsaSwitchServer.switchServer;
 
 public class HotkeysCallback implements IHotkeyCallback
 {

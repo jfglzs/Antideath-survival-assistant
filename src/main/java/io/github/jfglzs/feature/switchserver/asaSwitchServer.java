@@ -1,4 +1,4 @@
-package io.github.jfglzs.feature.switchserver;
+package io.github.jfglzs.feature.switchServer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,11 +10,12 @@ import static io.github.jfglzs.config.Configs.SWITCH_SERVER_LIST;
 import static io.github.jfglzs.utils.ChatUtils.sendMessOnlyClientVisible;
 import static io.github.jfglzs.utils.CommandUtils.runCommand;
 
-public class asaSwitchServer
+public class AsaSwitchServer
 {
     private static int index = 0;
 
-    public static void switchServer(){
+    public static void switchServer()
+    {
 
         List<String> list = SWITCH_SERVER_LIST.getStrings();
         String[] servers = list.toArray(new String[0]);
@@ -30,7 +31,8 @@ public class asaSwitchServer
         if(index == servers.length) index = 0;
     }
 
-    public static void switchServer(String SW){
+    public static void switchServer(String SW)
+    {
         if (SW.isEmpty())
         {
             sendMessOnlyClientVisible("§c服务器名称不能为空,请前往设置菜单进行设置");
