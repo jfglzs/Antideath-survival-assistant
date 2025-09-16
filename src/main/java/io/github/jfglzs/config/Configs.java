@@ -38,12 +38,22 @@ public class Configs implements IConfigHandler
     public static final ConfigBooleanHotkeyed CREEPER_WARN = new ConfigBooleanHotkeyed( "苦力怕预警器", true,"","当玩家8x8x8(默认)的范围存在苦力怕时 自动预警");
     public static final ConfigDouble CREEPER_WARN_RANGE = new ConfigDouble( "苦力怕预警器范围",8,0,64,"苦力怕预警器范围(以玩家为中心)");
 
+    public static final ConfigStringList MATERIAL_RECYCLER_BLACK_LIST = new ConfigStringList( "材料回收助手黑名单",ImmutableList.of(),"自动回收材料的列表（黑名单）");
+    public static final ConfigStringList MATERIAL_RECYCLER_LIST = new ConfigStringList( "材料回收助手白名单",ImmutableList.of("stone","grass_block"),"自动回收材料的列表");
+    public static final ConfigBooleanHotkeyed MATERIAL_RECYCLER = new ConfigBooleanHotkeyed( "材料回收助手", false,"","开启后打开潜影盒白名单列表的材料会被自动回收到背包中");
+    public static final ConfigBoolean ENABLE_MATERIAL_RECYCLER_BLACK_LIST = new ConfigBoolean( "启用材料回收助手黑名单", false,"启用材料回收助手黑名单");
+
+
+    public static final ConfigHotkey TEST = new ConfigHotkey( "mod调试", "","测试");
+
     public static final ImmutableList<IConfigBase> ALL = addCompatibility();
     public static ImmutableList<IConfigBase> addCompatibility()
     {
         List<IConfigBase> list = new ArrayList<>();
         list.add(ASA);
         list.add(CREEPER_WARN);
+        list.add(MATERIAL_RECYCLER);
+        list.add(ENABLE_MATERIAL_RECYCLER_BLACK_LIST);
         list.add(SWITCH_SERVER);
         list.add(SWITCH_SERVER_SINGLE_1);
         list.add(SWITCH_SERVER_SINGLE_2);
@@ -51,12 +61,15 @@ public class Configs implements IConfigHandler
 
 
         list.add(SWITCH_SERVER_LIST);
+        list.add(MATERIAL_RECYCLER_LIST);
+        list.add(MATERIAL_RECYCLER_BLACK_LIST);
         list.add(CREEPER_WARN_RANGE);
         list.add(SWITCH_SERVER_COMMAND);
         list.add(SWITCH_SERVER_SINGLE_1S);
         list.add(SWITCH_SERVER_SINGLE_2S);
         list.add(SWITCH_SERVER_SINGLE_3S);
 
+        list.add(TEST);
 
 
 
@@ -65,6 +78,9 @@ public class Configs implements IConfigHandler
 
     public static final ImmutableList<IHotkeyTogglable> SWITCH_KEY = ImmutableList.of(
 
+            CREEPER_WARN,
+            MATERIAL_RECYCLER
+
     );
 
     public static final ImmutableList<ConfigHotkey> KEY_LIST = ImmutableList.of(
@@ -72,7 +88,9 @@ public class Configs implements IConfigHandler
             SWITCH_SERVER,
             SWITCH_SERVER_SINGLE_1,
             SWITCH_SERVER_SINGLE_2,
-            SWITCH_SERVER_SINGLE_3
+            SWITCH_SERVER_SINGLE_3,
+
+            TEST
     );
 
     public static final ImmutableList<IConfigBase> ALL_CONFIGS = addAllConfigs();

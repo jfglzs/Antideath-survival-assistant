@@ -8,6 +8,7 @@ import net.minecraft.client.MinecraftClient;
 
 import static io.github.jfglzs.config.Configs.*;
 import static io.github.jfglzs.feature.switchserver.asaSwitchServer.switchServer;
+import static io.github.jfglzs.utils.PlayerUtils.test;
 
 public class HotkeysCallback implements IHotkeyCallback
 {
@@ -35,6 +36,9 @@ public class HotkeysCallback implements IHotkeyCallback
         }else if (key == SWITCH_SERVER_SINGLE_3.getKeybind())
         {
             switchServer(SWITCH_SERVER_SINGLE_3S.getStringValue());
+            return true;
+        }else if (key == TEST.getKeybind()){
+            test();
             return true;
         }
 

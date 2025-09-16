@@ -25,10 +25,11 @@
     "accessWidener": "asa.accesswidener",
 	"depends": {
 		"fabricloader": "*",
-		"minecraft": "${minecraft_requirement_version}",
-		"java": ">=21",
-		"fabric-api": "*",
-        "malilib": "${malilib_requirement_version}"
+        "malilib": "${malilib_requirement_version}",
+        "minecraft": "${minecraft_requirement_version}",
+        "java": ">=21",
+        "fabric-api": "*",
+        "quickshulker": "*"
 	},
 	"suggests": {
 		"another-mod": "*"
