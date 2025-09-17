@@ -63,7 +63,7 @@ public class AsaMod implements ClientModInitializer
             if (ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue())
             {
                 if (!isBlackListed(item)) return true;
-            }else
+            } else
             {
                 if(isWhiteListed(item)) return true;
             }

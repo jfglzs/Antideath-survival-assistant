@@ -1,6 +1,5 @@
 package io.github.jfglzs.utils;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static fi.dy.masa.malilib.util.InventoryUtils.getStoredItems;
+import static io.github.jfglzs.AsaMod.LOGGER;
 import static io.github.jfglzs.utils.InventoryUtils.getInventorySlotAmount;
 import static io.github.jfglzs.utils.MCUtils.getPlayer;
 
@@ -24,7 +24,7 @@ public class PlayerUtils
 //        ItemStack stack = new ItemStack(Items.SHULKER_BOX);
 //        CheckAndSend(stack , searchInventory(Items.SHULKER_BOX , 40));
 //        System.out.println(getPlayer().getInventory().getEmptySlot());
-          System.out.println(PlayerInventoryUtils.getAllUnFullShulkerBoxIndexes(PlayerInventoryUtils.getAllShulkerBoxIndexes(41)));
+//        System.out.println(PlayerInventoryUtils.getAllUnFullShulkerBoxIndexes(PlayerInventoryUtils.getAllShulkerBoxIndexes(41)));
 
 
     }
@@ -42,7 +42,7 @@ public class PlayerUtils
 //                System.out.println(item);
                 if (item.equals(SearchItem))
                 {
-                    int j = stack.getMaxCount();
+//                    int j = stack.getMaxCount();
                     return i;
                 }
             }
@@ -89,12 +89,31 @@ public class PlayerUtils
                 {
                     loop++;
                     if (!stack.getItem().equals(Items.AIR)) isNotAir++;
-                    if (!(isNotAir == 27) && loop==27 && i > 8) UnFullShulkerBoxIndexes.add(i); //不支持快捷栏直接打开盒子 所以排除快捷栏
+                    if (!(isNotAir == 27) && loop == 27 && i > 8) UnFullShulkerBoxIndexes.add(i); //不支持快捷栏直接打开盒子 所以排除快捷栏
                 }
             }
 
             return UnFullShulkerBoxIndexes;
 
+        }
+
+        public static int getOpenedBoxEmptySlots(int slot)
+        {
+            PlayerEntity player = getPlayer();
+            int EmptySlots = 0;
+
+            int amount = getInventorySlotAmount(player.getInventory().getStack(slot));
+//            System.out.println("slot is " + slot);
+            if (amount == -1) return -1;
+
+            DefaultedList<ItemStack> IS = getStoredItems(player.getInventory().getStack(slot), amount);
+
+            for (ItemStack stack : IS)
+            {
+                if (stack.getItem().equals(Items.AIR)) EmptySlots++;
+            }
+
+            return EmptySlots;
         }
 
     }
