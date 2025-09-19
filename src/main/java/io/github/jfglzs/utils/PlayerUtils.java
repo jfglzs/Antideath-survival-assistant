@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static fi.dy.masa.malilib.util.InventoryUtils.getStoredItems;
-import static io.github.jfglzs.AsaMod.LOGGER;
-import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.OpenAllBoxes;
 import static io.github.jfglzs.utils.InventoryUtils.getInventorySlotAmount;
 import static io.github.jfglzs.utils.MCUtils.getPlayer;
 
@@ -22,13 +20,7 @@ public class PlayerUtils
 {
     public static void test()
     {
-//        ItemStack stack = new ItemStack(Items.SHULKER_BOX);
-//        CheckAndSend(stack , searchInventory(Items.SHULKER_BOX , 40));
-//        System.out.println(getPlayer().getInventory().getEmptySlot());
-//        System.out.println(PlayerInventoryUtils.getAllUnFullShulkerBoxIndexes(PlayerInventoryUtils.getAllShulkerBoxIndexes(41)));
-
-        OpenAllBoxes();
-
+//        OpenAllBoxes();
     }
 
     public static class PlayerInventoryUtils
@@ -40,11 +32,8 @@ public class PlayerUtils
             for (int i = 0; i < Index; i++)
             {
                 Item item = inventory.getStack(i).getItem();
-                ItemStack stack = inventory.getStack(i);
-//                System.out.println(item);
                 if (item.equals(SearchItem))
                 {
-//                    int j = stack.getMaxCount();
                     return i;
                 }
             }

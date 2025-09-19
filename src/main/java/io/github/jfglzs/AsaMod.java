@@ -9,6 +9,7 @@ import io.github.jfglzs.feature.creeperwarn.CreeperCheckClient;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import static io.github.jfglzs.config.Configs.*;
 import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.*;
 import static io.github.jfglzs.utils.ChatUtils.sendMessWithTNTPRIMESound;
+import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 import static io.github.jfglzs.utils.MCUtils.getPlayer;
 
 public class AsaMod implements ClientModInitializer
@@ -52,22 +54,23 @@ public class AsaMod implements ClientModInitializer
 
     public static boolean shouldOpenBox()
     {
+        MinecraftClient client = getMinecraftClient();
         PlayerEntity player = getPlayer();
+
         if (player == null) return false;
+        if (client == null) return false;
+
         PlayerInventory inventory = player.getInventory();
+
+        if (!(client.currentScreen == null)) return false;
+
         for (int i = 0; i < inventory.size() - 1; i++)
         {
             Item item = inventory.getStack(i).getItem();
-//            ScreenHandler = player.currentScreenHandler;
-//            if () return false;
-            if (ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue())
-            {
-                if (!isBlackListed(item)) return true;
-            } else
-            {
-                if(isWhiteListed(item)) return true;
-            }
+            if (ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue() && !isBlackListed(item)) return true;
+            if (isWhiteListed(item) && !ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue()) return true;
         }
+
         return false;
     }
 }
