@@ -14,6 +14,7 @@ import java.util.List;
 
 import static fi.dy.masa.malilib.util.InventoryUtils.getStoredItems;
 import static io.github.jfglzs.AsaMod.LOGGER;
+import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.OpenAllBoxes;
 import static io.github.jfglzs.utils.InventoryUtils.getInventorySlotAmount;
 import static io.github.jfglzs.utils.MCUtils.getPlayer;
 
@@ -26,6 +27,7 @@ public class PlayerUtils
 //        System.out.println(getPlayer().getInventory().getEmptySlot());
 //        System.out.println(PlayerInventoryUtils.getAllUnFullShulkerBoxIndexes(PlayerInventoryUtils.getAllShulkerBoxIndexes(41)));
 
+        OpenAllBoxes();
 
     }
 
