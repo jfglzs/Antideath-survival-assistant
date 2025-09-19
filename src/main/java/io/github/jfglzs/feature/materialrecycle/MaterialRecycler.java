@@ -8,11 +8,8 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 
-import static fi.dy.masa.malilib.util.game.wrap.GameWrap.getClient;
-import static io.github.jfglzs.AsaMod.shouldOpenBox;
 import static io.github.jfglzs.config.Configs.MATERIAL_RECYCLER_BLACK_LIST;
 import static io.github.jfglzs.config.Configs.MATERIAL_RECYCLER_LIST;
-import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.*;
 import static net.kyrptonaught.quickshulker.client.ClientUtil.CheckAndSend;
 
@@ -75,12 +72,12 @@ public class MaterialRecycler
         ItemStack SB = new ItemStack(Items.SHULKER_BOX);
         for (int i : list)
         {
-            if ((shouldOpenBox() && allowUpdate))
-            {
+//            if ((allowUpdate))
+//            {
                 CheckAndSend(SB, i);
                 openedBoxSlot = getOpenedBoxEmptySlots(i);
                 allowUpdate = false;
-            }
+//            }
         }
     }
 }

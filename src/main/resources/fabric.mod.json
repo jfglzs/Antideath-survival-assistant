@@ -5,11 +5,11 @@
 	"name": "ad-sur-assistant",
 	"description": "masa extension mod that provides some useful features for your game.",
 	"authors": [
-		"Me!"
+		"antideath"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/jfglzs/Antideath-survival-assistant/",
+		"sources": "https://github.com/jfglzs/Antideath-survival-assistant"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/asa/icon.png",

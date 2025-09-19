@@ -15,10 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static io.github.jfglzs.config.Configs.ENABLE_MATERIAL_RECYCLER_BLACK_LIST;
 import static io.github.jfglzs.config.Configs.MATERIAL_RECYCLER;
 import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.*;
-import static io.github.jfglzs.utils.MCUtils.getPlayer;
-import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.*;
-
-//TODO 修复盒子索相关问题
 
 @Mixin(Screen.class)
 public abstract class Screen_Mixin
@@ -42,42 +38,29 @@ public abstract class Screen_Mixin
             if (openedBoxSlot == -1) return;
 
             maxClickCount = openedBoxSlot;
-            System.out.println(maxClickCount);
-//            System.out.println(maxClickCount);
 
             for (Slot slot : handler.slots)
             {
                 if (ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue() && !isBlackListed(slot.getStack().getItem()))
                 {
-                    if (slot.inventory == client.player.getInventory() && !slot.getStack().isEmpty())
+                    if (slot.inventory == client.player.getInventory() && !slot.getStack().isEmpty() && maxClickCount != clickCount)
                     {
-                        if (maxClickCount == clickCount)
-                        {
-                            maxClickCount = 0;
-//                            client.player.closeHandledScreen();
-                            return;
-                        }
-
                         client.interactionManager.clickSlot(handler.syncId, slot.id, 0, SlotActionType.QUICK_MOVE, client.player);
                         allowUpdate = true;
                         clickCount++;
                     }
 
-                } else if (isWhiteListed(slot.getStack().getItem()) && slot.inventory == client.player.getInventory() && !slot.getStack().isEmpty())
+                }
+                else if (isWhiteListed(slot.getStack().getItem()) && slot.inventory == client.player.getInventory() && !slot.getStack().isEmpty() && maxClickCount != clickCount)
                 {
-                    if (maxClickCount == clickCount)
-                    {
-                        maxClickCount = 0;
-                        client.player.closeHandledScreen();
-                        System.out.println(getAllUnFullShulkerBoxIndexes(getAllShulkerBoxIndexes(41))+" 1");
-                        return;
-                    }
-
                     client.interactionManager.clickSlot(handler.syncId, slot.id, 0, SlotActionType.QUICK_MOVE, client.player);
                     allowUpdate = true;
                     clickCount++;
                 }
             }
+
+            client.setScreen(null);
         }
     }
+
 }
