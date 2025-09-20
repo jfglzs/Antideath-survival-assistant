@@ -12,7 +12,11 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.registry.tag.BlockTags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,18 +54,15 @@ public class AsaMod implements ClientModInitializer
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
         HotkeysCallback.init();
+        LOGGER.info("Masa config loaded");
     }
 
     public static boolean shouldOpenBox()
     {
         MinecraftClient client = getMinecraftClient();
         PlayerEntity player = getPlayer();
-
         if (player == null) return false;
-        if (client == null) return false;
-
         PlayerInventory inventory = player.getInventory();
-
         if (!(client.currentScreen == null)) return false;
 
         for (int i = 0; i < inventory.size() - 1; i++)

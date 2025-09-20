@@ -16,14 +16,13 @@ import static io.github.jfglzs.config.Configs.MATERIAL_RECYCLER;
 import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.*;
 import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 
-//TODO 修复材料回收助手黑名单功能
 @Mixin(Screen.class)
 public abstract class Screen_Mixin
 {
     @Inject(method = "init*", at = @At("TAIL"))
     private void onInit (CallbackInfo ci)
     {
-        int maxClickCount;
+        int maxClickCount = openedBoxSlot;
         int clickCount = 0;
 
         if (MATERIAL_RECYCLER.getBooleanValue())
@@ -37,22 +36,25 @@ public abstract class Screen_Mixin
 
             if (openedBoxSlot == -1) return;
 
-            maxClickCount = openedBoxSlot;
-
             for (Slot slot : handler.slots)
             {
-                if (ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue() && !isBlackListed(slot.getStack().getItem()))
+                if (ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue() && !isBlackListed(slot.getStack().getItem()) && !slot.getStack().isEmpty())
                 {
-                    if (slot.inventory == client.player.getInventory() && !slot.getStack().isEmpty() && maxClickCount != clickCount)
+                    if (slot.inventory == client.player.getInventory() && maxClickCount != clickCount)
+                    {
+                        client.interactionManager.clickSlot(handler.syncId, slot.id, 0, SlotActionType.QUICK_MOVE, client.player);
+                        System.out.println(1);
+                        clickCount++;
+                    }
+                }
+                else if (isWhiteListed(slot.getStack().getItem()) && !ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue())
+                {
+                    if (maxClickCount != clickCount && slot.inventory == client.player.getInventory() && !slot.getStack().isEmpty())
                     {
                         client.interactionManager.clickSlot(handler.syncId, slot.id, 0, SlotActionType.QUICK_MOVE, client.player);
                         clickCount++;
                     }
-                }
-                else if (isWhiteListed(slot.getStack().getItem()) && slot.inventory == client.player.getInventory() && !slot.getStack().isEmpty() && maxClickCount != clickCount && !ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue())
-                {
-                    client.interactionManager.clickSlot(handler.syncId, slot.id, 0, SlotActionType.QUICK_MOVE, client.player);
-                    clickCount++;
+
                 }
             }
 

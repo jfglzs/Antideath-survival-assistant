@@ -19,7 +19,7 @@ public class CommandUtils
         });
     }
 
-    public static void runCommand(String command)
+    public static void excuteCommand(String command)
     {
         commandQueue.add(command);
     }

@@ -40,7 +40,7 @@ public class PlayerUtils
             return -1;
         }
 
-        public static List<Integer> getAllShulkerBoxIndexes(int maxIndex)
+        public static List<Integer> getAllBoxIndexes(int maxIndex)
         {
             PlayerEntity player = getPlayer();
             PlayerInventory inventory = player.getInventory();
@@ -61,7 +61,7 @@ public class PlayerUtils
             return shulkerBoxIndexes;
         }
 
-        public static List<Integer> getAllUnFullShulkerBoxIndexes(List<Integer> boxIndexes)
+        public static List<Integer> getUnFullBoxIndexes(List<Integer> boxIndexes)
         {
             PlayerEntity player = getPlayer();
             List<Integer> shulkerBoxIndexes = boxIndexes;
