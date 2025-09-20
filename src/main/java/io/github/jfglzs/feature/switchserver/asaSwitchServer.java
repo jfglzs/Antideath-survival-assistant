@@ -8,7 +8,7 @@ import static io.github.jfglzs.AsaMod.SPACE;
 import static io.github.jfglzs.config.Configs.SWITCH_SERVER_COMMAND;
 import static io.github.jfglzs.config.Configs.SWITCH_SERVER_LIST;
 import static io.github.jfglzs.utils.ChatUtils.sendMessOnlyClientVisible;
-import static io.github.jfglzs.utils.CommandUtils.runCommand;
+import static io.github.jfglzs.utils.CommandUtils.excuteCommand;
 
 public class asaSwitchServer
 {
@@ -25,7 +25,7 @@ public class asaSwitchServer
             return;
         }
 
-        runCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + servers[index++]);
+        excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + servers[index++]);
         LOGGER.info("Switch to {}", servers[index]);
         if(index == servers.length) index = 0;
     }
@@ -36,7 +36,7 @@ public class asaSwitchServer
             sendMessOnlyClientVisible("§c服务器名称不能为空,请前往设置菜单进行设置");
             return;
         }
-        runCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + SW);
+        excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + SW);
     }
 
 }

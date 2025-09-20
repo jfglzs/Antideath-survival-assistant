@@ -7,12 +7,13 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 import static io.github.jfglzs.config.Configs.CREEPER_WARN_RANGE;
+import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 
 public class CreeperCheckClient
 {
     public static boolean isCreeperNearby()
     {
-        MinecraftClient client = MinecraftClient.getInstance();
+        MinecraftClient client = getMinecraftClient();
         ClientPlayerEntity player = client.player;
         World world = client.world;
 
