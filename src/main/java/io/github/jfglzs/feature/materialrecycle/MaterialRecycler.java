@@ -86,14 +86,14 @@ public class MaterialRecycler
 
     public static void OpenAllBoxes()
     {
-        List<Integer> list = getUnFullBoxIndexes(getAllBoxIndexes(41));
+        List<Integer> list = getUnFullBoxIndexes(getAllBoxIndexes(35));
         if (list.isEmpty()) return;
 
         for (int i : list)
         {
             if (allowUpdate)
             {
-                System.out.println(list);
+//                System.out.println(list);
                 CheckAndSend(new ItemStack(Items.SHULKER_BOX), i);
                 openedBoxSlot = getOpenedBoxEmptySlots(i);
                 allowUpdate = false;

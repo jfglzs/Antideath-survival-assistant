@@ -31,8 +31,7 @@
         "malilib": "${malilib_requirement_version}",
         "minecraft": "${minecraft_requirement_version}",
         "java": ">=21",
-        "fabric-api": "*",
-        "quickshulker": "*"
+        "fabric-api": "*"
 	},
 	"suggests": {
 		"another-mod": "*"
