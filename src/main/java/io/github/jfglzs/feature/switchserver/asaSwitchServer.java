@@ -1,6 +1,5 @@
 package io.github.jfglzs.feature.switchserver;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static io.github.jfglzs.AsaMod.LOGGER;
@@ -19,7 +18,7 @@ public class asaSwitchServer
         List<String> list = SWITCH_SERVER_LIST.getStrings();
         String[] servers = list.toArray(new String[0]);
 
-        if(Arrays.toString(servers).equals("[]"))
+        if(servers.length == 0)
         {
             sendMessOnlyClientVisible("§c服务器列表不能为空,请前往设置菜单进行设置");
             return;
@@ -30,13 +29,13 @@ public class asaSwitchServer
         if(index == servers.length) index = 0;
     }
 
-    public static void switchServer(String SW){
-        if (SW.isEmpty())
+    public static void switchServer(String Server){
+        if (Server.isEmpty())
         {
             sendMessOnlyClientVisible("§c服务器名称不能为空,请前往设置菜单进行设置");
             return;
         }
-        excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + SW);
+        excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + Server);
     }
 
 }

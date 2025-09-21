@@ -4,7 +4,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
-public class MCUtils {
+public class MCUtils
+{
 
     public static MinecraftClient getMinecraftClient()
     {
