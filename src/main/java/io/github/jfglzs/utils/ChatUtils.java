@@ -3,7 +3,7 @@ package io.github.jfglzs.utils;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 
 import java.util.LinkedList;
@@ -36,12 +36,12 @@ public class ChatUtils
         client.player.sendMessage(Text.of(chat), false);
     }
 
-    public static void sendMessWithTNTPRIMESound(String chat , float volume, float pitch)
+    public static void sendMessWithSound(String chat , SoundEvent type , float volume, float pitch)
     {
         MinecraftClient client = MinecraftClient.getInstance();
         ClientPlayerEntity player = client.player;
         player.playSound(
-                SoundEvents.ENTITY_TNT_PRIMED,
+                type,
                 volume,
                 pitch
                 );

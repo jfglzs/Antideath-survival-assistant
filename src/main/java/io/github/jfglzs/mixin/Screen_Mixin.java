@@ -20,7 +20,7 @@ import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 public abstract class Screen_Mixin
 {
     @Inject(method = "init*", at = @At("TAIL"))
-    private void onInit (CallbackInfo ci)
+    private void initInject (CallbackInfo ci)
     {
         int maxClickCount = openedBoxSlot;
         int clickCount = 0;

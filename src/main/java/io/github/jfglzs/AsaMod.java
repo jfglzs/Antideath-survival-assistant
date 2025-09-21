@@ -12,17 +12,14 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.sound.SoundEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static io.github.jfglzs.config.Configs.*;
 import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.*;
-import static io.github.jfglzs.utils.ChatUtils.sendMessWithTNTPRIMESound;
+import static io.github.jfglzs.utils.ChatUtils.sendMessWithSound;
 import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 import static io.github.jfglzs.utils.MCUtils.getPlayer;
 
@@ -41,8 +38,8 @@ public class AsaMod implements ClientModInitializer
         ClientTickEvents.END_CLIENT_TICK.register(client ->
         {
             checktime++;
-            if (checktime % 20 == 0 && CREEPER_WARN.getBooleanValue() && CreeperCheckClient.isCreeperNearby()) sendMessWithTNTPRIMESound("§c苦力怕来了!!!!!!!" , 1 , 1);
-            if (checktime % 120 == 0 && MATERIAL_RECYCLER.getBooleanValue() && shouldOpenBox()) OpenAllBoxes();
+            if (checktime % 20 == 0 && CREEPER_WARN.getBooleanValue()) creeperWarner();
+            if (checktime % 120 == 0 && MATERIAL_RECYCLER.getBooleanValue()) openBox();
         });
 
 	}
@@ -73,5 +70,22 @@ public class AsaMod implements ClientModInitializer
         }
 
         return false;
+    }
+
+
+    private static void creeperWarner()
+    {
+        if (CreeperCheckClient.isCreeperNearby())
+        {
+            sendMessWithSound("§c苦力怕来了!!!!!!!", SoundEvents.ENTITY_TNT_PRIMED , 1, 1);
+        }
+    }
+
+    private static void openBox()
+    {
+        if (shouldOpenBox())
+        {
+            OpenAllBoxes();
+        }
     }
 }
