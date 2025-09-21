@@ -9,6 +9,7 @@ import io.github.jfglzs.feature.creeperwarn.CreeperCheckClient;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -25,6 +26,7 @@ import static io.github.jfglzs.utils.MCUtils.getPlayer;
 
 public class AsaMod implements ClientModInitializer
 {
+    public static String version = "1.0.3";
     public static final String SPACE = " ";
     public static final String MOD_ID = "ASA";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
