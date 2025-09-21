@@ -1,7 +1,8 @@
-package io.github.jfglzs.mixin;
+package io.github.jfglzs.mixin.feature;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ShulkerBoxScreenHandler;
 import net.minecraft.screen.slot.Slot;
@@ -16,7 +17,6 @@ import java.util.List;
 import static io.github.jfglzs.AsaMod.shouldOpenBox;
 import static io.github.jfglzs.config.Configs.*;
 import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.*;
-import static io.github.jfglzs.utils.FabricUtils.isModLoaded;
 import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.getAllBoxIndexes;
 import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.getUnFullBoxIndexes;
@@ -27,7 +27,7 @@ public abstract class Screen_Mixin
     @Inject(method = "init*", at = @At("TAIL"))
     private void initInject (CallbackInfo ci)
     {
-        if (MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue() && isModLoaded("quickshulker"))
+        if (MATERIAL_RECYCLER.getBooleanValue())
         {
             int maxClickCount = openedBoxSlot;
             int clickCount = 0;
@@ -65,7 +65,8 @@ public abstract class Screen_Mixin
 
             allowUpdate = true;
 //            System.out.println(allowCloseScreen);
-            if (allowCloseScreen && !Boxlist.isEmpty()) client.setScreen(null);
+//            System.out.println(inSwap);
+            if (allowCloseScreen && !Boxlist.isEmpty() && !inSwap && !(handler instanceof PlayerScreenHandler)) client.setScreen(null);
         }
     }
 

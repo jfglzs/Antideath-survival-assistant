@@ -20,7 +20,7 @@ public class PlayerUtils
 {
     public static void test()
     {
-//        OpenAllBoxes();
+//        openAllBoxes();
     }
 
     public static class PlayerInventoryUtils
@@ -42,9 +42,11 @@ public class PlayerUtils
 
         public static List<Integer> getAllBoxIndexes(int maxIndex)
         {
-            PlayerEntity player = getPlayer();
-            PlayerInventory inventory = player.getInventory();
             List<Integer> shulkerBoxIndexes = new ArrayList<>();
+            PlayerEntity player = getPlayer();
+            if (player == null) return shulkerBoxIndexes;
+            PlayerInventory inventory = player.getInventory();
+
 
             for (int i = 0; i < maxIndex; i++)
             {

@@ -11,6 +11,7 @@
     "requireAnnotations": true
   },
   "client": [
-    "Screen_Mixin"
+    "feature.DownloadingTerrainScreen_Mixin",
+    "feature.Screen_Mixin"
   ]
 }

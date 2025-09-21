@@ -42,9 +42,9 @@ public class Configs implements IConfigHandler
     public static final ConfigStringList MATERIAL_RECYCLER_LIST = new ConfigStringList( "材料回收助手白名单",ImmutableList.of("stone","dirt"),"自动回收材料的列表");
     public static final ConfigBooleanHotkeyed MATERIAL_RECYCLER = new ConfigBooleanHotkeyed( "材料回收助手", false,"","开启后打开潜影盒白名单列表的材料会被自动回收到背包中 \n ⚠材料回收助手只支持普通潜影盒 \n ⚠在快捷栏的盒子无效");
     public static final ConfigBooleanHotkeyed MATERIAL_RECYCLER_AUTO = new ConfigBooleanHotkeyed( "材料回收助手自动装盒", false,"","开启后 可以在有快捷潜影盒的服务器上实现自动装盒");
-
     public static final ConfigBoolean ENABLE_MATERIAL_RECYCLER_BLACK_LIST = new ConfigBoolean( "启用材料回收助手黑名单", false,"启用材料回收助手黑名单");
 
+    public static final ConfigBooleanHotkeyed DISABLE_LOADING_TERRAIN_SCREEN = new ConfigBooleanHotkeyed( "禁用加载地形屏幕", false,"","开启后会禁用加载地形屏幕 理论上能提升一点点加入世界的速度(服务器同理)");
 
     public static final ConfigHotkey TEST = new ConfigHotkey( "mod调试", "","测试");
 
@@ -55,6 +55,7 @@ public class Configs implements IConfigHandler
         list.add(ASA);
         list.add(CREEPER_WARN);
         list.add(MATERIAL_RECYCLER);
+        list.add(DISABLE_LOADING_TERRAIN_SCREEN);
         list.add(MATERIAL_RECYCLER_AUTO);
         list.add(ENABLE_MATERIAL_RECYCLER_BLACK_LIST);
         list.add(SWITCH_SERVER);

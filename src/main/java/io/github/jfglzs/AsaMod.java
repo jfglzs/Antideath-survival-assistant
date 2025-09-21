@@ -22,6 +22,7 @@ import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.*;
 import static io.github.jfglzs.utils.ChatUtils.sendMessWithSound;
 import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 import static io.github.jfglzs.utils.MCUtils.getPlayer;
+import static io.github.jfglzs.utils.ScreenUtils.refreshScreen;
 
 public class AsaMod implements ClientModInitializer
 {
@@ -40,7 +41,8 @@ public class AsaMod implements ClientModInitializer
         {
             checktime++;
             if (checktime % 20 == 0 && CREEPER_WARN.getBooleanValue()) creeperWarner();
-            if (checktime % 120 == 0 && MATERIAL_RECYCLER.getBooleanValue()) openBox();
+            if (checktime % 200 == 0 && MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue()) openBox();
+            if (checktime % 210 == 0 && MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue()) refreshScreen();
         });
 
 	}
@@ -55,13 +57,13 @@ public class AsaMod implements ClientModInitializer
         LOGGER.info("Masa config loaded");
     }
 
-    public static boolean shouldOpenBox(Boolean ScreenCheck)
+    public static boolean shouldOpenBox(boolean screenCheck)
     {
         MinecraftClient client = getMinecraftClient();
         PlayerEntity player = getPlayer();
         if (player == null) return false;
         PlayerInventory inventory = player.getInventory();
-        if (!(client.currentScreen == null) && ScreenCheck) return false;
+        if (!(client.currentScreen == null) && screenCheck) return false;
 
         for (int i = 0; i < inventory.size() - 1; i++)
         {
@@ -86,7 +88,7 @@ public class AsaMod implements ClientModInitializer
     {
         if (shouldOpenBox(true))
         {
-            OpenAllBoxes();
+            openAllBoxes();
         }
     }
 }
