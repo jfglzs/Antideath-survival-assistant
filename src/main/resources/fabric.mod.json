@@ -17,6 +17,9 @@
 	"entrypoints": {
         "client": [
           "io.github.jfglzs.AsaMod"
+        ],
+        "modmenu": [
+          "io.github.jfglzs.config.ModMenu"
         ]
 	},
 	"mixins": [
