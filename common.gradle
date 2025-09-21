@@ -51,6 +51,7 @@ dependencies {
 
     if (minecraft_version.startsWith("1.20")) {
         modImplementation("fi.dy.masa.malilib:${project.malilib_version}")
+        modImplementation("curse.maven:tweakeroo-297344:${project.tweakeroo_version}")
         modImplementation "net.kyrptonaught:shulkerutils:1.0.4-1.19"
         modImplementation("curse.maven:quick-shulker-362669:${project.quick_shulker_version}")
 
@@ -58,9 +59,9 @@ dependencies {
     else if (minecraft_version.startsWith("1.21")) {
         modImplementation("com.github.sakura-ryoko:malilib:${project.malilib_version}")
         modImplementation("com.github.MoRanpcy:quickshulker:${project.quick_shulker_version}")
+        modImplementation("com.github.sakura-ryoko:tweakeroo:${project.tweakeroo_version}")
     }
 
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
 processResources {

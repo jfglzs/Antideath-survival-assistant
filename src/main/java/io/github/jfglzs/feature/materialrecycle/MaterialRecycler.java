@@ -10,12 +10,15 @@ import java.util.List;
 
 import static io.github.jfglzs.config.Configs.MATERIAL_RECYCLER_BLACK_LIST;
 import static io.github.jfglzs.config.Configs.MATERIAL_RECYCLER_LIST;
+import static io.github.jfglzs.utils.FabricUtils.isModLoaded;
 import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.*;
 import static net.kyrptonaught.quickshulker.client.ClientUtil.CheckAndSend;
 
+
 public class MaterialRecycler
 {
-    public static Boolean allowUpdate = true;
+    public static boolean inSwap = false;
+    public static boolean allowUpdate = true;
     public static int openedBoxSlot = -1;
     static List<String> bl = List.of(
             "air",
@@ -84,8 +87,9 @@ public class MaterialRecycler
         return false;
     }
 
-    public static void OpenAllBoxes()
+    public static void openAllBoxes()
     {
+        if (!isModLoaded("quickshulker")) return;
         List<Integer> list = getUnFullBoxIndexes(getAllBoxIndexes(35));
         if (list.isEmpty()) return;
 
