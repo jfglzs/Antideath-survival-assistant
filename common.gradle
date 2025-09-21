@@ -6,7 +6,6 @@ def simple_version = 'v' + project.mod_version + '+build.' + new Date().format('
 def short_version = 'v' + project.mod_version
 version = simple_version + '-' + project.minecraft_version
 
-version = project.mod_version
 group = project.maven_group
 
 base {
