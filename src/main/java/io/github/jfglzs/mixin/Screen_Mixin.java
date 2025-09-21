@@ -43,7 +43,6 @@ public abstract class Screen_Mixin
                     if (slot.inventory == client.player.getInventory() && maxClickCount != clickCount)
                     {
                         client.interactionManager.clickSlot(handler.syncId, slot.id, 0, SlotActionType.QUICK_MOVE, client.player);
-                        System.out.println(1);
                         clickCount++;
                     }
                 }

@@ -43,6 +43,20 @@ public class MaterialRecycler
     public static boolean isWhiteListed(Item item)
     {
         List<String> list = MATERIAL_RECYCLER_LIST.getStrings();
+//        if (isBL(item)) return false;
+
+        for (String id : bl)
+        {
+            //#if MC > 12001
+            if (id.contains("minecraft")) return false;
+            Identifier identifier = Identifier.ofVanilla(id);
+            //#else
+            //$$ Identifier identifier = new Identifier("minecraft", id);
+            //#endif
+            Item listedItem = Registries.ITEM.get(identifier);
+            if (item.equals(listedItem)) return true;
+        }
+
         if (!list.isEmpty())
         {
             for (String id : list)
@@ -66,18 +80,6 @@ public class MaterialRecycler
     public static boolean isBlackListed(Item item)
     {
         List<String> list = MATERIAL_RECYCLER_BLACK_LIST.getStrings();
-
-        for (String id : bl)
-        {
-            //#if MC > 12001
-            if (id.contains("minecraft")) return false;
-            Identifier identifier = Identifier.ofVanilla(id);
-            //#else
-            //$$ Identifier identifier = new Identifier("minecraft", id);
-            //#endif
-            Item listedItem = Registries.ITEM.get(identifier);
-            if (item.equals(listedItem)) return true;
-        }
 
         for (String id : list)
         {
@@ -110,5 +112,22 @@ public class MaterialRecycler
             }
         }
     }
+
+//    private static boolean isBL(Item item)
+//    {
+//        for (String id : bl)
+//        {
+//            //#if MC > 12001
+//            if (id.contains("minecraft")) return false;
+//            Identifier identifier = Identifier.ofVanilla(id);
+//            //#else
+//            //$$ Identifier identifier = new Identifier("minecraft", id);
+//            //#endif
+//            Item listedItem = Registries.ITEM.get(identifier);
+//            if (item.equals(listedItem)) return true;
+//        }
+//
+//        return false;
+//    }
 }
 

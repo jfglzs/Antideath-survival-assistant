@@ -8,7 +8,7 @@ import fi.dy.masa.malilib.gui.button.IButtonActionListener;
 
 import java.util.List;
 
-import static io.github.jfglzs.AsaMod.MOD_ID;
+import static io.github.jfglzs.AsaMod.*;
 
 public class ConfigUi extends GuiConfigsBase
 {
@@ -17,7 +17,7 @@ public class ConfigUi extends GuiConfigsBase
 
     public ConfigUi()
     {
-        super(10, 50, MOD_ID, null, "Antideath-survival-assistant");
+        super(10, 50, MOD_ID, null, "Antideath-survival-assistant" + SPACE + version);
     }
 
     @Override
