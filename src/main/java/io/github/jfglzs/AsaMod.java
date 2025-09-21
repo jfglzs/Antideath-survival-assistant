@@ -9,7 +9,6 @@ import io.github.jfglzs.feature.creeperwarn.CreeperCheckClient;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -56,13 +55,13 @@ public class AsaMod implements ClientModInitializer
         LOGGER.info("Masa config loaded");
     }
 
-    public static boolean shouldOpenBox()
+    public static boolean shouldOpenBox(Boolean ScreenCheck)
     {
         MinecraftClient client = getMinecraftClient();
         PlayerEntity player = getPlayer();
         if (player == null) return false;
         PlayerInventory inventory = player.getInventory();
-        if (!(client.currentScreen == null)) return false;
+        if (!(client.currentScreen == null) && ScreenCheck) return false;
 
         for (int i = 0; i < inventory.size() - 1; i++)
         {
@@ -85,7 +84,7 @@ public class AsaMod implements ClientModInitializer
 
     private static void openBox()
     {
-        if (shouldOpenBox())
+        if (shouldOpenBox(true))
         {
             OpenAllBoxes();
         }
