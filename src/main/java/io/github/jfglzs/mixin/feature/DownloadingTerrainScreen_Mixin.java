@@ -29,6 +29,4 @@ public class DownloadingTerrainScreen_Mixin
             ci.cancel();
         }
     }
-
-
 }

@@ -43,23 +43,18 @@ public abstract class Screen_Mixin
 
             for (Slot slot : handler.slots)
             {
-                if (ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue() && !isBlackListed(slot.getStack().getItem()) && !slot.getStack().isEmpty())
+                if (slot.inventory == client.player.getInventory() && maxClickCount != clickCount && !slot.getStack().isEmpty())
                 {
-                    if (slot.inventory == client.player.getInventory() && maxClickCount != clickCount)
-                    {
-                        client.interactionManager.clickSlot(handler.syncId, slot.id, 0, SlotActionType.QUICK_MOVE, client.player);
-//                        System.out.println(slot.getStack().getItem());
-                        clickCount++;
-                    }
-                }
-                else if (isWhiteListed(slot.getStack().getItem()) && !ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue())
-                {
-                    if (maxClickCount != clickCount && slot.inventory == client.player.getInventory() && !slot.getStack().isEmpty())
+                    if (ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue() && !isBlackListed(slot.getStack().getItem()))
                     {
                         client.interactionManager.clickSlot(handler.syncId, slot.id, 0, SlotActionType.QUICK_MOVE, client.player);
                         clickCount++;
                     }
-
+                    else if (isWhiteListed(slot.getStack().getItem()) && !ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue())
+                    {
+                        client.interactionManager.clickSlot(handler.syncId, slot.id, 0, SlotActionType.QUICK_MOVE, client.player);
+                        clickCount++;
+                    }
                 }
             }
 
@@ -69,5 +64,4 @@ public abstract class Screen_Mixin
             if (allowCloseScreen && !Boxlist.isEmpty() && !inSwap && !(handler instanceof PlayerScreenHandler)) client.setScreen(null);
         }
     }
-
 }
