@@ -29,6 +29,7 @@ public class AsaMod implements ClientModInitializer
     public static String version = "1.0.3";
     public static final String SPACE = " ";
     public static final String MOD_ID = "ASA";
+    public static final String C_MOD_ID = "[" + MOD_ID + "]";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static int checktime = 0;
 

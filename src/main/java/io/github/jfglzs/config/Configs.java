@@ -21,6 +21,7 @@ public class Configs implements IConfigHandler
     public static Configs INSTANCE = new Configs();
     private static final String FILE_PATH = "./config/" + MOD_ID + ".json";
     private static final File CONFIG_DIR = new File("./config");
+    public static boolean shouldDisableTitle = false;
 
     public static final ConfigHotkey ASA = new ConfigHotkey( "打开设置菜单", "Z,K","打开设置菜单快捷键");
 
@@ -44,6 +45,8 @@ public class Configs implements IConfigHandler
     public static final ConfigBooleanHotkeyed MATERIAL_RECYCLER_AUTO = new ConfigBooleanHotkeyed( "材料回收助手自动装盒", false,"","开启后 可以在有快捷潜影盒的服务器上实现自动装盒");
     public static final ConfigBoolean ENABLE_MATERIAL_RECYCLER_BLACK_LIST = new ConfigBoolean( "启用材料回收助手黑名单", false,"启用材料回收助手黑名单");
 
+    public static final ConfigBooleanHotkeyed DISABLE_SUBTITLE = new ConfigBooleanHotkeyed( "打开材料列表时禁用字幕", false,"","打开投影的材料列表时禁用字幕");
+    public static final ConfigBooleanHotkeyed DISABLE_CONNECT_TIMED_OUT = new ConfigBooleanHotkeyed( "禁用连接超时", false,"","此选项在投影加载原理图时可以阻止连接超时");
     public static final ConfigBooleanHotkeyed DISABLE_LOADING_TERRAIN_SCREEN = new ConfigBooleanHotkeyed( "禁用加载地形屏幕", false,"","开启后会禁用加载地形屏幕 理论上能提升一点点加入世界的速度(服务器同理)");
 
     public static final ConfigHotkey TEST = new ConfigHotkey( "mod调试", "","测试");
@@ -56,6 +59,8 @@ public class Configs implements IConfigHandler
         list.add(CREEPER_WARN);
         list.add(MATERIAL_RECYCLER);
         list.add(DISABLE_LOADING_TERRAIN_SCREEN);
+        list.add(DISABLE_SUBTITLE);
+        list.add(DISABLE_CONNECT_TIMED_OUT);
         list.add(MATERIAL_RECYCLER_AUTO);
         list.add(ENABLE_MATERIAL_RECYCLER_BLACK_LIST);
         list.add(SWITCH_SERVER);
@@ -84,7 +89,9 @@ public class Configs implements IConfigHandler
 
             CREEPER_WARN,
             MATERIAL_RECYCLER,
-            MATERIAL_RECYCLER_AUTO
+            MATERIAL_RECYCLER_AUTO,
+            DISABLE_LOADING_TERRAIN_SCREEN,
+            DISABLE_SUBTITLE
 
     );
 
@@ -133,4 +140,9 @@ public class Configs implements IConfigHandler
         }
     }
 
+
+    public static int getFeatureAmount()
+    {
+        return addCompatibility().size();
+    }
 }
