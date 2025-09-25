@@ -20,7 +20,7 @@ public class DownloadingTerrainScreen_Mixin
             ci.cancel();
         }
     }
-
+    //#if MC > 12001
     @Inject(method = "renderBackground" , at = @At("HEAD") , cancellable = true)
     public void renderBackgroundInject(DrawContext context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci)
     {
@@ -29,4 +29,5 @@ public class DownloadingTerrainScreen_Mixin
             ci.cancel();
         }
     }
+    //#endif
 }

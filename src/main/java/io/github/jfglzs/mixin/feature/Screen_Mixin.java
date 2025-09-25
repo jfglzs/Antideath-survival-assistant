@@ -61,7 +61,7 @@ public abstract class Screen_Mixin
             allowUpdate = true;
 //            System.out.println(allowCloseScreen);
 //            System.out.println(inSwap);
-            if (allowCloseScreen && !Boxlist.isEmpty() && !inSwap && !(handler instanceof PlayerScreenHandler)) client.setScreen(null);
+            if (allowCloseScreen && !Boxlist.isEmpty() && !(handler instanceof PlayerScreenHandler)) client.setScreen(null);
         }
     }
 }

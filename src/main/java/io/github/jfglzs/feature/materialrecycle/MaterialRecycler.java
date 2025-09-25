@@ -17,7 +17,6 @@ import static net.kyrptonaught.quickshulker.client.ClientUtil.CheckAndSend;
 
 public class MaterialRecycler
 {
-    public static boolean inSwap = false;
     public static boolean allowUpdate = true;
     public static int openedBoxSlot = -1;
     static List<String> bl = List.of(
