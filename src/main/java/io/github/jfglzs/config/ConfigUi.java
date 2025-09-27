@@ -17,7 +17,7 @@ public class ConfigUi extends GuiConfigsBase
 
     public ConfigUi()
     {
-        super(10, 50, MOD_ID, null, "Antideath-survival-assistant" + SPACE + version);
+        super(10, 50, MOD_ID, null, String.format("Antideath Survival Assistant %s" , version));
     }
 
     @Override

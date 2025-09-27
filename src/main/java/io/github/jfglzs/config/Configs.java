@@ -48,6 +48,8 @@ public class Configs implements IConfigHandler
     public static final ConfigBooleanHotkeyed DISABLE_SUBTITLE = new ConfigBooleanHotkeyed( "打开材料列表时禁用字幕", false,"","打开投影的材料列表时禁用字幕");
     public static final ConfigBooleanHotkeyed DISABLE_CONNECT_TIMED_OUT = new ConfigBooleanHotkeyed( "禁用连接超时", false,"","此选项在投影加载原理图时可以阻止连接超时");
     public static final ConfigBooleanHotkeyed DISABLE_LOADING_TERRAIN_SCREEN = new ConfigBooleanHotkeyed( "禁用加载地形屏幕", false,"","开启后会禁用加载地形屏幕 理论上能提升一点点加入世界的速度(服务器同理)");
+    public static final ConfigBooleanHotkeyed DISABLE_PLAYER_ARMOR_RENDER = new ConfigBooleanHotkeyed( "禁用玩家盔甲渲染", false,"","开启此功能后会禁用玩家的盔甲渲染\n终于可以看到涩涩的皮肤啦！");
+    public static final ConfigBooleanHotkeyed DISPLAY_REMAIN_ITEM = new ConfigBooleanHotkeyed( "剩余物品显示", false,"","开启后会显示 主手中和背包中剩余的物品（包括潜影盒）");
 
     public static final ConfigHotkey TEST = new ConfigHotkey( "mod调试", "","测试");
 
@@ -61,7 +63,9 @@ public class Configs implements IConfigHandler
         list.add(DISABLE_LOADING_TERRAIN_SCREEN);
         list.add(DISABLE_SUBTITLE);
         list.add(DISABLE_CONNECT_TIMED_OUT);
+        list.add(DISABLE_PLAYER_ARMOR_RENDER);
         list.add(MATERIAL_RECYCLER_AUTO);
+        list.add(DISPLAY_REMAIN_ITEM);
         list.add(ENABLE_MATERIAL_RECYCLER_BLACK_LIST);
         list.add(SWITCH_SERVER);
         list.add(SWITCH_SERVER_SINGLE_1);
@@ -91,7 +95,9 @@ public class Configs implements IConfigHandler
             MATERIAL_RECYCLER,
             MATERIAL_RECYCLER_AUTO,
             DISABLE_LOADING_TERRAIN_SCREEN,
-            DISABLE_SUBTITLE
+            DISABLE_SUBTITLE,
+            DISABLE_PLAYER_ARMOR_RENDER,
+            DISPLAY_REMAIN_ITEM
 
     );
 

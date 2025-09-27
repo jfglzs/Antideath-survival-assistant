@@ -53,6 +53,7 @@ dependencies {
         modImplementation("fi.dy.masa.malilib:${project.malilib_version}")
         modImplementation("curse.maven:tweakeroo-297344:${project.tweakeroo_version}")
         modImplementation("curse.maven:litematica-308892:${project.litematic_version}")
+        modImplementation("curse.maven:minihud-244260:${project.minihud_version}")
         modImplementation "net.kyrptonaught:shulkerutils:1.0.4-1.19"
         modImplementation("curse.maven:quick-shulker-362669:${project.quick_shulker_version}")
 
@@ -62,6 +63,7 @@ dependencies {
         modImplementation("com.github.MoRanpcy:quickshulker:${project.quick_shulker_version}")
         modImplementation("com.github.sakura-ryoko:tweakeroo:${project.tweakeroo_version}")
         modImplementation("com.github.sakura-ryoko:litematica:${project.litematic_version}")
+        modImplementation("com.github.sakura-ryoko:minihud:${project.minihud_version}")
     }
 
 }

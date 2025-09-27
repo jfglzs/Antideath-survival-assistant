@@ -21,28 +21,32 @@ public class HotkeysCallback implements IHotkeyCallback
         {
             client.setScreen(new ConfigUi());
             return true;
-        } else if (key == SWITCH_SERVER.getKeybind())
+        }
+        else if (key == SWITCH_SERVER.getKeybind())
         {
             switchServer();
             return true;
-        }else if (key == SWITCH_SERVER_SINGLE_1.getKeybind())
+        }
+        else if (key == SWITCH_SERVER_SINGLE_1.getKeybind())
         {
             switchServer(SWITCH_SERVER_SINGLE_1S.getStringValue());
             return true;
-        }else if (key == SWITCH_SERVER_SINGLE_2.getKeybind())
+        }
+        else if (key == SWITCH_SERVER_SINGLE_2.getKeybind())
         {
             switchServer(SWITCH_SERVER_SINGLE_2S.getStringValue());
             return true;
-        }else if (key == SWITCH_SERVER_SINGLE_3.getKeybind())
+        }
+        else if (key == SWITCH_SERVER_SINGLE_3.getKeybind())
         {
             switchServer(SWITCH_SERVER_SINGLE_3S.getStringValue());
             return true;
-        }else if (key == TEST.getKeybind()){
+        }
+        else if (key == TEST.getKeybind()){
             test();
             return true;
         }
-
-
+        
         return false;
     }
 
