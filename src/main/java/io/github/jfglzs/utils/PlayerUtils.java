@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static fi.dy.masa.malilib.util.InventoryUtils.getStoredItems;
-import static io.github.jfglzs.utils.InventoryUtils.getInventorySlotAmount;
+import static io.github.jfglzs.utils.ContainerUtils.getInventorySlotAmount;
+import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 import static io.github.jfglzs.utils.MCUtils.getPlayer;
 
 public class PlayerUtils
@@ -38,6 +39,30 @@ public class PlayerUtils
                 }
             }
             return -1;
+        }
+
+        public static int getInventoryItemCount(Item item)
+        {
+            int itemCount = 0;
+            PlayerInventory inventory = getPlayer().getInventory();
+            for (int i = 0; i < inventory.size() - 1; i++)
+            {
+                Item item1 = inventory.getStack(i).getItem();
+                if (item1.equals(item))
+                {
+                    itemCount += inventory.getStack(i).getCount();
+                }
+
+            }
+
+            Item item1 = inventory.getStack(40).getItem();
+            if (item1.equals(item))
+            {
+                itemCount += inventory.getStack(40).getCount();
+            }
+
+
+            return itemCount;
         }
 
         public static List<Integer> getAllBoxIndexes(int maxIndex)
@@ -107,6 +132,37 @@ public class PlayerUtils
             }
 
             return EmptySlots;
+        }
+
+        public static List<Integer> getNotEmptyBoxIndexes(List<Integer> boxIndexes)
+        {
+            PlayerEntity player = getPlayer();
+            List<Integer> shulkerBoxIndexes = boxIndexes;
+            List<Integer> NotEmptyShulkerBoxIndexes = new ArrayList<>();
+
+            for(int i : shulkerBoxIndexes)
+            {
+                int isAir = 0;
+                int loop = 0;
+                int amount = getInventorySlotAmount(player.getInventory().getStack(i));
+                if (amount == -1) return shulkerBoxIndexes;
+                DefaultedList<ItemStack> IS = getStoredItems(player.getInventory().getStack(i), amount);
+
+                for (ItemStack stack : IS)
+                {
+                    loop++;
+                    if (stack.getItem().equals(Items.AIR)) isAir++;
+                    if (!(isAir == 27) && loop == 27) NotEmptyShulkerBoxIndexes.add(i);
+                }
+            }
+
+            return NotEmptyShulkerBoxIndexes;
+
+        }
+
+        public static boolean isNotAirInMainHand()
+        {
+            return getMinecraftClient().player != null && !getMinecraftClient().player.getMainHandStack().getItem().equals(Items.AIR);
         }
 
     }

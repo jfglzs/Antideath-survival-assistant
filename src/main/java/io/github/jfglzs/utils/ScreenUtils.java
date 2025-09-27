@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 public class ScreenUtils
 {
     static MinecraftClient client = MinecraftClient.getInstance();
+
     public static void refreshScreen()
     {
         if (client.player == null) return;

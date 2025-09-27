@@ -4,7 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 
-public class InventoryUtils
+public class ContainerUtils
 {
     public static int getInventorySlotAmount(ItemStack itemStack)
     {

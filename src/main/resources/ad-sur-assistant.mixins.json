@@ -13,6 +13,7 @@
     "requireAnnotations": true
   },
   "client": [
+    "feature.ArmorFeatureRenderer_Mixin",
     "feature.DebugHud_Mixin",
     "feature.DownloadingTerrainScreen_Mixin",
     "feature.Screen_Mixin",

@@ -12,16 +12,20 @@ import java.util.List;
 
 import static io.github.jfglzs.AsaMod.*;
 import static io.github.jfglzs.config.Configs.getFeatureAmount;
+import static io.github.jfglzs.feature.itemdisplay.RemainingItemDisplayer.checkRemainCount;
+import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
+import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.isNotAirInMainHand;
 
 @Mixin(DebugHud.class)
 public class DebugHud_Mixin
 {
-    @Inject(method = "drawRightText" , at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/DebugHud;drawText(Lnet/minecraft/client/gui/DrawContext;Ljava/util/List;Z)V"))
-    protected void drawRightTextInject(DrawContext context, CallbackInfo ci , @Local List<String> list)
+    @Inject(method = "drawLeftText" , at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/DebugHud;drawText(Lnet/minecraft/client/gui/DrawContext;Ljava/util/List;Z)V"))
+    protected void drawLeftTextInject(DrawContext context, CallbackInfo ci , @Local List<String> list)
     {
         list.add("");
-        list.add(String.format("%s Antideath Survival Assistant V %s" , C_MOD_ID ,version));
-        list.add(String.format("%s There are %s Features loaded" , C_MOD_ID , getFeatureAmount()));
+        list.add(String.format("%s Antideath Survival Assistant V %s" , C_MOD_ID , version));
+        list.add(String.format("%s %s Features loaded" , C_MOD_ID , getFeatureAmount()));
+        if (isNotAirInMainHand()) {list.add(String.format("%s %s in main hand Remain: %d (Including shulkerbox)" , C_MOD_ID , getMinecraftClient().player.getMainHandStack().getItem() ,checkRemainCount(getMinecraftClient().player.getMainHandStack().getItem())));} else {list.add(String.format("%s Nothing in main hand Remain: 0 (Including shulkerbox)" , C_MOD_ID ));}
     }
 }
 

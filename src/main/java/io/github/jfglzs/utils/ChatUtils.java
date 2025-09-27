@@ -9,6 +9,8 @@ import net.minecraft.text.Text;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
+
 public class ChatUtils
 {
     private static final Queue<String> chatQueue = new LinkedList<>();
@@ -33,18 +35,26 @@ public class ChatUtils
     public static void sendMessOnlyClientVisible(String chat)
     {
         MinecraftClient client = MinecraftClient.getInstance();
+        if (client.player == null) return;
         client.player.sendMessage(Text.of(chat), false);
     }
 
     public static void sendMessWithSound(String chat , SoundEvent type , float volume, float pitch)
     {
-        MinecraftClient client = MinecraftClient.getInstance();
+        MinecraftClient client = getMinecraftClient();
         ClientPlayerEntity player = client.player;
+        if (player == null) return;
         player.playSound(
                 type,
                 volume,
                 pitch
                 );
-        client.player.sendMessage(Text.of(chat), false);
+        player.sendMessage(Text.of(chat), false);
+    }
+
+    public static void overLayMess(String text)
+    {
+        MinecraftClient client = getMinecraftClient();
+        client.inGameHud.setOverlayMessage(Text.of(text), false);
     }
 }
