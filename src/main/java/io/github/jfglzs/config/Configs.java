@@ -50,38 +50,52 @@ public class Configs implements IConfigHandler
     public static final ConfigBooleanHotkeyed DISABLE_LOADING_TERRAIN_SCREEN = new ConfigBooleanHotkeyed( "禁用加载地形屏幕", false,"","开启后会禁用加载地形屏幕 理论上能提升一点点加入世界的速度(服务器同理)");
     public static final ConfigBooleanHotkeyed DISABLE_PLAYER_ARMOR_RENDER = new ConfigBooleanHotkeyed( "禁用玩家盔甲渲染", false,"","开启此功能后会禁用玩家的盔甲渲染\n终于可以看到涩涩的皮肤啦！");
     public static final ConfigBooleanHotkeyed DISPLAY_REMAIN_ITEM = new ConfigBooleanHotkeyed( "剩余物品显示", false,"","开启后会显示 主手中和背包中剩余的物品（包括潜影盒）");
+    public static final ConfigBooleanHotkeyed DISABLE_PLACE_BLOCK_NEARBY_PORTAL = new ConfigBooleanHotkeyed( "禁止在地狱门周边放置方块", false,"","开启后禁会止在地狱门周边放置方块");
+    public static final ConfigStringList DISABLE_PLACE_BLOCK_NEARBY_PORTAL_WHITELIST = new ConfigStringList( "禁止在地狱门周边放置方块白名单",ImmutableList.of(),"禁止在地狱门周边放置方块白名单");
+
+    public static final ConfigStringList SWITCH_ITEM_LIST = new ConfigStringList( "切换物品列表",ImmutableList.of(),"切换物品列表");
+    public static final ConfigHotkey SWITCH_ITEM = new ConfigHotkey( "切换物品", "","切换物品");
+
+
 
     public static final ConfigHotkey TEST = new ConfigHotkey( "mod调试", "","测试");
+
 
     public static final ImmutableList<IConfigBase> ALL = addCompatibility();
     public static ImmutableList<IConfigBase> addCompatibility()
     {
         List<IConfigBase> list = new ArrayList<>();
         list.add(ASA);
+        
         list.add(CREEPER_WARN);
+        list.add(CREEPER_WARN_RANGE);
+
         list.add(MATERIAL_RECYCLER);
+        list.add(MATERIAL_RECYCLER_LIST);
+        list.add(ENABLE_MATERIAL_RECYCLER_BLACK_LIST);
+        list.add(MATERIAL_RECYCLER_BLACK_LIST);
+
         list.add(DISABLE_LOADING_TERRAIN_SCREEN);
         list.add(DISABLE_SUBTITLE);
         list.add(DISABLE_CONNECT_TIMED_OUT);
         list.add(DISABLE_PLAYER_ARMOR_RENDER);
+        list.add(DISABLE_PLACE_BLOCK_NEARBY_PORTAL);
+        list.add(DISABLE_PLACE_BLOCK_NEARBY_PORTAL_WHITELIST);
+
         list.add(MATERIAL_RECYCLER_AUTO);
         list.add(DISPLAY_REMAIN_ITEM);
-        list.add(ENABLE_MATERIAL_RECYCLER_BLACK_LIST);
+
         list.add(SWITCH_SERVER);
-        list.add(SWITCH_SERVER_SINGLE_1);
-        list.add(SWITCH_SERVER_SINGLE_2);
-        list.add(SWITCH_SERVER_SINGLE_3);
-
-
-        list.add(SWITCH_SERVER_LIST);
-        list.add(MATERIAL_RECYCLER_LIST);
-        list.add(MATERIAL_RECYCLER_BLACK_LIST);
-        list.add(CREEPER_WARN_RANGE);
         list.add(SWITCH_SERVER_COMMAND);
+
+        list.add(SWITCH_SERVER_SINGLE_1);
         list.add(SWITCH_SERVER_SINGLE_1S);
+        list.add(SWITCH_SERVER_SINGLE_2);
         list.add(SWITCH_SERVER_SINGLE_2S);
+        list.add(SWITCH_SERVER_SINGLE_3);
         list.add(SWITCH_SERVER_SINGLE_3S);
 
+        list.add(SWITCH_ITEM_LIST);
         list.add(TEST);
 
 
@@ -97,7 +111,8 @@ public class Configs implements IConfigHandler
             DISABLE_LOADING_TERRAIN_SCREEN,
             DISABLE_SUBTITLE,
             DISABLE_PLAYER_ARMOR_RENDER,
-            DISPLAY_REMAIN_ITEM
+            DISPLAY_REMAIN_ITEM,
+            DISABLE_PLACE_BLOCK_NEARBY_PORTAL
 
     );
 

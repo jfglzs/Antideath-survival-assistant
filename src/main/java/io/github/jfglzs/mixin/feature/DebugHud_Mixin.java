@@ -25,7 +25,6 @@ public class DebugHud_Mixin
         list.add("");
         list.add(String.format("%s Antideath Survival Assistant V %s" , C_MOD_ID , version));
         list.add(String.format("%s %s Features loaded" , C_MOD_ID , getFeatureAmount()));
-        if (isNotAirInMainHand()) {list.add(String.format("%s %s in main hand Remain: %d (Including shulkerbox)" , C_MOD_ID , getMinecraftClient().player.getMainHandStack().getItem() ,checkRemainCount(getMinecraftClient().player.getMainHandStack().getItem())));} else {list.add(String.format("%s Nothing in main hand Remain: 0 (Including shulkerbox)" , C_MOD_ID ));}
     }
 }
 

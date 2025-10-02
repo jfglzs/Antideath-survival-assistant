@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 
 import java.util.ArrayList;
@@ -19,23 +21,18 @@ import static io.github.jfglzs.utils.MCUtils.getPlayer;
 
 public class PlayerUtils
 {
-    public static void test()
-    {
-//        openAllBoxes();
-    }
-
     public static class PlayerInventoryUtils
     {
-        public static int searchInventory(Item SearchItem , int Index)
+        public static int searchInventory(Item SearchItem)
         {
             PlayerEntity player = getPlayer();
             PlayerInventory inventory = player.getInventory();
-            for (int i = 0; i < Index; i++)
+            for (int i = 0; i < 36; i++)
             {
                 Item item = inventory.getStack(i).getItem();
                 if (item.equals(SearchItem))
                 {
-                    return i;
+                    return i; //返回物品的索引
                 }
             }
             return -1;
@@ -60,7 +57,6 @@ public class PlayerUtils
             {
                 itemCount += inventory.getStack(40).getCount();
             }
-
 
             return itemCount;
         }
@@ -160,10 +156,21 @@ public class PlayerUtils
 
         }
 
+        public static Item transfromToItem(String item)
+        {
+            //#if MC > 12001
+            Identifier identifier = Identifier.ofVanilla(item);
+            //#else
+            //$$ Identifier identifier = new Identifier("minecraft", item);
+            //#endif
+            return Registries.ITEM.get(identifier);
+        }
+
         public static boolean isNotAirInMainHand()
         {
             return getMinecraftClient().player != null && !getMinecraftClient().player.getMainHandStack().getItem().equals(Items.AIR);
         }
+
 
     }
 }

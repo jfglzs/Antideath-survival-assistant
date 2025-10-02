@@ -29,7 +29,8 @@ public class asaSwitchServer
         if(index == servers.length) index = 0;
     }
 
-    public static void switchServer(String Server){
+    public static void switchServer(String Server)
+    {
         if (Server.isEmpty())
         {
             sendMessOnlyClientVisible("§c服务器名称不能为空,请前往设置菜单进行设置");

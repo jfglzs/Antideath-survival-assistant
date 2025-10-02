@@ -9,14 +9,26 @@ public class ScreenUtils
 
     public static void refreshScreen()
     {
-        if (client.player == null) return;
-        client.setScreen(new InventoryScreen(client.player));
+        openInventoryScreen();
         closeScreen();
     }
 
     public static void closeScreen()
     {
-        if (client.player == null) return;
+        if (hasNotPlayer()) return;
         client.player.closeHandledScreen();
     }
+
+    public static void openInventoryScreen()
+    {
+        if (hasNotPlayer()) return;
+        client.setScreen(new InventoryScreen(client.player));
+    }
+
+    public static boolean hasNotPlayer()
+    {
+        return client.player == null;
+    }
+
+
 }
