@@ -15,7 +15,7 @@ public class RemainingItemDisplayer
     public static int checkRemainCount(Item item)
     {
         int count = 0;
-        List<Integer> boxes = getNotEmptyBoxIndexes(getAllBoxIndexes(35));
+        List<Integer> boxes = getNotEmptyBoxIndexes(getAllBoxIndexes(36));
         for (int i : boxes)
         {
             DefaultedList<ItemStack> IS = getStoredItems(getPlayer().getInventory().getStack(i) , 27);

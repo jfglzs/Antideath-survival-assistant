@@ -89,7 +89,7 @@ public class MaterialRecycler
     public static void openAllBoxes()
     {
         if (!isModLoaded("quickshulker")) return;
-        List<Integer> list = getUnFullBoxIndexes(getAllBoxIndexes(35));
+        List<Integer> list = getUnFullBoxIndexes(getAllBoxIndexes(36));
         if (list.isEmpty()) return;
 
         for (int i : list)
