@@ -3,7 +3,7 @@ package io.github.jfglzs.mixin.feature;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 //#if MC > 12101
-import net.minecraft.client.render.entity.model.BipedEntityModel;
+//$$ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 //#else
 //$$ import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -12,8 +12,6 @@ import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 //$$ import net.minecraft.entity.EquipmentSlot;
 //#endif
 import net.minecraft.client.util.math.MatrixStack;
-//import net.minecraft.entity.EquipmentSlot;
-//import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,6 +40,7 @@ public class ArmorFeatureRenderer_Mixin
         //$$        }
         //#endif
     }
+
     //#else
     //$$    @Inject(method = "renderArmor" , at = @At("HEAD") , cancellable = true)
     //$$    private void renderArmorInject(MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, EquipmentSlot armorSlot, int light, BipedEntityModel<?> model, CallbackInfo ci)
@@ -56,11 +55,7 @@ public class ArmorFeatureRenderer_Mixin
     //$$                    ci.cancel();
     //$$                }
     //$$
-    //$$            } else
-    //$$            {
-    //$$                ci.cancel();
-    //$$            }
-    //$$
+    //$$            } else ci.cancel();
     //$$        }
     //$$    }
     //#endif

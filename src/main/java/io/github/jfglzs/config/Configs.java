@@ -96,6 +96,7 @@ public class Configs implements IConfigHandler
         list.add(SWITCH_SERVER_SINGLE_3S);
 
         list.add(SWITCH_ITEM_LIST);
+        list.add(SWITCH_ITEM);
         list.add(TEST);
 
 
@@ -122,6 +123,7 @@ public class Configs implements IConfigHandler
             SWITCH_SERVER_SINGLE_1,
             SWITCH_SERVER_SINGLE_2,
             SWITCH_SERVER_SINGLE_3,
+            SWITCH_ITEM,
 
             TEST
     );

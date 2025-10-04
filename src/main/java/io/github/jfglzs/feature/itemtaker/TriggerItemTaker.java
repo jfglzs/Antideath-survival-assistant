@@ -18,11 +18,11 @@ import static io.github.jfglzs.utils.ScreenUtils.refreshScreen;
 
 public class TriggerItemTaker
 {
-    static List<String> list = SWITCH_ITEM_LIST.getStrings();
     private static int index = 0;
 
-    public static void Triggered()
+    public static void triggered()
     {
+        List<String> list = SWITCH_ITEM_LIST.getStrings();
         if (list.isEmpty()) return;
         if (list.size() == index) index = 0;
         String id = list.get(index);
@@ -38,10 +38,7 @@ public class TriggerItemTaker
         MinecraftClient client = getMinecraftClient();
         int index = searchInventory(item);
 
-        if (index == -1)
-        {
-            return false;
-        }
+        if (index == -1) return false;
 
         if (MATERIAL_RECYCLER.getBooleanValue())
         {

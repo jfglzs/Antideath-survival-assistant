@@ -130,10 +130,9 @@ public class PlayerUtils
             return EmptySlots;
         }
 
-        public static List<Integer> getNotEmptyBoxIndexes(List<Integer> boxIndexes)
+        public static List<Integer> getNotEmptyBoxIndexes(List<Integer> shulkerBoxIndexes)
         {
             PlayerEntity player = getPlayer();
-            List<Integer> shulkerBoxIndexes = boxIndexes;
             List<Integer> NotEmptyShulkerBoxIndexes = new ArrayList<>();
 
             for(int i : shulkerBoxIndexes)

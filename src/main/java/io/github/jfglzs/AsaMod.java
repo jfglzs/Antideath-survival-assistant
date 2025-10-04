@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import static io.github.jfglzs.config.Configs.*;
 import static io.github.jfglzs.feature.itemdisplay.RemainingItemDisplayer.checkRemainCount;
-import static io.github.jfglzs.feature.itemtaker.TriggerItemTaker.Triggered;
+import static io.github.jfglzs.feature.itemtaker.TriggerItemTaker.triggered;
 import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.*;
 import static io.github.jfglzs.utils.ChatUtils.overLayMess;
 import static io.github.jfglzs.utils.ChatUtils.sendMessWithSound;
@@ -100,6 +100,5 @@ public class AsaMod implements ClientModInitializer
 
     public static void test()
     {
-        Triggered();
     }
 }
