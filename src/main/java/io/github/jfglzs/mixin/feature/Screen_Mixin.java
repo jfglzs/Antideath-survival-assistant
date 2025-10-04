@@ -35,11 +35,10 @@ public abstract class Screen_Mixin
             List<Integer> Boxlist = getUnFullBoxIndexes(getAllBoxIndexes(35));
 
             MinecraftClient client = getMinecraftClient();
-            if (client.player == null || client.interactionManager == null) return;
+            if (client.player == null || client.interactionManager == null || openedBoxSlot == -1) return;
             ScreenHandler handler = client.player.currentScreenHandler;
             if (handler == null) return;
             if (!(handler instanceof ShulkerBoxScreenHandler)) return;
-            if (openedBoxSlot == -1) return;
 
             for (Slot slot : handler.slots)
             {
@@ -59,8 +58,6 @@ public abstract class Screen_Mixin
             }
 
             allowUpdate = true;
-//            System.out.println(allowCloseScreen);
-//            System.out.println(inSwap);
             if (allowCloseScreen && !Boxlist.isEmpty() && !(handler instanceof PlayerScreenHandler)) client.setScreen(null);
         }
     }
