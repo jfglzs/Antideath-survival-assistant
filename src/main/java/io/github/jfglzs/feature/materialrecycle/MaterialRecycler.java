@@ -1,5 +1,7 @@
 package io.github.jfglzs.feature.materialrecycle;
 
+import io.github.jfglzs.utils.FabricUtils;
+import net.kyrptonaught.quickshulker.client.ClientUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -10,9 +12,7 @@ import java.util.List;
 
 import static io.github.jfglzs.config.Configs.MATERIAL_RECYCLER_BLACK_LIST;
 import static io.github.jfglzs.config.Configs.MATERIAL_RECYCLER_LIST;
-import static io.github.jfglzs.utils.FabricUtils.isModLoaded;
 import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.*;
-import static net.kyrptonaught.quickshulker.client.ClientUtil.CheckAndSend;
 
 
 public class MaterialRecycler
@@ -88,7 +88,7 @@ public class MaterialRecycler
 
     public static void openAllBoxes()
     {
-        if (!isModLoaded("quickshulker")) return;
+        if (!FabricUtils.isModLoaded("quickshulker")) return;
         List<Integer> list = getUnFullBoxIndexes(getAllBoxIndexes(36));
         if (list.isEmpty()) return;
 
@@ -97,7 +97,7 @@ public class MaterialRecycler
             if (allowUpdate)
             {
 //                System.out.println(list);
-                CheckAndSend(new ItemStack(Items.SHULKER_BOX), i);
+                ClientUtil.CheckAndSend(new ItemStack(Items.SHULKER_BOX), i);
                 openedBoxSlot = getOpenedBoxEmptySlots(i);
                 allowUpdate = false;
             }

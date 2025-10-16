@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "feature.ClientConnection_Mixin",
-    "litematica.MaterialListHudRenderer_Mixin"
+    "litematica.MaterialListHudRenderer_Mixin",
+    "tweakeroo.InventoryUtils_Invoker",
+    "tweakeroo.InventoryUtils_Mixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -15,6 +17,8 @@
   "client": [
     "feature.ArmorFeatureRenderer_Mixin",
     "feature.ClientPlayerInteractionManager_Mixin",
+    "feature.ClientPlayNetworkHandler_Mixin",
+    "feature.ClientWorld_Mixin",
     "feature.DebugHud_Mixin",
     "feature.DownloadingTerrainScreen_Mixin",
     "feature.Screen_Mixin",

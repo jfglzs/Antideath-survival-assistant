@@ -1,5 +1,7 @@
 package io.github.jfglzs.utils;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -8,55 +10,71 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.IntStream;
 
 import static fi.dy.masa.malilib.util.InventoryUtils.getStoredItems;
 import static io.github.jfglzs.utils.ContainerUtils.getInventorySlotAmount;
-import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
-import static io.github.jfglzs.utils.MCUtils.getPlayer;
+import static io.github.jfglzs.utils.MCUtils.*;
+import static io.github.jfglzs.utils.ScreenUtils.openAndGetHandle;
+import static io.github.jfglzs.utils.ScreenUtils.refreshScreen;
 
 public class PlayerUtils
 {
     public static class PlayerInventoryUtils
     {
-        public static int searchInventory(Item SearchItem)
+
+        public static boolean clickSlot(MinecraftClient client, int itemIndex, int button , SlotActionType type)
+        {
+            ScreenHandler screenHandler = openAndGetHandle(new InventoryScreen(getPlayer()));
+            if (!openAndCheckScreen()) return false;
+            int id =  screenHandler.slots.get(itemIndex).id;
+            client.interactionManager.clickSlot(screenHandler.syncId, id , button, type, client.player);
+            refreshScreen();
+            return true;
+        }
+
+        public static int searchInventory(Item searchItem)
         {
             PlayerEntity player = getPlayer();
             PlayerInventory inventory = player.getInventory();
-            for (int i = 0; i < 36; i++)
-            {
-                Item item = inventory.getStack(i).getItem();
-                if (item.equals(SearchItem))
-                {
-                    return i; //返回物品的索引
-                }
-            }
-            return -1;
+
+            int index = IntStream.range(0, 36)
+                    .filter(i -> {
+                        ItemStack stack = inventory.getStack(i);
+                        return stack.getItem().equals(searchItem);
+                    })
+                    .findFirst()
+                    .orElse(-1);
+
+
+//            for (int i = 0; i < 36; i++)
+//            {
+//                Item item = inventory.getStack(i).getItem();
+//                if (item.equals(searchItem))
+//                {
+//                    return i; //返回物品的索引
+//                }
+//            }
+                return index;
         }
 
         public static int getInventoryItemCount(Item item)
         {
-            int itemCount = 0;
             PlayerInventory inventory = getPlayer().getInventory();
-            for (int i = 0; i < inventory.size() - 1; i++)
-            {
-                Item item1 = inventory.getStack(i).getItem();
-                if (item1.equals(item))
-                {
-                    itemCount += inventory.getStack(i).getCount();
-                }
-
-            }
-
-            Item item1 = inventory.getStack(40).getItem();
-            if (item1.equals(item))
-            {
-                itemCount += inventory.getStack(40).getCount();
-            }
+            int itemCount = IntStream.range(0, inventory.size())
+                    .mapToObj(inventory::getStack)
+                    .filter(stack -> stack != null && stack.getItem().equals(item))
+                    .mapToInt(ItemStack::getCount)
+                    .sum();
+//            if (inventory.getStack(40).getItem().equals(item)) itemCount += inventory.getStack(40).getCount();
 
             return itemCount;
         }
@@ -168,6 +186,19 @@ public class PlayerUtils
         public static boolean isNotAirInMainHand()
         {
             return getMinecraftClient().player != null && !getMinecraftClient().player.getMainHandStack().getItem().equals(Items.AIR);
+        }
+
+        public static int getInventoryEmptySlot()
+        {
+            for (int i = 36; i >= 9 ; i--) // 排除快捷栏 副手 装备栏
+            {
+                if (getPlayer().getInventory().getStack(i).isEmpty())
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
 

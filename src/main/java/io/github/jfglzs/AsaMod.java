@@ -6,6 +6,11 @@ import io.github.jfglzs.config.Configs;
 import io.github.jfglzs.config.HotkeysCallback;
 import io.github.jfglzs.config.InputHandler;
 import io.github.jfglzs.feature.creeperwarn.CreeperCheckClient;
+import io.github.jfglzs.feature.itemdisplay.RemainingItemDisplayer;
+import io.github.jfglzs.utils.ChatUtils;
+import io.github.jfglzs.utils.MCUtils;
+import io.github.jfglzs.utils.PlayerUtils;
+import io.github.jfglzs.utils.ScreenUtils;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -18,15 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static io.github.jfglzs.config.Configs.*;
-import static io.github.jfglzs.feature.itemdisplay.RemainingItemDisplayer.checkRemainCount;
-import static io.github.jfglzs.feature.itemtaker.TriggerItemTaker.triggered;
 import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.*;
-import static io.github.jfglzs.utils.ChatUtils.overLayMess;
-import static io.github.jfglzs.utils.ChatUtils.sendMessWithSound;
-import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 import static io.github.jfglzs.utils.MCUtils.getPlayer;
-import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.isNotAirInMainHand;
-import static io.github.jfglzs.utils.ScreenUtils.refreshScreen;
 
 public class AsaMod implements ClientModInitializer
 {
@@ -34,21 +32,21 @@ public class AsaMod implements ClientModInitializer
     public static final String SPACE = " ";
     public static final String MOD_ID = "ASA";
     public static final String C_MOD_ID = "[" + MOD_ID + "]";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final Logger LOGGER_ASA = LoggerFactory.getLogger(MOD_ID);
     public static int checktime = 0;
 
 	@Override
 	public void onInitializeClient()
     {
-        LOGGER.info("AsaMod is loading...");
+        LOGGER_ASA.info("AsaMod is loading...");
         masaRegister();
         ClientTickEvents.END_CLIENT_TICK.register(client ->
         {
             checktime++;
-            if (checktime % 15  == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue() && isNotAirInMainHand()) overLayMess(String.format("Item: %s Remain: %d", getMinecraftClient().player.getMainHandStack().getItem() ,checkRemainCount(getMinecraftClient().player.getMainHandStack().getItem())));
+            if (checktime % 15  == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue() && PlayerUtils.PlayerInventoryUtils.isNotAirInMainHand()) ChatUtils.overLayMess(String.format("Item: %s Remain: %d", MCUtils.getMinecraftClient().player.getMainHandStack().getItem() , RemainingItemDisplayer.checkRemainCount(MCUtils.getMinecraftClient().player.getMainHandStack().getItem())));
             if (checktime % 20  == 0 && CREEPER_WARN.getBooleanValue()) creeperWarner();
             if (checktime % 200 == 0 && MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue()) openBox();
-            if (checktime % 210 == 0 && MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue()) refreshScreen();
+            if (checktime % 210 == 0 && MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue()) ScreenUtils.refreshScreen();
         });
 
 	}
@@ -60,12 +58,12 @@ public class AsaMod implements ClientModInitializer
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
         HotkeysCallback.init();
-        LOGGER.info("Masa config loaded");
+        LOGGER_ASA.info("Masa config loaded");
     }
 
     public static boolean shouldOpenBox(boolean screenCheck)
     {
-        MinecraftClient client = getMinecraftClient();
+        MinecraftClient client = MCUtils.getMinecraftClient();
         PlayerEntity player = getPlayer();
         if (player == null) return false;
         PlayerInventory inventory = player.getInventory();
@@ -86,7 +84,7 @@ public class AsaMod implements ClientModInitializer
     {
         if (CreeperCheckClient.isCreeperNearby())
         {
-            sendMessWithSound("§c苦力怕来了!!!!!!!", SoundEvents.ENTITY_TNT_PRIMED , 1, 1);
+            ChatUtils.sendMessWithSound("§c苦力怕来了!!!!!!!", SoundEvents.ENTITY_TNT_PRIMED , 1, 1);
         }
     }
 
@@ -100,5 +98,7 @@ public class AsaMod implements ClientModInitializer
 
     public static void test()
     {
+//        SystemInfo systemInfo = new SystemInfo();
+//        CentralProcessor.ProcessorIdentifier hardware = systemInfo.getHardware().getProcessor().getProcessorIdentifier();
     }
 }

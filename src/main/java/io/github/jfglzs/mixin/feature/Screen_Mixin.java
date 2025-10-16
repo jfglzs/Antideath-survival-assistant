@@ -1,5 +1,7 @@
 package io.github.jfglzs.mixin.feature;
 
+import io.github.jfglzs.AsaMod;
+import io.github.jfglzs.utils.PlayerUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.screen.PlayerScreenHandler;
@@ -14,12 +16,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-import static io.github.jfglzs.AsaMod.shouldOpenBox;
 import static io.github.jfglzs.config.Configs.*;
 import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.*;
 import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
-import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.getAllBoxIndexes;
-import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.getUnFullBoxIndexes;
 
 @Mixin(Screen.class)
 public abstract class Screen_Mixin
@@ -31,8 +30,8 @@ public abstract class Screen_Mixin
         {
             int maxClickCount = openedBoxSlot;
             int clickCount = 0;
-            boolean allowCloseScreen = shouldOpenBox(false);
-            List<Integer> Boxlist = getUnFullBoxIndexes(getAllBoxIndexes(35));
+            boolean allowCloseScreen = AsaMod.shouldOpenBox(false);
+            List<Integer> Boxlist = PlayerUtils.PlayerInventoryUtils.getUnFullBoxIndexes(PlayerUtils.PlayerInventoryUtils.getAllBoxIndexes(35));
 
             MinecraftClient client = getMinecraftClient();
             if (client.player == null || client.interactionManager == null || openedBoxSlot == -1) return;
