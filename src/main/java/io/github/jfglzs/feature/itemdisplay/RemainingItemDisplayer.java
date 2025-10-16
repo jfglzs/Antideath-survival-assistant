@@ -14,20 +14,12 @@ public class RemainingItemDisplayer
 {
     public static int checkRemainCount(Item item)
     {
-        int count = 0;
-        for (int i : getNotEmptyBoxIndexes(getAllBoxIndexes(36)))
-        {
-            for (ItemStack j : getStoredItems(getPlayer().getInventory().getStack(i) , 27))
-            {
-                if (j.getItem().equals(item))
-                {
-                    count += j.getCount();
-                }
-            }
-        }
+        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(36)).stream()
+                .flatMap(i -> getStoredItems(getPlayer().getInventory().getStack(i), 27).stream())
+                .filter(j -> j.getItem().equals(item))
+                .mapToInt(ItemStack::getCount)
+                .sum();
 
-        count += getInventoryItemCount(item);
-
-        return count;
+        return storedCount + getInventoryItemCount(item);
     }
 }

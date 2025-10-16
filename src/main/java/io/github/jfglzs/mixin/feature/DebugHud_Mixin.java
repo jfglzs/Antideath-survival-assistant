@@ -1,6 +1,7 @@
 package io.github.jfglzs.mixin.feature;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import io.github.jfglzs.config.Configs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.DebugHud;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,10 +12,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 import static io.github.jfglzs.AsaMod.*;
-import static io.github.jfglzs.config.Configs.getFeatureAmount;
-import static io.github.jfglzs.feature.itemdisplay.RemainingItemDisplayer.checkRemainCount;
-import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
-import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.isNotAirInMainHand;
 
 @Mixin(DebugHud.class)
 public class DebugHud_Mixin
@@ -24,7 +21,7 @@ public class DebugHud_Mixin
     {
         list.add("");
         list.add(String.format("%s Antideath Survival Assistant V %s" , C_MOD_ID , version));
-        list.add(String.format("%s %s Features loaded" , C_MOD_ID , getFeatureAmount()));
+        list.add(String.format("%s %s Features loaded" , C_MOD_ID , Configs.getFeatureAmount()));
     }
 }
 

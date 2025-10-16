@@ -1,13 +1,14 @@
 package io.github.jfglzs.feature.switchserver;
 
+import io.github.jfglzs.utils.ChatUtils;
+import io.github.jfglzs.utils.CommandUtils;
+
 import java.util.List;
 
-import static io.github.jfglzs.AsaMod.LOGGER;
+import static io.github.jfglzs.AsaMod.LOGGER_ASA;
 import static io.github.jfglzs.AsaMod.SPACE;
 import static io.github.jfglzs.config.Configs.SWITCH_SERVER_COMMAND;
 import static io.github.jfglzs.config.Configs.SWITCH_SERVER_LIST;
-import static io.github.jfglzs.utils.ChatUtils.sendMessOnlyClientVisible;
-import static io.github.jfglzs.utils.CommandUtils.excuteCommand;
 
 public class asaSwitchServer
 {
@@ -20,12 +21,12 @@ public class asaSwitchServer
 
         if(servers.length == 0)
         {
-            sendMessOnlyClientVisible("§c服务器列表不能为空,请前往设置菜单进行设置");
+            ChatUtils.sendMessOnlyClientVisible("§c服务器列表不能为空,请前往设置菜单进行设置");
             return;
         }
 
-        excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + servers[index++]);
-        LOGGER.info("Switch to {}", servers[index]);
+        CommandUtils.excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + servers[index++]);
+        LOGGER_ASA.info("Switch to {}", servers[index]);
         if(index == servers.length) index = 0;
     }
 
@@ -33,10 +34,10 @@ public class asaSwitchServer
     {
         if (Server.isEmpty())
         {
-            sendMessOnlyClientVisible("§c服务器名称不能为空,请前往设置菜单进行设置");
+            ChatUtils.sendMessOnlyClientVisible("§c服务器名称不能为空,请前往设置菜单进行设置");
             return;
         }
-        excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + Server);
+        CommandUtils.excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + Server);
     }
 
 }

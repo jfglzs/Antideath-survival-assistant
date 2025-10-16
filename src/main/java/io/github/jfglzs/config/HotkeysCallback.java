@@ -4,11 +4,13 @@ import fi.dy.masa.malilib.config.options.ConfigHotkey;
 import fi.dy.masa.malilib.hotkeys.IHotkeyCallback;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.KeyAction;
+import io.github.jfglzs.AsaMod;
+import io.github.jfglzs.feature.itemtaker.TriggerItemTaker;
+import io.github.jfglzs.feature.switchserver.asaSwitchServer;
 import net.minecraft.client.MinecraftClient;
 
+import static io.github.jfglzs.AsaMod.test;
 import static io.github.jfglzs.config.Configs.*;
-import static io.github.jfglzs.feature.itemtaker.TriggerItemTaker.triggered;
-import static io.github.jfglzs.feature.switchserver.asaSwitchServer.switchServer;
 
 public class HotkeysCallback implements IHotkeyCallback
 {
@@ -24,26 +26,30 @@ public class HotkeysCallback implements IHotkeyCallback
         }
         else if (key == SWITCH_SERVER.getKeybind())
         {
-            switchServer();
+            asaSwitchServer.switchServer();
             return true;
         }
         else if (key == SWITCH_SERVER_SINGLE_1.getKeybind())
         {
-            switchServer(SWITCH_SERVER_SINGLE_1S.getStringValue());
+            asaSwitchServer.switchServer(SWITCH_SERVER_SINGLE_1S.getStringValue());
             return true;
         }
         else if (key == SWITCH_SERVER_SINGLE_2.getKeybind())
         {
-            switchServer(SWITCH_SERVER_SINGLE_2S.getStringValue());
+            asaSwitchServer.switchServer(SWITCH_SERVER_SINGLE_2S.getStringValue());
             return true;
         }
         else if (key == SWITCH_SERVER_SINGLE_3.getKeybind())
         {
-            switchServer(SWITCH_SERVER_SINGLE_3S.getStringValue());
+            asaSwitchServer.switchServer(SWITCH_SERVER_SINGLE_3S.getStringValue());
             return true;
         }
         else if (key == SWITCH_ITEM.getKeybind()){
-            triggered();
+            TriggerItemTaker.trigger();
+            return true;
+        }
+        else if (key == TEST.getKeybind()){
+            AsaMod.test();
             return true;
         }
         
