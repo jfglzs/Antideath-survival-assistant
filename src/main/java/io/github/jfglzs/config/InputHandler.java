@@ -5,7 +5,6 @@ import fi.dy.masa.malilib.hotkeys.IKeybindManager;
 import fi.dy.masa.malilib.hotkeys.IKeybindProvider;
 import fi.dy.masa.malilib.hotkeys.IKeyboardInputHandler;
 import io.github.jfglzs.AsaMod;
-import io.github.jfglzs.utils.ConfigsTranslate;
 
 public class InputHandler implements IKeybindProvider, IKeyboardInputHandler
 {
