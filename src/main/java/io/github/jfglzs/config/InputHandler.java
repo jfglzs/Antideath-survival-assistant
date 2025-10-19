@@ -5,6 +5,7 @@ import fi.dy.masa.malilib.hotkeys.IKeybindManager;
 import fi.dy.masa.malilib.hotkeys.IKeybindProvider;
 import fi.dy.masa.malilib.hotkeys.IKeyboardInputHandler;
 import io.github.jfglzs.AsaMod;
+import io.github.jfglzs.utils.ConfigsTranslate;
 
 public class InputHandler implements IKeybindProvider, IKeyboardInputHandler
 {
@@ -25,8 +26,8 @@ public class InputHandler implements IKeybindProvider, IKeyboardInputHandler
     @Override
     public void addHotkeys(IKeybindManager manager)
     {
-        manager.addHotkeysForCategory(AsaMod.MOD_ID, "按下式",Configs.KEY_LIST );
-        manager.addHotkeysForCategory(AsaMod.MOD_ID, "切换式",Configs.SWITCH_KEY);
+        manager.addHotkeysForCategory(AsaMod.MOD_ID, "按下式", Configs.KEY_LIST );
+        manager.addHotkeysForCategory(AsaMod.MOD_ID, "切换式", Configs.SWITCH_KEY);
     }
 
     public static InputHandler getInstance(){

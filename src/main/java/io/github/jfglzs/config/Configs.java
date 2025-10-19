@@ -53,6 +53,10 @@ public class Configs implements IConfigHandler
     public static final ConfigBooleanHotkeyed DISABLE_PLACE_BLOCK_NEARBY_PORTAL = new ConfigBooleanHotkeyed( "禁止在地狱门周边放置方块", false,"","开启后禁会止在地狱门周边放置方块");
     public static final ConfigStringList DISABLE_PLACE_BLOCK_NEARBY_PORTAL_WHITELIST = new ConfigStringList( "禁止在地狱门周边放置方块白名单",ImmutableList.of(),"禁止在地狱门周边放置方块白名单");
 
+    public static final ConfigBooleanHotkeyed TAP_FILTER = new ConfigBooleanHotkeyed( "TAB菜单过滤器", false,"","过滤掉tab菜单无用的玩家/常驻假人");
+    public static final ConfigStringList TAP_FILTER_WHITELIST = new ConfigStringList( "TAB菜单过滤器-白名单",ImmutableList.of(),"自动回收材料的列表（黑名单）");
+
+
     public static final ConfigStringList SWITCH_ITEM_LIST = new ConfigStringList( "切换物品列表",ImmutableList.of(),"切换物品列表");
     public static final ConfigHotkey SWITCH_ITEM = new ConfigHotkey( "切换物品", "","切换物品");
 
@@ -97,6 +101,9 @@ public class Configs implements IConfigHandler
 
         list.add(SWITCH_ITEM_LIST);
         list.add(SWITCH_ITEM);
+        list.add(TAP_FILTER);
+        list.add(TAP_FILTER_WHITELIST);
+
         list.add(TEST);
 
 

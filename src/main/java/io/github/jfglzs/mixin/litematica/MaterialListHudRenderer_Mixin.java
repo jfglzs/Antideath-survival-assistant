@@ -11,7 +11,10 @@ import static io.github.jfglzs.config.Configs.shouldDisableTitle;
 @Mixin(MaterialListHudRenderer.class)
 public class MaterialListHudRenderer_Mixin
 {
-    @Inject(method = "toggleShouldRender" , at = @At("TAIL") , remap = false)
+    @Inject(
+            method = "toggleShouldRender",
+            at = @At("TAIL"),
+            remap = false)
     private void toggleShouldRenderInject(CallbackInfo ci)
     {
         shouldDisableTitle = !shouldDisableTitle;

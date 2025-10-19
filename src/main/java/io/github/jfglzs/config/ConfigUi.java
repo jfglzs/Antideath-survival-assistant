@@ -5,6 +5,7 @@ import fi.dy.masa.malilib.gui.GuiConfigsBase;
 import fi.dy.masa.malilib.gui.button.ButtonBase;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;
+import fi.dy.masa.malilib.util.StringUtils;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class ConfigUi extends GuiConfigsBase
 
     public ConfigUi()
     {
-        super(10, 50, MOD_ID, null, String.format("Antideath Survival Assistant %s" , version));
+        super(10, 50, MOD_ID, null, "asa.gui.title");
     }
 
     @Override
@@ -36,7 +37,7 @@ public class ConfigUi extends GuiConfigsBase
 
     private int createButton(int x, int y, int width, Tab tab)
     {
-        ButtonGeneric button = new ButtonGeneric(x, y, width, 20, tab.name);
+        ButtonGeneric button = new ButtonGeneric(x, y, width, 20, tab.getTranslate());
         button.setEnabled(ConfigUi.tab != tab);
         this.addButton(button, new ButtonListener(tab, this));
 
@@ -51,7 +52,8 @@ public class ConfigUi extends GuiConfigsBase
         if (tab == Tab.ALL)
         {
             configs = Configs.ALL_CONFIGS;
-        } else
+        }
+        else
         {
             configs = Configs.ALL_CONFIGS;
         }
@@ -81,13 +83,18 @@ public class ConfigUi extends GuiConfigsBase
 
     public enum Tab
     {
-        ALL("全部"),
+        ALL("asa.configs.all"),
         ;
 
-        public final String name;
+        public final String translation;
 
-        Tab(String str) {
-            name = str;
+        Tab(String translation) {
+            this.translation = translation;
+        }
+
+        public String getTranslate()
+        {
+            return StringUtils.translate(translation);
         }
     }
 

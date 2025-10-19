@@ -12,7 +12,11 @@ import static io.github.jfglzs.config.Configs.DISABLE_LOADING_TERRAIN_SCREEN;
 @Mixin(DownloadingTerrainScreen.class)
 public class DownloadingTerrainScreen_Mixin
 {
-    @Inject(method = "render" , at = @At("HEAD") , cancellable = true)
+    @Inject(
+            method = "render",
+            at = @At("HEAD"),
+            cancellable = true
+    )
     public void renderInject(DrawContext context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci)
     {
         if (DISABLE_LOADING_TERRAIN_SCREEN.getBooleanValue())
@@ -22,7 +26,11 @@ public class DownloadingTerrainScreen_Mixin
     }
 
     //#if MC > 12001
-    @Inject(method = "renderBackground" , at = @At("HEAD") , cancellable = true)
+    @Inject(
+            method = "renderBackground",
+            at = @At("HEAD"),
+            cancellable = true
+    )
     public void renderBackgroundInject(DrawContext context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci)
     {
         if (DISABLE_LOADING_TERRAIN_SCREEN.getBooleanValue())

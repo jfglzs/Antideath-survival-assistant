@@ -13,7 +13,11 @@ import static io.github.jfglzs.config.Configs.shouldDisableTitle;
 @Mixin(SubtitlesHud.class)
 public class SubtitlesHud_Mixin
 {
-    @Inject(method = "render" , at = @At("HEAD"),cancellable = true)
+    @Inject(
+            method = "render",
+            at = @At("HEAD"),
+            cancellable = true
+    )
     private void renderInject(DrawContext context, CallbackInfo ci)
     {
         if (DISABLE_SUBTITLE.getBooleanValue() && shouldDisableTitle)
