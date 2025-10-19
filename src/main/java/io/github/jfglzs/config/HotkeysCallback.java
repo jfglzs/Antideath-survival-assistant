@@ -7,9 +7,9 @@ import fi.dy.masa.malilib.hotkeys.KeyAction;
 import io.github.jfglzs.AsaMod;
 import io.github.jfglzs.feature.itemtaker.TriggerItemTaker;
 import io.github.jfglzs.feature.switchserver.asaSwitchServer;
+import io.github.jfglzs.utils.ConfigsTranslate;
 import net.minecraft.client.MinecraftClient;
 
-import static io.github.jfglzs.AsaMod.test;
 import static io.github.jfglzs.config.Configs.*;
 
 public class HotkeysCallback implements IHotkeyCallback

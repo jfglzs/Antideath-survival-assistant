@@ -23,7 +23,10 @@ import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 @Mixin(Screen.class)
 public abstract class Screen_Mixin
 {
-    @Inject(method = "init*", at = @At("TAIL"))
+    @Inject(
+            method = "init*",
+            at = @At("TAIL")
+    )
     private void initInject (CallbackInfo ci)
     {
         if (MATERIAL_RECYCLER.getBooleanValue())

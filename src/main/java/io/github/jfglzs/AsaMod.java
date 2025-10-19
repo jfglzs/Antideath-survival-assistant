@@ -7,10 +7,7 @@ import io.github.jfglzs.config.HotkeysCallback;
 import io.github.jfglzs.config.InputHandler;
 import io.github.jfglzs.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.feature.itemdisplay.RemainingItemDisplayer;
-import io.github.jfglzs.utils.ChatUtils;
-import io.github.jfglzs.utils.MCUtils;
-import io.github.jfglzs.utils.PlayerUtils;
-import io.github.jfglzs.utils.ScreenUtils;
+import io.github.jfglzs.utils.*;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -40,6 +37,7 @@ public class AsaMod implements ClientModInitializer
     {
         LOGGER_ASA.info("AsaMod is loading...");
         masaRegister();
+        ConfigsTranslate.translate();
         ClientTickEvents.END_CLIENT_TICK.register(client ->
         {
             checktime++;

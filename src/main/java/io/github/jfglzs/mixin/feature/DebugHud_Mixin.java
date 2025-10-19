@@ -16,7 +16,12 @@ import static io.github.jfglzs.AsaMod.*;
 @Mixin(DebugHud.class)
 public class DebugHud_Mixin
 {
-    @Inject(method = "drawLeftText" , at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/DebugHud;drawText(Lnet/minecraft/client/gui/DrawContext;Ljava/util/List;Z)V"))
+    @Inject(
+            method = "drawLeftText",
+            at = @At(value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/hud/DebugHud;drawText(Lnet/minecraft/client/gui/DrawContext;Ljava/util/List;Z)V"
+            )
+    )
     protected void drawLeftTextInject(DrawContext context, CallbackInfo ci , @Local List<String> list)
     {
         list.add("");

@@ -25,7 +25,11 @@ import static net.minecraft.entity.EntityType.PLAYER;
 public class ArmorFeatureRenderer_Mixin
 {
     //#if MC > 12101
-    @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/client/render/entity/state/BipedEntityRenderState;FF)V" , at = @At("HEAD") , cancellable = true)
+    @Inject(
+            method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/client/render/entity/state/BipedEntityRenderState;FF)V" ,
+            at = @At("HEAD"),
+            cancellable = true
+    )
     public void renderInject(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BipedEntityRenderState bipedEntityRenderState, float f, float g, CallbackInfo ci)
     {
         //#if MC > 12104
@@ -42,7 +46,10 @@ public class ArmorFeatureRenderer_Mixin
     }
 
     //#else
-    //$$    @Inject(method = "renderArmor" , at = @At("HEAD") , cancellable = true)
+    //$$    @Inject(method = "renderArmor",
+    //$$            at = @At("HEAD"),
+    //$$            cancellable = true
+    //$$    )
     //$$    private void renderArmorInject(MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, EquipmentSlot armorSlot, int light, BipedEntityModel<?> model, CallbackInfo ci)
     //$$    {
     //$$        if(entity instanceof PlayerEntity && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue())

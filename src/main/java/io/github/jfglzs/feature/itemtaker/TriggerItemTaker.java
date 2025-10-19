@@ -44,7 +44,7 @@ public class TriggerItemTaker
         }
         if (!MCUtils.openAndCheckScreen()) return false;
 
-        //#if MC > 12101
+        //#if MC > 12104
         int button = client.player.getInventory().getSelectedSlot();
         //#else
         //$$ int button = client.player.getInventory().selectedSlot;
@@ -57,14 +57,14 @@ public class TriggerItemTaker
         }
         else
         {
-            //#if MC > 12101
+            //#if MC > 12104
             client.player.getInventory().setSelectedSlot(id);
             //#else
             //$$ client.player.getInventory().selectedSlot = id;
             //#endif
 
         }
-        //#if MC > 12101
+        //#if MC > 12104
         Objects.requireNonNull(client.getNetworkHandler()).sendPacket(new UpdateSelectedSlotC2SPacket(client.player.getInventory().getSelectedSlot()));
         //#else
         //$$ Objects.requireNonNull(client.getNetworkHandler()).sendPacket(new UpdateSelectedSlotC2SPacket(client.player.getInventory().selectedSlot));

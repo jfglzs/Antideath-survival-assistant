@@ -29,11 +29,13 @@ import static io.github.jfglzs.utils.MCUtils.getWorld;
 @Mixin(ClientPlayerInteractionManager.class)
 public class ClientPlayerInteractionManager_Mixin
 {
-    @Shadow
-    @Final
-    private MinecraftClient client;
+    @Shadow @Final private MinecraftClient client;
 
-    @Inject(method = "interactBlock" , at = @At("HEAD") , cancellable = true)
+    @Inject(
+            method = "interactBlock",
+            at = @At("HEAD") ,
+            cancellable = true
+    )
     public void interactBlockInject(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir)
     {
         if (DISABLE_PLACE_BLOCK_NEARBY_PORTAL.getBooleanValue())

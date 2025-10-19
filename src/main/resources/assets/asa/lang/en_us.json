@@ -1,0 +1,85 @@
+{
+  "asa.configs.all": "ALL",
+  "asa.gui.title": "Antideath-Survival-Assistant",
+
+  "asa.config.opengui": "open ASA GUI",
+  "asa.config.opengui.comment": "open ASA GUI",
+
+  "asa.config.creeperwarn": "CreeperWarner",
+  "asa.config.creeperwarn.comment": "CreeperWarner,To warn you if creeper is nearby",
+
+  "asa.config.creeperwarn.range": "CreeperWarnerRange",
+  "asa.config.creeperwarn.range.comment": "CreeperWarnerRange",
+
+  "asa.config.material_recycler": "MaterialRecycler",
+  "asa.config.material_recycler.comment": "Enables the material recycler feature.",
+
+  "asa.config.material_recycler_list": "MaterialRecyclerList",
+  "asa.config.material_recycler_list.comment": "Defines items that can be recycled.",
+
+  "asa.config.enable_material_recycler_black_list": "Enable MaterialRecyclerBlacklist",
+  "asa.config.enable_material_recycler_black_list.comment": "Turns on blacklist restriction for the recycler.",
+
+  "asa.config.material_recycler_black_list": "MaterialRecyclerBlacklist",
+  "asa.config.material_recycler_black_list.comment": "List of items not allowed in the recycler.",
+
+  "asa.config.disable_loading_terrain_screen": "Disable LoadingTerrainScreen",
+  "asa.config.disable_loading_terrain_screen.comment": "Removes the 'Loading terrain' screen during world switching.",
+
+  "asa.config.disable_subtitle": "DisableSubtitles",
+  "asa.config.disable_subtitle.comment": "Hides all in-game subtitles.",
+
+  "asa.config.disable_connect_timed_out": "Disable ConnectionTimeoutMessage",
+  "asa.config.disable_connect_timed_out.comment": "Prevents the 'Connection timed out' message from showing.",
+
+  "asa.config.disable_player_armor_render": "Disable PlayerArmorRendering",
+  "asa.config.disable_player_armor_render.comment": "Disable rendering of player armor in-game.",
+
+  "asa.config.disable_place_block_nearby_portal": "Disable PlacingBlocksNearPortal",
+  "asa.config.disable_place_block_nearby_portal.comment": "Blocks players from placing blocks near nether/end portals.",
+
+  "asa.config.disable_place_block_nearby_portal_whitelist": "Whitelist-PlacingBlocksNearPortal",
+  "asa.config.disable_place_block_nearby_portal_whitelist.comment": "List of blocks allowed to be placed near portals.",
+
+  "asa.config.material_recycler_auto": "AutomaticMaterialRecycler",
+  "asa.config.material_recycler_auto.comment": "Automatically recycles eligible materials.",
+
+  "asa.config.display_remain_item": "DisplayRemainingItems",
+  "asa.config.display_remain_item.comment": "Shows remaining items count in inventory or GUI.",
+
+  "asa.config.switch_server": "SwitchServer",
+  "asa.config.switch_server.comment": "Allows quick switching between servers.",
+
+  "asa.config.switch_server_command": "SwitchServerCommand",
+  "asa.config.switch_server_command.comment": "Command used to switch between servers.",
+
+  "asa.config.switch_server_single_1": "SingleServerSlot 1",
+  "asa.config.switch_server_single_1.comment": "First quick switch server slot.",
+
+  "asa.config.switch_server_single_1s": "SingleServerSlot 1 (secondary)",
+  "asa.config.switch_server_single_1s.comment": "Secondary server entry for slot 1.",
+
+  "asa.config.switch_server_single_2": "SingleServerSlot 2",
+  "asa.config.switch_server_single_2.comment": "Second quick switch server slot.",
+
+  "asa.config.switch_server_single_2s": "SingleServerSlot 2 (secondary)",
+  "asa.config.switch_server_single_2s.comment": "Secondary server entry for slot 2.",
+
+  "asa.config.switch_server_single_3": "SingleServerSlot 3",
+  "asa.config.switch_server_single_3.comment": "Third quick switch server slot.",
+
+  "asa.config.switch_server_single_3s": "SingleServerSlot 3 (secondary)",
+  "asa.config.switch_server_single_3s.comment": "Secondary server entry for slot 3.",
+
+  "asa.config.switch_item_list": "ItemSwitchList",
+  "asa.config.switch_item_list.comment": "List of items that can be switched automatically.",
+
+  "asa.config.switch_item": "ItemSwitch",
+  "asa.config.switch_item.comment": "Enables switching between predefined items.",
+
+  "asa.config.tap_filter": "TapFilter",
+  "asa.config.tap_filter.comment": "Filters actions triggered by tapping.",
+
+  "asa.config.tap_filter_whitelist": "TapFilterWhitelist",
+  "asa.config.tap_filter_whitelist.comment": "Whitelist for tap actions not filtered."
+}
