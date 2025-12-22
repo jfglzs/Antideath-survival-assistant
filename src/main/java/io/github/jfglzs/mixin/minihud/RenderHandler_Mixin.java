@@ -6,5 +6,4 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(RenderHandler.class)
 public class RenderHandler_Mixin
 {
-    Modify
 }
