@@ -4,7 +4,6 @@ import io.github.jfglzs.AsaMod;
 import io.github.jfglzs.utils.PlayerUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ShulkerBoxScreenHandler;
 import net.minecraft.screen.slot.Slot;
@@ -60,7 +59,7 @@ public abstract class Screen_Mixin
             }
 
             allowUpdate = true;
-            if (allowCloseScreen && !Boxlist.isEmpty() && !(handler instanceof PlayerScreenHandler)) client.setScreen(null);
+            if (allowCloseScreen && !Boxlist.isEmpty()) client.setScreen(null);
         }
     }
 }

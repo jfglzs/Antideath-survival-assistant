@@ -15,7 +15,8 @@ public class ClientPlayNetworkHandler_Mixin
 {
     @Inject(
             method = "onEntityStatus",
-            at = @At(value = "INVOKE",
+            at = @At(
+                    value = "INVOKE",
                     ordinal = 0,
                     target = "Lnet/minecraft/client/network/ClientPlayNetworkHandler;getActiveDeathProtector(Lnet/minecraft/entity/player/PlayerEntity;)Lnet/minecraft/item/ItemStack;"
             )

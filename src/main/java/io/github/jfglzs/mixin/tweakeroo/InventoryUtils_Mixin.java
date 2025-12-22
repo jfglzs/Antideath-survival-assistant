@@ -13,7 +13,8 @@ public class InventoryUtils_Mixin
 {
     @Inject(
             method = "preRestockHand",
-            at = @At(value = "INVOKE",
+            at = @At(
+                    value = "INVOKE",
                     target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;clickSlot(IIILnet/minecraft/screen/slot/SlotActionType;Lnet/minecraft/entity/player/PlayerEntity;)V"
             )
     )

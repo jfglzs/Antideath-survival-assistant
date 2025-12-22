@@ -28,7 +28,6 @@ public class TomtemRestock
             clickSlot(getMinecraftClient(), index , emptySlot , SlotActionType.SWAP);
             InventoryUtils_Invoker.swapItemToHand(playerEntity, Hand.OFF_HAND, emptySlot);
             clickSlot(getMinecraftClient(), index , emptySlot , SlotActionType.SWAP);
-
         }
     }
 }

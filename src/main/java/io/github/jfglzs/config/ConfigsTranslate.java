@@ -1,18 +1,26 @@
-package io.github.jfglzs.utils;
+package io.github.jfglzs.config;
 
 import fi.dy.masa.malilib.util.StringUtils;
-import io.github.jfglzs.config.Configs;
+import io.github.jfglzs.AsaMod;
 
 public class ConfigsTranslate
 {
-    //先凑合着用 懒得在研究翻译了 就暴力一点吧(
+    //先凑合着用 懒得在研究翻译了(
 
     public static void translate()
     {
-        for (int i = 0; i <= Configs.ALL.size() -1; i++)
+        for (int i = 0; i <= Configs.ALL.size() - 1; i++)
         {
             Configs.ALL.get(i).setComment(ConfigsTranslateEnum.values()[i].translatedComment);
             Configs.ALL.get(i).setTranslatedName(ConfigsTranslateEnum.values()[i].translated);
+            if (AsaMod.debugMode)
+            {
+                AsaMod.LOGGER_ASA.info(
+                        "Loaded Translate: {} Comment: {}",
+                        ConfigsTranslateEnum.values()[i].translated,
+                        ConfigsTranslateEnum.values()[i].translatedComment
+                );
+            }
         }
     }
 
@@ -49,7 +57,12 @@ public class ConfigsTranslate
         SWITCH_ITEM_LIST("asa.config.switch_item_list"),
         SWITCH_ITEM("asa.config.switch_item"),
         TAP_FILTER("asa.config.tap_filter"),
+        ENABLE_TAP_FILTER_WHITELIST("asa.config.tap_filter_enable_whitelist"),
         TAP_FILTER_WHITELIST("asa.config.tap_filter_whitelist"),
+        TAP_FILTER_BLACKLIST("asa.config.tap_filter_black"),
+        ENABLE_TAP_FILTER_PREFIX("asa.config.tap_filter_enable_prefix"),
+        TAP_FILTER_PREFIX("asa.config.tap_filter_prefix"),
+
 
         TEST("asa.config.test")
         ;

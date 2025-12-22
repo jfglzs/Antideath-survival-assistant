@@ -54,5 +54,13 @@
   "asa.config.tap_filter": "TAB菜单过滤器",
   "asa.config.tap_filter.comment": "过滤掉tab菜单无用的玩家/常驻假人",
   "asa.config.tap_filter_whitelist": "TAB菜单过滤器-白名单",
-  "asa.config.tap_filter_whitelist.comment": "自动回收材料的列表（黑名单）"
+  "asa.config.tap_filter_enable_whitelist": "TAB菜单过滤器-启用白名单",
+  "asa.config.tap_filter_enable_whitelist.comment": "TAB菜单过滤器-启用白名单",
+  "asa.config.tap_filter_whitelist.comment": "TAB菜单过滤器-白名单",
+  "asa.config.tap_filter_black": "TAB菜单过滤器-黑名单",
+  "asa.config.tap_filter_black.comment": "TAB菜单过滤器-黑名单",
+  "asa.config.tap_filter_enable_prefix": "TAB菜单过滤器-启用前缀",
+  "asa.config.tap_filter_enable_prefix.comment": "TAB菜单过滤器-启用前缀",
+  "asa.config.tap_filter_prefix": "TAB菜单过滤器-前缀",
+  "asa.config.tap_filter_prefix.comment": "TAB菜单过滤器-前缀"
 }
