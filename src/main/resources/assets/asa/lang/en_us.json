@@ -54,5 +54,13 @@
   "asa.config.tap_filter":"TABMenuFilter",
   "asa.config.tap_filter.comment":"Filters out unwanted entries (e.g., fake players, bots) from the TAB menu (player list).",
   "asa.config.tap_filter_whitelist":"TABMenuFilterWhitelist",
-  "asa.config.tap_filter_whitelist.comment":"List of players or entries that will not be filtered out by the TAB Menu Filter."
+  "asa.config.tap_filter_whitelist.comment":"List of players or entries that will not be filtered out by the TAB Menu Filter.",
+  "asa.config.tap_filter_enable_whitelist": "EnableTABMenuFilterWhitelist",
+  "asa.config.tap_filter_enable_whitelist.comment":"Enables the whitelist for the TAB menu filter.",
+  "asa.config.tap_filter_black":"TABMenuFilterBlacklist",
+  "asa.config.tap_filter_black.comment":"Blacklist for the TAB menu filter.",
+  "asa.config.tap_filter_enable_prefix":"TABMenuFilterEnablePrefix",
+  "asa.config.tap_filter_enable_prefix.comment":"Enables filtering by prefix for the TAB menu.",
+  "asa.config.tap_filter_prefix":"TABMenuFilterPrefix",
+  "asa.config.tap_filter_prefix.comment":"The prefix string used for TAB menu filtering."
 }

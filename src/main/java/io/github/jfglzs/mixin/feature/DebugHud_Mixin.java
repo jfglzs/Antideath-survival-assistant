@@ -18,7 +18,8 @@ public class DebugHud_Mixin
 {
     @Inject(
             method = "drawLeftText",
-            at = @At(value = "INVOKE",
+            at = @At(
+                    value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/hud/DebugHud;drawText(Lnet/minecraft/client/gui/DrawContext;Ljava/util/List;Z)V"
             )
     )
