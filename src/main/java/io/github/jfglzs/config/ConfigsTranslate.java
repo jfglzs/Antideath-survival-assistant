@@ -3,18 +3,15 @@ package io.github.jfglzs.config;
 import fi.dy.masa.malilib.util.StringUtils;
 import io.github.jfglzs.AsaMod;
 
-public class ConfigsTranslate
-{
+public class ConfigsTranslate {
     //先凑合着用 懒得在研究翻译了(
 
-    public static void translate()
-    {
+    public static void translate() {
         for (int i = 0; i <= Configs.ALL.size() - 1; i++)
         {
             Configs.ALL.get(i).setComment(ConfigsTranslateEnum.values()[i].translatedComment);
             Configs.ALL.get(i).setTranslatedName(ConfigsTranslateEnum.values()[i].translated);
-            if (AsaMod.debugMode)
-            {
+            if (AsaMod.debugMode) {
                 AsaMod.LOGGER_ASA.info(
                         "Loaded Translate: {} Comment: {}",
                         ConfigsTranslateEnum.values()[i].translated,
@@ -24,8 +21,7 @@ public class ConfigsTranslate
         }
     }
 
-    public enum ConfigsTranslateEnum
-    {
+    public enum ConfigsTranslateEnum {
         ASA("asa.config.opengui"),
         CREEPER_WARN("asa.config.creeperwarn"),
         CREEPER_WARN_RANGE("asa.config.creeperwarn.range"),
@@ -63,6 +59,7 @@ public class ConfigsTranslate
         ENABLE_TAP_FILTER_PREFIX("asa.config.tap_filter_enable_prefix"),
         TAP_FILTER_PREFIX("asa.config.tap_filter_prefix"),
 
+        DISABLE_LOCATOR("asa.config.disable_locator"),
 
         TEST("asa.config.test")
         ;
@@ -70,8 +67,7 @@ public class ConfigsTranslate
         public final String translated;
         public final String translatedComment;
 
-        ConfigsTranslateEnum(String translateKey)
-        {
+        ConfigsTranslateEnum(String translateKey) {
             this.translated = StringUtils.translate(translateKey);
             this.translatedComment = StringUtils.translate(translateKey + ".comment");
         }

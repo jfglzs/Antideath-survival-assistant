@@ -22,24 +22,21 @@ import static io.github.jfglzs.config.Configs.DISABLE_PLAYER_ARMOR_RENDER;
 import static net.minecraft.entity.EntityType.PLAYER;
 
 @Mixin(ArmorFeatureRenderer.class)
-public class ArmorFeatureRenderer_Mixin
-{
+public class ArmorFeatureRenderer_Mixin {
     //#if MC > 12101
     @Inject(
             method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/client/render/entity/state/BipedEntityRenderState;FF)V" ,
             at = @At("HEAD"),
             cancellable = true
     )
-    public void renderInject(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BipedEntityRenderState bipedEntityRenderState, float f, float g, CallbackInfo ci)
-    {
+    public void renderInject(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BipedEntityRenderState bipedEntityRenderState, float f, float g, CallbackInfo ci) {
         //#if MC > 12104
         if (bipedEntityRenderState.entityType.equals(PLAYER) && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue())
         {
              ci.cancel();
         }
         //#else
-        //$$        if (DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue())
-        //$$        {
+        //$$        if (DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
         //$$            ci.cancel();
         //$$        }
         //#endif
@@ -50,15 +47,11 @@ public class ArmorFeatureRenderer_Mixin
     //$$            at = @At("HEAD"),
     //$$            cancellable = true
     //$$    )
-    //$$    private void renderArmorInject(MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, EquipmentSlot armorSlot, int light, BipedEntityModel<?> model, CallbackInfo ci)
-    //$$    {
-    //$$        if(entity instanceof PlayerEntity && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue())
-    //$$        {
-    //$$            if (armorSlot.getName().equals("chest"))
-    //$$            {
+    //$$    private void renderArmorInject(MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, EquipmentSlot armorSlot, int light, BipedEntityModel<?> model, CallbackInfo ci) {
+    //$$        if(entity instanceof PlayerEntity && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
+    //$$            if (armorSlot.getName().equals("chest")) {
     //$$                PlayerEntity PE = (PlayerEntity) entity;
-    //$$                if (!PE.getInventory().getStack(38).getItem().equals(Items.ELYTRA))
-    //$$                {
+    //$$                if (!PE.getInventory().getStack(38).getItem().equals(Items.ELYTRA)) {
     //$$                    ci.cancel();
     //$$                }
     //$$

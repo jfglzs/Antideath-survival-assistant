@@ -24,9 +24,8 @@ import static io.github.jfglzs.config.Configs.*;
 import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.*;
 import static io.github.jfglzs.utils.MCUtils.getPlayer;
 
-public class AsaMod implements ClientModInitializer
-{
-    public static boolean debugMode = true;
+public class AsaMod implements ClientModInitializer {
+    public static boolean debugMode = false;
     public static String version = "1.1.3";
     public static final String SPACE = " ";
     public static final String MOD_ID = "ASA";
@@ -35,13 +34,11 @@ public class AsaMod implements ClientModInitializer
     public static int checktime = 0;
 
 	@Override
-	public void onInitializeClient()
-    {
+	public void onInitializeClient() {
         LOGGER_ASA.info("AsaMod is loading...");
         masaRegister();
         ConfigsTranslate.translate();
-        ClientTickEvents.END_CLIENT_TICK.register(client ->
-        {
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
             checktime++;
             if (checktime % 15  == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue() && PlayerUtils.PlayerInventoryUtils.isNotAirInMainHand()) 
                 ChatUtils.overLayMess(
@@ -58,8 +55,7 @@ public class AsaMod implements ClientModInitializer
 
 	}
 
-    void masaRegister()
-    {
+    void masaRegister() {
         Configs.INSTANCE.load();
         ConfigManager.getInstance().registerConfigHandler(MOD_ID, Configs.INSTANCE);
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
@@ -68,16 +64,14 @@ public class AsaMod implements ClientModInitializer
         LOGGER_ASA.info("Masa config loaded");
     }
 
-    public static boolean shouldOpenBox(boolean screenCheck)
-    {
+    public static boolean shouldOpenBox(boolean screenCheck) {
         MinecraftClient client = MCUtils.getMinecraftClient();
         PlayerEntity player = getPlayer();
         if (player == null) return false;
         PlayerInventory inventory = player.getInventory();
         if (!(client.currentScreen == null) && screenCheck) return false;
 
-        for (int i = 0; i < inventory.size() - 1; i++)
-        {
+        for (int i = 0; i < inventory.size() - 1; i++) {
             Item item = inventory.getStack(i).getItem();
             if (ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue() && !isBlackListed(item)) return true;
             if (isWhiteListed(item) && !ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue()) return true;
@@ -87,24 +81,19 @@ public class AsaMod implements ClientModInitializer
     }
 
 
-    private static void creeperWarner()
-    {
-        if (CreeperCheckClient.isCreeperNearby())
-        {
+    private static void creeperWarner() {
+        if (CreeperCheckClient.isCreeperNearby()) {
             ChatUtils.sendMessWithSound("§c苦力怕来了!!!!!!!", SoundEvents.ENTITY_TNT_PRIMED , 1, 1);
         }
     }
 
-    private static void openBox()
-    {
-        if (shouldOpenBox(true))
-        {
+    private static void openBox() {
+        if (shouldOpenBox(true)) {
             openAllBoxes();
         }
     }
 
-    public static void test()
-    {
+    public static void test() {
 //        SystemInfo systemInfo = new SystemInfo();
 //        CentralProcessor.ProcessorIdentifier hardware = systemInfo.getHardware().getProcessor().getProcessorIdentifier();
     }

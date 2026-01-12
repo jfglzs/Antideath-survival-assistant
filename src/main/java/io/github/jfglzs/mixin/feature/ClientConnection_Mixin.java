@@ -14,16 +14,15 @@ public class ClientConnection_Mixin
 {
     @Inject(
             method = "exceptionCaught",
-            at = @At(value = "INVOKE",
+            at = @At(
+                     value = "INVOKE",
                      target = "Lnet/minecraft/network/ClientConnection;disconnect(Lnet/minecraft/text/Text;)V" ,
                      ordinal = 0
             ),
             cancellable = true
     )
-    public void exceptionCaught(ChannelHandlerContext context, Throwable ex, CallbackInfo ci)
-    {
-        if (DISABLE_CONNECT_TIMED_OUT.getBooleanValue())
-        {
+    public void exceptionCaughtInject(ChannelHandlerContext context, Throwable ex, CallbackInfo ci) {
+        if (DISABLE_CONNECT_TIMED_OUT.getBooleanValue()) {
             ci.cancel();
         }
     }

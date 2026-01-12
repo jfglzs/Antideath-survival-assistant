@@ -10,20 +10,15 @@ import net.minecraft.util.Hand;
 import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.*;
 
-public class TomtemRestock
-{
-    public static void trigger()
-    {
+public class TomtemRestock {
+    public static void trigger() {
         PlayerEntity playerEntity = MCUtils.getPlayer();
         int index = searchInventory(Items.TOTEM_OF_UNDYING);
 
         if (index == -1) return;
-        if (index > 8)
-        {
+        if (index > 8) {
             InventoryUtils_Invoker.swapItemToHand(MCUtils.getPlayer(), Hand.OFF_HAND, index);
-        }
-        else
-        {
+        } else {
             int emptySlot = 9;
             clickSlot(getMinecraftClient(), index , emptySlot , SlotActionType.SWAP);
             InventoryUtils_Invoker.swapItemToHand(playerEntity, Hand.OFF_HAND, emptySlot);

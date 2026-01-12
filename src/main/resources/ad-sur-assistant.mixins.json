@@ -22,7 +22,6 @@
     "feature.ClientWorld_Mixin",
     "feature.DebugHud_Mixin",
     "feature.DownloadingTerrainScreen_Mixin",
-    "feature.InGameHud_Mixin",
     "feature.PlayerListHud_Mixin",
     "feature.Screen_Mixin",
     "feature.SubtitlesHud_Mixin"

@@ -10,8 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import java.util.List;
 
 @Mixin(PlayerListHud.class)
-public abstract class PlayerListHud_Mixin
-{
+public abstract class PlayerListHud_Mixin {
     @ModifyVariable(
             method = "render",
             at = @At(
@@ -19,13 +18,10 @@ public abstract class PlayerListHud_Mixin
                     ordinal = 0
             )
     )
-    private List<PlayerListEntry> renderModifyVariable(List<PlayerListEntry> original)
-    {
-        if (Configs.TAP_FILTER.getBooleanValue())
-        {
+    private List<PlayerListEntry> renderModifyVariable(List<PlayerListEntry> original) {
+        if (Configs.TAP_FILTER.getBooleanValue()) {
             return original.stream()
-                    .filter(entry ->
-                    {
+                    .filter(entry -> {
                         String name = entry.getProfile().getName();
                         boolean bl;
                         if (Configs.ENABLE_TAP_FILTER_PREFIX.getBooleanValue())
