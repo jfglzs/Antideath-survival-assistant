@@ -18,10 +18,8 @@ public class SubtitlesHud_Mixin
             at = @At("HEAD"),
             cancellable = true
     )
-    private void renderInject(DrawContext context, CallbackInfo ci)
-    {
-        if (DISABLE_SUBTITLE.getBooleanValue() && shouldDisableTitle)
-        {
+    private void renderInject(DrawContext context, CallbackInfo ci) {
+        if (DISABLE_SUBTITLE.getBooleanValue() && shouldDisableTitle) {
             ci.cancel();
         }
     }

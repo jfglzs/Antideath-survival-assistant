@@ -15,12 +15,10 @@ import java.util.Objects;
 import static io.github.jfglzs.config.Configs.*;
 import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.*;
 
-public class TriggerItemTaker
-{
+public class TriggerItemTaker {
     private static int index = 0;
 
-    public static void trigger()
-    {
+    public static void trigger() {
         List<String> list = SWITCH_ITEM_LIST.getStrings();
         if (list.isEmpty()) return;
         if (list.size() == index) index = 0;
@@ -32,8 +30,7 @@ public class TriggerItemTaker
     }
 
 
-    public static boolean searchAndSwitchItem(Item item)
-    {
+    public static boolean searchAndSwitchItem(Item item) {
         MinecraftClient client = MCUtils.getMinecraftClient();
         int index = searchInventory(item);
         if (index == -1) return false;
@@ -49,14 +46,11 @@ public class TriggerItemTaker
         //#else
         //$$ int button = client.player.getInventory().selectedSlot;
         //#endif
-        int id =  client.player.currentScreenHandler.slots.get(index).id;
+        int id = client.player.currentScreenHandler.slots.get(index).id;
 
-        if (id >= 9)
-        {
+        if (id >= 9) {
             clickSlot(client, id, button, SlotActionType.SWAP);
-        }
-        else
-        {
+        } else {
             //#if MC > 12104
             client.player.getInventory().setSelectedSlot(id);
             //#else

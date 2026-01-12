@@ -7,8 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(InventoryUtils.class)
-public interface InventoryUtils_Invoker
-{
+public interface InventoryUtils_Invoker {
     @Invoker("swapItemToHand")
     static void swapItemToHand(PlayerEntity player, Hand hand, int slotNumber) {}
 }

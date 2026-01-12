@@ -10,8 +10,7 @@ import static io.github.jfglzs.AsaMod.SPACE;
 import static io.github.jfglzs.config.Configs.SWITCH_SERVER_COMMAND;
 import static io.github.jfglzs.config.Configs.SWITCH_SERVER_LIST;
 
-public class asaSwitchServer
-{
+public class asaSwitchServer {
     private static int index = 0;
 
     public static void switchServer(){
@@ -19,8 +18,7 @@ public class asaSwitchServer
         List<String> list = SWITCH_SERVER_LIST.getStrings();
         String[] servers = list.toArray(new String[0]);
 
-        if(servers.length == 0)
-        {
+        if(servers.length == 0) {
             ChatUtils.sendMessOnlyClientVisible("§c服务器列表不能为空,请前往设置菜单进行设置");
             return;
         }
@@ -30,14 +28,11 @@ public class asaSwitchServer
         if(index == servers.length) index = 0;
     }
 
-    public static void switchServer(String Server)
-    {
-        if (Server.isEmpty())
-        {
+    public static void switchServer(String Server) {
+        if (Server.isEmpty()) {
             ChatUtils.sendMessOnlyClientVisible("§c服务器名称不能为空,请前往设置菜单进行设置");
             return;
         }
         CommandUtils.excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + Server);
     }
-
 }

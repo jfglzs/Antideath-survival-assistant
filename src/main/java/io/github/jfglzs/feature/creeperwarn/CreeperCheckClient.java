@@ -9,17 +9,14 @@ import net.minecraft.world.World;
 import static io.github.jfglzs.config.Configs.CREEPER_WARN_RANGE;
 import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 
-public class CreeperCheckClient
-{
-    public static boolean isCreeperNearby()
-    {
+public class CreeperCheckClient {
+    public static boolean isCreeperNearby() {
         MinecraftClient client = getMinecraftClient();
         ClientPlayerEntity player = client.player;
         World world = client.world;
 
         if (player == null || world == null) return false;
-        if (player.isCreative()) return false;
-        if (player.isSpectator()) return false;
+        if (player.isCreative() || player.isSpectator()) return false;
 
         double range = CREEPER_WARN_RANGE.getDoubleValue();
         Box box = player.getBoundingBox().expand(range);

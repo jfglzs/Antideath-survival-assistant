@@ -36,13 +36,10 @@ public class ClientPlayerInteractionManager_Mixin
             at = @At("HEAD") ,
             cancellable = true
     )
-    public void interactBlockInject(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir)
-    {
-        if (DISABLE_PLACE_BLOCK_NEARBY_PORTAL.getBooleanValue())
-        {
+    public void interactBlockInject(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
+        if (DISABLE_PLACE_BLOCK_NEARBY_PORTAL.getBooleanValue()) {
             BlockPos pos = hitResult.getBlockPos();
-            for (Direction dir : Direction.values())
-            {
+            for (Direction dir : Direction.values()) {
                 BlockPos neighbor = pos.offset(dir);
                 BlockState state = getWorld().getBlockState(neighbor);
                 Block block = state.getBlock();
@@ -52,11 +49,9 @@ public class ClientPlayerInteractionManager_Mixin
     }
 
     @Unique
-    private boolean isWhiteList()
-    {
+    private boolean isWhiteList() {
         Item item = client.player.getMainHandStack().getItem();
-        for (String id : DISABLE_PLACE_BLOCK_NEARBY_PORTAL_WHITELIST.getStrings())
-        {
+        for (String id : DISABLE_PLACE_BLOCK_NEARBY_PORTAL_WHITELIST.getStrings()) {
             //#if MC > 12001
             if (id.contains("minecraft")) return false;
             Identifier identifier = Identifier.ofVanilla(id);

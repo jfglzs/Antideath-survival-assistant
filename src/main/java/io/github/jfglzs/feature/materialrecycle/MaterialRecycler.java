@@ -15,8 +15,7 @@ import static io.github.jfglzs.config.Configs.MATERIAL_RECYCLER_LIST;
 import static io.github.jfglzs.utils.PlayerUtils.PlayerInventoryUtils.*;
 
 
-public class MaterialRecycler
-{
+public class MaterialRecycler {
     public static boolean allowUpdate = true;
     public static int openedBoxSlot = -1;
     static List<String> bl = List.of(
@@ -42,14 +41,11 @@ public class MaterialRecycler
 
 
 
-    public static boolean isWhiteListed(Item item)
-    {
+    public static boolean isWhiteListed(Item item) {
         List<String> list = MATERIAL_RECYCLER_LIST.getStrings();
 
-        if (!list.isEmpty())
-        {
-            for (String id : list)
-            {
+        if (!list.isEmpty()) {
+            for (String id : list) {
                 //#if MC > 12001
                 Identifier identifier = Identifier.ofVanilla(id);
                 //#else
@@ -66,13 +62,11 @@ public class MaterialRecycler
         return false;
     }
 
-    public static boolean isBlackListed(Item item)
-    {
+    public static boolean isBlackListed(Item item) {
         List<String> list = MATERIAL_RECYCLER_BLACK_LIST.getStrings();
         if (isBL(item)) return true;
 
-        for (String id : list)
-        {
+        for (String id : list) {
             //#if MC > 12001
             if (id.contains("minecraft")) return false;
             Identifier identifier = Identifier.ofVanilla(id);
@@ -86,16 +80,13 @@ public class MaterialRecycler
         return false;
     }
 
-    public static void openAllBoxes()
-    {
+    public static void openAllBoxes() {
         if (!FabricUtils.isModLoaded("quickshulker")) return;
         List<Integer> list = getUnFullBoxIndexes(getAllBoxIndexes(36));
         if (list.isEmpty()) return;
 
-        for (int i : list)
-        {
-            if (allowUpdate)
-            {
+        for (int i : list) {
+            if (allowUpdate) {
 //                System.out.println(list);
                 ClientUtil.CheckAndSend(new ItemStack(Items.SHULKER_BOX), i);
                 openedBoxSlot = getOpenedBoxEmptySlots(i);
@@ -104,10 +95,8 @@ public class MaterialRecycler
         }
     }
 
-    private static boolean isBL(Item item)
-    {
-        for (String id : bl)
-        {
+    private static boolean isBL(Item item) {
+        for (String id : bl) {
             //#if MC > 12001
             if (id.contains("minecraft")) return false;
             Identifier identifier = Identifier.ofVanilla(id);

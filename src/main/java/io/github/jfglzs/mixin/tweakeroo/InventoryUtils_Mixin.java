@@ -9,8 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InventoryUtils.class)
-public class InventoryUtils_Mixin
-{
+public class InventoryUtils_Mixin {
     @Inject(
             method = "preRestockHand",
             at = @At(
@@ -18,8 +17,7 @@ public class InventoryUtils_Mixin
                     target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;clickSlot(IIILnet/minecraft/screen/slot/SlotActionType;Lnet/minecraft/entity/player/PlayerEntity;)V"
             )
     )
-    private static void preRestockHand(PlayerEntity player, Hand hand, boolean allowHotbar, CallbackInfo ci)
-    {
+    private static void preRestockHand(PlayerEntity player, Hand hand, boolean allowHotbar, CallbackInfo ci) {
         System.out.println("trigger");
     }
 

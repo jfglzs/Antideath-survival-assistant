@@ -62,5 +62,7 @@
   "asa.config.tap_filter_enable_prefix":"TABMenuFilterEnablePrefix",
   "asa.config.tap_filter_enable_prefix.comment":"Enables filtering by prefix for the TAB menu.",
   "asa.config.tap_filter_prefix":"TABMenuFilterPrefix",
-  "asa.config.tap_filter_prefix.comment":"The prefix string used for TAB menu filtering."
+  "asa.config.tap_filter_prefix.comment":"The prefix string used for TAB menu filtering.",
+  "asa.config.disable_locator":"Disable locatorBar",
+  "asa.config.disable_locator.comment":"Disable locatorBar"
 }

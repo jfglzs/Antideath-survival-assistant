@@ -8,8 +8,7 @@ import net.minecraft.world.World;
 import static io.github.jfglzs.utils.ScreenUtils.client;
 import static io.github.jfglzs.utils.ScreenUtils.openInventoryScreen;
 
-public class MCUtils
-{
+public class MCUtils {
 
     public static MinecraftClient getMinecraftClient()
     {
@@ -26,8 +25,7 @@ public class MCUtils
        return getPlayer().getWorld();
     }
 
-    public static boolean openAndCheckScreen()
-    {
+    public static boolean openAndCheckScreen() {
         client = getMinecraftClient();
         if (client.currentScreen == null) openInventoryScreen();
         if (client.player == null || client.interactionManager == null) return false;

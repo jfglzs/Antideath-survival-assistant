@@ -62,5 +62,7 @@
   "asa.config.tap_filter_enable_prefix": "TAB菜单过滤器-启用前缀",
   "asa.config.tap_filter_enable_prefix.comment": "TAB菜单过滤器-启用前缀",
   "asa.config.tap_filter_prefix": "TAB菜单过滤器-前缀",
-  "asa.config.tap_filter_prefix.comment": "TAB菜单过滤器-前缀"
+  "asa.config.tap_filter_prefix.comment": "TAB菜单过滤器-前缀",
+  "asa.config.disable_locator":"禁用定位栏",
+  "asa.config.disable_locator.comment":" "
 }

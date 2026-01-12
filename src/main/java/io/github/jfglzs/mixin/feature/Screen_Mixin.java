@@ -20,16 +20,13 @@ import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.*;
 import static io.github.jfglzs.utils.MCUtils.getMinecraftClient;
 
 @Mixin(Screen.class)
-public abstract class Screen_Mixin
-{
+public abstract class Screen_Mixin {
     @Inject(
             method = "init*",
             at = @At("TAIL")
     )
-    private void initInject (CallbackInfo ci)
-    {
-        if (MATERIAL_RECYCLER.getBooleanValue())
-        {
+    private void initInject (CallbackInfo ci) {
+        if (MATERIAL_RECYCLER.getBooleanValue()) {
             int maxClickCount = openedBoxSlot;
             int clickCount = 0;
             boolean allowCloseScreen = AsaMod.shouldOpenBox(false);
@@ -41,17 +38,12 @@ public abstract class Screen_Mixin
             if (handler == null) return;
             if (!(handler instanceof ShulkerBoxScreenHandler)) return;
 
-            for (Slot slot : handler.slots)
-            {
-                if (slot.inventory == client.player.getInventory() && maxClickCount != clickCount && !slot.getStack().isEmpty())
-                {
-                    if (ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue() && !isBlackListed(slot.getStack().getItem()))
-                    {
+            for (Slot slot : handler.slots) {
+                if (slot.inventory == client.player.getInventory() && maxClickCount != clickCount && !slot.getStack().isEmpty()) {
+                    if (ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue() && !isBlackListed(slot.getStack().getItem())) {
                         client.interactionManager.clickSlot(handler.syncId, slot.id, 0, SlotActionType.QUICK_MOVE, client.player);
                         clickCount++;
-                    }
-                    else if (isWhiteListed(slot.getStack().getItem()) && !ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue())
-                    {
+                    } else if (isWhiteListed(slot.getStack().getItem()) && !ENABLE_MATERIAL_RECYCLER_BLACK_LIST.getBooleanValue()) {
                         client.interactionManager.clickSlot(handler.syncId, slot.id, 0, SlotActionType.QUICK_MOVE, client.player);
                         clickCount++;
                     }

@@ -1,6 +1,5 @@
 package io.github.jfglzs.feature.itemrestock;
 
-public class ItemRestock
-{
+public class ItemRestock {
 
 }
