@@ -50,8 +50,8 @@ public class ArmorFeatureRenderer_Mixin {
     //$$    private void renderArmorInject(MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, EquipmentSlot armorSlot, int light, BipedEntityModel<?> model, CallbackInfo ci) {
     //$$        if(entity instanceof PlayerEntity && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
     //$$            if (armorSlot.getName().equals("chest")) {
-    //$$                PlayerEntity PE = (PlayerEntity) entity;
-    //$$                if (!PE.getInventory().getStack(38).getItem().equals(Items.ELYTRA)) {
+    //$$                PlayerEntity p = (PlayerEntity) entity;
+    //$$                if (!p.getInventory().getStack(38).getItem().equals(Items.ELYTRA)) {
     //$$                    ci.cancel();
     //$$                }
     //$$

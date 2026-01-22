@@ -3,7 +3,6 @@ package io.github.jfglzs;
 import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InputEventHandler;
 import io.github.jfglzs.config.Configs;
-import io.github.jfglzs.config.ConfigsTranslate;
 import io.github.jfglzs.config.HotkeysCallback;
 import io.github.jfglzs.config.InputHandler;
 import io.github.jfglzs.feature.creeperwarn.CreeperCheckClient;
@@ -25,7 +24,6 @@ import static io.github.jfglzs.feature.materialrecycle.MaterialRecycler.*;
 import static io.github.jfglzs.utils.MCUtils.getPlayer;
 
 public class AsaMod implements ClientModInitializer {
-    public static boolean debugMode = false;
     public static String version = "1.1.3";
     public static final String SPACE = " ";
     public static final String MOD_ID = "ASA";
@@ -37,11 +35,10 @@ public class AsaMod implements ClientModInitializer {
 	public void onInitializeClient() {
         LOGGER_ASA.info("AsaMod is loading...");
         masaRegister();
-        ConfigsTranslate.translate();
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             checktime++;
-            if (checktime % 15  == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue() && PlayerUtils.PlayerInventoryUtils.isNotAirInMainHand()) 
-                ChatUtils.overLayMess(
+            if (checktime % 15  == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue() && PlayerUtils.isNotAirInMainHand())
+                MCUtils.ChatUtils.overLayMess(
                     String.format("Item: %s Remain: %d",
                             MCUtils.getMinecraftClient().player.getMainHandStack().getItem(),
                             RemainingItemDisplayer.checkRemainCount(MCUtils.getMinecraftClient().player.getMainHandStack().getItem())
@@ -83,7 +80,7 @@ public class AsaMod implements ClientModInitializer {
 
     private static void creeperWarner() {
         if (CreeperCheckClient.isCreeperNearby()) {
-            ChatUtils.sendMessWithSound("§c苦力怕来了!!!!!!!", SoundEvents.ENTITY_TNT_PRIMED , 1, 1);
+            MCUtils.ChatUtils.sendMessWithSound("§c苦力怕来了!!!!!!!", SoundEvents.ENTITY_TNT_PRIMED , 1, 1);
         }
     }
 

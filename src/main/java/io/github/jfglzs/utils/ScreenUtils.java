@@ -14,25 +14,27 @@ public class ScreenUtils {
     }
 
     public static void closeScreen() {
-        if (hasNotPlayer()) return;
+        if (client.player == null) return;
         client.player.closeHandledScreen();
     }
 
     public static void openInventoryScreen() {
-        if (hasNotPlayer()) return;
+        if (client.player == null) return;
         client.setScreen(new InventoryScreen(client.player));
-    }
-
-    public static boolean hasNotPlayer()
-    {
-        return client.player == null;
     }
 
     public static ScreenHandler openAndGetHandle(Screen screen) {
         client.setScreen(screen);
-        if (hasNotPlayer()) return null;
+        if (client.player == null) return null;
         return client.player.currentScreenHandler;
     }
 
-
+    public static boolean openAndCheckScreen() {
+        client = MCUtils.getMinecraftClient();
+        if (client.currentScreen == null) openInventoryScreen();
+        if (client.player == null || client.interactionManager == null) return false;
+        ScreenHandler handler = client.player.currentScreenHandler;
+        if (handler == null) return false;
+        return true;
+    }
 }

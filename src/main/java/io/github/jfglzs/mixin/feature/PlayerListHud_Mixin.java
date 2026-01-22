@@ -23,17 +23,13 @@ public abstract class PlayerListHud_Mixin {
             return original.stream()
                     .filter(entry -> {
                         String name = entry.getProfile().getName();
-                        boolean bl;
-                        if (Configs.ENABLE_TAP_FILTER_PREFIX.getBooleanValue())
-                        {
+                        boolean bl = true;
+                        if (Configs.ENABLE_TAP_FILTER_PREFIX.getBooleanValue()) {
                             bl = Configs.TAP_FILTER_WHITELIST.getStrings().stream().anyMatch(name::startsWith);
                         }
-                        if (Configs.ENABLE_TAP_FILTER_WHITELIST.getBooleanValue())
-                        {
+                        if (Configs.ENABLE_TAP_FILTER_WHITELIST.getBooleanValue()) {
                             bl = Configs.TAP_FILTER_WHITELIST.getStrings().stream().anyMatch(name::equals);
-                        }
-                        else
-                        {
+                        } else {
                             bl = Configs.TAP_FILTER_WHITELIST.getStrings().stream().noneMatch(name::equals);
                         }
                         return bl;

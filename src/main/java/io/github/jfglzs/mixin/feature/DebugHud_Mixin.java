@@ -22,7 +22,7 @@ public class DebugHud_Mixin {
                     target = "Lnet/minecraft/client/gui/hud/DebugHud;drawText(Lnet/minecraft/client/gui/DrawContext;Ljava/util/List;Z)V"
             )
     )
-    protected void drawLeftTextInject(DrawContext context, CallbackInfo ci , @Local List<String> list) {
+    protected void drawLeftTextInject(DrawContext context, CallbackInfo ci , @Local(name = "list") List<String> list) {
         list.add("");
         list.add(String.format("%s Antideath Survival Assistant V %s" , C_MOD_ID , version));
         list.add(String.format("%s %s Features loaded" , C_MOD_ID , Configs.getFeatureAmount()));

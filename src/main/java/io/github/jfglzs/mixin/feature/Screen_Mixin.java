@@ -25,12 +25,12 @@ public abstract class Screen_Mixin {
             method = "init*",
             at = @At("TAIL")
     )
-    private void initInject (CallbackInfo ci) {
+    private void initInject(CallbackInfo ci) {
         if (MATERIAL_RECYCLER.getBooleanValue()) {
             int maxClickCount = openedBoxSlot;
             int clickCount = 0;
             boolean allowCloseScreen = AsaMod.shouldOpenBox(false);
-            List<Integer> Boxlist = PlayerUtils.PlayerInventoryUtils.getUnFullBoxIndexes(PlayerUtils.PlayerInventoryUtils.getAllBoxIndexes(35));
+            List<Integer> Boxlist = PlayerUtils.getUnFullBoxIndexes(PlayerUtils.getAllBoxIndexes(35));
 
             MinecraftClient client = getMinecraftClient();
             if (client.player == null || client.interactionManager == null || openedBoxSlot == -1) return;
