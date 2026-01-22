@@ -18,9 +18,10 @@ import static io.github.jfglzs.AsaMod.MOD_ID;
 
 public class Configs implements IConfigHandler {
     public static Configs INSTANCE = new Configs();
+    public static boolean shouldDisableTitle = false;
     private static final String FILE_PATH = "./config/" + MOD_ID + ".json";
     private static final File CONFIG_DIR = new File("./config");
-    public static boolean shouldDisableTitle = false;
+    public static final ImmutableList<IConfigBase> ALL_CONFIGS = addAllConfigs();
 
     public static final ConfigHotkey ASA = new ConfigHotkey( "打开设置菜单", "Z,K","打开设置菜单快捷键");
 
@@ -59,9 +60,6 @@ public class Configs implements IConfigHandler {
     public static final ConfigBoolean ENABLE_TAP_FILTER_PREFIX = new ConfigBoolean( "启用TAB菜单过滤器-前缀", false," ");
     public static final ConfigStringList TAP_FILTER_PREFIX = new ConfigStringList( "TAB菜单过滤器-前缀",ImmutableList.of()," ");
 
-    public static final ConfigBoolean DISABLE_LOCATOR = new ConfigBoolean( "禁用定位栏1.21.6+", false," ");
-
-
     public static final ConfigStringList SWITCH_ITEM_LIST = new ConfigStringList( "切换物品列表",ImmutableList.of(),"切换物品列表");
     public static final ConfigHotkey SWITCH_ITEM = new ConfigHotkey( "切换物品", "","切换物品");
 
@@ -71,10 +69,11 @@ public class Configs implements IConfigHandler {
 
 
     public static final ImmutableList<IConfigBase> ALL = addCompatibility();
+
     public static ImmutableList<IConfigBase> addCompatibility() {
         List<IConfigBase> list = new ArrayList<>();
         list.add(ASA);
-        
+
         list.add(CREEPER_WARN);
         list.add(CREEPER_WARN_RANGE);
 
@@ -111,7 +110,6 @@ public class Configs implements IConfigHandler {
         list.add(TAP_FILTER_BLACKLIST);
         list.add(ENABLE_TAP_FILTER_PREFIX);
         list.add(TAP_FILTER_PREFIX);
-        list.add(DISABLE_LOCATOR);
 
         list.add(TEST);
 
@@ -119,7 +117,6 @@ public class Configs implements IConfigHandler {
 
         return ImmutableList.copyOf(list);
     }
-
     public static final ImmutableList<IHotkeyTogglable> SWITCH_KEY = ImmutableList.of(
 
             CREEPER_WARN,
@@ -144,11 +141,8 @@ public class Configs implements IConfigHandler {
             TEST
     );
 
-    public static final ImmutableList<IConfigBase> ALL_CONFIGS = addAllConfigs();
     public static ImmutableList<IConfigBase> addAllConfigs() {
-        List<IConfigBase> list = new ArrayList<>();
-        list.addAll(ALL);
-
+        List<IConfigBase> list = new ArrayList<>(ALL);
         return ImmutableList.copyOf(list);
     }
 
@@ -175,8 +169,7 @@ public class Configs implements IConfigHandler {
     }
 
 
-    public static int getFeatureAmount()
-    {
+    public static int getFeatureAmount() {
         return addCompatibility().size();
     }
 }

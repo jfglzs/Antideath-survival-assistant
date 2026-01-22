@@ -27,8 +27,7 @@ import static io.github.jfglzs.config.Configs.DISABLE_PLACE_BLOCK_NEARBY_PORTAL_
 import static io.github.jfglzs.utils.MCUtils.getWorld;
 
 @Mixin(ClientPlayerInteractionManager.class)
-public class ClientPlayerInteractionManager_Mixin
-{
+public class ClientPlayerInteractionManager_Mixin {
     @Shadow @Final private MinecraftClient client;
 
     @Inject(

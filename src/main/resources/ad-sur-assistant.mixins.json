@@ -19,7 +19,6 @@
     "feature.ArmorFeatureRenderer_Mixin",
     "feature.ClientPlayerInteractionManager_Mixin",
     "feature.ClientPlayNetworkHandler_Mixin",
-    "feature.ClientWorld_Mixin",
     "feature.DebugHud_Mixin",
     "feature.DownloadingTerrainScreen_Mixin",
     "feature.PlayerListHud_Mixin",

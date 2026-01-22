@@ -18,7 +18,5 @@ public class InventoryUtils_Mixin {
             )
     )
     private static void preRestockHand(PlayerEntity player, Hand hand, boolean allowHotbar, CallbackInfo ci) {
-        System.out.println("trigger");
     }
-
 }

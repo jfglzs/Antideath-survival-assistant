@@ -32,9 +32,6 @@ repositories {
     maven {
         url = "https://masa.dy.fi/maven"
     }
-    maven {
-        url = "https://jitpack.io"
-    }
 }
 
 configurations {
@@ -61,9 +58,17 @@ dependencies {
     else if (minecraft_version.startsWith("1.21")) {
         modImplementation("com.github.sakura-ryoko:malilib:${project.malilib_version}")
         modImplementation("com.github.MoRanpcy:quickshulker:${project.quick_shulker_version}")
-        modImplementation("com.github.sakura-ryoko:tweakeroo:${project.tweakeroo_version}")
-        modImplementation("com.github.sakura-ryoko:litematica:${project.litematic_version}")
-        modImplementation("com.github.sakura-ryoko:minihud:${project.minihud_version}")
+        modImplementation("com.github.sakura-ryoko:tweakeroo:${project.tweakeroo_version}") {
+            exclude group: "fi.dy.masa.malilib"
+        }
+
+        modImplementation("com.github.sakura-ryoko:litematica:${project.litematic_version}") {
+            exclude group: "fi.dy.masa.malilib"
+        }
+
+        modImplementation("com.github.sakura-ryoko:minihud:${project.minihud_version}") {
+            exclude group: "fi.dy.masa.malilib"
+        }
     }
 
 }
@@ -97,7 +102,7 @@ loom {
 }
 
 java {
-	withSourcesJar()
+//	withSourcesJar()
 	sourceCompatibility = JavaVersion.VERSION_21
 	targetCompatibility = JavaVersion.VERSION_21
 }

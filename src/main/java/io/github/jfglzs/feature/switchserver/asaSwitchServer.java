@@ -1,7 +1,6 @@
 package io.github.jfglzs.feature.switchserver;
 
-import io.github.jfglzs.utils.ChatUtils;
-import io.github.jfglzs.utils.CommandUtils;
+import io.github.jfglzs.utils.MCUtils;
 
 import java.util.List;
 
@@ -19,20 +18,20 @@ public class asaSwitchServer {
         String[] servers = list.toArray(new String[0]);
 
         if(servers.length == 0) {
-            ChatUtils.sendMessOnlyClientVisible("§c服务器列表不能为空,请前往设置菜单进行设置");
+            MCUtils.ChatUtils.sendMessOnlyClientVisible("§c服务器列表不能为空,请前往设置菜单进行设置");
             return;
         }
 
-        CommandUtils.excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + servers[index++]);
+        MCUtils.excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + servers[index++]);
         LOGGER_ASA.info("Switch to {}", servers[index]);
         if(index == servers.length) index = 0;
     }
 
     public static void switchServer(String Server) {
         if (Server.isEmpty()) {
-            ChatUtils.sendMessOnlyClientVisible("§c服务器名称不能为空,请前往设置菜单进行设置");
+            MCUtils.ChatUtils.sendMessOnlyClientVisible("§c服务器名称不能为空,请前往设置菜单进行设置");
             return;
         }
-        CommandUtils.excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + Server);
+        MCUtils.excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + Server);
     }
 }
