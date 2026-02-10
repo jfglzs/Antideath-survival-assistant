@@ -16,10 +16,10 @@
 	"environment": "*",
 	"entrypoints": {
         "client": [
-          "io.github.jfglzs.AsaMod"
+          "io.jfglzs.asa.AsaMod"
         ],
         "modmenu": [
-          "io.github.jfglzs.config.ModMenu"
+          "io.jfglzs.asa.config.ModMenu"
         ]
 	},
 	"mixins": [
