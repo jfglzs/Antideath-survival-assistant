@@ -6,10 +6,7 @@ import fi.dy.masa.minihud.event.RenderHandler;
 import io.jfglzs.asa.config.Configs;
 import io.jfglzs.asa.utils.ThreadUtils;
 import net.minecraft.client.gui.DrawContext;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -17,12 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Mixin(RenderHandler.class)
 public abstract class RenderHandler_Mixin {
-    //#if MC < 12108
-    @Shadow
-    @Final
+    @Shadow @Final @Mutable
     private List<String> lines;
     @Unique
     private List<String> cache = new ArrayList<>();
@@ -104,5 +100,13 @@ public abstract class RenderHandler_Mixin {
         }
         return RenderUtils.renderText(x, y, f, c, bx, a, b, b2, b3, l, cn);
     }
-    //#endif
+
+    @Inject(
+            method = "<init>",
+            at = @At("TAIL")
+    )
+    public void init_Inject(CallbackInfo ci) {
+        this.lines = new CopyOnWriteArrayList<>();
+    }
+
 }
