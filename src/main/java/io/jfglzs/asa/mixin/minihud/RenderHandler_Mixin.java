@@ -20,6 +20,7 @@ import java.util.List;
 
 @Mixin(RenderHandler.class)
 public abstract class RenderHandler_Mixin {
+    //#if MC < 12108
     @Shadow
     @Final
     private List<String> lines;
@@ -72,26 +73,29 @@ public abstract class RenderHandler_Mixin {
     )
     private void minihudOpt_inject(CallbackInfo ci) {
         if (enabled) return;
-        List<String> l = List.copyOf(this.lines);
+        List<String> l = List.copyOf(lines);
         synchronized (this) {
             this.cache = l;
         }
     }
 
-    //#if MC >= 12105
+
     @Redirect(
+            //#if MC >= 12105
             method = "onRenderGameOverlayPostAdvanced",
+            //#else-if MC < 12105
+            //$$ method = "onRenderGameOverlayPost",
+            //#endif
+            //#if MC == 12105
             at = @At(
                     value = "INVOKE",
                     target = "Lfi/dy/masa/malilib/render/RenderUtils;renderText(IIDIILfi/dy/masa/malilib/config/HudAlignment;ZZZLjava/util/List;Lnet/minecraft/client/gui/DrawContext;)I"
             )
+            //#endif
+            //#if MC <= 12104
+            //$$ at = @At(value = "INVOKE", target = "Lfi/dy/masa/malilib/render/RenderUtils;renderText(IIDIILfi/dy/masa/malilib/config/HudAlignment;ZZZLjava/util/List;Lnet/minecraft/client/gui/DrawContext;)I")
+            //#endif
     )
-    //#else
-    //$$    @Redirect(
-    //$$            method = "onRenderGameOverlayPost",
-    //$$            at = @At(value = "INVOKE", target = "Lfi/dy/masa/malilib/render/RenderUtils;renderText(IIDIILfi/dy/masa/malilib/config/HudAlignment;ZZZLjava/util/List;Lnet/minecraft/client/gui/DrawContext;)I")
-    //$$    )
-    //#endif
     public int minihudOpt_redirect(int x, int y, double f, int c, int bx, HudAlignment a, boolean b, boolean b2, boolean b3, List<String> l2, DrawContext cn) {
         List<String> l;
         synchronized (this) {
@@ -100,4 +104,5 @@ public abstract class RenderHandler_Mixin {
         }
         return RenderUtils.renderText(x, y, f, c, bx, a, b, b2, b3, l, cn);
     }
+    //#endif
 }
