@@ -11,15 +11,4 @@ import static io.jfglzs.asa.feature.totemrestock.TomtemRestock.trigger;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public class ClientPlayNetworkHandler_Mixin {
-    @Inject(
-            method = "onEntityStatus",
-            at = @At(
-                    value = "INVOKE",
-                    ordinal = 0,
-                    target = "Lnet/minecraft/client/network/ClientPlayNetworkHandler;getActiveDeathProtector(Lnet/minecraft/entity/player/PlayerEntity;)Lnet/minecraft/item/ItemStack;"
-            )
-    )
-    private static void onEntityStatusInject(EntityStatusS2CPacket packet, CallbackInfo ci) {
-        trigger();
-    }
 }
