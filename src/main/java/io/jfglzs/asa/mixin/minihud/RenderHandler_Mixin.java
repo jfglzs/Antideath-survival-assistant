@@ -54,13 +54,12 @@ public abstract class RenderHandler_Mixin {
                     try {
                         this.updateLines();
                         Thread.sleep(50); // 每tick刷新一次，节约CPU资源
-                    } catch (InterruptedException e) {
+                    } catch (Exception e) {
                         isRunning = false;
                         Thread.currentThread().interrupt();
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
                 }
+                isRunning = false;
             });
         } else if (!enabled) {
             this.updateLines();
@@ -72,11 +71,10 @@ public abstract class RenderHandler_Mixin {
             at = @At("TAIL")
     )
     private void onUpdateLinesTail(CallbackInfo ci) {
-        if (enabled) {
-            List<String> l = List.copyOf(this.lines);
-            synchronized (this) {
-                this.cache = l;
-            }
+        if (enabled) return;
+        List<String> l = List.copyOf(this.lines);
+        synchronized (this) {
+            this.cache = l;
         }
     }
 
@@ -94,16 +92,12 @@ public abstract class RenderHandler_Mixin {
     //$$            at = @At(value = "INVOKE", target = "Lfi/dy/masa/malilib/render/RenderUtils;renderText(IIDIILfi/dy/masa/malilib/config/HudAlignment;ZZZLjava/util/List;Lnet/minecraft/client/gui/DrawContext;)I")
     //$$    )
     //#endif
-    public int renderText(int x, int y, double fontHeight, int color, int bcolor, HudAlignment alignment, boolean shadow, boolean b2, boolean b3, List<String> list, DrawContext drawContext) {
-        if (enabled) {
-            List<String> l;
-            synchronized (this) {
-                // 如果异步线程还没跑完第一次，先用原 list 兜底
-                l = this.cache.isEmpty() ? list : this.cache;
-            }
-            // 调用原本的工具类方法，传入我们的异步快照
-            return RenderUtils.renderText(x, y, fontHeight, color, bcolor, alignment, shadow, b2, b3, l, drawContext);
+    public int renderText(int x, int y, double f, int c, int bx, HudAlignment a, boolean b, boolean b2, boolean b3, List<String> l2, DrawContext context) {
+        List<String> l;
+        synchronized (this) {
+            // 如果异步线程还没跑完第一次，先用原 list 兜底
+            l = this.cache.isEmpty() || !enabled ? l2 : this.cache;
         }
-        return RenderUtils.renderText(x, y, fontHeight, color, bcolor, alignment, shadow, b2, b3, list, drawContext);
+        return RenderUtils.renderText(x, y, f, c, bx, a, b, b2, b3, l, context);
     }
 }
