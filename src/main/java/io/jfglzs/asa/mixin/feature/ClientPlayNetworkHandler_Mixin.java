@@ -7,7 +7,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static io.jfglzs.asa.AsaMod.LOGGER_ASA;
 import static io.jfglzs.asa.feature.totemrestock.TomtemRestock.trigger;
 
 @Mixin(ClientPlayNetworkHandler.class)
@@ -21,7 +20,6 @@ public class ClientPlayNetworkHandler_Mixin {
             )
     )
     private static void onEntityStatusInject(EntityStatusS2CPacket packet, CallbackInfo ci) {
-        LOGGER_ASA.info("Totem has used by player");
         trigger();
     }
 }

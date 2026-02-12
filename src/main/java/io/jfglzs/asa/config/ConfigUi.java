@@ -17,7 +17,7 @@ public class ConfigUi extends GuiConfigsBase {
 
     public ConfigUi()
     {
-        super(10, 50, MOD_ID, null, "asa.gui.title");
+        super(10, 50, MOD_ID, null, "配置界面");
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ConfigUi extends GuiConfigsBase {
     }
 
     public enum Tab {
-        ALL("asa.configs.all"),
+        ALL("所有"),
         ;
 
         public final String translation;

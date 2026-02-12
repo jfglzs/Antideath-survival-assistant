@@ -10,8 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static io.jfglzs.asa.config.Configs.DISABLE_CONNECT_TIMED_OUT;
 
 @Mixin(ClientConnection.class)
-public class ClientConnection_Mixin
-{
+public class ClientConnection_Mixin {
     @Inject(
             method = "exceptionCaught",
             at = @At(
