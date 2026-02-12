@@ -64,7 +64,7 @@ public class Configs implements IConfigHandler {
 
     public static final ConfigBooleanHotkeyed PREVENT_INTENTIONAL_GAME_DESIGN = new ConfigBooleanHotkeyed("防止被刻意的游戏设计杀死", false, "", "防止玩家被刻意的游戏设计杀死");
 
-    public static final ConfigBooleanHotkeyed MINIHUD_POTIMIZE = new ConfigBooleanHotkeyed("优化Minihud的掉帧问题", false, "", "给updateLines()这个方法做了异步\n使其不阻塞客户端线程\n从而提升帧数");
+    public static final ConfigBooleanHotkeyed MINIHUD_POTIMIZE = new ConfigBooleanHotkeyed("优化Minihud的掉帧问题", false, "", "MC < 1.21.8 给updateLines()这个方法做了异步,使其不阻塞客户端线程,从而提升帧数");
 
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试");
