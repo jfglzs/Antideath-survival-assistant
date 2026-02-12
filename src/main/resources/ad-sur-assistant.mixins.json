@@ -4,7 +4,6 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "feature.ClientConnection_Mixin",
-    "itemscroller.RecipePattern_Mixin",
     "litematica.MaterialListHudRenderer_Mixin",
     "minihud.RenderHandler_Mixin",
     "tweakeroo.InventoryUtils_Invoker",

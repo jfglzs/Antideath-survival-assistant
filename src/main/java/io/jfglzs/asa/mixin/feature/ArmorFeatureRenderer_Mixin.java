@@ -19,7 +19,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static io.jfglzs.asa.config.Configs.DISABLE_PLAYER_ARMOR_RENDER;
 import static net.minecraft.entity.EntityType.PLAYER;
-
+//#if MC >= 12101
+//$$ import net.minecraft.item.Items;
+//#endif
 @Mixin(ArmorFeatureRenderer.class)
 public class ArmorFeatureRenderer_Mixin {
     //#if MC > 12101

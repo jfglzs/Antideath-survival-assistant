@@ -7,13 +7,13 @@ import io.jfglzs.asa.config.HotkeysCallback;
 import io.jfglzs.asa.config.InputHandler;
 import io.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.jfglzs.asa.feature.itemdisplay.RemainingItemDisplayer;
-import io.github.jfglzs.utils.*;
 import io.jfglzs.asa.utils.MCUtils;
 import io.jfglzs.asa.utils.PlayerUtils;
 import io.jfglzs.asa.utils.ScreenUtils;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -27,20 +27,22 @@ import static io.jfglzs.asa.feature.materialrecycle.MaterialRecycler.*;
 import static io.jfglzs.asa.utils.MCUtils.getPlayer;
 
 public class AsaMod implements ClientModInitializer {
-    public static String version = "1.1.3";
+    public static String version;
     public static final String SPACE = " ";
-    public static final String MOD_ID = "ASA";
-    public static final String C_MOD_ID = "[" + MOD_ID + "]";
-	public static final Logger LOGGER_ASA = LoggerFactory.getLogger(MOD_ID);
-    public static int checktime = 0;
+    public static final String MOD_ID = "asa";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static int checkTime = 0;
 
 	@Override
 	public void onInitializeClient() {
-        LOGGER_ASA.info("AsaMod is loading...");
+        version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
+
+        LOGGER.info("AsaMod v{} is being loading...", version);
         masaRegister();
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            checktime++;
-            if (checktime % 15  == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue() && PlayerUtils.isNotAirInMainHand())
+            checkTime++;
+            if (checkTime % 15  == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue() && PlayerUtils.isNotAirInMainHand())
                 MCUtils.ChatUtils.overLayMess(
                     String.format("Item: %s Remain: %d",
                             MCUtils.getMinecraftClient().player.getMainHandStack().getItem(),
@@ -48,9 +50,9 @@ public class AsaMod implements ClientModInitializer {
                     )
                 );
             
-            if (checktime % 20  == 0 && CREEPER_WARN.getBooleanValue()) creeperWarner();
-            if (checktime % 200 == 0 && MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue()) openBox();
-            if (checktime % 210 == 0 && MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue()) ScreenUtils.refreshScreen();
+            if (checkTime % 20  == 0 && CREEPER_WARN.getBooleanValue()) creeperWarner();
+            if (checkTime % 200 == 0 && MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue()) openBox();
+            if (checkTime % 210 == 0 && MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue()) ScreenUtils.refreshScreen();
         });
 
 	}
@@ -61,7 +63,7 @@ public class AsaMod implements ClientModInitializer {
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
         HotkeysCallback.init();
-        LOGGER_ASA.info("Masa config loaded");
+        LOGGER.info("Masa config loaded");
     }
 
     public static boolean shouldOpenBox(boolean screenCheck) {

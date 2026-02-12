@@ -4,7 +4,7 @@ import io.jfglzs.asa.utils.MCUtils;
 
 import java.util.List;
 
-import static io.jfglzs.asa.AsaMod.LOGGER_ASA;
+import static io.jfglzs.asa.AsaMod.LOGGER;
 import static io.jfglzs.asa.AsaMod.SPACE;
 import static io.jfglzs.asa.config.Configs.SWITCH_SERVER_COMMAND;
 import static io.jfglzs.asa.config.Configs.SWITCH_SERVER_LIST;
@@ -23,7 +23,7 @@ public class asaSwitchServer {
         }
 
         MCUtils.excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + servers[index++]);
-        LOGGER_ASA.info("Switch to {}", servers[index]);
+        LOGGER.info("Switch to {}", servers[index]);
         if(index == servers.length) index = 0;
     }
 
