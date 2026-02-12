@@ -44,7 +44,7 @@ public abstract class RenderHandler_Mixin {
     //$$            at = @At(value = "INVOKE", target = "Lfi/dy/masa/minihud/event/RenderHandler;updateLines()V")
     //$$    )
     //#endif
-    private void redirectUpdateLines(RenderHandler instance) {
+    private void minihudOpt_redirect(RenderHandler instance) {
         enabled = Configs.MINIHUD_POTIMIZE.getBooleanValue();
 
         if (!isRunning && enabled) {
@@ -70,7 +70,7 @@ public abstract class RenderHandler_Mixin {
             method = "updateLines",
             at = @At("TAIL")
     )
-    private void onUpdateLinesTail(CallbackInfo ci) {
+    private void minihudOpt_inject(CallbackInfo ci) {
         if (enabled) return;
         List<String> l = List.copyOf(this.lines);
         synchronized (this) {
@@ -92,12 +92,12 @@ public abstract class RenderHandler_Mixin {
     //$$            at = @At(value = "INVOKE", target = "Lfi/dy/masa/malilib/render/RenderUtils;renderText(IIDIILfi/dy/masa/malilib/config/HudAlignment;ZZZLjava/util/List;Lnet/minecraft/client/gui/DrawContext;)I")
     //$$    )
     //#endif
-    public int renderText(int x, int y, double f, int c, int bx, HudAlignment a, boolean b, boolean b2, boolean b3, List<String> l2, DrawContext context) {
+    public int minihudOpt_redirect(int x, int y, double f, int c, int bx, HudAlignment a, boolean b, boolean b2, boolean b3, List<String> l2, DrawContext cn) {
         List<String> l;
         synchronized (this) {
             // 如果异步线程还没跑完第一次，先用原 list 兜底
             l = this.cache.isEmpty() || !enabled ? l2 : this.cache;
         }
-        return RenderUtils.renderText(x, y, f, c, bx, a, b, b2, b3, l, context);
+        return RenderUtils.renderText(x, y, f, c, bx, a, b, b2, b3, l, cn);
     }
 }

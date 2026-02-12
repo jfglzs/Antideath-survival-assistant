@@ -10,18 +10,16 @@ import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 //$$ import net.minecraft.entity.LivingEntity;
 //$$ import net.minecraft.entity.player.PlayerEntity;
 //$$ import net.minecraft.entity.EquipmentSlot;
+//$$ import net.minecraft.item.Items;
 //#endif
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import static io.jfglzs.asa.config.Configs.DISABLE_PLAYER_ARMOR_RENDER;
 import static net.minecraft.entity.EntityType.PLAYER;
-//#if MC >= 12101
-//$$ import net.minecraft.item.Items;
-//#endif
+
 @Mixin(ArmorFeatureRenderer.class)
 public class ArmorFeatureRenderer_Mixin {
     //#if MC > 12101
@@ -41,20 +39,17 @@ public class ArmorFeatureRenderer_Mixin {
         //$$        }
         //#endif
     }
-
     //#else
     //$$    @Inject(method = "renderArmor",
     //$$            at = @At("HEAD"),
     //$$            cancellable = true
     //$$    )
     //$$    private void renderArmorInject(MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, EquipmentSlot armorSlot, int light, BipedEntityModel<?> model, CallbackInfo ci) {
-    //$$        if(entity instanceof PlayerEntity && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
+    //$$        if(entity instanceof PlayerEntity p && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
     //$$            if (armorSlot.getName().equals("chest")) {
-    //$$                PlayerEntity p = (PlayerEntity) entity;
     //$$                if (!p.getInventory().getStack(38).getItem().equals(Items.ELYTRA)) {
     //$$                    ci.cancel();
     //$$                }
-    //$$
     //$$            } else ci.cancel();
     //$$        }
     //$$    }
