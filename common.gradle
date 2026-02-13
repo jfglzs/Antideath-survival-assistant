@@ -54,6 +54,7 @@ dependencies {
         modImplementation("curse.maven:item-scroller-242064:${project.itemscr_version}")
         modImplementation "net.kyrptonaught:shulkerutils:1.0.4-1.19"
         modImplementation("curse.maven:quick-shulker-362669:${project.quick_shulker_version}")
+        println "1.20.x"
 
     }
     else if (minecraft_version.startsWith("1.21")) {
@@ -74,6 +75,7 @@ dependencies {
         modImplementation("com.github.sakura-ryoko:itemscroller:${project.itemscr_version}") {
             exclude group: "fi.dy.masa.malilib"
         }
+        println "1.21.x"
     }
 
 }
