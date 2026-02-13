@@ -16,10 +16,10 @@
 	"environment": "*",
 	"entrypoints": {
         "client": [
-          "io.jfglzs.asa.AsaMod"
+          "xyz.antideath.asa.AsaMod"
         ],
         "modmenu": [
-          "io.jfglzs.asa.config.ModMenu"
+          "xyz.antideath.asa.config.ModMenu"
         ]
 	},
 	"mixins": [
