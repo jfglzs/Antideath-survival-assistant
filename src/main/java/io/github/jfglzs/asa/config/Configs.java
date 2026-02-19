@@ -65,6 +65,7 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed PREVENT_INTENTIONAL_GAME_DESIGN = new ConfigBooleanHotkeyed("防止被刻意的游戏设计杀死", false, "", "防止玩家被刻意的游戏设计杀死");
 
     public static final ConfigBooleanHotkeyed MINIHUD_POTIMIZE = new ConfigBooleanHotkeyed("优化Minihud的掉帧问题", false, "", "给updateLines()这个方法做了异步,使其不阻塞客户端线程,从而提升帧数");
+    public static final ConfigBooleanHotkeyed LITEMATIC_LOAD_OPT = new ConfigBooleanHotkeyed("优化投影加载原理图的卡顿问题", false, "", "异步调用datafixer 优化加载原理图的卡顿感");
 
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
@@ -114,6 +115,7 @@ public class Configs implements IConfigHandler {
         list.add(TAP_FILTER_PREFIX);
 
         list.add(MINIHUD_POTIMIZE);
+        list.add(LITEMATIC_LOAD_OPT);
 
         list.add(TEST);
 
@@ -133,7 +135,8 @@ public class Configs implements IConfigHandler {
             DISPLAY_REMAIN_ITEM,
             DISABLE_PLACE_BLOCK_NEARBY_PORTAL,
             PREVENT_INTENTIONAL_GAME_DESIGN,
-            MINIHUD_POTIMIZE
+            MINIHUD_POTIMIZE,
+            LITEMATIC_LOAD_OPT
 
     );
 
