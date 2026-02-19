@@ -38,7 +38,7 @@ public class AsaMod implements ClientModInitializer {
         version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
 
         LOGGER.info("AsaMod v{} is being loading...", version);
-        masaRegister();
+        this.masaRegister();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             checkTime++;
@@ -50,9 +50,9 @@ public class AsaMod implements ClientModInitializer {
                     )
                 );
             
-            if (checkTime % 20  == 0 && CREEPER_WARN.getBooleanValue()) creeperWarner();
-            if (checkTime % 200 == 0 && MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue()) openBox();
-            if (checkTime % 210 == 0 && MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue()) ScreenUtils.refreshScreen();
+            else if (checkTime % 20  == 0 && CREEPER_WARN.getBooleanValue()) creeperWarner();
+            else if (checkTime % 200 == 0 && MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue()) openBox();
+            else if (checkTime % 210 == 0 && MATERIAL_RECYCLER.getBooleanValue() && MATERIAL_RECYCLER_AUTO.getBooleanValue()) ScreenUtils.refreshScreen();
         });
 
 	}

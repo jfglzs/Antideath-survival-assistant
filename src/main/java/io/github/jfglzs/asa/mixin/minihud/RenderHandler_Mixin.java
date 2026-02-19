@@ -45,7 +45,7 @@ public abstract class RenderHandler_Mixin {
     //$$            at = @At(value = "INVOKE", target = "Lfi/dy/masa/minihud/event/RenderHandler;updateLines()V")
     //$$    )
     //#endif
-    private void minihudOpt_redirect(RenderHandler instance) {
+    private void minihudOpt_Redirect(RenderHandler instance) {
         enabled = Configs.MINIHUD_POTIMIZE.getBooleanValue();
 
         if (enabled && future != null && !future.isDone() || enabled && future == null) {

@@ -1,13 +1,14 @@
 {
   "required": true,
-  "package": "io.jfglzs.asa.mixin",
+  "package": "io.github.jfglzs.asa.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "xyz.antideath.asa.mixin.feature.ClientConnection_Mixin",
-    "xyz.antideath.asa.mixin.litematica.MaterialListHudRenderer_Mixin",
-    "xyz.antideath.asa.mixin.minihud.RenderHandler_Mixin",
-    "xyz.antideath.asa.mixin.tweakeroo.InventoryUtils_Invoker",
-    "xyz.antideath.asa.mixin.tweakeroo.InventoryUtils_Mixin"
+    "feature.ClientConnection_Mixin",
+    "litematica.MaterialListHudRenderer_Mixin",
+    "litematica.SchematicWorldHandler_Mixin",
+    "minihud.RenderHandler_Mixin",
+    "tweakeroo.InventoryUtils_Invoker",
+    "tweakeroo.InventoryUtils_Mixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -16,13 +17,14 @@
     "requireAnnotations": true
   },
   "client": [
-    "xyz.antideath.asa.mixin.feature.ArmorFeatureRenderer_Mixin",
-    "xyz.antideath.asa.mixin.feature.ClientPlayerInteractionManager_Mixin",
-    "xyz.antideath.asa.mixin.feature.ClientPlayNetworkHandler_Mixin",
-    "xyz.antideath.asa.mixin.feature.DebugHud_Mixin",
-    "xyz.antideath.asa.mixin.feature.DownloadingTerrainScreen_Mixin",
-    "xyz.antideath.asa.mixin.feature.PlayerListHud_Mixin",
-    "xyz.antideath.asa.mixin.feature.Screen_Mixin",
-    "xyz.antideath.asa.mixin.feature.SubtitlesHud_Mixin"
+    "feature.ArmorFeatureRenderer_Mixin",
+    "feature.ClientPlayerInteractionManager_Mixin",
+    "feature.ClientPlayNetworkHandler_Mixin",
+    "feature.DebugHud_Mixin",
+    "feature.DownloadingTerrainScreen_Mixin",
+    "feature.PlayerListHud_Mixin",
+    "feature.Screen_Mixin",
+    "feature.SubtitlesHud_Mixin",
+    "litematica.GuiSchematicLoad_ButtonListener_Mixin"
   ]
 }
