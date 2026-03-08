@@ -2,12 +2,9 @@ package io.github.jfglzs.asa.utils;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
@@ -33,22 +30,6 @@ public class MCUtils {
     public static World getWorld()
     {
        return getPlayer().getWorld();
-    }
-
-    public static int getInventorySlotAmount(ItemStack itemStack) {
-        if (itemStack.getItem() instanceof BlockItem) {
-            Block block = ((BlockItem) itemStack.getItem()).getBlock();
-            if (block instanceof ShulkerBoxBlock || block instanceof ChestBlock || block instanceof BarrelBlock) {
-                return 27;
-            } else if (block instanceof AbstractFurnaceBlock) {
-                return 3;
-            } else if (block instanceof DispenserBlock) {
-                return 9;
-            } else if (block instanceof HopperBlock || block instanceof BrewingStandBlock) {
-                return 5;
-            }
-        }
-        return -1;
     }
 
     public static void excuteCommand(String command) {

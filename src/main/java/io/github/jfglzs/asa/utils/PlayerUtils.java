@@ -86,8 +86,7 @@ public class PlayerUtils {
         for (int i : shulkerBoxIndexes) {
             int isNotAir = 0;
             int loop = 0;
-            int amount = MCUtils.getInventorySlotAmount(player.getInventory().getStack(i));
-            if (amount == -1) return emptyList;
+            int amount = 27;
             DefaultedList<ItemStack> IS = getStoredItems(player.getInventory().getStack(i), amount);
 
             for (ItemStack stack : IS) {
@@ -105,7 +104,7 @@ public class PlayerUtils {
         PlayerEntity player = MCUtils.getPlayer();
         int EmptySlots = 0;
 
-        int amount = MCUtils.getInventorySlotAmount(player.getInventory().getStack(slot));
+        int amount = 27;
 //            System.out.println("slot is " + slot);
         if (amount == -1) return -1;
 
@@ -125,8 +124,7 @@ public class PlayerUtils {
         for (int i : shulkerBoxIndexes) {
             int isAir = 0;
             int loop = 0;
-            int amount = MCUtils.getInventorySlotAmount(player.getInventory().getStack(i));
-            if (amount == -1) return shulkerBoxIndexes;
+            int amount = 27;
             DefaultedList<ItemStack> IS = getStoredItems(player.getInventory().getStack(i), amount);
 
             for (ItemStack stack : IS) {
