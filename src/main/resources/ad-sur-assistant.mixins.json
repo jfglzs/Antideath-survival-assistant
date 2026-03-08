@@ -4,11 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "feature.ClientConnection_Mixin",
-    "litematica.MaterialListHudRenderer_Mixin",
-    "litematica.SchematicWorldHandler_Mixin",
     "minihud.RenderHandler_Mixin",
-    "tweakeroo.InventoryUtils_Invoker",
-    "tweakeroo.InventoryUtils_Mixin"
+    "tweakeroo.InventoryUtils_Invoker"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -24,7 +21,6 @@
     "feature.DownloadingTerrainScreen_Mixin",
     "feature.PlayerListHud_Mixin",
     "feature.Screen_Mixin",
-    "feature.SubtitlesHud_Mixin",
-    "litematica.GuiSchematicLoad_ButtonListener_Mixin"
+    "feature.SubtitlesHud_Mixin"
   ]
 }
