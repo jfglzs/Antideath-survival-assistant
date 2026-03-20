@@ -142,8 +142,8 @@ public class PlayerUtils {
         //? if > 1.20.1 {
         Identifier identifier = Identifier.ofVanilla(item);
         //?} else {
-        //Identifier identifier = new Identifier("minecraft", item);
-        //?}
+        /*Identifier identifier = new Identifier("minecraft", item);
+        *///?}
         return Registries.ITEM.get(identifier);
     }
 
