@@ -139,11 +139,11 @@ public class PlayerUtils {
     }
 
     public static Item transfromToItem(String item) {
-        //#if MC > 12001
+        //? if > 1.20.1 {
         Identifier identifier = Identifier.ofVanilla(item);
-        //#else
-        //$$ Identifier identifier = new Identifier("minecraft", item);
-        //#endif
+        //?} else {
+        //Identifier identifier = new Identifier("minecraft", item);
+        //?}
         return Registries.ITEM.get(identifier);
     }
 

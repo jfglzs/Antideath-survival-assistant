@@ -41,7 +41,7 @@ public class ClientPlayerInteractionManager_Mixin {
             at = @At("HEAD") ,
             cancellable = true
     )
-    public void interactBlockInject(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
+    public void interactBlock_Inject(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
         if (DISABLE_PLACE_BLOCK_NEARBY_PORTAL.getBooleanValue()) {
             BlockPos pos = hitResult.getBlockPos();
             for (Direction dir : Direction.values()) {
@@ -61,10 +61,10 @@ public class ClientPlayerInteractionManager_Mixin {
             ),
             cancellable = true
     )
-    private void interactBlockInternalInject(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
+    private void interactBlockInternal_Inject(ClientPlayerEntity player, Hand hand, BlockHitResult result, CallbackInfoReturnable<ActionResult> cir) {
         if (!Configs.PREVENT_INTENTIONAL_GAME_DESIGN.getBooleanValue()) return;
 
-        BlockState state = getWorld().getBlockState(hitResult.getBlockPos());
+        BlockState state = getWorld().getBlockState(result.getBlockPos());
         RegistryKey<World> worldKey = player.getWorld().getRegistryKey();
 
         if (worldKey.equals(World.OVERWORLD) || worldKey.equals(World.END)) {
@@ -84,12 +84,12 @@ public class ClientPlayerInteractionManager_Mixin {
     private boolean isWhiteList() {
         Item item = client.player.getMainHandStack().getItem();
         for (String id : DISABLE_PLACE_BLOCK_NEARBY_PORTAL_WHITELIST.getStrings()) {
-            //#if MC > 12001
+            //? if > 1.20.1 {
             if (id.contains("minecraft")) return false;
             Identifier identifier = Identifier.ofVanilla(id);
-            //#else
-            //$$ Identifier identifier = new Identifier("minecraft", id);
-            //#endif
+            //?} else {
+            //Identifier identifier = new Identifier("minecraft", id);
+            //?}
             Item listedItem = Registries.ITEM.get(identifier);
             if (item.equals(listedItem)) return true;
         }

@@ -18,7 +18,7 @@ public abstract class PlayerListHud_Mixin {
                     ordinal = 0
             )
     )
-    private List<PlayerListEntry> renderModifyVariable(List<PlayerListEntry> original) {
+    private List<PlayerListEntry> renderModify_Variable(List<PlayerListEntry> original) {
         if (Configs.TAP_FILTER.getBooleanValue()) {
             return original.stream()
                     .filter(entry -> {

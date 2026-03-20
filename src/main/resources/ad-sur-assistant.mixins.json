@@ -4,7 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "feature.ClientConnection_Mixin",
-    "minihud.RenderHandler_Mixin",
+    "litematic.MaterialListHudRenderer_Mixin",
     "tweakeroo.InventoryUtils_Invoker"
   ],
   "injectors": {
@@ -15,6 +15,7 @@
   },
   "client": [
     "feature.ArmorFeatureRenderer_Mixin",
+    "feature.ClientCommandSource_Mixin",
     "feature.ClientPlayerInteractionManager_Mixin",
     "feature.ClientPlayNetworkHandler_Mixin",
     "feature.DebugHud_Mixin",
