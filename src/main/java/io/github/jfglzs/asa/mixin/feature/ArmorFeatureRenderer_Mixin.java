@@ -6,12 +6,12 @@ import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 // import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 //?} else {
-//import net.minecraft.client.render.entity.model.BipedEntityModel;
-//import net.minecraft.entity.LivingEntity;
-//import net.minecraft.entity.player.PlayerEntity;
-//import net.minecraft.entity.EquipmentSlot;
-//import net.minecraft.item.Items;
-//?}
+/*import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Items;
+*///?}
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,24 +34,22 @@ public class ArmorFeatureRenderer_Mixin {
              ci.cancel();
         }
         //?} else {
-        //        if (DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
-        //            ci.cancel();
-        //        }
-        //?}
+                /*if (DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
+                    ci.cancel();
+                }
+        *///?}
     }
     //?} else {
-    //    @Inject(method = "renderArmor",
-    //            at = @At("HEAD"),
-    //            cancellable = true
-    //    )
-    //    private void renderArmorInject(MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, EquipmentSlot armorSlot, int light, BipedEntityModel<?> model, CallbackInfo ci) {
-    //        if(entity instanceof PlayerEntity p && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
-    //            if (armorSlot.getName().equals("chest") && !p.getInventory().getStack(38).getItem().equals(Items.ELYTRA)) {
-    //                ci.cancel();
-    //            } else {
-    //                ci.cancel();
-    //            }
-    //        }
-    //    }
-    //?}
+        /*@Inject(method = "renderArmor",
+                at = @At("HEAD"),
+                cancellable = true
+        )
+        private void renderArmorInject(MatrixStack matrices, VertexConsumerProvider vertexConsumers, LivingEntity entity, EquipmentSlot armorSlot, int light, BipedEntityModel<?> model, CallbackInfo ci) {
+            if(entity instanceof PlayerEntity p && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
+                if (armorSlot.getName().equals("chest") && !p.getInventory().getStack(38).getItem().equals(Items.ELYTRA)) {
+                    ci.cancel();
+                }
+            }
+        }
+    *///?}
 }

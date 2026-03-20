@@ -88,8 +88,8 @@ public class ClientPlayerInteractionManager_Mixin {
             if (id.contains("minecraft")) return false;
             Identifier identifier = Identifier.ofVanilla(id);
             //?} else {
-            //Identifier identifier = new Identifier("minecraft", id);
-            //?}
+            /*Identifier identifier = new Identifier("minecraft", id);
+            *///?}
             Item listedItem = Registries.ITEM.get(identifier);
             if (item.equals(listedItem)) return true;
         }

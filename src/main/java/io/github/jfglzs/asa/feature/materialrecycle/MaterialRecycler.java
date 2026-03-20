@@ -49,8 +49,8 @@ public class MaterialRecycler {
                 //? if > 1.20.1 {
                 Identifier identifier = Identifier.ofVanilla(id);
                 //?} else {
-                //Identifier identifier = new Identifier("minecraft", id);
-                //?}
+                /*Identifier identifier = new Identifier("minecraft", id);
+                *///?}
                 Item listedItem = Registries.ITEM.get(identifier);
                 if (item.equals(listedItem))
                 {
@@ -71,8 +71,8 @@ public class MaterialRecycler {
             if (id.contains("minecraft")) return false;
             Identifier identifier = Identifier.ofVanilla(id);
             //?} else {
-            //Identifier identifier = new Identifier("minecraft", id);
-            //?}
+            /*Identifier identifier = new Identifier("minecraft", id);
+            *///?}
             Item listedItem = Registries.ITEM.get(identifier);
             if (item.equals(listedItem)) return true;
         }
@@ -100,8 +100,8 @@ public class MaterialRecycler {
             if (id.contains("minecraft")) return false;
             Identifier identifier = Identifier.ofVanilla(id);
             //?} else {
-            //Identifier identifier = new Identifier("minecraft", id);
-            //?}
+            /*Identifier identifier = new Identifier("minecraft", id);
+            *///?}
             Item listedItem = Registries.ITEM.get(identifier);
             if (item.equals(listedItem)) return true;
         }
