@@ -9,7 +9,7 @@ import static io.github.jfglzs.asa.AsaMod.SPACE;
 import static io.github.jfglzs.asa.config.Configs.SWITCH_SERVER_COMMAND;
 import static io.github.jfglzs.asa.config.Configs.SWITCH_SERVER_LIST;
 
-public class asaSwitchServer {
+public class AsaSwitchServer {
     private static int index = 0;
 
     public static void switchServer(){
@@ -24,7 +24,7 @@ public class asaSwitchServer {
 
         MCUtils.excuteCommand(SWITCH_SERVER_COMMAND.getStringValue() + SPACE + servers[index++]);
         LOGGER.info("Switch to {}", servers[index]);
-        if(index == servers.length) index = 0;
+        if (index == servers.length) index = 0;
     }
 
     public static void switchServer(String Server) {

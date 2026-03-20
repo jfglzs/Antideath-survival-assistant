@@ -9,8 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SubtitlesHud.class)
-public class SubtitlesHud_Mixin
-{
+public class SubtitlesHud_Mixin {
     @Inject(
             method = "render",
             at = @At("HEAD"),

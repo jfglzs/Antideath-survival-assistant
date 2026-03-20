@@ -14,9 +14,15 @@ import java.util.List;
 
 @Mixin(DebugHud.class)
 public class DebugHud_Mixin {
-    @Inject(method = "drawLeftText" , at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/DebugHud;drawText(Lnet/minecraft/client/gui/DrawContext;Ljava/util/List;Z)V"))
+    @Inject(
+            method = "drawLeftText" ,
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/hud/DebugHud;drawText(Lnet/minecraft/client/gui/DrawContext;Ljava/util/List;Z)V"
+            )
+    )
     protected void drawLeftTextInject(DrawContext context, CallbackInfo ci , @Local List<String> list) {
-        list.add(" ");
+        list.add(null);
         list.add(String.format("[ASA] Antideath Survival Assistant V %s", AsaMod.version));
         list.add(String.format("[ASA] Features loaded %S", Configs.getFeatureAmount()));
     }

@@ -26,7 +26,7 @@ public abstract class Screen_Mixin {
             method = "init*",
             at = @At("TAIL")
     )
-    private void initInject(CallbackInfo ci) {
+    private void init_Inject(CallbackInfo ci) {
         if (Configs.MATERIAL_RECYCLER.getBooleanValue()) {
             int maxClickCount = openedBoxSlot;
             int clickCount = 0;

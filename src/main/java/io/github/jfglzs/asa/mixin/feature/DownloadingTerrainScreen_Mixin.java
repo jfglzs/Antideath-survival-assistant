@@ -16,7 +16,7 @@ public class DownloadingTerrainScreen_Mixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    public void renderInject(DrawContext context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
+    public void render_Inject(DrawContext context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
         if (DISABLE_LOADING_TERRAIN_SCREEN.getBooleanValue()) {
             ci.cancel();
         }
@@ -28,7 +28,7 @@ public class DownloadingTerrainScreen_Mixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    public void renderBackgroundInject(DrawContext context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
+    public void renderBackground_Inject(DrawContext context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
         if (DISABLE_LOADING_TERRAIN_SCREEN.getBooleanValue()) {
             ci.cancel();
         }

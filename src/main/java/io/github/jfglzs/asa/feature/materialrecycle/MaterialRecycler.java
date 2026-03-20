@@ -46,11 +46,11 @@ public class MaterialRecycler {
 
         if (!list.isEmpty()) {
             for (String id : list) {
-                //#if MC > 12001
+                //? if > 1.20.1 {
                 Identifier identifier = Identifier.ofVanilla(id);
-                //#else
-                //$$ Identifier identifier = new Identifier("minecraft", id);
-                //#endif
+                //?} else {
+                //Identifier identifier = new Identifier("minecraft", id);
+                //?}
                 Item listedItem = Registries.ITEM.get(identifier);
                 if (item.equals(listedItem))
                 {
@@ -67,12 +67,12 @@ public class MaterialRecycler {
         if (isBL(item)) return true;
 
         for (String id : list) {
-            //#if MC > 12001
+            //? if > 1.20.1 {
             if (id.contains("minecraft")) return false;
             Identifier identifier = Identifier.ofVanilla(id);
-            //#else
-            //$$ Identifier identifier = new Identifier("minecraft", id);
-            //#endif
+            //?} else {
+            //Identifier identifier = new Identifier("minecraft", id);
+            //?}
             Item listedItem = Registries.ITEM.get(identifier);
             if (item.equals(listedItem)) return true;
         }
@@ -87,7 +87,6 @@ public class MaterialRecycler {
 
         for (int i : list) {
             if (allowUpdate) {
-//                System.out.println(list);
                 ClientUtil.CheckAndSend(new ItemStack(Items.SHULKER_BOX), i);
                 openedBoxSlot = PlayerUtils.getOpenedBoxEmptySlots(i);
                 allowUpdate = false;
@@ -97,16 +96,15 @@ public class MaterialRecycler {
 
     private static boolean isBL(Item item) {
         for (String id : bl) {
-            //#if MC > 12001
+            //? if > 1.20.1 {
             if (id.contains("minecraft")) return false;
             Identifier identifier = Identifier.ofVanilla(id);
-            //#else
-            //$$ Identifier identifier = new Identifier("minecraft", id);
-            //#endif
+            //?} else {
+            //Identifier identifier = new Identifier("minecraft", id);
+            //?}
             Item listedItem = Registries.ITEM.get(identifier);
             if (item.equals(listedItem)) return true;
         }
-
         return false;
     }
 }
