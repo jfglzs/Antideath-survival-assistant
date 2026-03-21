@@ -28,8 +28,8 @@
     "accessWidener": "asa.accesswidener",
 	"depends": {
 		"fabricloader": "*",
-        "malilib": "${malilib_requirement_version}",
-        "minecraft": "${minecraft_requirement_version}",
+        "malilib": "*",
+        "minecraft": "${mc}",
         "java": ">=21",
         "fabric-api": "*"
 	},
