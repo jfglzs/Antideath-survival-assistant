@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
 }
 
+def modver = property("mod_version")
 def name = "${property("mod_version")}+build.${new Date().format('yy-MM-dd HH:mm')}"
 def minecraftVer = stonecutter.current.version
 
@@ -73,10 +74,12 @@ processResources {
     from "aca.accesswidener"
 
     inputs.property "version", minecraftVer
+    inputs.property "mc", minecraftVer
 
     filesMatching("fabric.mod.json") {
         def valueMap = [
-                "version": stonecutter.current.version,
+                "version": modver,
+                "mc": stonecutter.current.version,
         ]
         expand valueMap
     }
