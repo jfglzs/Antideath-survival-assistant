@@ -17,7 +17,7 @@ public class ConfigUi extends GuiConfigsBase {
 
     public ConfigUi()
     {
-        super(10, 50, MOD_ID, null, "配置界面");
+        super(10, 50, MOD_ID, null, MOD_ID + " 配置界面");
     }
 
     @Override

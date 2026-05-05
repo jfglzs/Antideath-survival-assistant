@@ -24,7 +24,7 @@ import static io.github.jfglzs.asa.config.Configs.*;
 public class AsaMod implements ClientModInitializer {
     public static String version;
     public static final String SPACE = " ";
-    public static final String MOD_ID = "asa";
+    public static final String MOD_ID = "antideath-survival-assistant";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static int checkTime = 0;
 

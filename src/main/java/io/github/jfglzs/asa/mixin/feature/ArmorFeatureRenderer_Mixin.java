@@ -39,11 +39,7 @@ public class ArmorFeatureRenderer_Mixin {
         if (state.entityType.equals(PLAYER) && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
              ci.cancel();
         }
-        //?} else {
-                /*if (DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
-                    ci.cancel();
-                }
-        *///?}
+        //?}
     }
     //?} else {
         /*@Inject(method = "renderArmor",
