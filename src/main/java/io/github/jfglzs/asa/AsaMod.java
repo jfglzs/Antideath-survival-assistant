@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static io.github.jfglzs.asa.config.Configs.*;
-
+//TODO 实现类似F3+F4切换服务器
 public class AsaMod implements ClientModInitializer {
     public static String version;
     public static final String SPACE = " ";
