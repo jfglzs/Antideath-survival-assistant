@@ -1,8 +1,8 @@
 {
 	"schemaVersion": 1,
-	"id": "asa",
+	"id": "antideath-survival-assistant",
 	"version": "${version}",
-	"name": "ad-sur-assistant",
+	"name": "antideath-survival-assistant",
 	"description": "masa extension mod that provides some useful features for your game.",
 	"authors": [
 		"antideath"
