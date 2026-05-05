@@ -25,7 +25,6 @@
 	"mixins": [
 		"ad-sur-assistant.mixins.json"
 	],
-    "accessWidener": "asa.accesswidener",
 	"depends": {
 		"fabricloader": "*",
         "malilib": "*",

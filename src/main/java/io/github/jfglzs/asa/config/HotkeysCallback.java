@@ -5,8 +5,8 @@ import fi.dy.masa.malilib.hotkeys.IHotkeyCallback;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.KeyAction;
 import io.github.jfglzs.asa.AsaMod;
-import io.github.jfglzs.asa.feature.itemtaker.TriggerItemTaker;
 import io.github.jfglzs.asa.feature.switchserver.AsaSwitchServer;
+import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import net.minecraft.client.MinecraftClient;
 
 import static io.github.jfglzs.asa.config.Configs.*;
@@ -31,9 +31,8 @@ public class HotkeysCallback implements IHotkeyCallback {
         } else if (key == SWITCH_SERVER_SINGLE_3.getKeybind()) {
             AsaSwitchServer.switchServer(SWITCH_SERVER_SINGLE_3S.getStringValue());
             return true;
-        } else if (key == SWITCH_ITEM.getKeybind()) {
-            TriggerItemTaker.trigger();
-            return true;
+        } else if (key == CLEAR_MATERIAL_TODO_OVERLAY.getKeybind()) {
+            MaterialToDoRenderer.INSTANCE.itemStacks.clear();
         } else if (key == TEST.getKeybind()){
             AsaMod.test();
             return true;

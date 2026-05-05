@@ -37,13 +37,6 @@ public class Configs implements IConfigHandler {
 
     public static final ConfigBooleanHotkeyed CREEPER_WARN = new ConfigBooleanHotkeyed( "苦力怕预警器", true,"","当玩家8x8x8(默认)的范围存在苦力怕时 自动预警");
     public static final ConfigDouble CREEPER_WARN_RANGE = new ConfigDouble( "苦力怕预警器范围",8,0,64,"苦力怕预警器范围(以玩家为中心)");
-
-    public static final ConfigStringList MATERIAL_RECYCLER_BLACK_LIST = new ConfigStringList( "材料回收助手黑名单",ImmutableList.of("dirt"),"自动回收材料的列表（黑名单）");
-    public static final ConfigStringList MATERIAL_RECYCLER_LIST = new ConfigStringList( "材料回收助手白名单",ImmutableList.of("stone","dirt"),"自动回收材料的列表");
-    public static final ConfigBooleanHotkeyed MATERIAL_RECYCLER = new ConfigBooleanHotkeyed( "材料回收助手", false,"","开启后打开潜影盒白名单列表的材料会被自动回收到背包中 \n ⚠材料回收助手只支持普通潜影盒 \n ⚠在快捷栏的盒子无效");
-    public static final ConfigBooleanHotkeyed MATERIAL_RECYCLER_AUTO = new ConfigBooleanHotkeyed( "材料回收助手自动装盒", false,"","开启后 可以在有快捷潜影盒的服务器上实现自动装盒");
-    public static final ConfigBoolean ENABLE_MATERIAL_RECYCLER_BLACK_LIST = new ConfigBoolean( "启用材料回收助手黑名单", false,"启用材料回收助手黑名单");
-
     public static final ConfigBooleanHotkeyed DISABLE_SUBTITLE = new ConfigBooleanHotkeyed( "打开材料列表时禁用字幕", false,"","打开投影的材料列表时禁用字幕");
     public static final ConfigBooleanHotkeyed DISABLE_CONNECT_TIMED_OUT = new ConfigBooleanHotkeyed( "禁用连接超时", false,"","此选项在投影加载原理图时可以阻止连接超时");
     public static final ConfigBooleanHotkeyed DISABLE_LOADING_TERRAIN_SCREEN = new ConfigBooleanHotkeyed( "禁用加载地形屏幕", false,"","开启后会禁用加载地形屏幕 理论上能提升一点点加入世界的速度(服务器同理)");
@@ -59,8 +52,12 @@ public class Configs implements IConfigHandler {
     public static final ConfigBoolean ENABLE_TAP_FILTER_PREFIX = new ConfigBoolean( "启用TAB菜单过滤器-前缀", false," ");
     public static final ConfigStringList TAP_FILTER_PREFIX = new ConfigStringList( "TAB菜单过滤器-前缀",ImmutableList.of()," ");
 
-    public static final ConfigStringList SWITCH_ITEM_LIST = new ConfigStringList( "切换物品列表",ImmutableList.of(),"切换物品列表");
-    public static final ConfigHotkey SWITCH_ITEM = new ConfigHotkey( "切换物品", "","切换物品");
+    public static final ConfigBooleanHotkeyed ENABLE_MATERIAL_TODO_OVERLAY = new ConfigBooleanHotkeyed("启用材料待取Overlay", false, "", "启用后鼠标中键点击，原理图内方块(玩家背包内没有)，自动添加进待取列表");
+    public static final ConfigHotkey CLEAR_MATERIAL_TODO_OVERLAY = new ConfigHotkey("清除材料待取Overlay", "", "");
+
+    public static final ConfigInteger MATERIAL_TODO_OVERLAY_Y_OFFSET = new ConfigInteger("材料待取OverLay-y偏移", 0);
+    public static final ConfigInteger MATERIAL_TODO_OVERLAY_X_OFFSET = new ConfigInteger("材料待取OverLay-x偏移", 0);
+
 
     public static final ConfigBooleanHotkeyed PREVENT_INTENTIONAL_GAME_DESIGN = new ConfigBooleanHotkeyed("防止被刻意的游戏设计杀死", false, "", "防止玩家被刻意的游戏设计杀死");
 
@@ -75,11 +72,6 @@ public class Configs implements IConfigHandler {
         list.add(CREEPER_WARN);
         list.add(CREEPER_WARN_RANGE);
 
-        list.add(MATERIAL_RECYCLER);
-        list.add(MATERIAL_RECYCLER_LIST);
-        list.add(ENABLE_MATERIAL_RECYCLER_BLACK_LIST);
-        list.add(MATERIAL_RECYCLER_BLACK_LIST);
-
         list.add(DISABLE_LOADING_TERRAIN_SCREEN);
         list.add(DISABLE_SUBTITLE);
         list.add(DISABLE_CONNECT_TIMED_OUT);
@@ -87,7 +79,6 @@ public class Configs implements IConfigHandler {
         list.add(DISABLE_PLACE_BLOCK_NEARBY_PORTAL);
         list.add(DISABLE_PLACE_BLOCK_NEARBY_PORTAL_WHITELIST);
 
-        list.add(MATERIAL_RECYCLER_AUTO);
         list.add(DISPLAY_REMAIN_ITEM);
 
         list.add(PREVENT_INTENTIONAL_GAME_DESIGN);
@@ -101,14 +92,17 @@ public class Configs implements IConfigHandler {
         list.add(SWITCH_SERVER_SINGLE_3);
         list.add(SWITCH_SERVER_SINGLE_3S);
 
-        list.add(SWITCH_ITEM_LIST);
-        list.add(SWITCH_ITEM);
         list.add(TAP_FILTER);
         list.add(ENABLE_TAP_FILTER_WHITELIST);
         list.add(TAP_FILTER_WHITELIST);
         list.add(TAP_FILTER_BLACKLIST);
         list.add(ENABLE_TAP_FILTER_PREFIX);
         list.add(TAP_FILTER_PREFIX);
+
+        list.add(ENABLE_MATERIAL_TODO_OVERLAY);
+        list.add(CLEAR_MATERIAL_TODO_OVERLAY);
+        list.add(MATERIAL_TODO_OVERLAY_X_OFFSET);
+        list.add(MATERIAL_TODO_OVERLAY_Y_OFFSET);
 
         list.add(TEST);
 
@@ -120,14 +114,13 @@ public class Configs implements IConfigHandler {
     public static final ImmutableList<IHotkeyTogglable> SWITCH_KEY = ImmutableList.of(
 
             CREEPER_WARN,
-            MATERIAL_RECYCLER,
-            MATERIAL_RECYCLER_AUTO,
             DISABLE_LOADING_TERRAIN_SCREEN,
             DISABLE_SUBTITLE,
             DISABLE_PLAYER_ARMOR_RENDER,
             DISPLAY_REMAIN_ITEM,
             DISABLE_PLACE_BLOCK_NEARBY_PORTAL,
-            PREVENT_INTENTIONAL_GAME_DESIGN
+            PREVENT_INTENTIONAL_GAME_DESIGN,
+            ENABLE_MATERIAL_TODO_OVERLAY
 
     );
 
@@ -137,7 +130,8 @@ public class Configs implements IConfigHandler {
             SWITCH_SERVER_SINGLE_1,
             SWITCH_SERVER_SINGLE_2,
             SWITCH_SERVER_SINGLE_3,
-            SWITCH_ITEM
+            CLEAR_MATERIAL_TODO_OVERLAY
+
     );
 
     public static final ImmutableList<IConfigBase> ALL_CONFIGS = addAllConfigs();

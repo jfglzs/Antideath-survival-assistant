@@ -5,6 +5,7 @@
   "mixins": [
     "feature.ClientConnection_Mixin",
     "litematic.MaterialListHudRenderer_Mixin",
+    "litematic.WorldUtils_Mixin",
     "tweakeroo.InventoryUtils_Invoker"
   ],
   "injectors": {
@@ -15,13 +16,11 @@
   },
   "client": [
     "feature.ArmorFeatureRenderer_Mixin",
-    "feature.ClientCommandSource_Mixin",
     "feature.ClientPlayerInteractionManager_Mixin",
     "feature.ClientPlayNetworkHandler_Mixin",
     "feature.DebugHud_Mixin",
     "feature.DownloadingTerrainScreen_Mixin",
     "feature.PlayerListHud_Mixin",
-    "feature.Screen_Mixin",
     "feature.SubtitlesHud_Mixin"
   ]
 }

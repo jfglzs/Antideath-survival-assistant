@@ -22,7 +22,7 @@ public class DownloadingTerrainScreen_Mixin {
         }
     }
 
-    //#if MC > 12001
+    //? if > 1.21.1 {
     @Inject(
             method = "renderBackground",
             at = @At("HEAD"),
@@ -33,5 +33,5 @@ public class DownloadingTerrainScreen_Mixin {
             ci.cancel();
         }
     }
-    //#endif
+    //?}
 }

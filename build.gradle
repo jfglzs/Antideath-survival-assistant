@@ -4,13 +4,13 @@ plugins {
 }
 
 def modver = property("mod_version")
-def name = "${property("mod_version")}+build.${new Date().format('yy-MM-dd HH:mm')}"
+def name = "${property("mod_version")}+build.${new Date().format('yyMMddHHmm')}"
 def minecraftVer = stonecutter.current.version
 
 group = project.maven_group
 
 base {
-	archivesName = project.archives_base_name
+	archivesName = project.archives_base_name + name
 }
 
 repositories {
@@ -58,7 +58,7 @@ dependencies {
         modImplementation("curse.maven:minihud-244260:${property("minihud_version")}")
         modImplementation("curse.maven:item-scroller-242064:${property("itemscr_version")}")
         modImplementation "net.kyrptonaught:shulkerutils:1.0.4-1.19"
-        modImplementation("curse.maven:quick-shulker-362669:${property("quick_shulker_version")}")
+//        modImplementation("curse.maven:quick-shulker-362669:${property("quick_shulker_version")}")
     }
     else if (minecraft_version.startsWith("1.21")) {
         modImplementation("maven.modrinth:malilib:${property("malilib_version")}")
@@ -66,13 +66,11 @@ dependencies {
         modImplementation("maven.modrinth:litematica:${property("litematic_version")}")
         modImplementation("maven.modrinth:item-scroller:${property("itemscr_version")}")
         modImplementation("maven.modrinth:minihud:${property("minihud_version")}")
-        modImplementation("com.github.MoRanpcy:quickshulker:${property("quick_shulker_version")}")
+//        modImplementation("com.github.MoRanpcy:quickshulker:${property("quick_shulker_version")}")
     }
 }
 
 processResources {
-    from "aca.accesswidener"
-
     inputs.property "version", minecraftVer
     inputs.property "mc", minecraftVer
 
@@ -86,8 +84,6 @@ processResources {
 }
 
 loom {
-    accessWidenerPath.set(file("asa.accesswidener"))
-
     runConfigs.all {
         // to make sure it generates all "Minecraft Client (:subproject_name)" applications
         ideConfigGenerated = true
@@ -118,18 +114,4 @@ tasks.withType(JavaCompile).configureEach {
 
 // configure the maven publication
 publishing {
-	publications {
-		create("mavenJava", MavenPublication) {
-			artifactId = project.archives_base_name
-			from components.java
-		}
-	}
-
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
-	}
 }
