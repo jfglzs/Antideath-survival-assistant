@@ -32,7 +32,7 @@ public class HotkeysCallback implements IHotkeyCallback {
             AsaSwitchServer.switchServer(SWITCH_SERVER_SINGLE_3S.getStringValue());
             return true;
         } else if (key == CLEAR_MATERIAL_TODO_OVERLAY.getKeybind()) {
-            MaterialToDoRenderer.INSTANCE.itemStacks.clear();
+            MaterialToDoRenderer.INSTANCE.items.clear();
         } else if (key == TEST.getKeybind()){
             AsaMod.test();
             return true;

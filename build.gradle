@@ -4,8 +4,8 @@ plugins {
 }
 
 def modver = property("mod_version")
-def name = "${property("mod_version")}+build.${new Date().format('yyMMddHHmm')}"
 def minecraftVer = stonecutter.current.version
+def name = "${property("mod_version")}+${minecraftVer}+build.${new Date().format('yyMMddHHmm')}"
 
 group = project.maven_group
 
@@ -49,7 +49,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${property("loader_version")}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}"
     modImplementation("com.terraformersmc:modmenu:${property("modmenu_version")}")
-    modImplementation ("net.kyrptonaught:kyrptconfig:1.5.4-1.20")
+//    modImplementation ("net.kyrptonaught:kyrptconfig:1.5.4-1.20")
 
     if (minecraft_version.startsWith("1.20")) {
         modImplementation("fi.dy.masa.malilib:${property("malilib_version")}")
@@ -57,7 +57,7 @@ dependencies {
         modImplementation("curse.maven:litematica-308892:${property("litematic_version")}")
         modImplementation("curse.maven:minihud-244260:${property("minihud_version")}")
         modImplementation("curse.maven:item-scroller-242064:${property("itemscr_version")}")
-        modImplementation "net.kyrptonaught:shulkerutils:1.0.4-1.19"
+//        modImplementation "net.kyrptonaught:shulkerutils:1.0.4-1.19"
 //        modImplementation("curse.maven:quick-shulker-362669:${property("quick_shulker_version")}")
     }
     else if (minecraft_version.startsWith("1.21")) {
@@ -93,12 +93,6 @@ loom {
 }
 
 java {
-//	withSourcesJar()
-//	sourceCompatibility = JavaVersion.VERSION_21
-//	targetCompatibility = JavaVersion.VERSION_21
-//    javaToolchains {
-//        languageVersion = JavaLanguageVersion.of(21)
-//    }
 }
 jar {
     inputs.property "archivesName", project.base.archivesName

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import static fi.dy.masa.malilib.util.InventoryUtils.getStoredItems;
+import static io.github.jfglzs.asa.utils.MCUtils.getPlayer;
 
 public class PlayerUtils {
     public static int getInventoryItemCount(Item item) {
@@ -131,5 +132,22 @@ public class PlayerUtils {
             }
         }
         return -1;
+    }
+
+    public static int checkRemainCount(Item item) {
+        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(36)).stream()
+                .flatMap(i -> getStoredItems(getPlayer().getInventory().getStack(i), 27).stream())
+                .filter(j -> j.getItem().equals(item))
+                .mapToInt(ItemStack::getCount)
+                .sum();
+
+        return storedCount + getInventoryItemCount(item);
+    }
+
+    public static ItemStack getPlayerMainHandStack() {
+        if (MCUtils.getMinecraftClient().player == null) {
+            return ItemStack.EMPTY;
+        }
+        return MCUtils.getMinecraftClient().player.getMainHandStack();
     }
 }
