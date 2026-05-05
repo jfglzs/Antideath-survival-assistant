@@ -21,10 +21,10 @@ public class DebugHud_Mixin {
                     target = "Lnet/minecraft/client/gui/hud/DebugHud;drawText(Lnet/minecraft/client/gui/DrawContext;Ljava/util/List;Z)V"
             )
     )
-    protected void drawLeftTextInject(DrawContext context, CallbackInfo ci , @Local List<String> list) {
+    protected void drawLeftTextInject(DrawContext context, CallbackInfo ci , @Local(name = "list") List<String> list) {
         list.add(null);
         list.add(String.format("[ASA] Antideath Survival Assistant V %s", AsaMod.version));
-        list.add(String.format("[ASA] Features loaded %S", Configs.getFeatureAmount()));
+        list.add(String.format("[ASA] %S Features loaded", Configs.getFeatureAmount()));
     }
 }
 
