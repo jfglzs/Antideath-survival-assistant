@@ -19,6 +19,7 @@ import static io.github.jfglzs.asa.AsaMod.MOD_ID;
 public class Configs implements IConfigHandler {
     public static Configs INSTANCE = new Configs();
     public static boolean shouldDisableTitle = false;
+    public static boolean lockCreativeScreen = false;
     private static final String FILE_PATH = "./config/" + MOD_ID + ".json";
     private static final File CONFIG_DIR = new File("./config");
 
@@ -57,7 +58,14 @@ public class Configs implements IConfigHandler {
     public static final ConfigStringList TAP_FILTER_PREFIX = new ConfigStringList( "TAB菜单过滤器-前缀",ImmutableList.of()," ");
 
     public static final ConfigBooleanHotkeyed ENABLE_MATERIAL_TODO_OVERLAY = new ConfigBooleanHotkeyed("启用材料待取Overlay", false, "", "启用后鼠标中键点击，原理图内方块(玩家背包内没有)，自动添加进待取列表");
+    public static final ConfigBooleanHotkeyed MATERIAL_TODO_OVERLAY_GET_ITEM_IMM = new ConfigBooleanHotkeyed("材料代取OverLay立即取货", false, "", "启用后鼠标中键点击，原理图内方块(玩家背包内没有)，会立即取货（需要lms carpet addition）");
     public static final ConfigHotkey CLEAR_MATERIAL_TODO_OVERLAY = new ConfigHotkey("清除材料待取Overlay", "", "");
+
+    public static final ConfigHotkey LMS_TAKE_ITEM = new ConfigHotkey("打开假人取货菜单", "", "打开假人取货菜单");
+
+    public static final ConfigHotkey MATERIAL_TODO_OVERLAY_BOT_SUPPORT = new ConfigHotkey("材料代取overlay假人取货支持", "", "需要lms carpet addition");
+    public static final ConfigInteger MATERIAL_TODO_OVERLAY_BOT_FETCH = new ConfigInteger("假人取出数量", 64, "");
+
 
     public static final ConfigInteger MATERIAL_TODO_OVERLAY_Y_OFFSET = new ConfigInteger("材料待取OverLay-y偏移", 0);
     public static final ConfigInteger MATERIAL_TODO_OVERLAY_X_OFFSET = new ConfigInteger("材料待取OverLay-x偏移", 0);
@@ -104,9 +112,13 @@ public class Configs implements IConfigHandler {
         list.add(TAP_FILTER_PREFIX);
 
         list.add(ENABLE_MATERIAL_TODO_OVERLAY);
+        list.add(MATERIAL_TODO_OVERLAY_GET_ITEM_IMM);
         list.add(CLEAR_MATERIAL_TODO_OVERLAY);
         list.add(MATERIAL_TODO_OVERLAY_X_OFFSET);
         list.add(MATERIAL_TODO_OVERLAY_Y_OFFSET);
+        list.add(MATERIAL_TODO_OVERLAY_BOT_SUPPORT);
+        list.add(MATERIAL_TODO_OVERLAY_BOT_FETCH);
+        list.add(LMS_TAKE_ITEM);
 
         list.add(TEST);
 
@@ -134,7 +146,9 @@ public class Configs implements IConfigHandler {
             SWITCH_SERVER_SINGLE_1,
             SWITCH_SERVER_SINGLE_2,
             SWITCH_SERVER_SINGLE_3,
-            CLEAR_MATERIAL_TODO_OVERLAY
+            CLEAR_MATERIAL_TODO_OVERLAY,
+            MATERIAL_TODO_OVERLAY_BOT_SUPPORT,
+            LMS_TAKE_ITEM
 
     );
 
