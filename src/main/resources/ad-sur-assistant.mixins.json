@@ -21,6 +21,8 @@
     "feature.DebugHud_Mixin",
     "feature.DownloadingTerrainScreen_Mixin",
     "feature.PlayerListHud_Mixin",
-    "feature.SubtitlesHud_Mixin"
+    "feature.SubtitlesHud_Mixin",
+    "feature.lms.CreativeInventoryScreen_Mixin",
+    "feature.lms.HandledScreen_Mixin"
   ]
 }

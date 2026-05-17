@@ -74,7 +74,7 @@ public class ClientPlayerInteractionManager_Mixin {
             if (!state.isIn(BlockTags.BEDS)) return;
         }
 
-        MCUtils.ChatUtils.sendMessWithSound("§c[ASA]已阻止方块交互", SoundEvents.ENTITY_VILLAGER_DEATH , 1, 1);
+        MCUtils.ChatUtils.sendMessWithSound("已阻止方块交互", SoundEvents.ENTITY_VILLAGER_DEATH , 1, 1);
         player.swingHand(hand);
         cir.setReturnValue(ActionResult.FAIL);
     }
