@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ItemStorageDataManager {
-    private static final List<PlayerItemStorage> playerItemList = new ArrayList<>();
     private static List<ItemStorage> itemStorages = new ArrayList<>();
     private static final Gson LENIENT_GSON = new GsonBuilder().setLenient().create();
     private static final Type playerType = new TypeToken<List<PlayerItemStorage>>(){}.getType();
@@ -30,53 +29,51 @@ public class ItemStorageDataManager {
         ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
             if (!Configs.LMS_FETCH_SUPPORT.getBooleanValue()) return true;
 
-            String str = message.getString();
+            String str = message.getString().trim();
+
             if (str.contains("maxCount") && str.startsWith("{") && str.endsWith("}")) {
                 MCUtils.ChatUtils.sendMessOnlyClientVisible("§c请求的数量超出配置的最大上限");
                 return false;
             }
-            else if (str.startsWith("[{") && str.endsWith("}]") && str.contains("count") && str.contains("id") && !str.contains("name") && str.contains("minecraft:")) {
-                try {
-                    itemStorages = LENIENT_GSON.fromJson(str, itemType);
 
-                    if (Configs.TEST.getBooleanValue()) {
-                        MCUtils.ChatUtils.sendMessOnlyClientVisible(Arrays.toString(itemStorages.toArray()));
-                    }
-                }
-                catch (Exception e) {
-                    AsaMod.LOGGER.error(e.getMessage(), e);
-                    MCUtils.ChatUtils.sendMessOnlyClientVisible(e.getMessage());
-                    return false;
-                }
-
-                return false;
-            }
-            else if (str.contains("name") && str.startsWith("[{") && str.endsWith("}]") && str.contains("count") && str.contains("id")) {
-                try {
-                    playerItemList.addAll(LENIENT_GSON.fromJson(str, playerType));
-                }
-                catch (Exception e) {
-                    MCUtils.ChatUtils.sendMessOnlyClientVisible(e.getMessage());
-                    AsaMod.LOGGER.error(e.getMessage(), e);
-                    return false;
-                }
-
-                for (PlayerItemStorage playerItemStorage : playerItemList) {
-                    if (playerItemStorage.name() != null) {
-                        MCUtils.excuteCommand("player " + playerItemStorage.name() + " spawn");
-                        MCUtils.ChatUtils.sendMessOnlyClientVisible("假人: [%s] 取出数量: [%d]".formatted(playerItemStorage.name(), playerItemStorage.count()));
-                    }
-                }
-
-                if (Configs.TEST.getBooleanValue()) {
-                    MCUtils.ChatUtils.sendMessOnlyClientVisible(Arrays.toString(playerItemList.toArray()));
-                }
-
-                playerItemList.clear();
-                return false;
-            }
-            else if (str.contains("[]") && str.startsWith("[") && str.endsWith("]") && !str.contains("count")) {
+            if (str.equals("[]")) {
                 MCUtils.ChatUtils.sendMessOnlyClientVisible("§c全无品: 这个物品暂时没有存货");
+                return false;
+            }
+
+            if (str.contains("id:") && str.contains("count:") && str.startsWith("[{") && str.endsWith("}]")) {
+                if (str.contains("name:")) {
+                    try {
+                        List<PlayerItemStorage> currentList = LENIENT_GSON.fromJson(str, playerType);
+                        if (currentList != null && !currentList.isEmpty()) {
+                            for (PlayerItemStorage playerItemStorage : currentList) {
+                                if (playerItemStorage.name() != null) {
+                                    MCUtils.excuteCommand("player " + playerItemStorage.name() + " spawn");
+                                    MCUtils.ChatUtils.sendMessOnlyClientVisible("假人: [%s] 取出数量: [%d]".formatted(playerItemStorage.name(), playerItemStorage.count()));
+                                }
+                            }
+                            if (Configs.TEST.getBooleanValue()) {
+                                MCUtils.ChatUtils.sendMessOnlyClientVisible(Arrays.toString(currentList.toArray()));
+                            }
+                        }
+                    }
+                    catch (Exception e) {
+                        AsaMod.LOGGER.error(e.getMessage(), e);
+                        MCUtils.ChatUtils.sendMessOnlyClientVisible(e.getMessage());
+                    }
+                }
+                else {
+                    try {
+                        itemStorages = LENIENT_GSON.fromJson(str, itemType);
+                        if (Configs.TEST.getBooleanValue()) {
+                            MCUtils.ChatUtils.sendMessOnlyClientVisible(Arrays.toString(itemStorages.toArray()));
+                        }
+                    }
+                    catch (Exception e) {
+                        AsaMod.LOGGER.error(e.getMessage(), e);
+                        MCUtils.ChatUtils.sendMessOnlyClientVisible(e.getMessage());
+                    }
+                }
                 return false;
             }
             return true;
