@@ -9,6 +9,7 @@ import io.github.jfglzs.asa.config.InputHandler;
 import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.render.RemainingItemRender;
+import io.github.jfglzs.asa.utils.CommandUtils;
 import io.github.jfglzs.asa.utils.lms.ItemStorageDataManager;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
@@ -40,8 +41,11 @@ public class AsaMod implements ClientModInitializer {
             checkTime++;
             if (checkTime % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue())
                 RemainingItemRender.INSTANCE.stack = PlayerUtils.getPlayerMainHandStack();
-            else if (checkTime % 20 == 0 && CREEPER_WARN.getBooleanValue()) {
+            if (checkTime % 20 == 0 && CREEPER_WARN.getBooleanValue()) {
                 creeperWarner();
+            }
+            if (checkTime % 200 == 0 && LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData")) {
+                ItemStorageDataManager.update();
             }
             if (checkTime % 40 == 0 && client.player != null && ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue()) {
                 MaterialToDoRenderer.INSTANCE.update();

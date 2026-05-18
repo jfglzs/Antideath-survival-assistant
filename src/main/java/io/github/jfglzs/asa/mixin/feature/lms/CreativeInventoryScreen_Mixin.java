@@ -1,8 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.lms;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.lms.ItemStorageDataManager;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
@@ -17,6 +15,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.List;
 
 @Mixin(CreativeInventoryScreen.class)
 public abstract class CreativeInventoryScreen_Mixin extends HandledScreen<CreativeInventoryScreen.CreativeScreenHandler> {
@@ -45,7 +46,6 @@ public abstract class CreativeInventoryScreen_Mixin extends HandledScreen<Creati
     ) {
         System.out.println(button);
         if (Configs.lockCreativeScreen && actionType != SlotActionType.THROW && actionType != SlotActionType.QUICK_CRAFT) {
-            System.out.println(actionType + "1");
             type = actionType;
         }
     }
@@ -80,30 +80,39 @@ public abstract class CreativeInventoryScreen_Mixin extends HandledScreen<Creati
             SlotActionType actionType,
             CallbackInfo ci
     ) {
-        if (Configs.lockCreativeScreen && type != null) {
-            System.out.println(type + "2");
-            System.out.println(slotId);
+        if (Configs.lockCreativeScreen && type != null && slotId == -999) {
             ItemStack stack = this.handler.getCursorStack();
             int count = -1;
-            if (type == SlotActionType.QUICK_MOVE && button == 0) {
-                count = 1728;
-            }
-            else if (type == SlotActionType.PICKUP && button == 0) {
-                count = 1;
-            }
-            else if (type == SlotActionType.QUICK_MOVE && button == 1) {
-                count = 17280;
+            if (type == SlotActionType.PICKUP && button == 0) {
+                count = 64;
             }
             else if (type == SlotActionType.PICKUP && button == 1) {
-                count = 64;
+                count = 1728;
             }
             ItemStorageDataManager.submit(stack.getItem(), count);
             handler.setCursorStack(ItemStack.EMPTY);
             Configs.lockCreativeScreen = false;
             this.client.setScreen(null);
+            this.type = null;
             ci.cancel();
         }
     }
+
+    @Inject(
+            method = "getTooltipFromItem",
+            at = @At("RETURN"),
+            cancellable = true
+    )
+    public void getTooltipFromItem(ItemStack stack, CallbackInfoReturnable<List<Text>> cir) {
+        if (Configs.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.lockCreativeScreen) {
+            if (client.player != null && !client.player.isCreative() && Configs.LMS_FETCH_SUPPORT.getBooleanValue()) {
+                List<Text> texts = cir.getReturnValue();
+                texts.add(ItemStorageDataManager.get(stack));
+                cir.setReturnValue(texts);
+            }
+        }
+    }
+
 
     @ModifyExpressionValue(
             method = "init",
