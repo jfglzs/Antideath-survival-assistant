@@ -25,10 +25,6 @@ public class Configs implements IConfigHandler {
 
     public static final ConfigHotkey ASA = new ConfigHotkey( "打开设置菜单", "Z,K","打开设置菜单快捷键");
 
-    public static final ConfigHotkey SWITCH_SERVER = new ConfigHotkey( "快速切换服务器", "F9","默认使用 /server 来切换服务器");
-    public static final ConfigString SWITCH_SERVER_COMMAND = new ConfigString( "自定义切换服务器命令","server","自定义切换服务器命令");
-    public static final ConfigStringList SWITCH_SERVER_LIST = new ConfigStringList( "服务器列表",ImmutableList.of("survival","creative"),"自动切换服务器时的服务器列表");
-
     public static final ConfigString SWITCH_SERVER_SINGLE_1S = new ConfigString( "指定切换服务器1","","指定切换服务器");
     public static final ConfigHotkey SWITCH_SERVER_SINGLE_1 = new ConfigHotkey( "切换到服务器1", "","切换到指定的服务器1");
     public static final ConfigString SWITCH_SERVER_SINGLE_2S = new ConfigString( "指定切换服务器2","","指定切换服务器");
@@ -94,15 +90,6 @@ public class Configs implements IConfigHandler {
         list.add(DISPLAY_REMAIN_ITEM_OVERLAY_Y_OFFSET);
 
         list.add(PREVENT_INTENTIONAL_GAME_DESIGN);
-        list.add(SWITCH_SERVER);
-        list.add(SWITCH_SERVER_COMMAND);
-
-        list.add(SWITCH_SERVER_SINGLE_1);
-        list.add(SWITCH_SERVER_SINGLE_1S);
-        list.add(SWITCH_SERVER_SINGLE_2);
-        list.add(SWITCH_SERVER_SINGLE_2S);
-        list.add(SWITCH_SERVER_SINGLE_3);
-        list.add(SWITCH_SERVER_SINGLE_3S);
 
         list.add(TAP_FILTER);
         list.add(ENABLE_TAP_FILTER_WHITELIST);
@@ -143,10 +130,6 @@ public class Configs implements IConfigHandler {
 
     public static final ImmutableList<ConfigHotkey> KEY_LIST = ImmutableList.of(
             ASA,
-            SWITCH_SERVER,
-            SWITCH_SERVER_SINGLE_1,
-            SWITCH_SERVER_SINGLE_2,
-            SWITCH_SERVER_SINGLE_3,
             CLEAR_MATERIAL_TODO_OVERLAY,
             MATERIAL_TODO_OVERLAY_BOT_SUPPORT,
             LMS_TAKE_ITEM
