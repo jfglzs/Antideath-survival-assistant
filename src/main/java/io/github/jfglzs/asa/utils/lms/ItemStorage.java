@@ -1,3 +1,4 @@
 package io.github.jfglzs.asa.utils.lms;
 
-public record ItemStorage(String name, int count, String id) {}
+public record ItemStorage(int count, String id) {
+}

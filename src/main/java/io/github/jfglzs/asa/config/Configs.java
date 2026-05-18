@@ -66,7 +66,7 @@ public class Configs implements IConfigHandler {
     public static final ConfigHotkey MATERIAL_TODO_OVERLAY_BOT_SUPPORT = new ConfigHotkey("材料代取overlay假人取货支持", "", "需要lms carpet addition");
     public static final ConfigInteger MATERIAL_TODO_OVERLAY_BOT_FETCH = new ConfigInteger("假人取出数量", 64, "");
 
-
+    public static final ConfigBoolean LMS_FETCH_SUPPORT = new ConfigBoolean("假人远程取货支持" , false,"需要lms carpet addition");
     public static final ConfigInteger MATERIAL_TODO_OVERLAY_Y_OFFSET = new ConfigInteger("材料待取OverLay-y偏移", 0);
     public static final ConfigInteger MATERIAL_TODO_OVERLAY_X_OFFSET = new ConfigInteger("材料待取OverLay-x偏移", 0);
 
@@ -118,6 +118,7 @@ public class Configs implements IConfigHandler {
         list.add(MATERIAL_TODO_OVERLAY_Y_OFFSET);
         list.add(MATERIAL_TODO_OVERLAY_BOT_SUPPORT);
         list.add(MATERIAL_TODO_OVERLAY_BOT_FETCH);
+        list.add(LMS_FETCH_SUPPORT);
         list.add(LMS_TAKE_ITEM);
 
         list.add(TEST);
