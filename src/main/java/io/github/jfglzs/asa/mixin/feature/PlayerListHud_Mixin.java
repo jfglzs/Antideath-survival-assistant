@@ -30,12 +30,14 @@ public abstract class PlayerListHud_Mixin {
                     }
                 }
                 else if (Configs.ENABLE_TAP_FILTER_PREFIX.getBooleanValue()) {
-                    if (Configs.TAP_FILTER_PREFIX.getStrings().contains(name)) {
-                        list.add(entry);
+                    for (String string : Configs.TAP_FILTER_PREFIX.getStrings()) {
+                        if (name.startsWith(string)) {
+                            list.add(entry);
+                        }
                     }
                 }
                 else {
-                    if (Configs.TAP_FILTER_BLACKLIST.getStrings().contains(name)) {
+                    if (!Configs.TAP_FILTER_BLACKLIST.getStrings().contains(name)) {
                         list.add(entry);
                     }
                 }
