@@ -12,6 +12,7 @@ import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @Mixin(CreativeInventoryScreen.class)
 public abstract class CreativeInventoryScreen_Mixin extends HandledScreen<CreativeInventoryScreen.CreativeScreenHandler> {
+    @Unique
     private SlotActionType type;
 
     public CreativeInventoryScreen_Mixin(CreativeInventoryScreen.CreativeScreenHandler handler, PlayerInventory inventory, Text title) {
@@ -44,7 +46,6 @@ public abstract class CreativeInventoryScreen_Mixin extends HandledScreen<Creati
             SlotActionType actionType,
             CallbackInfo ci
     ) {
-        System.out.println(button);
         if (Configs.lockCreativeScreen && actionType != SlotActionType.THROW && actionType != SlotActionType.QUICK_CRAFT) {
             type = actionType;
         }
@@ -113,12 +114,22 @@ public abstract class CreativeInventoryScreen_Mixin extends HandledScreen<Creati
         }
     }
 
-
     @ModifyExpressionValue(
             method = "init",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isInCreativeMode()Z")
     )
     public boolean isInCreativeMode(boolean original) {
         return Configs.lockCreativeScreen || original;
+    }
+
+    @ModifyExpressionValue(
+            method = "shouldShowOperatorTab",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isCreativeLevelTwoOp()Z")
+    )
+    public boolean isCreativeLevelTwoOp(boolean original) {
+        if (Configs.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.lockCreativeScreen) {
+            return true;
+        }
+        return original;
     }
 }

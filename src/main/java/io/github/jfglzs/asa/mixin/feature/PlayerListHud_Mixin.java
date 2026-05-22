@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(PlayerListHud.class)
@@ -20,23 +21,30 @@ public abstract class PlayerListHud_Mixin {
     )
     private List<PlayerListEntry> renderModify_Variable(List<PlayerListEntry> original) {
         if (Configs.TAP_FILTER.getBooleanValue()) {
-            return original.stream()
-                    .filter(entry -> {
-                        String name = entry.getProfile().getName();
-                        boolean bl;
-                        if (Configs.ENABLE_TAP_FILTER_PREFIX.getBooleanValue()) {
-                            bl = Configs.TAP_FILTER_WHITELIST.getStrings().stream().anyMatch(name::startsWith);
-                        }
-                        if (Configs.ENABLE_TAP_FILTER_WHITELIST.getBooleanValue()) {
-                            bl = Configs.TAP_FILTER_WHITELIST.getStrings().stream().anyMatch(name::equals);
-                        } else {
-                            bl = Configs.TAP_FILTER_WHITELIST.getStrings().stream().noneMatch(name::equals);
-                        }
-                        return bl;
-                    })
-                    .toList();
+            var list = new ArrayList<PlayerListEntry>();
+            for (PlayerListEntry entry : original) {
+                String name = entry.getProfile().getName();
+                if (Configs.ENABLE_TAP_FILTER_WHITELIST.getBooleanValue()) {
+                    if (Configs.TAP_FILTER_WHITELIST.getStrings().contains(name)) {
+                        list.add(entry);
+                    }
+                }
+                else if (Configs.ENABLE_TAP_FILTER_PREFIX.getBooleanValue()) {
+                    if (Configs.TAP_FILTER_PREFIX.getStrings().contains(name)) {
+                        list.add(entry);
+                    }
+                }
+                else {
+                    if (Configs.TAP_FILTER_BLACKLIST.getStrings().contains(name)) {
+                        list.add(entry);
+                    }
+                }
+            }
+            return list;
         }
-        return original;
+        else {
+            return original;
+        }
     }
 }
 
