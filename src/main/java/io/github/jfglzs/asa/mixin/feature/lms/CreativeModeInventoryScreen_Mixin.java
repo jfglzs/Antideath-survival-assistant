@@ -3,13 +3,13 @@ package io.github.jfglzs.asa.mixin.feature.lms;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.lms.ItemStorageDataManager;
-import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.network.chat.Component;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -20,20 +20,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Mixin(CreativeInventoryScreen.class)
-public abstract class CreativeInventoryScreen_Mixin extends HandledScreen<CreativeInventoryScreen.CreativeScreenHandler> {
+//~ if <=1.21.1 'player/LocalPlayer;hasInfiniteMaterials' -> 'multiplayer/MultiPlayerGameMode;hasInfiniteItems' {
+@Mixin(CreativeModeInventoryScreen.class)
+public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContainerScreen<CreativeModeInventoryScreen.ItemPickerMenu> {
     @Unique
-    private SlotActionType type;
+    private ClickType type;
 
-    public CreativeInventoryScreen_Mixin(CreativeInventoryScreen.CreativeScreenHandler handler, PlayerInventory inventory, Text title) {
+    public CreativeModeInventoryScreen_Mixin(CreativeModeInventoryScreen.ItemPickerMenu handler, Inventory inventory, Component title) {
         super(handler, inventory, title);
     }
 
     @Inject(
-            method = "onMouseClick",
+            method = "slotClicked",
             at = @At(
                     value = "FIELD",
-                    target = "Lnet/minecraft/screen/slot/SlotActionType;THROW:Lnet/minecraft/screen/slot/SlotActionType;",
+                    target = "Lnet/minecraft/world/inventory/ClickType;THROW:Lnet/minecraft/world/inventory/ClickType;",
                     ordinal = 0,
                     opcode = Opcodes.GETSTATIC,
                     shift = At.Shift.AFTER
@@ -43,17 +44,17 @@ public abstract class CreativeInventoryScreen_Mixin extends HandledScreen<Creati
             Slot slot,
             int slotId,
             int button,
-            SlotActionType actionType,
+            ClickType actionType,
             CallbackInfo ci
     ) {
-        if (Configs.lockCreativeScreen && actionType != SlotActionType.THROW && actionType != SlotActionType.QUICK_CRAFT) {
+        if (Configs.lockCreativeScreen && actionType != ClickType.THROW && actionType != ClickType.QUICK_CRAFT) {
             type = actionType;
         }
     }
 
     @Inject(
-            method = "handledScreenTick",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isInCreativeMode()Z"),
+            method = "containerTick",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;hasInfiniteMaterials()Z"),
             cancellable = true
     )
     public void handledScreenTick(CallbackInfo ci) {
@@ -70,39 +71,41 @@ public abstract class CreativeInventoryScreen_Mixin extends HandledScreen<Creati
         SlotActionType PickUp 单击
     */
     @Inject(
-            method = "onMouseClick",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;canDropItems()Z", ordinal = 1),
+            method = "slotClicked",
+            //~ if <=1.21.1 'player/LocalPlayer;canDropItems()Z' -> 'multiplayer/MultiPlayerGameMode;handleCreativeModeItemDrop(Lnet/minecraft/world/item/ItemStack;)V' {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;canDropItems()Z", ordinal = 1),
+            //~}
             cancellable = true
     )
     protected void onMouseClick_2(
             Slot slot,
             int slotId,
             int button,
-            SlotActionType actionType,
+            ClickType actionType,
             CallbackInfo ci
     ) {
         if (Configs.lockCreativeScreen && type != null && slotId == -999) {
-            ItemStack stack = this.handler.getCursorStack();
+            ItemStack stack = this.menu.getCarried();
             int count = -1;
-            if (type == SlotActionType.PICKUP && button == 0) count = stack.getMaxCount();
-            else if (type == SlotActionType.PICKUP && button == 1) count = 1728;
+            if (type == ClickType.PICKUP && button == 0) count = stack.getMaxStackSize();
+            else if (type == ClickType.PICKUP && button == 1) count = 1728;
             ItemStorageDataManager.submit(stack.getItem(), stack.getCount() * count);
-            handler.setCursorStack(ItemStack.EMPTY);
+            menu.setCarried(ItemStack.EMPTY);
             Configs.lockCreativeScreen = false;
-            this.client.setScreen(null);
+            this.minecraft.setScreen(null);
             this.type = null;
             ci.cancel();
         }
     }
 
     @Inject(
-            method = "getTooltipFromItem",
+            method = "getTooltipFromContainerItem",
             at = @At("RETURN"),
             cancellable = true
     )
-    public void getTooltipFromItem(ItemStack stack, CallbackInfoReturnable<List<Text>> cir) {
+    public void getTooltipFromItem(ItemStack stack, CallbackInfoReturnable<List<Component>> cir) {
         if (Configs.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.lockCreativeScreen) {
-            if (client.player != null && !client.player.isCreative() && Configs.LMS_FETCH_SUPPORT.getBooleanValue()) {
+            if (minecraft.player != null && !minecraft.player.isCreative() && Configs.LMS_FETCH_SUPPORT.getBooleanValue()) {
                 var texts = cir.getReturnValue();
                 var text = ItemStorageDataManager.get(stack);
                 texts.add(text);
@@ -113,15 +116,15 @@ public abstract class CreativeInventoryScreen_Mixin extends HandledScreen<Creati
 
     @ModifyExpressionValue(
             method = "init",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isInCreativeMode()Z")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;hasInfiniteMaterials()Z")
     )
     public boolean isInCreativeMode(boolean original) {
         return Configs.lockCreativeScreen || original;
     }
 
     @ModifyExpressionValue(
-            method = "shouldShowOperatorTab",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isCreativeLevelTwoOp()Z")
+            method = "hasPermissions",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;canUseGameMasterBlocks()Z")
     )
     public boolean isCreativeLevelTwoOp(boolean original) {
         if (Configs.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.lockCreativeScreen) {
@@ -130,3 +133,4 @@ public abstract class CreativeInventoryScreen_Mixin extends HandledScreen<Creati
         return original;
     }
 }
+//~}
