@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "io.github.jfglzs.asa.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "${compatibility_level}",
   "mixins": [
     "feature.Connection_Mixin",
     "feature.disablePlayerTabOverlayBackGround.PlayerTabOverlay_Mixin",
@@ -16,14 +16,14 @@
     "requireAnnotations": true
   },
   "client": [
-    "feature.HumanoidArmorLayer_Mixin",
-    "feature.MultiPlayerGameMode_Mixin",
     "feature.ClientPacketListener_Mixin",
     "feature.DebugScreenOverlay_Mixin",
-    "feature.ReceivingLevelScreen_Mixin",
+    "feature.HumanoidArmorLayer_Mixin",
+    "feature.MultiPlayerGameMode_Mixin",
     "feature.PlayerTabOverlay_Mixin",
+    "feature.ReceivingLevelScreen_Mixin",
     "feature.SubtitleOverlay_Mixin",
-    "feature.lms.CreativeModeInventoryScreen_Mixin",
-    "feature.lms.AbstractContainerScreen_Mixin"
+    "feature.lms.AbstractContainerScreen_Mixin",
+    "feature.lms.CreativeModeInventoryScreen_Mixin"
   ]
 }

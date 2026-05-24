@@ -1,38 +1,37 @@
 {
-	"schemaVersion": 1,
-	"id": "antideath-survival-assistant",
-	"version": "${version}",
-	"name": "antideath-survival-assistant",
-	"description": "masa extension mod that provides some useful features for your game.",
-	"authors": [
-		"antideath"
-	],
-	"contact": {
-		"homepage": "https://github.com/jfglzs/Antideath-survival-assistant/",
-		"sources": "https://github.com/jfglzs/Antideath-survival-assistant"
-	},
-	"license": "CC0-1.0",
-	"icon": "assets/asa/icon.png",
-	"environment": "*",
-	"entrypoints": {
-        "client": [
-          "io.github.jfglzs.asa.AsaMod"
-        ],
-        "modmenu": [
-          "io.github.jfglzs.asa.config.ModMenu"
-        ]
-	},
-	"mixins": [
-		"ad-sur-assistant.mixins.json"
-	],
-	"depends": {
-		"fabricloader": "*",
-        "malilib": "*",
-        "minecraft": "${mc}",
-        "java": ">=21",
-        "fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
-	}
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "masa extension mod that provides some useful features for your game.",
+  "authors": [
+    "antideath"
+  ],
+  "contact": {
+    "homepage": "https://github.com/jfglzs/Antideath-survival-assistant/",
+    "sources": "https://github.com/jfglzs/Antideath-survival-assistant"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/asa/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "io.github.jfglzs.asa.AsaMod"
+    ],
+    "modmenu": [
+      "io.github.jfglzs.asa.config.ModMenu"
+    ]
+  },
+  "mixins": [
+    "ad-sur-assistant.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "${loader}",
+    "malilib": "*",
+    "tweakeroo": "*",
+    "litematica": "*",
+    "minecraft": "${mc}",
+    "fabric-lifecycle-events-v1": "*",
+    "fabric-message-api-v1": "*"
+  }
 }
