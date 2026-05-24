@@ -4,15 +4,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 //? if > 1.21.1
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
-//? if > 1.20.1 {
 import net.minecraft.client.model.HumanoidModel;
-//?} else {
-//import net.minecraft.client.render.entity.model.BipedEntityModel;
-//import net.minecraft.entity.LivingEntity;
-//import net.minecraft.entity.player.PlayerEntity;
-//import net.minecraft.entity.EquipmentSlot;
-//import net.minecraft.item.Items;
-//?}
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,12 +15,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static io.github.jfglzs.asa.config.Configs.DISABLE_PLAYER_ARMOR_RENDER;
-//? if != 1.21.1 {
+//? if > 1.21.1 {
  import static net.minecraft.world.entity.EntityType.PLAYER;
 //?}
 @Mixin(HumanoidArmorLayer.class)
 public class HumanoidArmorLayer_Mixin {
-    //? if != 1.21.1 {
+    //? if > 1.21.1 {
     @Inject(
             method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/renderer/entity/state/HumanoidRenderState;FF)V",
             at = @At("HEAD"),
