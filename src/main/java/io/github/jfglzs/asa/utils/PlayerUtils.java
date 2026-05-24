@@ -113,11 +113,7 @@ public class PlayerUtils {
     }
 
     public static Item transfromToItem(String item) {
-        //? if > 1.20.1 {
         ResourceLocation identifier = ResourceLocation.withDefaultNamespace(item);
-        //?} else {
-        /*Identifier identifier = new Identifier("minecraft", item);
-         *///?}
         //~ if <=1.21.1 '.getValue(' -> '.get(' {
         return BuiltInRegistries.ITEM.getValue(identifier);
         //~}
