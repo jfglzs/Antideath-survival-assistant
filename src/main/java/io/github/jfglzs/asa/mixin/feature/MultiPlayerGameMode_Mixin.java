@@ -86,12 +86,8 @@ public class MultiPlayerGameMode_Mixin {
     private boolean isWhiteList() {
         Item item = minecraft.player.getMainHandItem().getItem();
         for (String id : DISABLE_PLACE_BLOCK_NEARBY_PORTAL_WHITELIST.getStrings()) {
-            //? if > 1.20.1 {
             if (id.contains("minecraft")) return false;
             ResourceLocation identifier = ResourceLocation.withDefaultNamespace(id);
-            //?} else {
-            /*Identifier identifier = new Identifier("minecraft", id);
-             *///?}
             //~ if <=1.21.1 '.getValue(' -> '.get(' {
             Item listedItem = BuiltInRegistries.ITEM.getValue(identifier);
             //~}
