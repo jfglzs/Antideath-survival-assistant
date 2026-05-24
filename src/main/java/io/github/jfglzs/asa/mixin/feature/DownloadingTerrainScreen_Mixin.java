@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static io.github.jfglzs.asa.config.Configs.DISABLE_LOADING_TERRAIN_SCREEN;
 
 @Mixin(DownloadingTerrainScreen.class)
-public class DownloadingTerrainScreen_Mixin {
+public abstract class DownloadingTerrainScreen_Mixin {
     @Inject(
             method = "render",
             at = @At("HEAD"),

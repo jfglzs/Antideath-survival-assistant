@@ -5,6 +5,7 @@ import fi.dy.masa.malilib.hotkeys.IHotkeyCallback;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.KeyAction;
 import io.github.jfglzs.asa.AsaMod;
+import io.github.jfglzs.asa.feature.fakePlayerKillAura.FakePlayerKillAura;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
@@ -31,6 +32,9 @@ public class HotkeysCallback implements IHotkeyCallback {
             Configs.lockCreativeScreen = true;
             this.client.setScreen(new CreativeInventoryScreen(this.client.player, this.client.player.networkHandler.getEnabledFeatures(), this.client.options.getOperatorItemsTab().getValue()));
             return true;
+        }
+        else if (key == ENABLE_FAKE_PLAYER_KILL_AURA.getKeybind()) {
+            FakePlayerKillAura.kill();
         }
         else if (key == TEST.getKeybind()){
             AsaMod.test();

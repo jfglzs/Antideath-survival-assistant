@@ -25,13 +25,6 @@ public class Configs implements IConfigHandler {
 
     public static final ConfigHotkey ASA = new ConfigHotkey( "打开设置菜单", "Z,K","打开设置菜单快捷键");
 
-    public static final ConfigString SWITCH_SERVER_SINGLE_1S = new ConfigString( "指定切换服务器1","","指定切换服务器");
-    public static final ConfigHotkey SWITCH_SERVER_SINGLE_1 = new ConfigHotkey( "切换到服务器1", "","切换到指定的服务器1");
-    public static final ConfigString SWITCH_SERVER_SINGLE_2S = new ConfigString( "指定切换服务器2","","指定切换服务器");
-    public static final ConfigHotkey SWITCH_SERVER_SINGLE_2 = new ConfigHotkey( "切换到服务器2", "","切换到指定的服务器2");
-    public static final ConfigString SWITCH_SERVER_SINGLE_3S = new ConfigString( "指定切换服务器3","","指定切换服务器");
-    public static final ConfigHotkey SWITCH_SERVER_SINGLE_3 = new ConfigHotkey( "切换到服务器3", "","切换到指定的服务器3");
-
     public static final ConfigBooleanHotkeyed CREEPER_WARN = new ConfigBooleanHotkeyed( "苦力怕预警器", true,"","当玩家8x8x8(默认)的范围存在苦力怕时 自动预警");
     public static final ConfigDouble CREEPER_WARN_RANGE = new ConfigDouble( "苦力怕预警器范围",8,0,64,"苦力怕预警器范围(以玩家为中心)");
     public static final ConfigBooleanHotkeyed DISABLE_SUBTITLE = new ConfigBooleanHotkeyed( "打开材料列表时禁用字幕", false,"","打开投影的材料列表时禁用字幕");
@@ -67,6 +60,13 @@ public class Configs implements IConfigHandler {
     public static final ConfigInteger MATERIAL_TODO_OVERLAY_X_OFFSET = new ConfigInteger("材料待取OverLay-x偏移", 0);
 
     public static final ConfigBooleanHotkeyed PREVENT_INTENTIONAL_GAME_DESIGN = new ConfigBooleanHotkeyed("防止被刻意的游戏设计杀死", false, "", "防止玩家被刻意的游戏设计杀死");
+
+    public static final ConfigBooleanHotkeyed DISABLE_PLAYER_LIST_HUD_BACKGROUND = new ConfigBooleanHotkeyed("禁用TAB菜单背景", false, "", "禁用TAB菜单背景");;
+
+    public static final ConfigHotkey ENABLE_FAKE_PLAYER_KILL_AURA = new ConfigHotkey("触发假人杀戮光环","","触发假人杀戮光环");
+    public static final ConfigString FAKE_PLAYER_KILL_AURA_PREFIX = new ConfigString("假人杀戮光环前缀","bot_","前缀");
+    public static final ConfigDouble FAKE_PLAYER_KILL_AURA_RANGE = new ConfigDouble( "假人杀戮光环范围",4,0,32,"假人杀戮光环范围(以玩家为中心)");
+    public static final ConfigStringList FAKE_PLAYER_KILL_AURA_BLACKLIST = new ConfigStringList( "假人杀戮光环黑名单", ImmutableList.of(),"假人杀戮光环黑名单（仅对名单内玩家生效，精确匹配，忽略大小写）");
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
@@ -108,6 +108,12 @@ public class Configs implements IConfigHandler {
         list.add(LMS_FETCH_SUPPORT);
         list.add(LMS_TAKE_ITEM);
 
+        list.add(DISABLE_PLAYER_LIST_HUD_BACKGROUND);
+        list.add(ENABLE_FAKE_PLAYER_KILL_AURA);
+        list.add(FAKE_PLAYER_KILL_AURA_PREFIX);
+        list.add(FAKE_PLAYER_KILL_AURA_RANGE);
+        list.add(FAKE_PLAYER_KILL_AURA_BLACKLIST);
+
         list.add(TEST);
 
 
@@ -124,7 +130,8 @@ public class Configs implements IConfigHandler {
             DISPLAY_REMAIN_ITEM,
             DISABLE_PLACE_BLOCK_NEARBY_PORTAL,
             PREVENT_INTENTIONAL_GAME_DESIGN,
-            ENABLE_MATERIAL_TODO_OVERLAY
+            ENABLE_MATERIAL_TODO_OVERLAY,
+            DISABLE_PLAYER_LIST_HUD_BACKGROUND
 
     );
 
@@ -132,7 +139,8 @@ public class Configs implements IConfigHandler {
             ASA,
             CLEAR_MATERIAL_TODO_OVERLAY,
             MATERIAL_TODO_OVERLAY_BOT_SUPPORT,
-            LMS_TAKE_ITEM
+            LMS_TAKE_ITEM,
+            ENABLE_FAKE_PLAYER_KILL_AURA
 
     );
 

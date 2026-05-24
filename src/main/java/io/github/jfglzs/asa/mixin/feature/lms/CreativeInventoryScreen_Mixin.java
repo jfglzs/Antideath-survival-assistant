@@ -84,13 +84,9 @@ public abstract class CreativeInventoryScreen_Mixin extends HandledScreen<Creati
         if (Configs.lockCreativeScreen && type != null && slotId == -999) {
             ItemStack stack = this.handler.getCursorStack();
             int count = -1;
-            if (type == SlotActionType.PICKUP && button == 0) {
-                count = 64;
-            }
-            else if (type == SlotActionType.PICKUP && button == 1) {
-                count = 1728;
-            }
-            ItemStorageDataManager.submit(stack.getItem(), count);
+            if (type == SlotActionType.PICKUP && button == 0) count = stack.getMaxCount();
+            else if (type == SlotActionType.PICKUP && button == 1) count = 1728;
+            ItemStorageDataManager.submit(stack.getItem(), stack.getCount() * count);
             handler.setCursorStack(ItemStack.EMPTY);
             Configs.lockCreativeScreen = false;
             this.client.setScreen(null);
@@ -107,8 +103,9 @@ public abstract class CreativeInventoryScreen_Mixin extends HandledScreen<Creati
     public void getTooltipFromItem(ItemStack stack, CallbackInfoReturnable<List<Text>> cir) {
         if (Configs.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.lockCreativeScreen) {
             if (client.player != null && !client.player.isCreative() && Configs.LMS_FETCH_SUPPORT.getBooleanValue()) {
-                List<Text> texts = cir.getReturnValue();
-                texts.add(ItemStorageDataManager.get(stack));
+                var texts = cir.getReturnValue();
+                var text = ItemStorageDataManager.get(stack);
+                texts.add(text);
                 cir.setReturnValue(texts);
             }
         }

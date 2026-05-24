@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "feature.ClientConnection_Mixin",
+    "feature.disablePlayerListHudBackGround.PlayerListHud_Mixin",
     "litematic.MaterialListHudRenderer_Mixin",
     "litematic.WorldUtils_Mixin",
     "tweakeroo.InventoryUtils_Invoker"
