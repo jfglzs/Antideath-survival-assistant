@@ -4,6 +4,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 //? if > 1.21.1
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+//? if > 1.21.1
+import net.minecraft.client.renderer.entity.state.PlayerRenderState;
 import net.minecraft.client.model.HumanoidModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -14,9 +16,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import static io.github.jfglzs.asa.config.Configs.DISABLE_PLAYER_ARMOR_RENDER;
 //? if > 1.21.1 {
- import static net.minecraft.world.entity.EntityType.PLAYER;
+import static net.minecraft.world.entity.EntityType.PLAYER;
+
 //?}
 @Mixin(HumanoidArmorLayer.class)
 public class HumanoidArmorLayer_Mixin {
@@ -27,8 +31,8 @@ public class HumanoidArmorLayer_Mixin {
             cancellable = true
     )
     public void render_Inject(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, HumanoidRenderState state, float f, float g, CallbackInfo ci) {
-        if (state.entityType.equals(PLAYER) && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
-             ci.cancel();
+        if (state instanceof PlayerRenderState && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
+            ci.cancel();
         }
     }
     //?} else {
