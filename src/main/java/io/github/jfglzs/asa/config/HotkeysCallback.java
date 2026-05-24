@@ -7,13 +7,13 @@ import fi.dy.masa.malilib.hotkeys.KeyAction;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.feature.fakePlayerKillAura.FakePlayerKillAura;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 
 import static io.github.jfglzs.asa.config.Configs.*;
 
 public class HotkeysCallback implements IHotkeyCallback {
-    MinecraftClient client = MinecraftClient.getInstance();
+    Minecraft client = Minecraft.getInstance();
 
     @Override
     public boolean onKeyAction(KeyAction action, IKeybind key) {
@@ -30,7 +30,7 @@ public class HotkeysCallback implements IHotkeyCallback {
         }
         else if (key == LMS_TAKE_ITEM.getKeybind()) {
             Configs.lockCreativeScreen = true;
-            this.client.setScreen(new CreativeInventoryScreen(this.client.player, this.client.player.networkHandler.getEnabledFeatures(), this.client.options.getOperatorItemsTab().getValue()));
+            this.client.setScreen(new CreativeModeInventoryScreen(this.client.player, this.client.player.connection.enabledFeatures(), this.client.options.operatorItemsTab().get()));
             return true;
         }
         else if (key == ENABLE_FAKE_PLAYER_KILL_AURA.getKeybind()) {

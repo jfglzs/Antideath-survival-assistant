@@ -1,15 +1,15 @@
 package io.github.jfglzs.asa.utils;
 
-import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.NonNullList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ import static io.github.jfglzs.asa.utils.MCUtils.getPlayer;
 
 public class PlayerUtils {
     public static int getInventoryItemCount(Item item) {
-        PlayerInventory inventory = MCUtils.getPlayer().getInventory();
-        int itemCount = IntStream.range(0, inventory.size())
-                .mapToObj(inventory::getStack)
+        Inventory inventory = MCUtils.getPlayer().getInventory();
+        int itemCount = IntStream.range(0, inventory.getContainerSize())
+                .mapToObj(inventory::getItem)
                 .filter(stack -> stack != null && stack.getItem().equals(item))
                 .mapToInt(ItemStack::getCount)
                 .sum();
@@ -33,13 +33,13 @@ public class PlayerUtils {
 
     public static List<Integer> getAllBoxIndexes(int maxIndex) {
         List<Integer> shulkerBoxIndexes = new ArrayList<>();
-        PlayerEntity player = MCUtils.getPlayer();
+        Player player = MCUtils.getPlayer();
         if (player == null) return shulkerBoxIndexes;
-        PlayerInventory inventory = player.getInventory();
+        Inventory inventory = player.getInventory();
 
 
         for (int i = 0; i < maxIndex; i++) {
-            ItemStack stack = inventory.getStack(i);
+            ItemStack stack = inventory.getItem(i);
             Item item = stack.getItem();
 
             // 判断是否为潜影盒
@@ -52,7 +52,7 @@ public class PlayerUtils {
     }
 
     public static List<Integer> getUnFullBoxIndexes(List<Integer> boxIndexes) {
-        PlayerEntity player = MCUtils.getPlayer();
+        Player player = MCUtils.getPlayer();
         List<Integer> shulkerBoxIndexes = boxIndexes;
         List<Integer> emptyList = new ArrayList<>();
         List<Integer> UnFullShulkerBoxIndexes = new ArrayList<>();
@@ -61,7 +61,7 @@ public class PlayerUtils {
             int isNotAir = 0;
             int loop = 0;
             int amount = 27;
-            DefaultedList<ItemStack> IS = getStoredItems(player.getInventory().getStack(i), amount);
+            NonNullList<ItemStack> IS = getStoredItems(player.getInventory().getItem(i), amount);
 
             for (ItemStack stack : IS) {
                 loop++;
@@ -75,14 +75,14 @@ public class PlayerUtils {
     }
 
     public static int getOpenedBoxEmptySlots(int slot) {
-        PlayerEntity player = MCUtils.getPlayer();
+        Player player = MCUtils.getPlayer();
         int EmptySlots = 0;
 
         int amount = 27;
 //            System.out.println("slot is " + slot);
         if (amount == -1) return -1;
 
-        DefaultedList<ItemStack> IS = getStoredItems(player.getInventory().getStack(slot), amount);
+        NonNullList<ItemStack> IS = getStoredItems(player.getInventory().getItem(slot), amount);
 
         for (ItemStack stack : IS) {
             if (stack.getItem().equals(Items.AIR)) EmptySlots++;
@@ -92,14 +92,14 @@ public class PlayerUtils {
     }
 
     public static List<Integer> getNotEmptyBoxIndexes(List<Integer> shulkerBoxIndexes) {
-        PlayerEntity player = MCUtils.getPlayer();
+        Player player = MCUtils.getPlayer();
         List<Integer> NotEmptyShulkerBoxIndexes = new ArrayList<>();
 
         for (int i : shulkerBoxIndexes) {
             int isAir = 0;
             int loop = 0;
             int amount = 27;
-            DefaultedList<ItemStack> IS = getStoredItems(player.getInventory().getStack(i), amount);
+            NonNullList<ItemStack> IS = getStoredItems(player.getInventory().getItem(i), amount);
 
             for (ItemStack stack : IS) {
                 loop++;
@@ -114,20 +114,22 @@ public class PlayerUtils {
 
     public static Item transfromToItem(String item) {
         //? if > 1.20.1 {
-        Identifier identifier = Identifier.ofVanilla(item);
+        ResourceLocation identifier = ResourceLocation.withDefaultNamespace(item);
         //?} else {
         /*Identifier identifier = new Identifier("minecraft", item);
-        *///?}
-        return Registries.ITEM.get(identifier);
+         *///?}
+        //~ if <=1.21.1 '.getValue(' -> '.get(' {
+        return BuiltInRegistries.ITEM.getValue(identifier);
+        //~}
     }
 
     public static boolean isNotAirInMainHand() {
-        return MCUtils.getMinecraftClient().player != null && !MCUtils.getMinecraftClient().player.getMainHandStack().getItem().equals(Items.AIR);
+        return MCUtils.getMinecraftClient().player != null && !MCUtils.getMinecraftClient().player.getMainHandItem().getItem().equals(Items.AIR);
     }
 
     public static int getInventoryEmptySlot() {
         for (int i = 36; i >= 9; i--) {
-            if (MCUtils.getPlayer().getInventory().getStack(i).isEmpty()) {
+            if (MCUtils.getPlayer().getInventory().getItem(i).isEmpty()) {
                 return i;
             }
         }
@@ -136,7 +138,7 @@ public class PlayerUtils {
 
     public static int checkRemainCount(Item item) {
         int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(36)).stream()
-                .flatMap(i -> getStoredItems(getPlayer().getInventory().getStack(i), 27).stream())
+                .flatMap(i -> getStoredItems(getPlayer().getInventory().getItem(i), 27).stream())
                 .filter(j -> j.getItem().equals(item))
                 .mapToInt(ItemStack::getCount)
                 .sum();
@@ -148,6 +150,6 @@ public class PlayerUtils {
         if (MCUtils.getMinecraftClient().player == null) {
             return ItemStack.EMPTY;
         }
-        return MCUtils.getMinecraftClient().player.getMainHandStack();
+        return MCUtils.getMinecraftClient().player.getMainHandItem();
     }
 }

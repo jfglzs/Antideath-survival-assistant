@@ -7,12 +7,12 @@ import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -86,12 +86,12 @@ public class ItemStorageDataManager {
         }
     }
 
-    public static Text get(ItemStack stack) {
+    public static Component get(ItemStack stack) {
         if (stack.isEmpty()) {
-            return Text.empty();
+            return Component.empty();
         }
 
-        String stackId = Registries.ITEM.getId(stack.getItem()).toString();
+        String stackId = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
 
         if (!itemStorages.isEmpty()) {
             for (ItemStorage itemStorage : itemStorages) {
@@ -99,11 +99,11 @@ public class ItemStorageDataManager {
                     int count = itemStorage.count();
 
                     if (count < 1728) {
-                        return Text.of("存货: %s 个".formatted(count)).copy().formatted(Formatting.BOLD, Formatting.GREEN);
+                        return Component.nullToEmpty("存货: %s 个".formatted(count)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
                     }
                     else {
                         int devide = 1728;
-                        int maxCount = stack.getMaxCount();
+                        int maxCount = stack.getMaxStackSize();
 
                         if (maxCount == 1) {
                             devide = 27;
@@ -112,16 +112,16 @@ public class ItemStorageDataManager {
                             devide = 432;
                         }
 
-                        return Text.of("存货: %s 个 (%.2f 潜影盒) ".formatted(count, (float) count / devide)).copy().formatted(Formatting.BOLD, Formatting.GREEN);
+                        return Component.nullToEmpty("存货: %s 个 (%.2f 潜影盒) ".formatted(count, (float) count / devide)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
                     }
                 }
             }
         }
         else {
-            return Text.of("物品未查询").copy().formatted(Formatting.BOLD, Formatting.RED);
+            return Component.nullToEmpty("物品未查询").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED);
         }
 
-        return Text.of("暂无存货").copy().formatted(Formatting.BOLD, Formatting.RED);
+        return Component.nullToEmpty("暂无存货").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED);
     }
 
     public static void update() {
