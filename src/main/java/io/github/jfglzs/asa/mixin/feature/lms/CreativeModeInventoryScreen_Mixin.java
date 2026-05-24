@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-//~ if <=1.21.1 'player/LocalPlayer;hasInfiniteMaterials' -> 'multiplayer/MultiPlayerGameMode;hasInfiniteItems' {
+//~ if <=1.21.4 'player/LocalPlayer;hasInfiniteMaterials' -> 'multiplayer/MultiPlayerGameMode;hasInfiniteItems' {
 @Mixin(CreativeModeInventoryScreen.class)
 public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContainerScreen<CreativeModeInventoryScreen.ItemPickerMenu> {
     @Unique
@@ -72,7 +72,7 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
     */
     @Inject(
             method = "slotClicked",
-            //~ if <=1.21.1 'player/LocalPlayer;canDropItems()Z' -> 'multiplayer/MultiPlayerGameMode;handleCreativeModeItemDrop(Lnet/minecraft/world/item/ItemStack;)V' {
+            //~ if <=1.21.4 'player/LocalPlayer;canDropItems()Z' -> 'multiplayer/MultiPlayerGameMode;handleCreativeModeItemDrop(Lnet/minecraft/world/item/ItemStack;)V' {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;canDropItems()Z", ordinal = 1),
             //~}
             cancellable = true
