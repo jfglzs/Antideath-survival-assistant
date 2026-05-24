@@ -1,7 +1,7 @@
 package io.github.jfglzs.asa.mixin.feature;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.ReceivingLevelScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -9,14 +9,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static io.github.jfglzs.asa.config.Configs.DISABLE_LOADING_TERRAIN_SCREEN;
 
-@Mixin(DownloadingTerrainScreen.class)
-public abstract class DownloadingTerrainScreen_Mixin {
+@Mixin(ReceivingLevelScreen.class)
+public abstract class ReceivingLevelScreen_Mixin {
     @Inject(
             method = "render",
             at = @At("HEAD"),
             cancellable = true
     )
-    public void render_Inject(DrawContext context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
+    public void render_Inject(GuiGraphics context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
         if (DISABLE_LOADING_TERRAIN_SCREEN.getBooleanValue()) {
             ci.cancel();
         }
@@ -28,7 +28,7 @@ public abstract class DownloadingTerrainScreen_Mixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    public void renderBackground_Inject(DrawContext context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
+    public void renderBackground_Inject(GuiGraphics context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
         if (DISABLE_LOADING_TERRAIN_SCREEN.getBooleanValue()) {
             ci.cancel();
         }

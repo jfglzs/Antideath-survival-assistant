@@ -2,15 +2,15 @@ package io.github.jfglzs.asa.utils;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -20,19 +20,19 @@ import static fi.dy.masa.malilib.util.InventoryUtils.getStoredItems;
 public class MCUtils {
     private static final Queue<String> commandQueue = new LinkedList<>();
 
-    public static MinecraftClient getMinecraftClient()
+    public static Minecraft getMinecraftClient()
     {
-        return MinecraftClient.getInstance();
+        return Minecraft.getInstance();
     }
 
-    public static PlayerEntity getPlayer()
+    public static Player getPlayer()
     {
         return getMinecraftClient().player;
     }
 
-    public static World getWorld()
+    public static Level getWorld()
     {
-       return getPlayer().getWorld();
+       return getPlayer().level();
     }
 
     public static void excuteCommand(String command) {
@@ -44,7 +44,7 @@ public class MCUtils {
     }
 
     public static String getItemID(Item item) {
-        Identifier id = Registries.ITEM.getId(item);
+        ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
         return id.toString();
     }
 
@@ -52,7 +52,7 @@ public class MCUtils {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null && !commandQueue.isEmpty()) {
                 String cmd = commandQueue.poll();
-                client.player.networkHandler.sendChatCommand(cmd);
+                client.player.connection.sendCommand(cmd);
             }
         });
     }
@@ -60,22 +60,22 @@ public class MCUtils {
 
     public static class ChatUtils {
         public static void sendMessOnlyClientVisible(String chat) {
-            MinecraftClient client = MinecraftClient.getInstance();
+            Minecraft client = Minecraft.getInstance();
             if (client.player == null) return;
-            client.player.sendMessage(Text.of(chat), false);
+            client.player.displayClientMessage(Component.nullToEmpty(chat), false);
         }
 
         public static void sendMessWithSound(String chat , SoundEvent type , float volume, float pitch) {
             chat = "[ASA] " + chat;
-            MinecraftClient client = getMinecraftClient();
-            ClientPlayerEntity player = client.player;
+            Minecraft client = getMinecraftClient();
+            LocalPlayer player = client.player;
             if (player == null) return;
             player.playSound(
                     type,
                     volume,
                     pitch
             );
-            player.sendMessage(Text.of(chat), false);
+            player.displayClientMessage(Component.nullToEmpty(chat), false);
         }
     }
 }

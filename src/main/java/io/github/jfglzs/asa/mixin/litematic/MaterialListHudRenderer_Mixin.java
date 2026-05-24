@@ -4,7 +4,7 @@ import fi.dy.masa.litematica.materials.MaterialListHudRenderer;
 import fi.dy.masa.malilib.config.HudAlignment;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.GuiGraphics;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
