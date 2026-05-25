@@ -52,6 +52,9 @@ public class Configs implements IConfigHandler {
     public static final ConfigHotkey CLEAR_MATERIAL_TODO_OVERLAY = new ConfigHotkey("清除材料待取Overlay", "", "");
 
     public static final ConfigHotkey LMS_TAKE_ITEM = new ConfigHotkey("打开假人取货菜单", "", "打开假人取货菜单");
+    public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV = new ConfigBooleanHotkeyed("假人取货自动打开假人背包", false, "", "自动打开假人背包");
+    public static final ConfigString AUTO_OPEN_FAKE_PLAYER_INV_PREFIX = new ConfigString("假人取货自动打开假人背包前缀","bot_","前缀");
+
 
     public static final ConfigHotkey MATERIAL_TODO_OVERLAY_BOT_SUPPORT = new ConfigHotkey("材料代取overlay假人取货支持", "", "需要lms carpet addition");
     public static final ConfigInteger MATERIAL_TODO_OVERLAY_BOT_FETCH = new ConfigInteger("假人取出数量", 64, "");
@@ -113,6 +116,8 @@ public class Configs implements IConfigHandler {
         list.add(MATERIAL_TODO_OVERLAY_BOT_SUPPORT);
         list.add(MATERIAL_TODO_OVERLAY_BOT_FETCH);
         list.add(LMS_FETCH_SUPPORT);
+        list.add(AUTO_OPEN_FAKE_PLAYER_INV);
+        list.add(AUTO_OPEN_FAKE_PLAYER_INV_PREFIX);
         list.add(LMS_TAKE_ITEM);
 
         list.add(LOW_HEALTH_EXECUTE_OR_SEND);
@@ -143,7 +148,8 @@ public class Configs implements IConfigHandler {
             DISABLE_PLACE_BLOCK_NEARBY_PORTAL,
             PREVENT_INTENTIONAL_GAME_DESIGN,
             ENABLE_MATERIAL_TODO_OVERLAY,
-            DISABLE_PLAYER_LIST_HUD_BACKGROUND
+            DISABLE_PLAYER_LIST_HUD_BACKGROUND,
+            AUTO_OPEN_FAKE_PLAYER_INV
 
     );
 
