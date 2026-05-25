@@ -7,8 +7,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.NonNullList;
 
 import java.util.ArrayList;
@@ -110,26 +108,6 @@ public class PlayerUtils {
 
         return NotEmptyShulkerBoxIndexes;
 
-    }
-
-    public static Item transfromToItem(String item) {
-        ResourceLocation identifier = ResourceLocation.withDefaultNamespace(item);
-        //~ if <=1.21.1 '.getValue(' -> '.get(' {
-        return BuiltInRegistries.ITEM.getValue(identifier);
-        //~}
-    }
-
-    public static boolean isNotAirInMainHand() {
-        return MCUtils.getMinecraftClient().player != null && !MCUtils.getMinecraftClient().player.getMainHandItem().getItem().equals(Items.AIR);
-    }
-
-    public static int getInventoryEmptySlot() {
-        for (int i = 36; i >= 9; i--) {
-            if (MCUtils.getPlayer().getInventory().getItem(i).isEmpty()) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     public static int checkRemainCount(Item item) {

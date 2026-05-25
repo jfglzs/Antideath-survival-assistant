@@ -9,6 +9,7 @@ import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.config.IHotkeyTogglable;
 import fi.dy.masa.malilib.config.options.*;
 import fi.dy.masa.malilib.util.JsonUtils;
+import io.github.jfglzs.asa.config.options.LowHealthSendMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -68,6 +69,12 @@ public class Configs implements IConfigHandler {
     public static final ConfigDouble FAKE_PLAYER_KILL_AURA_RANGE = new ConfigDouble( "假人杀戮光环范围",4,0,32,"假人杀戮光环范围(以玩家为中心)");
     public static final ConfigStringList FAKE_PLAYER_KILL_AURA_BLACKLIST = new ConfigStringList( "假人杀戮光环黑名单", ImmutableList.of(),"假人杀戮光环黑名单（仅对名单内玩家生效，精确匹配，忽略大小写）");
 
+    public static final ConfigBooleanHotkeyed LOW_HEALTH_EXECUTE_OR_SEND = new ConfigBooleanHotkeyed("低生命值自动执行命令/发送聊天消息", false, "", "可自定义命令");
+    public static final ConfigFloat LOW_HEALTH_VALUE = new ConfigFloat( "生命值阈值",4,1,20,"生命值阈值");
+    public static final ConfigOptionList LOW_HEALTH_SEND_MODE = new ConfigOptionList( "发送模式", LowHealthSendMode.SEND_CHAT_MESSAGE);
+    public static final ConfigString LOW_HEALTH_SEND_CONTENT = new ConfigString( "发送模式", "!s");
+
+
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
     public static final ImmutableList<IConfigBase> ALL = addCompatibility();
@@ -107,6 +114,11 @@ public class Configs implements IConfigHandler {
         list.add(MATERIAL_TODO_OVERLAY_BOT_FETCH);
         list.add(LMS_FETCH_SUPPORT);
         list.add(LMS_TAKE_ITEM);
+
+        list.add(LOW_HEALTH_EXECUTE_OR_SEND);
+        list.add(LOW_HEALTH_VALUE);
+        list.add(LOW_HEALTH_SEND_MODE);
+        list.add(LOW_HEALTH_SEND_CONTENT);
 
         list.add(DISABLE_PLAYER_LIST_HUD_BACKGROUND);
         list.add(ENABLE_FAKE_PLAYER_KILL_AURA);
