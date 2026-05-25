@@ -3,10 +3,8 @@ package io.github.jfglzs.asa;
 import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InputEventHandler;
 import fi.dy.masa.malilib.event.RenderEventHandler;
-import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.config.HotkeysCallback;
 import io.github.jfglzs.asa.config.InputHandler;
-import io.github.jfglzs.asa.config.options.LowHealthSendMode;
 import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
@@ -27,7 +25,6 @@ import static io.github.jfglzs.asa.config.Configs.*;
 //TODO 实现类似F3+F4切换服务器
 public class AsaMod implements ClientModInitializer {
     public static String version;
-    public static final String SPACE = " ";
     public static final String MOD_ID = "antideath-survival-assistant";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static int checkTime = 0;
@@ -41,6 +38,7 @@ public class AsaMod implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             LowHealthSendCommandOrChat.trigger(client);
+            ItemStorageDataManager.scanPlayers();
 
             if (checkTime % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue()) {
                 RemainingItemRender.INSTANCE.stack = PlayerUtils.getPlayerMainHandStack();
@@ -49,7 +47,7 @@ public class AsaMod implements ClientModInitializer {
                 creeperWarner();
             }
             if (checkTime % 200 == 0 && LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData")) {
-                ItemStorageDataManager.update();
+                ItemStorageDataManager.reflushCache();
             }
             if (checkTime % 40 == 0 && client.player != null && ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue()) {
                 MaterialToDoRenderer.INSTANCE.update();

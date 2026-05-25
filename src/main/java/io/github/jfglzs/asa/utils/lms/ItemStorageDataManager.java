@@ -7,23 +7,24 @@ import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ItemStorageDataManager {
     private static List<ItemStorage> itemStorages = new ArrayList<>();
     private static final Gson LENIENT_GSON = new GsonBuilder().setLenient().create();
     private static final Type playerType = new TypeToken<List<PlayerItemStorage>>(){}.getType();
     private static final Type itemType = new TypeToken<List<ItemStorage>>(){}.getType();
+    private static final Set<String> fakePlayerNames = new HashSet<>();
 
     public static void init() {
         ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
@@ -49,6 +50,7 @@ public class ItemStorageDataManager {
                             for (PlayerItemStorage playerItemStorage : currentList) {
                                 if (playerItemStorage.name() != null) {
                                     MCUtils.excuteCommand("player " + playerItemStorage.name() + " spawn");
+                                    fakePlayerNames.add(Configs.AUTO_OPEN_FAKE_PLAYER_INV_PREFIX.getStringValue() + playerItemStorage.name());
                                     MCUtils.ChatUtils.sendMessOnlyClientVisible("假人: [%s] 取出数量: [%d]".formatted(playerItemStorage.name(), playerItemStorage.count()));
                                 }
                             }
@@ -124,7 +126,20 @@ public class ItemStorageDataManager {
         return Component.nullToEmpty("暂无存货").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED);
     }
 
-    public static void update() {
+    public static void reflushCache() {
         MCUtils.excuteCommand("getStorageData");
+    }
+
+    public static void scanPlayers() {
+        if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
+            Minecraft mc = Minecraft.getInstance();
+            if (mc.level != null) {
+                for (AbstractClientPlayer player : mc.level.players()) {
+                    if (fakePlayerNames.remove(player.getGameProfile().getName())) {
+                        MCUtils.excuteCommand("player" + player.getGameProfile().getName() + "inventory");
+                    }
+                }
+            }
+        }
     }
 }
