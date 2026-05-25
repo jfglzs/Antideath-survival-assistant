@@ -8,6 +8,7 @@ import io.github.jfglzs.asa.config.HotkeysCallback;
 import io.github.jfglzs.asa.config.InputHandler;
 import io.github.jfglzs.asa.config.options.LowHealthSendMode;
 import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
+import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.render.RemainingItemRender;
 import io.github.jfglzs.asa.utils.CommandUtils;
@@ -39,14 +40,8 @@ public class AsaMod implements ClientModInitializer {
         this.init();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (LOW_HEALTH_EXECUTE_OR_SEND.getBooleanValue() && client.player != null && client.player.getHealth() < LOW_HEALTH_VALUE.getFloatValue()) {
-                if (LOW_HEALTH_SEND_MODE.getOptionListValue().getStringValue().equals("发送聊天消息")) {
-                    MCUtils.ChatUtils.sendMessageToServer(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue());
-                }
-                else {
-                    MCUtils.excuteCommand(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue());
-                }
-            }
+            LowHealthSendCommandOrChat.trigger(client);
+
             if (checkTime % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue()) {
                 RemainingItemRender.INSTANCE.stack = PlayerUtils.getPlayerMainHandStack();
             }
