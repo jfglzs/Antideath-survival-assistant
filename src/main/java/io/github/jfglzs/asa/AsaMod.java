@@ -6,6 +6,7 @@ import fi.dy.masa.malilib.event.RenderEventHandler;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.config.HotkeysCallback;
 import io.github.jfglzs.asa.config.InputHandler;
+import io.github.jfglzs.asa.config.options.LowHealthSendMode;
 import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.render.RemainingItemRender;
@@ -38,9 +39,17 @@ public class AsaMod implements ClientModInitializer {
         this.init();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            checkTime++;
-            if (checkTime % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue())
+            if (LOW_HEALTH_EXECUTE_OR_SEND.getBooleanValue() && client.player != null && client.player.getHealth() < LOW_HEALTH_VALUE.getFloatValue()) {
+                if (LOW_HEALTH_SEND_MODE.getOptionListValue().getStringValue().equals("发送聊天消息")) {
+                    MCUtils.ChatUtils.sendMessageToServer(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue());
+                }
+                else {
+                    MCUtils.excuteCommand(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue());
+                }
+            }
+            if (checkTime % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue()) {
                 RemainingItemRender.INSTANCE.stack = PlayerUtils.getPlayerMainHandStack();
+            }
             if (checkTime % 20 == 0 && CREEPER_WARN.getBooleanValue()) {
                 creeperWarner();
             }
@@ -56,9 +65,9 @@ public class AsaMod implements ClientModInitializer {
 
     private void init() {
         ItemStorageDataManager.init();
-        Configs.INSTANCE.load();
+        INSTANCE.load();
         HotkeysCallback.init();
-        ConfigManager.getInstance().registerConfigHandler(MOD_ID, Configs.INSTANCE);
+        ConfigManager.getInstance().registerConfigHandler(MOD_ID, INSTANCE);
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
         RenderEventHandler.getInstance().registerGameOverlayRenderer(MaterialToDoRenderer.INSTANCE);

@@ -59,23 +59,27 @@ public class MCUtils {
 
 
     public static class ChatUtils {
+        private static final Minecraft client = Minecraft.getInstance();
+
+
         public static void sendMessOnlyClientVisible(String chat) {
-            Minecraft client = Minecraft.getInstance();
             if (client.player == null) return;
             client.player.displayClientMessage(Component.nullToEmpty(chat), false);
         }
 
         public static void sendMessWithSound(String chat , SoundEvent type , float volume, float pitch) {
             chat = "[ASA] " + chat;
-            Minecraft client = getMinecraftClient();
             LocalPlayer player = client.player;
-            if (player == null) return;
-            player.playSound(
-                    type,
-                    volume,
-                    pitch
-            );
-            player.displayClientMessage(Component.nullToEmpty(chat), false);
+            if (player != null) {
+                player.playSound(type, volume, pitch);
+                player.displayClientMessage(Component.nullToEmpty(chat), false);
+            }
+        }
+
+        public static void sendMessageToServer(String chat) {
+            if (client.player != null) {
+                client.player.connection.sendChat(chat);
+            }
         }
     }
 }
