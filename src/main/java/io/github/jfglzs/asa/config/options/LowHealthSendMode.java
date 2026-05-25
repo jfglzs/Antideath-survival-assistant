@@ -43,7 +43,7 @@ public enum LowHealthSendMode implements IConfigOptionListEntry {
     @Override
     public IConfigOptionListEntry fromString(String value) {
         for (LowHealthSendMode mode : values()) {
-            if (mode.name().equalsIgnoreCase(value)) {
+            if (mode.name.equalsIgnoreCase(value)) {
                 return mode;
             }
         }

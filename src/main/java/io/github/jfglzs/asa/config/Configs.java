@@ -72,7 +72,7 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed LOW_HEALTH_EXECUTE_OR_SEND = new ConfigBooleanHotkeyed("低生命值自动执行命令/发送聊天消息", false, "", "可自定义命令");
     public static final ConfigFloat LOW_HEALTH_VALUE = new ConfigFloat( "生命值阈值",4,1,20,"生命值阈值");
     public static final ConfigOptionList LOW_HEALTH_SEND_MODE = new ConfigOptionList( "发送模式", LowHealthSendMode.SEND_CHAT_MESSAGE);
-    public static final ConfigString LOW_HEALTH_SEND_CONTENT = new ConfigString( "发送模式", "!s");
+    public static final ConfigString LOW_HEALTH_SEND_CONTENT = new ConfigString( "发送内容", "!s");
 
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
