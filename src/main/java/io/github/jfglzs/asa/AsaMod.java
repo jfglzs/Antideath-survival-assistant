@@ -3,6 +3,7 @@ package io.github.jfglzs.asa;
 import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InputEventHandler;
 import fi.dy.masa.malilib.event.RenderEventHandler;
+import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.config.HotkeysCallback;
 import io.github.jfglzs.asa.config.InputHandler;
 import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
@@ -58,7 +59,7 @@ public class AsaMod implements ClientModInitializer {
 
     private void init() {
         ItemStorageDataManager.init();
-        INSTANCE.load();
+        Configs.INSTANCE.load();
         HotkeysCallback.init();
         ConfigManager.getInstance().registerConfigHandler(MOD_ID, INSTANCE);
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());

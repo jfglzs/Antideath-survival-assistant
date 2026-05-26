@@ -24,7 +24,8 @@ public class ItemStorageDataManager {
     private static final Gson LENIENT_GSON = new GsonBuilder().setLenient().create();
     private static final Type playerType = new TypeToken<List<PlayerItemStorage>>(){}.getType();
     private static final Type itemType = new TypeToken<List<ItemStorage>>(){}.getType();
-    private static final Set<String> fakePlayerNames = new HashSet<>();
+    private static final Set<String> waitForInv = new HashSet<>();
+    private static final Set<String> waitForKillingNames = new HashSet<>();
 
     public static void init() {
         ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
@@ -36,22 +37,26 @@ public class ItemStorageDataManager {
                 MCUtils.ChatUtils.sendMessOnlyClientVisible("§c请求的数量超出配置的最大上限");
                 return false;
             }
-
             if (str.equals("[]")) {
                 MCUtils.ChatUtils.sendMessOnlyClientVisible("§c全无品: 这个物品暂时没有存货");
                 return false;
             }
-
             if (str.contains("id:") && str.contains("count:") && str.startsWith("[{") && str.endsWith("}]")) {
                 if (str.contains("name:")) {
                     try {
                         List<PlayerItemStorage> currentList = LENIENT_GSON.fromJson(str, playerType);
                         if (currentList != null && !currentList.isEmpty()) {
                             for (PlayerItemStorage playerItemStorage : currentList) {
-                                if (playerItemStorage.name() != null) {
-                                    MCUtils.excuteCommand("player " + playerItemStorage.name() + " spawn");
-                                    fakePlayerNames.add(Configs.AUTO_OPEN_FAKE_PLAYER_INV_PREFIX.getStringValue() + playerItemStorage.name());
-                                    MCUtils.ChatUtils.sendMessOnlyClientVisible("假人: [%s] 取出数量: [%d]".formatted(playerItemStorage.name(), playerItemStorage.count()));
+                                String name = playerItemStorage.name();
+                                if (name != null) {
+                                    MCUtils.excuteCommand("player " + name + " spawn");
+                                    MCUtils.ChatUtils.sendMessOnlyClientVisible("假人: [%s] 取出数量: [%d]".formatted(name, playerItemStorage.count()));
+                                    if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
+                                        waitForInv.add(name);
+                                    }
+                                    else {
+                                        waitForKillingNames.add(name);
+                                    }
                                 }
                             }
                             if (Configs.TEST.getBooleanValue()) {
@@ -135,11 +140,17 @@ public class ItemStorageDataManager {
             Minecraft mc = Minecraft.getInstance();
             if (mc.level != null) {
                 for (AbstractClientPlayer player : mc.level.players()) {
-                    if (fakePlayerNames.remove(player.getGameProfile().getName())) {
-                        MCUtils.excuteCommand("player" + player.getGameProfile().getName() + "inventory");
+                    var name = player.getGameProfile().getName();
+                    if (waitForInv.remove(name)) {
+                        waitForKillingNames.add(name);
+                        MCUtils.excuteCommand("player " + name + " inventory");
                     }
                 }
             }
         }
+    }
+
+    public static Set<String> getFakePlayerNames() {
+        return waitForKillingNames;
     }
 }
