@@ -62,7 +62,7 @@ public class MaterialToDoRenderer implements IRenderer {
     public void getItem() {
         Item item = items.poll();
         if (item != null) {
-            MCUtils.excuteCommand("getItem " + MCUtils.getItemID(item) + " " + MATERIAL_TODO_OVERLAY_BOT_FETCH.getIntegerValue() + " " + "nbt");
+            MCUtils.executeCommand("getItem " + MCUtils.getItemID(item) + " " + MATERIAL_TODO_OVERLAY_BOT_FETCH.getIntegerValue() + " " + "nbt");
         }
     }
 }
