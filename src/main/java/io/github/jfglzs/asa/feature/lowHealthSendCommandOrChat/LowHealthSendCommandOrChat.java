@@ -18,7 +18,7 @@ public class LowHealthSendCommandOrChat {
                 MCUtils.ChatUtils.sendMessageToServer(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue());
             }
             else {
-                MCUtils.excuteCommand(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue());
+                MCUtils.executeCommand(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue());
             }
         }
     }

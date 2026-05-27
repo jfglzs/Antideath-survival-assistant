@@ -6,7 +6,6 @@ import fi.dy.masa.malilib.gui.button.ButtonBase;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;
 import fi.dy.masa.malilib.util.StringUtils;
-
 import java.util.List;
 
 import static io.github.jfglzs.asa.AsaMod.*;
@@ -17,7 +16,7 @@ public class ConfigUi extends GuiConfigsBase {
 
     public ConfigUi()
     {
-        super(10, 50, MOD_ID, null, MOD_ID + " 配置界面");
+        super(10, 50, MOD_ID, null, "%s V%s 配置界面".formatted(MOD_ID, version));
     }
 
     @Override

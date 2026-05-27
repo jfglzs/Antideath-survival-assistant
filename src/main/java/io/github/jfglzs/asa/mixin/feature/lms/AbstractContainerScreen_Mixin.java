@@ -1,7 +1,9 @@
 package io.github.jfglzs.asa.mixin.feature.lms;
 
+import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.ThreadUtils;
 import io.github.jfglzs.asa.utils.lms.ItemStorageDataManager;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -29,8 +31,20 @@ public abstract class AbstractContainerScreen_Mixin extends Screen {
             for (String name : fakePlayerNames) {
                 String titleString = this.title.getString();
                 if (titleString.contains(name)) {
-                    MCUtils.excuteCommand("player %s kill".formatted(name));
-                    fakePlayerNames.clear();
+                    ThreadUtils.runAsync(() -> {
+                        try {
+                            Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
+                            ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s kill".formatted(name)));
+                            fakePlayerNames.add(name);
+                        }
+                        catch (InterruptedException e) {
+                            MCUtils.ChatUtils.sendMessOnlyClientVisible(e.getMessage());
+                            AsaMod.LOGGER.error(e.getMessage(), e);
+                        }
+                        finally {
+                            fakePlayerNames.clear();
+                        }
+                    });
                     break;
                 }
             }

@@ -14,7 +14,7 @@ public class FakePlayerKillAura {
             for (Player player : players) {
                 var name = player.getDisplayName().getString();
                 if (name.startsWith(Configs.FAKE_PLAYER_KILL_AURA_PREFIX.getStringValue())) {
-                    MCUtils.excuteCommand("player %s kill".formatted(name));
+                    MCUtils.executeCommand("player %s kill".formatted(name));
                 }
             }
         }

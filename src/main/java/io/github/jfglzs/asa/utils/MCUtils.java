@@ -1,6 +1,5 @@
 package io.github.jfglzs.asa.utils;
 
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -12,13 +11,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 import static fi.dy.masa.malilib.util.InventoryUtils.getStoredItems;
 
 public class MCUtils {
-    private static final Queue<String> commandQueue = new LinkedList<>();
+    private static final Minecraft mc = Minecraft.getInstance();
 
     public static Minecraft getMinecraftClient()
     {
@@ -35,8 +31,10 @@ public class MCUtils {
        return getPlayer().level();
     }
 
-    public static void excuteCommand(String command) {
-        commandQueue.add(command);
+    public static void executeCommand(String command) {
+        if (mc.player != null && command != null) {
+            mc.player.connection.sendCommand(command);
+        }
     }
 
     public static boolean isModLoaded(String modId) {
@@ -47,16 +45,6 @@ public class MCUtils {
         ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
         return id.toString();
     }
-
-    static {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (client.player != null && !commandQueue.isEmpty()) {
-                String cmd = commandQueue.poll();
-                client.player.connection.sendCommand(cmd);
-            }
-        });
-    }
-
 
     public static class ChatUtils {
         private static final Minecraft client = Minecraft.getInstance();

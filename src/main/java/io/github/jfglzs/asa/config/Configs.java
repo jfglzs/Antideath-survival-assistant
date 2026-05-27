@@ -52,14 +52,15 @@ public class Configs implements IConfigHandler {
     public static final ConfigHotkey CLEAR_MATERIAL_TODO_OVERLAY = new ConfigHotkey("清除材料待取Overlay", "", "");
 
     public static final ConfigHotkey LMS_TAKE_ITEM = new ConfigHotkey("打开假人取货菜单", "", "打开假人取货菜单");
-    public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV = new ConfigBooleanHotkeyed("假人取货自动打开假人背包", false, "", "自动打开假人背包");
 
 
     public static final ConfigHotkey MATERIAL_TODO_OVERLAY_BOT_SUPPORT = new ConfigHotkey("材料代取overlay假人取货支持", "", "需要lms carpet addition");
     public static final ConfigInteger MATERIAL_TODO_OVERLAY_BOT_FETCH = new ConfigInteger("假人取出数量", 64, "");
 
     public static final ConfigBoolean LMS_FETCH_SUPPORT = new ConfigBoolean("假人远程取货支持" , false,"需要lms carpet addition");
+    public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV = new ConfigBooleanHotkeyed("假人取货自动打开假人背包", false, "", "自动打开假人背包");
     public static final ConfigBooleanHotkeyed AUTO_KILL_FAKE_PLAYERS = new ConfigBooleanHotkeyed("假人远程取货自动下线假人", false, "", "");
+    public static final ConfigInteger AUTO_COOLDOWN = new ConfigInteger("假人远程取货自动打开背包/自动下线延迟", 100, 100, 1000, "单位ms", "");
 
     public static final ConfigInteger MATERIAL_TODO_OVERLAY_Y_OFFSET = new ConfigInteger("材料待取OverLay-y偏移", 0);
     public static final ConfigInteger MATERIAL_TODO_OVERLAY_X_OFFSET = new ConfigInteger("材料待取OverLay-x偏移", 0);
@@ -117,9 +118,10 @@ public class Configs implements IConfigHandler {
         list.add(MATERIAL_TODO_OVERLAY_BOT_SUPPORT);
         list.add(MATERIAL_TODO_OVERLAY_BOT_FETCH);
         list.add(LMS_FETCH_SUPPORT);
+        list.add(LMS_TAKE_ITEM);
         list.add(AUTO_OPEN_FAKE_PLAYER_INV);
         list.add(AUTO_KILL_FAKE_PLAYERS);
-        list.add(LMS_TAKE_ITEM);
+        list.add(AUTO_COOLDOWN);
 
         list.add(LOW_HEALTH_EXECUTE_OR_SEND);
         list.add(LOW_HEALTH_VALUE);

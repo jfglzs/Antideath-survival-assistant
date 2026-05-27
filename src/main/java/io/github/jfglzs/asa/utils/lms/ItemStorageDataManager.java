@@ -6,10 +6,10 @@ import com.google.gson.GsonBuilder;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.ThreadUtils;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -49,7 +49,7 @@ public class ItemStorageDataManager {
                             for (PlayerItemStorage playerItemStorage : currentList) {
                                 String name = playerItemStorage.name();
                                 if (name != null) {
-                                    MCUtils.excuteCommand("player " + name + " spawn");
+                                    MCUtils.executeCommand("player %s spawn".formatted(name));
                                     MCUtils.ChatUtils.sendMessOnlyClientVisible("假人: [%s] 取出数量: [%d]".formatted(name, playerItemStorage.count()));
                                     if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
                                         waitForInv.add(name);
@@ -89,7 +89,7 @@ public class ItemStorageDataManager {
 
     public static void submit(Item item, int count) {
         if (item != null) {
-            MCUtils.excuteCommand("getItem " + MCUtils.getItemID(item) + " " + count + " " + "nbt");
+            MCUtils.executeCommand("getItem %s %d nbt".formatted(MCUtils.getItemID(item), count));
         }
     }
 
@@ -132,7 +132,7 @@ public class ItemStorageDataManager {
     }
 
     public static void reflushCache() {
-        MCUtils.excuteCommand("getStorageData");
+        MCUtils.executeCommand("getStorageData");
     }
 
     public static void scanPlayers() {
@@ -142,8 +142,17 @@ public class ItemStorageDataManager {
                 for (AbstractClientPlayer player : mc.level.players()) {
                     var name = player.getGameProfile().getName();
                     if (waitForInv.remove(name)) {
-                        waitForKillingNames.add(name);
-                        MCUtils.excuteCommand("player " + name + " inventory");
+                        ThreadUtils.runAsync(() -> {
+                            try {
+                                Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
+                                ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s inventory".formatted(name)));
+                                waitForKillingNames.add(name);
+                            }
+                            catch (InterruptedException e) {
+                                MCUtils.ChatUtils.sendMessOnlyClientVisible(e.getMessage());
+                                AsaMod.LOGGER.error(e.getMessage(), e);
+                            }
+                        });
                     }
                 }
             }
