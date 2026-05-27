@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Supplier;
 
 public class ThreadUtils {
     public static final Minecraft mc = Minecraft.getInstance();
@@ -15,5 +16,9 @@ public class ThreadUtils {
 
     public static void runOnClientThread(Runnable runnable) {
         mc.submit(runnable);
+    }
+
+    public static <T> T runOnClientThread(Supplier<T> supplier) {
+        return mc.submit(supplier).resultNow();
     }
 }

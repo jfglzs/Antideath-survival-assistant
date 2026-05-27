@@ -10,6 +10,7 @@ import io.github.jfglzs.asa.utils.ThreadUtils;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -25,23 +26,27 @@ public class ItemStorageDataManager {
     private static final Type playerType = new TypeToken<List<PlayerItemStorage>>(){}.getType();
     private static final Type itemType = new TypeToken<List<ItemStorage>>(){}.getType();
     private static final Set<String> waitForInv = new HashSet<>();
-    private static final Set<String> waitForKillingNames = new HashSet<>();
+    private static final Set<String> waitForKilling = new HashSet<>();
 
     public static void init() {
         ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
             if (!Configs.LMS_FETCH_SUPPORT.getBooleanValue()) return true;
 
-            String str = message.getString().trim();
+            var str = message.getString().trim();
 
-            if (str.contains("maxCount") && str.startsWith("{") && str.endsWith("}")) {
-                MCUtils.ChatUtils.sendMessOnlyClientVisible("§c请求的数量超出配置的最大上限");
+            if (str.contains("maxCount:") && str.startsWith("{") && str.endsWith("}")) {
+                MCUtils.ChatUtils.sendMessWithSound("§c请求的数量超出配置的最大上限", SoundEvents.VILLAGER_DEATH, 1, 1);
                 return false;
             }
-            if (str.equals("[]")) {
-                MCUtils.ChatUtils.sendMessOnlyClientVisible("§c全无品: 这个物品暂时没有存货");
+            else if (str.startsWith("{") && str.endsWith("}") && str.contains("waitSecond:")) {
+                MCUtils.ChatUtils.sendMessWithSound("§c假人取货还在冷却中", SoundEvents.VILLAGER_DEATH, 1, 1);
                 return false;
             }
-            if (str.contains("id:") && str.contains("count:") && str.startsWith("[{") && str.endsWith("}]")) {
+            else if (str.equals("[]")) {
+                MCUtils.ChatUtils.sendMessWithSound("§c全无品: 这个物品暂时没有存货", SoundEvents.VILLAGER_NO, 1, 1);
+                return false;
+            }
+            else if (str.contains("id:") && str.contains("count:") && str.startsWith("[{") && str.endsWith("}]")) {
                 if (str.contains("name:")) {
                     try {
                         List<PlayerItemStorage> currentList = LENIENT_GSON.fromJson(str, playerType);
@@ -55,12 +60,9 @@ public class ItemStorageDataManager {
                                         waitForInv.add(name);
                                     }
                                     else {
-                                        waitForKillingNames.add(name);
+                                        waitForKilling.add(name);
                                     }
                                 }
-                            }
-                            if (Configs.TEST.getBooleanValue()) {
-                                MCUtils.ChatUtils.sendMessOnlyClientVisible(Arrays.toString(currentList.toArray()));
                             }
                         }
                     }
@@ -132,6 +134,7 @@ public class ItemStorageDataManager {
     }
 
     public static void reflushCache() {
+        if (Configs.TEST.getBooleanValue()) MCUtils.ChatUtils.sendMessOnlyClientVisible("Cache reflushed!");
         MCUtils.executeCommand("getStorageData");
     }
 
@@ -146,7 +149,7 @@ public class ItemStorageDataManager {
                             try {
                                 Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
                                 ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s inventory".formatted(name)));
-                                waitForKillingNames.add(name);
+                                waitForKilling.add(name);
                             }
                             catch (InterruptedException e) {
                                 MCUtils.ChatUtils.sendMessOnlyClientVisible(e.getMessage());
@@ -160,6 +163,6 @@ public class ItemStorageDataManager {
     }
 
     public static Set<String> getFakePlayerNames() {
-        return waitForKillingNames;
+        return waitForKilling;
     }
 }
