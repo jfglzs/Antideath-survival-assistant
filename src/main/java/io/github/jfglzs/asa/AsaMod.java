@@ -28,7 +28,7 @@ public class AsaMod implements ClientModInitializer {
     public static String version;
     public static final String MOD_ID = "antideath-survival-assistant";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static int checkTime = 0;
+    public static int checkTime = 1;
 
 	@Override
 	public void onInitializeClient() {
@@ -38,24 +38,30 @@ public class AsaMod implements ClientModInitializer {
         this.init();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            addCheckTime();
             LowHealthSendCommandOrChat.trigger(client);
             ItemStorageDataManager.scanPlayers();
-
             if (checkTime % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue()) {
                 RemainingItemRender.INSTANCE.stack = PlayerUtils.getPlayerMainHandStack();
             }
+
             if (checkTime % 20 == 0 && CREEPER_WARN.getBooleanValue()) {
                 creeperWarner();
             }
-            if (checkTime % 200 == 0 && LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData")) {
-                ItemStorageDataManager.reflushCache();
-            }
+
             if (checkTime % 40 == 0 && client.player != null && ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue()) {
                 MaterialToDoRenderer.INSTANCE.update();
             }
-        });
 
+            if (checkTime % 1200 == 0 && LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData")) {
+                ItemStorageDataManager.reflushCache();
+            }
+        });
 	}
+
+    private static void addCheckTime() {
+        checkTime++;
+    }
 
     private void init() {
         ItemStorageDataManager.init();

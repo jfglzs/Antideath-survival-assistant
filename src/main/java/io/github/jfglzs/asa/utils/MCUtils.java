@@ -56,7 +56,6 @@ public class MCUtils {
         }
 
         public static void sendMessWithSound(String chat , SoundEvent type , float volume, float pitch) {
-            chat = "[ASA] " + chat;
             LocalPlayer player = client.player;
             if (player != null) {
                 player.playSound(type, volume, pitch);
