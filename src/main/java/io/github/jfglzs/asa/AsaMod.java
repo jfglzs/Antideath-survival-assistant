@@ -10,9 +10,9 @@ import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.render.RemainingItemRender;
+import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.CommandUtils;
 import io.github.jfglzs.asa.utils.lms.ItemStorageDataManager;
-import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -77,7 +77,7 @@ public class AsaMod implements ClientModInitializer {
 
     private static void creeperWarner() {
         if (CreeperCheckClient.isCreeperNearby()) {
-            MCUtils.ChatUtils.sendMessWithSound("§c苦力怕来了!!!!!!!", SoundEvents.TNT_PRIMED, 1, 1);
+            ChatUtils.sendMessWithSound("§c苦力怕来了!!!!!!!", SoundEvents.TNT_PRIMED, 1, 1);
         }
     }
 

@@ -2,6 +2,7 @@ package io.github.jfglzs.asa.mixin.feature.lms;
 
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.ThreadUtils;
 import io.github.jfglzs.asa.utils.lms.ItemStorageDataManager;
@@ -38,7 +39,7 @@ public abstract class AbstractContainerScreen_Mixin extends Screen {
                             fakePlayerNames.add(name);
                         }
                         catch (InterruptedException e) {
-                            MCUtils.ChatUtils.sendMessOnlyClientVisible(e.getMessage());
+                            ChatUtils.sendMessOnlyClientVisible(e.getMessage());
                             AsaMod.LOGGER.error(e.getMessage(), e);
                         }
                         finally {
