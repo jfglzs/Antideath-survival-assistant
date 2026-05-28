@@ -23,7 +23,9 @@ public abstract class PlayerTabOverlay_Mixin {
         if (Configs.TAP_FILTER.getBooleanValue()) {
             var list = new ArrayList<PlayerInfo>();
             for (PlayerInfo entry : original) {
-                String name = entry.getProfile().getName();
+                //~ if >=1.21.10 '.getName()' -> '.name()' {
+                var name = entry.getProfile().getName();
+                //~}
                 if (Configs.ENABLE_TAP_FILTER_WHITELIST.getBooleanValue()) {
                     if (Configs.TAP_FILTER_WHITELIST.getStrings().contains(name)) {
                         list.add(entry);

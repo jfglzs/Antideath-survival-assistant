@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.ThreadUtils;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
@@ -35,15 +36,15 @@ public class ItemStorageDataManager {
             var str = message.getString().trim();
 
             if (str.contains("maxCount:") && str.startsWith("{") && str.endsWith("}")) {
-                MCUtils.ChatUtils.sendMessWithSound("§c请求的数量超出配置的最大上限", SoundEvents.VILLAGER_DEATH, 1, 1);
+                ChatUtils.sendMessWithSound("§c请求的数量超出配置的最大上限", SoundEvents.VILLAGER_DEATH, 1, 1);
                 return false;
             }
             else if (str.startsWith("{") && str.endsWith("}") && str.contains("waitSecond:")) {
-                MCUtils.ChatUtils.sendMessWithSound("§c假人取货还在冷却中", SoundEvents.VILLAGER_DEATH, 1, 1);
+                ChatUtils.sendMessWithSound("§c假人取货还在冷却中", SoundEvents.VILLAGER_DEATH, 1, 1);
                 return false;
             }
             else if (str.equals("[]")) {
-                MCUtils.ChatUtils.sendMessWithSound("§c全无品: 这个物品暂时没有存货", SoundEvents.VILLAGER_NO, 1, 1);
+                ChatUtils.sendMessWithSound("§c全无品: 这个物品暂时没有存货", SoundEvents.VILLAGER_NO, 1, 1);
                 return false;
             }
             else if (str.contains("id:") && str.contains("count:") && str.startsWith("[{") && str.endsWith("}]")) {
@@ -55,7 +56,7 @@ public class ItemStorageDataManager {
                                 String name = playerItemStorage.name();
                                 if (name != null) {
                                     MCUtils.executeCommand("player %s spawn".formatted(name));
-                                    MCUtils.ChatUtils.sendMessOnlyClientVisible("假人: [%s] 取出数量: [%d]".formatted(name, playerItemStorage.count()));
+                                    ChatUtils.sendMessOnlyClientVisible("假人: [%s] 取出数量: [%d]".formatted(name, playerItemStorage.count()));
                                     if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
                                         waitForInv.add(name);
                                     }
@@ -68,19 +69,19 @@ public class ItemStorageDataManager {
                     }
                     catch (Exception e) {
                         AsaMod.LOGGER.error(e.getMessage(), e);
-                        MCUtils.ChatUtils.sendMessOnlyClientVisible(e.getMessage());
+                        ChatUtils.sendMessOnlyClientVisible(e.getMessage());
                     }
                 }
                 else {
                     try {
                         itemStorages = LENIENT_GSON.fromJson(str, itemType);
                         if (Configs.TEST.getBooleanValue()) {
-                            MCUtils.ChatUtils.sendMessOnlyClientVisible(Arrays.toString(itemStorages.toArray()));
+                            ChatUtils.sendMessOnlyClientVisible(Arrays.toString(itemStorages.toArray()));
                         }
                     }
                     catch (Exception e) {
                         AsaMod.LOGGER.error(e.getMessage(), e);
-                        MCUtils.ChatUtils.sendMessOnlyClientVisible(e.getMessage());
+                        ChatUtils.sendMessOnlyClientVisible(e.getMessage());
                     }
                 }
                 return false;
@@ -134,7 +135,7 @@ public class ItemStorageDataManager {
     }
 
     public static void reflushCache() {
-        if (Configs.TEST.getBooleanValue()) MCUtils.ChatUtils.sendMessOnlyClientVisible("Cache reflushed!");
+        if (Configs.TEST.getBooleanValue()) ChatUtils.sendMessOnlyClientVisible("Cache reflushed!");
         MCUtils.executeCommand("getStorageData");
     }
 
@@ -143,7 +144,9 @@ public class ItemStorageDataManager {
             Minecraft mc = Minecraft.getInstance();
             if (mc.level != null) {
                 for (AbstractClientPlayer player : mc.level.players()) {
+                    //~ if >=1.21.10 '.getName()' -> '.name()' {
                     var name = player.getGameProfile().getName();
+                    //~}
                     if (waitForInv.remove(name)) {
                         ThreadUtils.runAsync(() -> {
                             try {
@@ -152,7 +155,7 @@ public class ItemStorageDataManager {
                                 waitForKilling.add(name);
                             }
                             catch (InterruptedException e) {
-                                MCUtils.ChatUtils.sendMessOnlyClientVisible(e.getMessage());
+                                ChatUtils.sendMessOnlyClientVisible(e.getMessage());
                                 AsaMod.LOGGER.error(e.getMessage(), e);
                             }
                         });

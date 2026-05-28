@@ -1,7 +1,7 @@
 package io.github.jfglzs.asa.mixin.feature;
 
 import io.github.jfglzs.asa.config.Configs;
-import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.ChatUtils;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
@@ -15,7 +15,11 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
+//? if < 1.21.11 {
 import net.minecraft.resources.ResourceLocation;
+//? } else {
+/*import net.minecraft.resources.Identifier;
+*///?}
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -76,7 +80,7 @@ public class MultiPlayerGameMode_Mixin {
             if (!state.is(BlockTags.BEDS)) return;
         }
 
-        MCUtils.ChatUtils.sendMessWithSound("已阻止方块交互", SoundEvents.VILLAGER_DEATH, 1, 1);
+        ChatUtils.sendMessWithSound("已阻止方块交互", SoundEvents.VILLAGER_DEATH, 1, 1);
         player.swing(hand);
         cir.setReturnValue(InteractionResult.FAIL);
     }
@@ -87,7 +91,11 @@ public class MultiPlayerGameMode_Mixin {
         Item item = minecraft.player.getMainHandItem().getItem();
         for (String id : DISABLE_PLACE_BLOCK_NEARBY_PORTAL_WHITELIST.getStrings()) {
             if (id.contains("minecraft")) return false;
-            ResourceLocation identifier = ResourceLocation.withDefaultNamespace(id);
+            //? if >= 1.21.11 {
+            /*var identifier = Identifier.withDefaultNamespace(id);
+            *///?} else {
+            var identifier = ResourceLocation.withDefaultNamespace(id);
+            //?}
             //~ if <=1.21.1 '.getValue(' -> '.get(' {
             Item listedItem = BuiltInRegistries.ITEM.getValue(identifier);
             //~}
