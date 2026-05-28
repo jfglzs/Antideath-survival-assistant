@@ -154,8 +154,8 @@ dependencies {
     autoImplementation(masaDependency("malilib"))
     autoImplementation(masaDependency("tweakeroo"))
     autoImplementation(masaDependency("litematica"))
-//    autoImplementation(masaDependency("itemscroller"))
-//    autoImplementation(masaDependency("minihud"))
+    autoImplementation(masaDependency("itemscroller"))
+    autoImplementation(masaDependency("minihud"))
 }
 
 tasks.processResources {

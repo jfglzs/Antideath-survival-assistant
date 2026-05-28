@@ -79,6 +79,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigOptionList LOW_HEALTH_SEND_MODE = new ConfigOptionList( "发送模式", LowHealthSendMode.SEND_CHAT_MESSAGE);
     public static final ConfigString LOW_HEALTH_SEND_CONTENT = new ConfigString( "发送内容", "!s");
 
+    public static final ConfigBooleanHotkeyed MINI_HUD_FPS_OPT = new ConfigBooleanHotkeyed("MiniHud掉帧优化", false, "", "MiniHud掉帧优化");
+
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
@@ -134,9 +136,9 @@ public class Configs implements IConfigHandler {
         list.add(FAKE_PLAYER_KILL_AURA_RANGE);
         list.add(FAKE_PLAYER_KILL_AURA_BLACKLIST);
 
+        list.add(MINI_HUD_FPS_OPT);
+
         list.add(TEST);
-
-
 
         return ImmutableList.copyOf(list);
     }
@@ -152,7 +154,8 @@ public class Configs implements IConfigHandler {
             ENABLE_MATERIAL_TODO_OVERLAY,
             DISABLE_PLAYER_LIST_HUD_BACKGROUND,
             AUTO_OPEN_FAKE_PLAYER_INV,
-            AUTO_KILL_FAKE_PLAYERS
+            AUTO_KILL_FAKE_PLAYERS,
+            MINI_HUD_FPS_OPT
 
     );
 
