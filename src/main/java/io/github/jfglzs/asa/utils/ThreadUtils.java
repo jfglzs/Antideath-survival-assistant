@@ -2,6 +2,7 @@ package io.github.jfglzs.asa.utils;
 
 import net.minecraft.client.Minecraft;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Supplier;
@@ -14,8 +15,8 @@ public class ThreadUtils {
         threadPool.submit(runnable);
     }
 
-    public static void runOnClientThread(Runnable runnable) {
-        mc.submit(runnable);
+    public static CompletableFuture<Void> runOnClientThread(Runnable runnable) {
+        return mc.submit(runnable);
     }
 
     public static <T> T runOnClientThread(Supplier<T> supplier) {

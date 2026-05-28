@@ -7,7 +7,7 @@
     "feature.disablePlayerTabOverlayBackGround.PlayerTabOverlay_Mixin",
     "litematic.MaterialListHudRenderer_Mixin",
     "litematic.WorldUtils_Mixin",
-    "minihud.ToolHud_Mixin",
+    "minihud.RenderHandler_Mixin",
     "tweakeroo.InventoryUtils_Invoker"
   ],
   "injectors": {
