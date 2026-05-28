@@ -17,7 +17,6 @@
     "requireAnnotations": true
   },
   "client": [
-    "feature.DebugScreenOverlay_Mixin",
     "feature.HumanoidArmorLayer_Mixin",
     "feature.MultiPlayerGameMode_Mixin",
     "feature.PlayerTabOverlay_Mixin",
