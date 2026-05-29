@@ -59,6 +59,8 @@ public class Configs implements IConfigHandler {
 
     public static final ConfigBoolean LMS_FETCH_SUPPORT = new ConfigBoolean("假人远程取货支持" , false,"需要lms carpet addition");
     public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV = new ConfigBooleanHotkeyed("假人取货自动打开假人背包", false, "", "自动打开假人背包");
+    public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV_MODE = new ConfigBooleanHotkeyed("假人取货自动打开假人背包交互模式", false, "", "true为指令交互 false为主手右键交互");
+
     public static final ConfigBooleanHotkeyed AUTO_KILL_FAKE_PLAYERS = new ConfigBooleanHotkeyed("假人远程取货自动下线假人", false, "", "");
     public static final ConfigInteger AUTO_COOLDOWN = new ConfigInteger("假人远程取货自动打开背包/自动下线延迟", 100, 100, 1000, "单位ms", "");
 
@@ -122,6 +124,7 @@ public class Configs implements IConfigHandler {
         list.add(LMS_FETCH_SUPPORT);
         list.add(LMS_TAKE_ITEM);
         list.add(AUTO_OPEN_FAKE_PLAYER_INV);
+        list.add(AUTO_OPEN_FAKE_PLAYER_INV_MODE);
         list.add(AUTO_KILL_FAKE_PLAYERS);
         list.add(AUTO_COOLDOWN);
 

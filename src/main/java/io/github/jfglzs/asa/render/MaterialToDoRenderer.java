@@ -24,22 +24,13 @@ public class MaterialToDoRenderer implements IRenderer {
     private MaterialToDoRenderer() {
     }
 
-    //? if < 1.21.11 {
+    //~ if < 1.21.11 'GuiContext' -> 'GuiGraphics' {
+    @Override
     public void onRenderGameOverlayPost(GuiGraphics ctx) {
         this.render(ctx);
     }
-    //?} else {
-    /*public void onRenderGameOverlayPost(GuiContext ctx) {
-        this.render(ctx);
-    }
-    *///?}
 
-
-    //? if >= 1.21.11 {
-    /*public void render(GuiContext ctx) {
-    *///?} else {
     public void render(GuiGraphics ctx) {
-    //?}
         if (Configs.ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue()) {
             int xOffset = Configs.MATERIAL_TODO_OVERLAY_X_OFFSET.getIntegerValue();
             int yOffset = Configs.MATERIAL_TODO_OVERLAY_Y_OFFSET.getIntegerValue();
@@ -52,6 +43,7 @@ public class MaterialToDoRenderer implements IRenderer {
             }
         }
     }
+    //~}
 
     public void update() {
         Queue<Item> newitems = new LinkedList<>();

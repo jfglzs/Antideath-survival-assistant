@@ -30,15 +30,14 @@ public abstract class AbstractContainerScreen_Mixin extends Screen {
         if (Configs.AUTO_KILL_FAKE_PLAYERS.getBooleanValue()) {
             Set<String> fakePlayerNames = ItemStorageDataManager.getFakePlayerNames();
             for (String name : fakePlayerNames) {
-                String titleString = this.title.getString();
+                var titleString = this.title.getString();
                 if (titleString.contains(name)) {
                     ThreadUtils.runAsync(() -> {
                         try {
                             Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
                             ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s kill".formatted(name)));
-                            fakePlayerNames.add(name);
                         }
-                        catch (InterruptedException e) {
+                        catch (Exception e) {
                             ChatUtils.sendMessOnlyClientVisible(e.getMessage());
                             AsaMod.LOGGER.error(e.getMessage(), e);
                         }

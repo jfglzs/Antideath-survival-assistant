@@ -40,7 +40,7 @@ public class AsaMod implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             addCheckTime();
             LowHealthSendCommandOrChat.trigger(client);
-            ItemStorageDataManager.scanPlayers();
+            ItemStorageDataManager.scanMatchedPlayersAndInteract();
             if (checkTime % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue()) {
                 RemainingItemRender.INSTANCE.stack = PlayerUtils.getPlayerMainHandStack();
             }
