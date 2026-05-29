@@ -9,14 +9,15 @@ import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.ThreadUtils;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.ChatFormatting;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import java.lang.reflect.Type;
 import java.util.*;
@@ -107,22 +108,13 @@ public class ItemStorageDataManager {
             for (ItemStorage itemStorage : itemStorages) {
                 if (itemStorage.id().equals(stackId)) {
                     int count = itemStorage.count();
+                    int oneBoxCount = stack.getMaxStackSize() * 27;
 
-                    if (count < 1728) {
+                    if (count < oneBoxCount) {
                         return Component.nullToEmpty("存货: %s 个".formatted(count)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
                     }
                     else {
-                        int devide = 1728;
-                        int maxCount = stack.getMaxStackSize();
-
-                        if (maxCount == 1) {
-                            devide = 27;
-                        }
-                        else if (maxCount == 16) {
-                            devide = 432;
-                        }
-
-                        return Component.nullToEmpty("存货: %s 个 (%.2f 潜影盒) ".formatted(count, (float) count / devide)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
+                        return Component.nullToEmpty("存货: %s 个 (%.2f 潜影盒) ".formatted(count, (float) count / oneBoxCount)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
                     }
                 }
             }
@@ -139,7 +131,7 @@ public class ItemStorageDataManager {
         MCUtils.executeCommand("getStorageData");
     }
 
-    public static void scanPlayers() {
+    public static void scanMatchedPlayersAndInteract() {
         if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
             Minecraft mc = Minecraft.getInstance();
             if (mc.level != null) {
@@ -151,10 +143,17 @@ public class ItemStorageDataManager {
                         ThreadUtils.runAsync(() -> {
                             try {
                                 Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
-                                ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s inventory".formatted(name)));
+                                ThreadUtils.runOnClientThread(() -> {
+                                    if (Configs.AUTO_OPEN_FAKE_PLAYER_INV_MODE.getBooleanValue()) {
+                                        MCUtils.executeCommand("player %s inventory".formatted(name));
+                                    }
+                                    else {
+                                        player.interact(mc.player, InteractionHand.MAIN_HAND);
+                                    }
+                                });
                                 waitForKilling.add(name);
                             }
-                            catch (InterruptedException e) {
+                            catch (Exception e) {
                                 ChatUtils.sendMessOnlyClientVisible(e.getMessage());
                                 AsaMod.LOGGER.error(e.getMessage(), e);
                             }
