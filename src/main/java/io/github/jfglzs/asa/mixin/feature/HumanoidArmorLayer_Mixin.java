@@ -47,7 +47,7 @@ public class HumanoidArmorLayer_Mixin {
             }
     //? } else {
     /*public void render_Inject(PoseStack poseStack, SubmitNodeCollector nodeCollector, ItemStack item, EquipmentSlot slot, int packedLight, HumanoidRenderState state, CallbackInfo ci) {
-            if (state.entityType == EntityType.PLAYER && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue() && slot.isArmor()) {
+            if (state.entityType == EntityType.PLAYER && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
             ci.cancel();
         }
     *///?}
