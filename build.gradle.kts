@@ -149,7 +149,6 @@ dependencies {
     autoImplementation(fabricApiDependency("fabric-message-api-v1"))
 
     autoRuntimeOnly(fabricApiDependency("fabric-screen-api-v1"))
-    autoRuntimeOnly(fabricApiDependency("fabric-key-binding-api-v1"))
 
     autoImplementation(masaDependency("malilib"))
     autoImplementation(masaDependency("tweakeroo"))
@@ -201,4 +200,8 @@ tasks.jar {
             "${fileName}_${base.archivesName.get()}"
         }
     }
+}
+
+stonecutter {
+
 }

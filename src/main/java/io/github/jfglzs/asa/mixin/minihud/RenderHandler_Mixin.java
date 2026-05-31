@@ -49,7 +49,9 @@ public class RenderHandler_Mixin {
 
     @WrapOperation(
             //~ if > 1.21.1 'onRenderGameOverlayPost' -> 'onRenderGameOverlayPostAdvanced' {
-            method = "onRenderGameOverlayPostAdvanced",
+                //~ if >= 26.1 'onRenderGameOverlayPostAdvanced' -> 'onExtractGuiOverlayPost'{
+            method = "onExtractGuiOverlayPost",
+                //~}
             //~}
             at = @At(value = "INVOKE", target = "Lfi/dy/masa/minihud/event/RenderHandler;updateLines()V")
     )

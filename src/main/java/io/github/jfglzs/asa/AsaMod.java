@@ -63,6 +63,7 @@ public class AsaMod implements ClientModInitializer {
         checkTime++;
     }
 
+    //~ if >= 26.1 'registerGameOverlayRenderer' -> 'registerInGameGuiRenderer' {
     private void init() {
         ItemStorageDataManager.init();
         Configs.INSTANCE.load();
@@ -70,10 +71,11 @@ public class AsaMod implements ClientModInitializer {
         ConfigManager.getInstance().registerConfigHandler(MOD_ID, INSTANCE);
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
-        RenderEventHandler.getInstance().registerGameOverlayRenderer(MaterialToDoRenderer.INSTANCE);
-        RenderEventHandler.getInstance().registerGameOverlayRenderer(RemainingItemRender.INSTANCE);
+        RenderEventHandler.getInstance().registerInGameGuiRenderer(MaterialToDoRenderer.INSTANCE);
+        RenderEventHandler.getInstance().registerInGameGuiRenderer(RemainingItemRender.INSTANCE);
         LOGGER.info("Masa registered");
     }
+    //~}
 
     private static void creeperWarner() {
         if (CreeperCheckClient.isCreeperNearby()) {

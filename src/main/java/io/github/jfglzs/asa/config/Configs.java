@@ -8,10 +8,11 @@ import fi.dy.masa.malilib.config.IConfigBase;
 import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.config.IHotkeyTogglable;
 import fi.dy.masa.malilib.config.options.*;
-import fi.dy.masa.malilib.util.JsonUtils;
+import fi.dy.masa.malilib.util.data.json.JsonUtils;
 import io.github.jfglzs.asa.config.options.LowHealthSendMode;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -183,7 +184,9 @@ public class Configs implements IConfigHandler {
     public void load() {
         File settingFile = new File(FILE_PATH);
         if (settingFile.isFile() && settingFile.exists()) {
-            JsonElement jsonElement = JsonUtils.parseJsonFile(settingFile);
+            //~ if < 26.1 'settingFile.toPath()' -> 'settingFile' {
+            JsonElement jsonElement = JsonUtils.parseJsonFile(settingFile.toPath());
+            //~}
             if (jsonElement != null && jsonElement.isJsonObject()) {
                 JsonObject obj = jsonElement.getAsJsonObject();
                 ConfigUtils.readConfigBase(obj, MOD_ID, ALL_CONFIGS);
@@ -196,7 +199,11 @@ public class Configs implements IConfigHandler {
         if ((CONFIG_DIR.exists() && CONFIG_DIR.isDirectory()) || CONFIG_DIR.mkdirs()) {
             JsonObject configRoot = new JsonObject();
             ConfigUtils.writeConfigBase(configRoot, MOD_ID, ALL_CONFIGS);
-            JsonUtils.writeJsonToFile(configRoot, new File(FILE_PATH));
+            //? if < 26.1 {
+            //JsonUtils.writeJsonToFile(configRoot, new File(FILE_PATH));
+            //?} else {
+            JsonUtils.writeJsonToFile(configRoot, Path.of(FILE_PATH));
+            //?}
         }
     }
 

@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.feature;
+package io.github.jfglzs.asa.mixin.feature.disableConnectionTimedOut;
 
 import io.github.jfglzs.asa.config.Configs;
 import io.netty.channel.ChannelHandlerContext;

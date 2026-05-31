@@ -138,19 +138,14 @@ public class ItemStorageDataManager {
             if (mc.level != null) {
                 for (AbstractClientPlayer player : mc.level.players()) {
                     //~ if >=1.21.10 '.getName()' -> '.name()' {
-                    var name = player.getGameProfile().getName();
+                    var name = player.getGameProfile().name();
                     //~}
                     if (waitForInv.remove(name)) {
                         ThreadUtils.runAsync(() -> {
                             try {
                                 Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
                                 ThreadUtils.runOnClientThread(() -> {
-                                    if (Configs.AUTO_OPEN_FAKE_PLAYER_INV_MODE.getBooleanValue()) {
                                         MCUtils.executeCommand("player %s inventory".formatted(name));
-                                    }
-                                    else {
-                                        player.interact(mc.player, InteractionHand.MAIN_HAND);
-                                    }
                                 });
                                 waitForKilling.add(name);
                             }

@@ -3,12 +3,11 @@
   "package": "io.github.jfglzs.asa.mixin",
   "compatibilityLevel": "${compatibility_level}",
   "mixins": [
-    "feature.Connection_Mixin",
+    "feature.disableConnectionTimedOut.Connection_Mixin",
     "feature.disablePlayerTabOverlayBackGround.PlayerTabOverlay_Mixin",
     "litematic.MaterialListHudRenderer_Mixin",
     "litematic.WorldUtils_Mixin",
-    "minihud.RenderHandler_Mixin",
-    "tweakeroo.InventoryUtils_Invoker"
+    "minihud.RenderHandler_Mixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -17,11 +16,11 @@
     "requireAnnotations": true
   },
   "client": [
-    "feature.HumanoidArmorLayer_Mixin",
-    "feature.MultiPlayerGameMode_Mixin",
-    "feature.PlayerTabOverlay_Mixin",
-    "feature.ReceivingLevelScreen_Mixin",
-    "feature.SubtitleOverlay_Mixin",
+    "feature.disablePlayerArmorRendener.HumanoidArmorLayer_Mixin",
+    "feature.preventIntentionalGameDesign.MultiPlayerGameMode_Mixin",
+    "feature.tabFilter.PlayerTabOverlay_Mixin",
+    "feature.disableLoadingScreen.ReceivingLevelScreen_Mixin",
+    "feature.disableSubtitle.SubtitleOverlay_Mixin",
     "feature.lms.AbstractContainerScreen_Mixin",
     "feature.lms.CreativeModeInventoryScreen_Mixin"
   ]
