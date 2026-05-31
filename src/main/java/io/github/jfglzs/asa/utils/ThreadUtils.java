@@ -20,6 +20,6 @@ public class ThreadUtils {
     }
 
     public static <T> T runOnClientThread(Supplier<T> supplier) {
-        return mc.submit(supplier).resultNow();
+        return mc.submit(supplier).join();
     }
 }

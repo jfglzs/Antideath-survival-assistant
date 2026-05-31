@@ -57,7 +57,8 @@ public class ItemStorageDataManager {
                                 String name = playerItemStorage.name();
                                 if (name != null) {
                                     MCUtils.executeCommand("player %s spawn".formatted(name));
-                                    ChatUtils.sendMessOnlyClientVisible("假人: [%s] 取出数量: [%d]".formatted(name, playerItemStorage.count()));
+                                    ChatUtils.sendMessWithSound("假人: [%s] 取出数量: [%d]".formatted(name, playerItemStorage.count()), SoundEvents.VILLAGER_YES, 1, 1);
+
                                     if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
                                         waitForInv.add(name);
                                     }
