@@ -16,12 +16,14 @@
     "requireAnnotations": true
   },
   "client": [
-    "feature.disablePlayerArmorRendener.HumanoidArmorLayer_Mixin",
-    "feature.preventIntentionalGameDesign.MultiPlayerGameMode_Mixin",
-    "feature.tabFilter.PlayerTabOverlay_Mixin",
     "feature.disableLoadingScreen.ReceivingLevelScreen_Mixin",
+    "feature.disablePlayerArmorRendener.HumanoidArmorLayer_Mixin",
     "feature.disableSubtitle.SubtitleOverlay_Mixin",
+    "feature.fpsOptimization.LevelRenderer_Mixin",
+    "feature.fpsOptimization.Minecraft_Mixin",
     "feature.lms.AbstractContainerScreen_Mixin",
-    "feature.lms.CreativeModeInventoryScreen_Mixin"
+    "feature.lms.CreativeModeInventoryScreen_Mixin",
+    "feature.preventIntentionalGameDesign.MultiPlayerGameMode_Mixin",
+    "feature.tabFilter.PlayerTabOverlay_Mixin"
   ]
 }

@@ -38,7 +38,8 @@ public class AsaMod implements ClientModInitializer {
         this.init();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            addCheckTime();
+            this.addCheckTime();
+
             LowHealthSendCommandOrChat.trigger(client);
             ItemStorageDataManager.scanMatchedPlayersAndInteract();
             if (checkTime % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue()) {
@@ -59,7 +60,7 @@ public class AsaMod implements ClientModInitializer {
         });
 	}
 
-    private static void addCheckTime() {
+    private void addCheckTime() {
         checkTime++;
     }
 
@@ -71,8 +72,8 @@ public class AsaMod implements ClientModInitializer {
         ConfigManager.getInstance().registerConfigHandler(MOD_ID, INSTANCE);
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
-        RenderEventHandler.getInstance().registerInGameGuiRenderer(MaterialToDoRenderer.INSTANCE);
-        RenderEventHandler.getInstance().registerInGameGuiRenderer(RemainingItemRender.INSTANCE);
+        RenderEventHandler.getInstance().registerGameOverlayRenderer(MaterialToDoRenderer.INSTANCE);
+        RenderEventHandler.getInstance().registerGameOverlayRenderer(RemainingItemRender.INSTANCE);
         LOGGER.info("Masa registered");
     }
     //~}

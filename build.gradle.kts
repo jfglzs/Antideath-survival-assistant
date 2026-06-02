@@ -150,6 +150,10 @@ dependencies {
 
     autoRuntimeOnly(fabricApiDependency("fabric-screen-api-v1"))
 
+    if ("26.1" != minecraftVersion) {
+        autoRuntimeOnly(fabricApiDependency("fabric-key-binding-api-v1"))
+    }
+
     autoImplementation(masaDependency("malilib"))
     autoImplementation(masaDependency("tweakeroo"))
     autoImplementation(masaDependency("litematica"))

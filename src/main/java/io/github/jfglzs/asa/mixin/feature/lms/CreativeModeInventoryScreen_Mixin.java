@@ -8,7 +8,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.inventory.ContainerInput;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.network.chat.Component;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,7 +24,7 @@ import java.util.List;
 @Mixin(CreativeModeInventoryScreen.class)
 public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContainerScreen<CreativeModeInventoryScreen.ItemPickerMenu> {
     @Unique
-    private ContainerInput type;
+    private ClickType type;
 
     public CreativeModeInventoryScreen_Mixin(CreativeModeInventoryScreen.ItemPickerMenu handler, Inventory inventory, Component title) {
         super(handler, inventory, title);
@@ -34,7 +34,7 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             method = "slotClicked",
             at = @At(
                     value = "FIELD",
-                    target = "Lnet/minecraft/world/inventory/ContainerInput;THROW:Lnet/minecraft/world/inventory/ContainerInput;",
+                    target = "Lnet/minecraft/world/inventory/ClickType;THROW:Lnet/minecraft/world/inventory/ClickType;",
                     ordinal = 0,
                     opcode = Opcodes.GETSTATIC,
                     shift = At.Shift.AFTER
@@ -44,10 +44,10 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             Slot slot,
             int slotId,
             int button,
-            ContainerInput actionType,
+            ClickType actionType,
             CallbackInfo ci
     ) {
-        if (Configs.lockCreativeScreen && actionType != ContainerInput.THROW && actionType != ContainerInput.QUICK_CRAFT) {
+        if (Configs.lockCreativeScreen && actionType != ClickType.THROW && actionType != ClickType.QUICK_CRAFT) {
             type = actionType;
         }
     }
@@ -81,15 +81,15 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             Slot slot,
             int slotId,
             int button,
-            ContainerInput actionType,
+            ClickType actionType,
             CallbackInfo ci
     ) {
         if (Configs.lockCreativeScreen && type != null && slotId == -999) {
             ItemStack stack = this.menu.getCarried();
             int count = -1;
             int maxCount = stack.getMaxStackSize();
-            if (type == ContainerInput.PICKUP && button == 0) count = maxCount;
-             else if (type == ContainerInput.PICKUP && button == 1) count = maxCount * 27;
+            if (type == ClickType.PICKUP && button == 0) count = maxCount;
+             else if (type == ClickType.PICKUP && button == 1) count = maxCount * 27;
             ItemStorageDataManager.submit(stack.getItem(), stack.getCount() * count);
             menu.setCarried(ItemStack.EMPTY);
             Configs.lockCreativeScreen = false;

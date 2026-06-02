@@ -138,7 +138,7 @@ public class ItemStorageDataManager {
             if (mc.level != null) {
                 for (AbstractClientPlayer player : mc.level.players()) {
                     //~ if >=1.21.10 '.getName()' -> '.name()' {
-                    var name = player.getGameProfile().name();
+                    var name = player.getGameProfile().getName();
                     //~}
                     if (waitForInv.remove(name)) {
                         ThreadUtils.runAsync(() -> {
