@@ -16,10 +16,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 //? if < 1.21.11 {
-/*import net.minecraft.resources.ResourceLocation;
-*///? } else {
-import net.minecraft.resources.Identifier;
-//?}
+import net.minecraft.resources.ResourceLocation;
+//? } else {
+/*import net.minecraft.resources.Identifier;
+*///?}
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -92,10 +92,10 @@ public class MultiPlayerGameMode_Mixin {
         for (String id : DISABLE_PLACE_BLOCK_NEARBY_PORTAL_WHITELIST.getStrings()) {
             if (id.contains("minecraft")) return false;
             //? if >= 1.21.11 {
-            var identifier = Identifier.withDefaultNamespace(id);
-            //?} else {
-            /*var identifier = ResourceLocation.withDefaultNamespace(id);
-            *///?}
+            /*var identifier = Identifier.withDefaultNamespace(id);
+            *///?} else {
+            var identifier = ResourceLocation.withDefaultNamespace(id);
+            //?}
             //~ if <=1.21.1 '.getValue(' -> '.get(' {
             Item listedItem = BuiltInRegistries.ITEM.getValue(identifier);
             //~}

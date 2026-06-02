@@ -13,8 +13,8 @@ import java.util.List;
 @Mixin(PlayerTabOverlay.class)
 public abstract class PlayerTabOverlay_Mixin {
     @ModifyVariable(
-            //~ if >= 26.1 'render' -> 'extractRenderState'
-            method = "extractRenderState",
+            //~ if >= 26.1 'render' -> 'extractRenderState' {
+            method = "render",
             //~}
             at = @At(
                     value = "STORE",
@@ -26,7 +26,7 @@ public abstract class PlayerTabOverlay_Mixin {
             var list = new ArrayList<PlayerInfo>();
             for (PlayerInfo entry : original) {
                 //~ if >=1.21.10 '.getName()' -> '.name()' {
-                var name = entry.getProfile().name();
+                var name = entry.getProfile().getName();
                 //~}
                 if (Configs.ENABLE_TAP_FILTER_WHITELIST.getBooleanValue()) {
                     if (Configs.TAP_FILTER_WHITELIST.getStrings().contains(name)) {

@@ -8,7 +8,9 @@ import fi.dy.masa.malilib.config.IConfigBase;
 import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.config.IHotkeyTogglable;
 import fi.dy.masa.malilib.config.options.*;
-import fi.dy.masa.malilib.util.data.json.JsonUtils;
+//~ if >= 26.1 '.JsonUtils' -> '.data.json.JsonUtils' {
+import fi.dy.masa.malilib.util.JsonUtils;
+//~}
 import io.github.jfglzs.asa.config.options.LowHealthSendMode;
 
 import java.io.File;
@@ -84,6 +86,8 @@ public class Configs implements IConfigHandler {
 
     public static final ConfigBooleanHotkeyed MINI_HUD_FPS_OPT = new ConfigBooleanHotkeyed("MiniHud掉帧优化", false, "", "MiniHud掉帧优化");
 
+    public static final ConfigBooleanHotkeyed FPS_OPTIMIZATION = new ConfigBooleanHotkeyed("帧数优化", false, "", "剔除原版没必要的渲染代码来提升帧数");
+
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
@@ -141,6 +145,7 @@ public class Configs implements IConfigHandler {
         list.add(FAKE_PLAYER_KILL_AURA_BLACKLIST);
 
         list.add(MINI_HUD_FPS_OPT);
+        list.add(FPS_OPTIMIZATION);
 
         list.add(TEST);
 
@@ -185,7 +190,7 @@ public class Configs implements IConfigHandler {
         File settingFile = new File(FILE_PATH);
         if (settingFile.isFile() && settingFile.exists()) {
             //~ if < 26.1 'settingFile.toPath()' -> 'settingFile' {
-            JsonElement jsonElement = JsonUtils.parseJsonFile(settingFile.toPath());
+            JsonElement jsonElement = JsonUtils.parseJsonFile(settingFile);
             //~}
             if (jsonElement != null && jsonElement.isJsonObject()) {
                 JsonObject obj = jsonElement.getAsJsonObject();
@@ -200,10 +205,10 @@ public class Configs implements IConfigHandler {
             JsonObject configRoot = new JsonObject();
             ConfigUtils.writeConfigBase(configRoot, MOD_ID, ALL_CONFIGS);
             //? if < 26.1 {
-            //JsonUtils.writeJsonToFile(configRoot, new File(FILE_PATH));
+            JsonUtils.writeJsonToFile(configRoot, new File(FILE_PATH));
             //?} else {
-            JsonUtils.writeJsonToFile(configRoot, Path.of(FILE_PATH));
-            //?}
+            /*JsonUtils.writeJsonToFile(configRoot, Path.of(FILE_PATH));
+            *///?}
         }
     }
 
