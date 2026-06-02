@@ -16,21 +16,16 @@ import net.minecraft.client.renderer.entity.state.PlayerRenderState;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.item.Items;
 *///?}
-
-//? = 1.21.8
 import net.minecraft.client.renderer.MultiBufferSource;
-
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import static io.github.jfglzs.asa.config.Configs.DISABLE_PLAYER_ARMOR_RENDER;
+
 @Mixin(HumanoidArmorLayer.class)
 public class HumanoidArmorLayer_Mixin {
     //? if > 1.21.1 {
