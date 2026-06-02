@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(PlayerTabOverlay.class)
 public class PlayerTabOverlay_Mixin {
-    //~ if >= 26.1 'render' -> 'extractRenderState'
+    //~ if >= 26.1 'render' -> 'extractRenderState' {
     @WrapOperation(
             method = "render",
             at = @At(
@@ -18,6 +18,7 @@ public class PlayerTabOverlay_Mixin {
                     target = "Lnet/minecraft/client/gui/GuiGraphics;fill(IIIII)V"
                     )
     )
+    //~}
 
     private void disableRowBackgroundFill(GuiGraphics instance, int x1, int y1, int x2, int y2, int color, Operation<Void> original) {
         if (!Configs.DISABLE_PLAYER_LIST_HUD_BACKGROUND.getBooleanValue()) {
