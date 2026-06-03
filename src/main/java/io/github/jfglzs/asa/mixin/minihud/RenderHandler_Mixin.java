@@ -53,9 +53,9 @@ public class RenderHandler_Mixin {
             //? if >= 26.1 {
             method = "onExtractGuiOverlayPost",
             //?} else if > 1.21.1 {
-            //method = "onRenderGameOverlayPost",
-            //?} else {
-            //method = "onRenderGameOverlayPostAdvanced"
+            /*method = "onRenderGameOverlayPostAdvanced",
+            *///?} else {
+            //method = "onRenderGameOverlayPost"
             //?}
             at = @At(value = "INVOKE", target = "Lfi/dy/masa/minihud/event/RenderHandler;updateLines()V"),
             remap = false
