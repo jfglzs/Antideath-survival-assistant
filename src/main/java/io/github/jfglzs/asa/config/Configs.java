@@ -9,9 +9,10 @@ import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.config.IHotkeyTogglable;
 import fi.dy.masa.malilib.config.options.*;
 //~ if >= 26.1 '.JsonUtils' -> '.data.json.JsonUtils' {
-import fi.dy.masa.malilib.util.JsonUtils;
+import fi.dy.masa.malilib.util.data.json.JsonUtils;
 //~}
 import io.github.jfglzs.asa.config.options.LowHealthSendMode;
+import it.unimi.dsi.fastutil.bytes.AbstractByte2BooleanMap;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -86,8 +87,8 @@ public class Configs implements IConfigHandler {
 
     public static final ConfigBooleanHotkeyed MINI_HUD_FPS_OPT = new ConfigBooleanHotkeyed("MiniHud掉帧优化", false, "", "MiniHud掉帧优化");
 
-    public static final ConfigBooleanHotkeyed FPS_OPTIMIZATION = new ConfigBooleanHotkeyed("帧数优化", false, "", "剔除原版没必要的渲染代码来提升帧数");
-
+    public static final ConfigBooleanHotkeyed FORCE_BLOCK_BREAK_COOL_DOWN = new ConfigBooleanHotkeyed("强制方块挖掘冷却", false, "", "OMMC移植功能");
+    public static final ConfigBooleanHotkeyed FLAT_MINING = new ConfigBooleanHotkeyed( "平坦挖掘", false,"","OMMC移植功能");
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
@@ -133,6 +134,8 @@ public class Configs implements IConfigHandler {
         list.add(AUTO_KILL_FAKE_PLAYERS);
         list.add(AUTO_COOLDOWN);
 
+        list.add(FORCE_BLOCK_BREAK_COOL_DOWN);
+        list.add(FLAT_MINING);
         list.add(LOW_HEALTH_EXECUTE_OR_SEND);
         list.add(LOW_HEALTH_VALUE);
         list.add(LOW_HEALTH_SEND_MODE);
@@ -145,7 +148,6 @@ public class Configs implements IConfigHandler {
         list.add(FAKE_PLAYER_KILL_AURA_BLACKLIST);
 
         list.add(MINI_HUD_FPS_OPT);
-        list.add(FPS_OPTIMIZATION);
 
         list.add(TEST);
 
@@ -164,7 +166,9 @@ public class Configs implements IConfigHandler {
             DISABLE_PLAYER_LIST_HUD_BACKGROUND,
             AUTO_OPEN_FAKE_PLAYER_INV,
             AUTO_KILL_FAKE_PLAYERS,
-            MINI_HUD_FPS_OPT
+            MINI_HUD_FPS_OPT,
+            FORCE_BLOCK_BREAK_COOL_DOWN,
+            FLAT_MINING
 
     );
 
@@ -190,7 +194,7 @@ public class Configs implements IConfigHandler {
         File settingFile = new File(FILE_PATH);
         if (settingFile.isFile() && settingFile.exists()) {
             //~ if < 26.1 'settingFile.toPath()' -> 'settingFile' {
-            JsonElement jsonElement = JsonUtils.parseJsonFile(settingFile);
+            JsonElement jsonElement = JsonUtils.parseJsonFile(settingFile.toPath());
             //~}
             if (jsonElement != null && jsonElement.isJsonObject()) {
                 JsonObject obj = jsonElement.getAsJsonObject();
@@ -205,10 +209,10 @@ public class Configs implements IConfigHandler {
             JsonObject configRoot = new JsonObject();
             ConfigUtils.writeConfigBase(configRoot, MOD_ID, ALL_CONFIGS);
             //? if < 26.1 {
-            JsonUtils.writeJsonToFile(configRoot, new File(FILE_PATH));
-            //?} else {
-            /*JsonUtils.writeJsonToFile(configRoot, Path.of(FILE_PATH));
-            *///?}
+            /*JsonUtils.writeJsonToFile(configRoot, new File(FILE_PATH));
+            *///?} else {
+            JsonUtils.writeJsonToFile(configRoot, Path.of(FILE_PATH));
+            //?}
         }
     }
 

@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.utils.lms;
+package io.github.jfglzs.asa.lms;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -15,7 +15,6 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -138,7 +137,7 @@ public class ItemStorageDataManager {
             if (mc.level != null) {
                 for (AbstractClientPlayer player : mc.level.players()) {
                     //~ if >=1.21.10 '.getName()' -> '.name()' {
-                    var name = player.getGameProfile().getName();
+                    var name = player.getGameProfile().name();
                     //~}
                     if (waitForInv.remove(name)) {
                         ThreadUtils.runAsync(() -> {
