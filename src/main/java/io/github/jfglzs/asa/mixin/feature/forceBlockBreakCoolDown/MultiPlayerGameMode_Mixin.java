@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import static fi.dy.masa.tweakeroo.config.Configs.Disable.DISABLE_BLOCK_BREAK_COOLDOWN;
 //? < 26.1
 //import net.minecraft.world.level.block.state.BlockState;
 
@@ -31,6 +33,7 @@ public class MultiPlayerGameMode_Mixin {
     private void continueDestroyBlock(BlockPos pos, Direction direction, int sequence, CallbackInfoReturnable<Packet> cir) {
     //~}
         if (Configs.FORCE_BLOCK_BREAK_COOL_DOWN.getBooleanValue()) {
+            DISABLE_BLOCK_BREAK_COOLDOWN.setBooleanValue(false);
             this.destroyDelay = 5;
         }
     }

@@ -2,7 +2,7 @@ package io.github.jfglzs.asa.mixin.lms;
 //~ if >= 26.1 'ClickType' -> 'ContainerInput' {
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import io.github.jfglzs.asa.config.Configs;
-import io.github.jfglzs.asa.lms.ItemStorageDataManager;
+import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.entity.player.Inventory;
