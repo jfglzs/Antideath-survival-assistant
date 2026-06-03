@@ -13,9 +13,7 @@ public abstract class Connection_Mixin {
     @Inject(
             method = "exceptionCaught",
             at = @At(
-                     value = "INVOKE",
-                     target = "Lnet/minecraft/network/Connection;disconnect(Lnet/minecraft/network/chat/Component;)V",
-                     ordinal = 0
+                     value = "HEAD"
             ),
             cancellable = true
     )

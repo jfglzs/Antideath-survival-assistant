@@ -1,3 +1,3 @@
-package io.github.jfglzs.asa.utils.lms;
+package io.github.jfglzs.asa.lms;
 
 public record PlayerItemStorage(String name, int count, String id) {}

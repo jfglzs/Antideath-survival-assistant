@@ -27,7 +27,8 @@ public class RenderHandler_Mixin {
 
     @ModifyReceiver(
             method = "updateLines",
-            at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 1)
+            at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 1),
+            remap = false
     )
     private List<String> updateLines_add(List<String> original, Object e) {
         if (Configs.MINI_HUD_FPS_OPT.getBooleanValue()) {
@@ -38,7 +39,8 @@ public class RenderHandler_Mixin {
 
     @ModifyReceiver(
             method = "updateLines",
-            at = @At(value = "INVOKE", target = "Ljava/util/List;clear()V", ordinal = 1)
+            at = @At(value = "INVOKE", target = "Ljava/util/List;clear()V", ordinal = 1),
+            remap = false
     )
     private List<String> updateLines_clear(List<String> original) {
         if (Configs.MINI_HUD_FPS_OPT.getBooleanValue()) {
@@ -48,12 +50,15 @@ public class RenderHandler_Mixin {
     }
 
     @WrapOperation(
-            //~ if > 1.21.1 'onRenderGameOverlayPost' -> 'onRenderGameOverlayPostAdvanced' {
-                //~ if >= 26.1 'onRenderGameOverlayPostAdvanced' -> 'onExtractGuiOverlayPost'{
-            method = "onRenderGameOverlayPostAdvanced",
-                //~}
-            //~}
-            at = @At(value = "INVOKE", target = "Lfi/dy/masa/minihud/event/RenderHandler;updateLines()V")
+            //? if >= 26.1 {
+            method = "onExtractGuiOverlayPost",
+            //?} else if > 1.21.1 {
+            //method = "onRenderGameOverlayPost",
+            //?} else {
+            //method = "onRenderGameOverlayPostAdvanced"
+            //?}
+            at = @At(value = "INVOKE", target = "Lfi/dy/masa/minihud/event/RenderHandler;updateLines()V"),
+            remap = false
     )
     private void onRenderGameOverlayPostAdvanced(RenderHandler instance, Operation<Void> original) {
         if (Configs.MINI_HUD_FPS_OPT.getBooleanValue()) {

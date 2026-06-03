@@ -11,10 +11,10 @@ public class ChatUtils {
     public static void sendMessOnlyClientVisible(String chat) {
         if (client.player == null) return;
         //? if >= 26.1 {
-        /*client.player.sendSystemMessage(Component.nullToEmpty(chat));
-        *///?} else {
-        client.player.displayClientMessage(Component.nullToEmpty(chat), false);
-         //?}
+        client.player.sendSystemMessage(Component.nullToEmpty(chat));
+        //?} else {
+        /*client.player.displayClientMessage(Component.nullToEmpty(chat), false);
+         *///?}
     }
 
     public static void sendMessWithSound(String chat, SoundEvent type, float volume, float pitch) {
@@ -22,10 +22,10 @@ public class ChatUtils {
         if (player != null) {
             player.playSound(type, volume, pitch);
             //? if >= 26.1 {
-            /*client.player.sendSystemMessage(Component.nullToEmpty(chat));
-            *///?} else {
-            client.player.displayClientMessage(Component.nullToEmpty(chat), false);
-            //?}
+            client.player.sendSystemMessage(Component.nullToEmpty(chat));
+            //?} else {
+            /*client.player.displayClientMessage(Component.nullToEmpty(chat), false);
+            *///?}
         }
     }
 

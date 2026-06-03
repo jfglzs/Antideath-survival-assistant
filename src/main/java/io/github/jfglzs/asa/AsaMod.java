@@ -12,7 +12,7 @@ import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.render.RemainingItemRender;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.CommandUtils;
-import io.github.jfglzs.asa.utils.lms.ItemStorageDataManager;
+import io.github.jfglzs.asa.lms.ItemStorageDataManager;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -72,8 +72,8 @@ public class AsaMod implements ClientModInitializer {
         ConfigManager.getInstance().registerConfigHandler(MOD_ID, INSTANCE);
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
-        RenderEventHandler.getInstance().registerGameOverlayRenderer(MaterialToDoRenderer.INSTANCE);
-        RenderEventHandler.getInstance().registerGameOverlayRenderer(RemainingItemRender.INSTANCE);
+        RenderEventHandler.getInstance().registerInGameGuiRenderer(MaterialToDoRenderer.INSTANCE);
+        RenderEventHandler.getInstance().registerInGameGuiRenderer(RemainingItemRender.INSTANCE);
         LOGGER.info("Masa registered");
     }
     //~}
