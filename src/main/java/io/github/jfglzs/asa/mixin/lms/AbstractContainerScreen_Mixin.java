@@ -5,7 +5,7 @@ import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.ThreadUtils;
-import io.github.jfglzs.asa.lms.ItemStorageDataManager;
+import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;

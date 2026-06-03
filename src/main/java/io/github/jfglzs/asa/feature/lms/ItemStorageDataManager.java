@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.lms;
+package io.github.jfglzs.asa.feature.lms;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
