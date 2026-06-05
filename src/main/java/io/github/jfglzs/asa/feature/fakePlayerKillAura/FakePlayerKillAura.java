@@ -12,7 +12,7 @@ public class FakePlayerKillAura {
             var box = mc.player.getBoundingBox().inflate(Configs.FAKE_PLAYER_KILL_AURA_RANGE.getDoubleValue());
             var players = mc.level.getEntitiesOfClass(Player.class, box);
             for (Player player : players) {
-                var name = player.getDisplayName().getString();
+                var name = player.getDisplayName().getString().trim();
                 if (name.startsWith(Configs.FAKE_PLAYER_KILL_AURA_PREFIX.getStringValue())) {
                     MCUtils.executeCommand("player %s kill".formatted(name));
                 }

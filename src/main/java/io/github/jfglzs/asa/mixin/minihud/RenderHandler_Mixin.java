@@ -55,8 +55,8 @@ public class RenderHandler_Mixin {
             //?} else if > 1.21.1 {
             /*method = "onRenderGameOverlayPostAdvanced",
             *///?} else {
-            //method = "onRenderGameOverlayPost"
-            //?}
+            /*method = "onRenderGameOverlayPost",
+            *///?}
             at = @At(value = "INVOKE", target = "Lfi/dy/masa/minihud/event/RenderHandler;updateLines()V"),
             remap = false
     )
