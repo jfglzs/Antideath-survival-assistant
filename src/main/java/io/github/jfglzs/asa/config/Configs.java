@@ -10,12 +10,10 @@ import fi.dy.masa.malilib.config.IHotkeyTogglable;
 import fi.dy.masa.malilib.config.options.*;
 //~ if >= 26.1 '.JsonUtils' -> '.data.json.JsonUtils' {
 import fi.dy.masa.malilib.util.data.json.JsonUtils;
+import java.nio.file.Path;
 //~}
 import io.github.jfglzs.asa.config.options.LowHealthSendMode;
-import it.unimi.dsi.fastutil.bytes.AbstractByte2BooleanMap;
-
 import java.io.File;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,9 +88,12 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed FORCE_BLOCK_BREAK_COOL_DOWN = new ConfigBooleanHotkeyed("强制方块挖掘冷却", false, "", "OMMC移植功能");
     public static final ConfigBooleanHotkeyed FLAT_MINING = new ConfigBooleanHotkeyed( "平坦挖掘", false,"","OMMC移植功能");
 
+    public static final ConfigBooleanHotkeyed TRANSPARENT_ITEM_FRAME = new ConfigBooleanHotkeyed("透明展示框", false,"","透明展示框");
+
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
     public static final ImmutableList<IConfigBase> ALL = addCompatibility();
+
     public static ImmutableList<IConfigBase> addCompatibility() {
         List<IConfigBase> list = new ArrayList<>();
         list.add(ASA);
@@ -148,6 +149,7 @@ public class Configs implements IConfigHandler {
         list.add(FAKE_PLAYER_KILL_AURA_BLACKLIST);
 
         list.add(MINI_HUD_FPS_OPT);
+        list.add(TRANSPARENT_ITEM_FRAME);
 
         list.add(TEST);
 
@@ -214,10 +216,5 @@ public class Configs implements IConfigHandler {
             JsonUtils.writeJsonToFile(configRoot, Path.of(FILE_PATH));
             //?}
         }
-    }
-
-
-    public static int getFeatureAmount() {
-        return addCompatibility().size();
     }
 }

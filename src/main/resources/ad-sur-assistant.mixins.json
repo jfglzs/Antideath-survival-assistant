@@ -21,6 +21,7 @@
     "feature.disableSubtitle.SubtitleOverlay_Mixin",
     "feature.flatMining.MultiPlayerGameMode_Mixin",
     "feature.forceBlockBreakCoolDown.MultiPlayerGameMode_Mixin",
+    "feature.transparentItemFrame.ItemFrameRenderer_Mixin",
     "feature.preventIntentionalGameDesign.MultiPlayerGameMode_Mixin",
     "feature.tabFilter.PlayerTabOverlay_Mixin",
     "lms.AbstractContainerScreen_Mixin",
