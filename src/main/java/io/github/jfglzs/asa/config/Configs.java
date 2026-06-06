@@ -88,7 +88,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed FORCE_BLOCK_BREAK_COOL_DOWN = new ConfigBooleanHotkeyed("强制方块挖掘冷却", false, "", "OMMC移植功能");
     public static final ConfigBooleanHotkeyed FLAT_MINING = new ConfigBooleanHotkeyed( "平坦挖掘", false,"","OMMC移植功能");
 
-    public static final ConfigBooleanHotkeyed TRANSPARENT_ITEM_FRAME = new ConfigBooleanHotkeyed("透明展示框", false,"","透明展示框");
+    public static final ConfigBooleanHotkeyed TRANSPARENT_ITEM_FRAME = new ConfigBooleanHotkeyed("透明展示框", false,"","需要关闭MoreCulling的自定义展示框渲染器才能正常工作");
+    public static final ConfigBooleanHotkeyed DISABLE_ITEM_ENTITY_MULPOSE = new ConfigBooleanHotkeyed("禁用掉落物旋转", false,"","禁用掉落物旋转");
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
@@ -150,6 +151,7 @@ public class Configs implements IConfigHandler {
 
         list.add(MINI_HUD_FPS_OPT);
         list.add(TRANSPARENT_ITEM_FRAME);
+        list.add(DISABLE_ITEM_ENTITY_MULPOSE);
 
         list.add(TEST);
 
@@ -170,7 +172,8 @@ public class Configs implements IConfigHandler {
             AUTO_KILL_FAKE_PLAYERS,
             MINI_HUD_FPS_OPT,
             FORCE_BLOCK_BREAK_COOL_DOWN,
-            FLAT_MINING
+            FLAT_MINING,
+            TRANSPARENT_ITEM_FRAME
 
     );
 

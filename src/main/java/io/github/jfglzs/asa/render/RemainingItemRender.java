@@ -16,7 +16,6 @@ public class RemainingItemRender implements IRenderer {
     public static final RemainingItemRender INSTANCE = new RemainingItemRender();
     public ItemStack stack;
 
-
     //~ if < 1.21.11 'GuiContext' -> 'GuiGraphics' {
     //? if < 26.1 {
     /*@Override

@@ -34,15 +34,17 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 *///?} else {
 /*import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.state.CameraRenderState;
-*/
-//?}
+
+*///?}
 //? if != 1.21.1 {
 import net.minecraft.client.renderer.entity.state.ItemFrameRenderState;
-import org.objectweb.asm.Opcodes;
 import net.minecraft.client.renderer.MapRenderer;
 //?}
+//? if != 1.21.1 && < 26.1 {
+/*import org.objectweb.asm.Opcodes;
+*///?}
 
-@Mixin(ItemFrameRenderer.class)
+@Mixin(value = ItemFrameRenderer.class, priority = 900)
 public abstract class ItemFrameRenderer_Mixin {
     //? if > 1.21.3 {
     @Shadow
@@ -80,14 +82,16 @@ public abstract class ItemFrameRenderer_Mixin {
             /*method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
             *///?}
 
-            //? if != 1.21.1 {
-            at = @At(
+            //? if = 26.1 {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/BlockModelRenderState;isEmpty()Z"),
+            //?} else if != 1.21.1 && < 26.1 {
+            /*at = @At(
                     value = "FIELD",
                     target = "Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;isInvisible:Z",
                     ordinal = 0,
                     opcode = Opcodes.GETFIELD
             ),
-            //?} else {
+            *///?} else {
             /*at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/entity/decoration/ItemFrame;getItem()Lnet/minecraft/world/item/ItemStack;",
