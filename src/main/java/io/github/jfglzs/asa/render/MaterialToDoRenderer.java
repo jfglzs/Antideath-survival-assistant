@@ -15,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.*;
 
-import static io.github.jfglzs.asa.config.Configs.MATERIAL_TODO_OVERLAY_BOT_FETCH;
 import static io.github.jfglzs.asa.config.Configs.MATERIAL_TODO_OVERLAY_GET_ITEM_IMM;
 
 public class MaterialToDoRenderer implements IRenderer {
@@ -83,7 +82,7 @@ public class MaterialToDoRenderer implements IRenderer {
     public void getItem() {
         Item item = items.poll();
         if (item != null) {
-            MCUtils.executeCommand("getItem " + MCUtils.getItemID(item) + " " + MATERIAL_TODO_OVERLAY_BOT_FETCH.getIntegerValue() + " " + "nbt");
+            MCUtils.executeCommand("getItem " + MCUtils.getItemID(item) + " " + item.getDefaultMaxStackSize() + " " + "nbt");
         }
     }
 }
