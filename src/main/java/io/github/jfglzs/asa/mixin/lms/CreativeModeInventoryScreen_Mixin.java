@@ -1,6 +1,8 @@
 package io.github.jfglzs.asa.mixin.lms;
 //~ if >= 26.1 'ClickType' -> 'ContainerInput' {
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
@@ -23,9 +25,6 @@ import java.util.List;
 //~ if <=1.21.4 'player/LocalPlayer;hasInfiniteMaterials' -> 'multiplayer/MultiPlayerGameMode;hasInfiniteItems' {
 @Mixin(CreativeModeInventoryScreen.class)
 public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContainerScreen<CreativeModeInventoryScreen.ItemPickerMenu> {
-    @Unique
-    private ContainerInput type;
-
     public CreativeModeInventoryScreen_Mixin(CreativeModeInventoryScreen.ItemPickerMenu handler, Inventory inventory, Component title) {
         super(handler, inventory, title);
     }
@@ -45,10 +44,15 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             int slotId,
             int button,
             ContainerInput actionType,
-            CallbackInfo ci
+            CallbackInfo ci,
+            @Share("type") LocalRef<ContainerInput> type
     ) {
-        if (Configs.lockCreativeScreen && actionType != ContainerInput.THROW && actionType != ContainerInput.QUICK_CRAFT) {
-            type = actionType;
+        if (
+                Configs.lockCreativeScreen
+                && actionType != ContainerInput.THROW
+                && actionType != ContainerInput.QUICK_CRAFT
+        ) {
+            type.set(actionType);
         }
     }
 
@@ -82,19 +86,19 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             int slotId,
             int button,
             ContainerInput actionType,
-            CallbackInfo ci
+            CallbackInfo ci,
+            @Share("type") LocalRef<ContainerInput> type
     ) {
-        if (Configs.lockCreativeScreen && type != null && slotId == -999) {
+        if (Configs.lockCreativeScreen && type.get() != null && slotId == -999) {
             ItemStack stack = this.menu.getCarried();
             int count = -1;
             int maxCount = stack.getMaxStackSize();
-            if (type == ContainerInput.PICKUP && button == 0) count = maxCount;
-             else if (type == ContainerInput.PICKUP && button == 1) count = maxCount * 27;
+            if (type.get() == ContainerInput.PICKUP && button == 0) count = maxCount;
+             else if (type.get() == ContainerInput.PICKUP && button == 1) count = maxCount * 27;
             ItemStorageDataManager.submit(stack.getItem(), stack.getCount() * count);
             menu.setCarried(ItemStack.EMPTY);
             Configs.lockCreativeScreen = false;
             this.minecraft.setScreen(null);
-            this.type = null;
             ci.cancel();
         }
     }

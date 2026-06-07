@@ -57,7 +57,6 @@ public class Configs implements IConfigHandler {
 
 
     public static final ConfigHotkey MATERIAL_TODO_OVERLAY_BOT_SUPPORT = new ConfigHotkey("材料代取overlay假人取货支持", "", "需要lms carpet addition");
-    public static final ConfigInteger MATERIAL_TODO_OVERLAY_BOT_FETCH = new ConfigInteger("假人取出数量", 64, "");
 
     public static final ConfigBoolean LMS_FETCH_SUPPORT = new ConfigBoolean("假人远程取货支持" , false,"需要lms carpet addition");
     public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV = new ConfigBooleanHotkeyed("假人取货自动打开假人背包", false, "", "自动打开假人背包");
@@ -76,7 +75,10 @@ public class Configs implements IConfigHandler {
     public static final ConfigHotkey ENABLE_FAKE_PLAYER_KILL_AURA = new ConfigHotkey("触发假人杀戮光环","","触发假人杀戮光环");
     public static final ConfigString FAKE_PLAYER_KILL_AURA_PREFIX = new ConfigString("假人杀戮光环前缀","bot_","前缀");
     public static final ConfigDouble FAKE_PLAYER_KILL_AURA_RANGE = new ConfigDouble( "假人杀戮光环范围",4,0,32,"假人杀戮光环范围(以玩家为中心)");
+    public static final ConfigBooleanHotkeyed ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST = new ConfigBooleanHotkeyed("启用假人杀戮光环黑名单", false, "", "启用假人杀戮光环黑名单");;
     public static final ConfigStringList FAKE_PLAYER_KILL_AURA_BLACKLIST = new ConfigStringList( "假人杀戮光环黑名单", ImmutableList.of(),"假人杀戮光环黑名单（仅对名单内玩家生效，精确匹配，忽略大小写）");
+    public static final ConfigBooleanHotkeyed ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST = new ConfigBooleanHotkeyed("启用假人杀戮光环白名单", false, "", "启用假人杀戮光环白名单");;
+    public static final ConfigStringList FAKE_PLAYER_KILL_AURA_WHITELIST = new ConfigStringList( "假人杀戮光环白名单", ImmutableList.of(),"假人杀戮光环白名单（仅对名单内玩家生效，精确匹配，忽略大小写）");
 
     public static final ConfigBooleanHotkeyed LOW_HEALTH_EXECUTE_OR_SEND = new ConfigBooleanHotkeyed("低生命值自动执行命令/发送聊天消息", false, "", "可自定义命令");
     public static final ConfigFloat LOW_HEALTH_VALUE = new ConfigFloat( "生命值阈值",4,1,20,"生命值阈值");
@@ -128,7 +130,6 @@ public class Configs implements IConfigHandler {
         list.add(MATERIAL_TODO_OVERLAY_X_OFFSET);
         list.add(MATERIAL_TODO_OVERLAY_Y_OFFSET);
         list.add(MATERIAL_TODO_OVERLAY_BOT_SUPPORT);
-        list.add(MATERIAL_TODO_OVERLAY_BOT_FETCH);
         list.add(LMS_FETCH_SUPPORT);
         list.add(LMS_TAKE_ITEM);
         list.add(AUTO_OPEN_FAKE_PLAYER_INV);
@@ -147,6 +148,9 @@ public class Configs implements IConfigHandler {
         list.add(ENABLE_FAKE_PLAYER_KILL_AURA);
         list.add(FAKE_PLAYER_KILL_AURA_PREFIX);
         list.add(FAKE_PLAYER_KILL_AURA_RANGE);
+        list.add(ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST);
+        list.add(FAKE_PLAYER_KILL_AURA_WHITELIST);
+        list.add(ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST);
         list.add(FAKE_PLAYER_KILL_AURA_BLACKLIST);
 
         list.add(MINI_HUD_FPS_OPT);
@@ -173,7 +177,9 @@ public class Configs implements IConfigHandler {
             MINI_HUD_FPS_OPT,
             FORCE_BLOCK_BREAK_COOL_DOWN,
             FLAT_MINING,
-            TRANSPARENT_ITEM_FRAME
+            TRANSPARENT_ITEM_FRAME,
+            ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST,
+            ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST
 
     );
 

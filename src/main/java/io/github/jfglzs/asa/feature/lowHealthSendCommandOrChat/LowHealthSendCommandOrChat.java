@@ -9,7 +9,7 @@ import net.minecraft.client.Minecraft;
 import static io.github.jfglzs.asa.config.Configs.*;
 
 public class LowHealthSendCommandOrChat {
-    public static final RateLimiter rateLimiter = RateLimiter.create(0.1);
+    public static final RateLimiter rateLimiter = RateLimiter.create(0.05);
 
     public static void trigger(Minecraft client) {
         if (LOW_HEALTH_EXECUTE_OR_SEND.getBooleanValue() && client.player != null && client.player.getHealth() < LOW_HEALTH_VALUE.getFloatValue()) {
