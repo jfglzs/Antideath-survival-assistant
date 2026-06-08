@@ -92,6 +92,7 @@ public class Configs implements IConfigHandler {
 
     public static final ConfigBooleanHotkeyed TRANSPARENT_ITEM_FRAME = new ConfigBooleanHotkeyed("透明展示框", false,"","需要关闭MoreCulling的自定义展示框渲染器才能正常工作");
     public static final ConfigBooleanHotkeyed DISABLE_ITEM_ENTITY_MULPOSE = new ConfigBooleanHotkeyed("禁用掉落物旋转", false,"","禁用掉落物旋转");
+    public static final ConfigBooleanHotkeyed DISABLE_SUBTITLE_OVERLAY_BACKGROUND = new ConfigBooleanHotkeyed("禁用字幕背景", false,"","禁用字幕背景");
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
@@ -156,6 +157,7 @@ public class Configs implements IConfigHandler {
         list.add(MINI_HUD_FPS_OPT);
         list.add(TRANSPARENT_ITEM_FRAME);
         list.add(DISABLE_ITEM_ENTITY_MULPOSE);
+        list.add(DISABLE_SUBTITLE_OVERLAY_BACKGROUND);
 
         list.add(TEST);
 
@@ -179,7 +181,8 @@ public class Configs implements IConfigHandler {
             FLAT_MINING,
             TRANSPARENT_ITEM_FRAME,
             ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST,
-            ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST
+            ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST,
+            DISABLE_SUBTITLE_OVERLAY_BACKGROUND
 
     );
 

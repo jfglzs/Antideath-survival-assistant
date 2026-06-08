@@ -91,6 +91,7 @@ public class PlayerUtils {
 
     public static List<Integer> getNotEmptyBoxIndexes(List<Integer> shulkerBoxIndexes) {
         Player player = MCUtils.getPlayer();
+        if (player == null) return shulkerBoxIndexes;
         List<Integer> NotEmptyShulkerBoxIndexes = new ArrayList<>();
 
         for (int i : shulkerBoxIndexes) {
