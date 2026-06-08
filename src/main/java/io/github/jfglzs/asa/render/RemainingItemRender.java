@@ -14,7 +14,7 @@ import net.minecraft.world.item.Items;
 
 public class RemainingItemRender implements IRenderer {
     public static final RemainingItemRender INSTANCE = new RemainingItemRender();
-    public ItemStack stack;
+    private ItemStack stack;
 
     //~ if < 1.21.11 'GuiContext' -> 'GuiGraphics' {
     //? if < 26.1 {
@@ -29,6 +29,9 @@ public class RemainingItemRender implements IRenderer {
     }
     //?}
 
+    public void update(Minecraft mc) {
+        this.stack = PlayerUtils.getPlayerMainHandStack();
+    }
 
     public void render(GuiContext ctx) {
         if (Configs.DISPLAY_REMAIN_ITEM.getBooleanValue()) {

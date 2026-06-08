@@ -56,7 +56,7 @@ public class MaterialToDoRenderer implements IRenderer {
     }
     //~}
 
-    public void update() {
+    public void update(Minecraft mc) {
         Queue<Item> newitems = new LinkedList<>();
 
         for (Item stack : items) {

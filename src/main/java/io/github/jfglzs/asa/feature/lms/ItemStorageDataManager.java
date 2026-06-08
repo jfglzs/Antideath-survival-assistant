@@ -131,9 +131,8 @@ public class ItemStorageDataManager {
         MCUtils.executeCommand("getStorageData");
     }
 
-    public static void scanMatchedPlayersAndInteract() {
+    public static void scanMatchedPlayersAndInteract(Minecraft mc) {
         if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
-            Minecraft mc = Minecraft.getInstance();
             if (mc.level != null) {
                 for (AbstractClientPlayer player : mc.level.players()) {
                     //~ if >=1.21.10 '.getName()' -> '.name()' {

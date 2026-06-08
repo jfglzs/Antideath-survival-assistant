@@ -19,6 +19,7 @@
     "feature.disableItemEntityMulPose.ItemEntityRenderer_Mixin",
     "feature.disableLoadingScreen.ReceivingLevelScreen_Mixin",
     "feature.disablePlayerArmorRendener.HumanoidArmorLayer_Mixin",
+    "feature.disablePlayerTabOverlayBackGround.SubtitleOverlay_Mixin",
     "feature.disableSubtitle.SubtitleOverlay_Mixin",
     "feature.flatMining.MultiPlayerGameMode_Mixin",
     "feature.forceBlockBreakCoolDown.MultiPlayerGameMode_Mixin",
