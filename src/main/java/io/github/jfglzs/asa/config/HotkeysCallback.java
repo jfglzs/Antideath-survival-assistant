@@ -24,10 +24,6 @@ public class HotkeysCallback implements IHotkeyCallback {
         else if (key == CLEAR_MATERIAL_TODO_OVERLAY.getKeybind()) {
             MaterialToDoRenderer.INSTANCE.items.clear();
         }
-        else if (key == MATERIAL_TODO_OVERLAY_BOT_SUPPORT.getKeybind()) {
-            MaterialToDoRenderer.INSTANCE.getItem();
-            return true;
-        }
         else if (key == LMS_TAKE_ITEM.getKeybind()) {
             Configs.lockCreativeScreen = true;
             this.client.setScreen(new CreativeModeInventoryScreen(this.client.player, this.client.player.connection.enabledFeatures(), this.client.options.operatorItemsTab().get()));

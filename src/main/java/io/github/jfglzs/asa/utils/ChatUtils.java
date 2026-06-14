@@ -8,23 +8,23 @@ import net.minecraft.sounds.SoundEvent;
 public class ChatUtils {
     private static final Minecraft client = Minecraft.getInstance();
 
-    public static void sendMessOnlyClientVisible(String chat) {
+    public static void sendMessOnlyClientVisible(Component chat) {
         if (client.player == null) return;
         //? if >= 26.1 {
-        client.player.sendSystemMessage(Component.nullToEmpty(chat));
+        client.player.sendSystemMessage(chat);
         //?} else {
-        /*client.player.displayClientMessage(Component.nullToEmpty(chat), false);
+        /*client.player.displayClientMessage(chat, false);
          *///?}
     }
 
-    public static void sendMessWithSound(String chat, SoundEvent type, float volume, float pitch) {
+    public static void sendMessWithSound(Component chat, SoundEvent type, float volume, float pitch) {
         LocalPlayer player = client.player;
         if (player != null) {
             player.playSound(type, volume, pitch);
             //? if >= 26.1 {
-            client.player.sendSystemMessage(Component.nullToEmpty(chat));
+            client.player.sendSystemMessage(chat);
             //?} else {
-            /*client.player.displayClientMessage(Component.nullToEmpty(chat), false);
+            /*client.player.displayClientMessage(chat, false);
             *///?}
         }
     }
@@ -33,5 +33,9 @@ public class ChatUtils {
         if (client.player != null) {
             client.player.connection.sendChat(chat);
         }
+    }
+
+    public static Component toComponent(String text) {
+        return text == null ? Component.empty() : Component.nullToEmpty(text);
     }
 }

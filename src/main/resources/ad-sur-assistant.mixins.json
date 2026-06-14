@@ -7,6 +7,7 @@
     "feature.disablePlayerTabOverlayBackGround.PlayerTabOverlay_Mixin",
     "litematic.MaterialListHudRenderer_Mixin",
     "litematic.WorldUtils_Mixin",
+    "lms.PlacementHandler_Mixin",
     "minihud.RenderHandler_Mixin"
   ],
   "injectors": {
@@ -16,11 +17,15 @@
     "requireAnnotations": true
   },
   "client": [
+    "feature.canAlwaysDisconnect.ConnectScreen_Mixin",
+    "feature.canAlwaysDisconnect.ServerReconfigScreen_Mixin",
+    "feature.disableContainerBackGround.AbstractContainerScreen_Mixin",
+    "feature.disableContainerBackGround.Screen_Mixin",
     "feature.disableItemEntityMulPose.ItemEntityRenderer_Mixin",
     "feature.disableLoadingScreen.ReceivingLevelScreen_Mixin",
     "feature.disablePlayerArmorRendener.HumanoidArmorLayer_Mixin",
-    "feature.disablePlayerTabOverlayBackGround.SubtitleOverlay_Mixin",
     "feature.disableSubtitle.SubtitleOverlay_Mixin",
+    "feature.disableSubtitleOverlayBackGround.SubtitleOverlay_Mixin",
     "feature.flatMining.MultiPlayerGameMode_Mixin",
     "feature.forceBlockBreakCoolDown.MultiPlayerGameMode_Mixin",
     "feature.preventIntentionalGameDesign.MultiPlayerGameMode_Mixin",

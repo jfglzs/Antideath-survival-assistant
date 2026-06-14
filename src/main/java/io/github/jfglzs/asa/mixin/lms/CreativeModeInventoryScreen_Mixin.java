@@ -14,7 +14,6 @@ import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.network.chat.Component;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -94,7 +93,7 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             int count = -1;
             int maxCount = stack.getMaxStackSize();
             if (type.get() == ContainerInput.PICKUP && button == 0) count = maxCount;
-             else if (type.get() == ContainerInput.PICKUP && button == 1) count = maxCount * 27;
+            else if (type.get() == ContainerInput.PICKUP && button == 1) count = maxCount * 27;
             ItemStorageDataManager.submit(stack.getItem(), stack.getCount() * count);
             menu.setCarried(ItemStack.EMPTY);
             Configs.lockCreativeScreen = false;

@@ -50,15 +50,14 @@ public class Configs implements IConfigHandler {
     public static final ConfigStringList TAP_FILTER_PREFIX = new ConfigStringList( "TAB菜单过滤器-前缀",ImmutableList.of()," ");
 
     public static final ConfigBooleanHotkeyed ENABLE_MATERIAL_TODO_OVERLAY = new ConfigBooleanHotkeyed("启用材料待取Overlay", false, "", "启用后鼠标中键点击，原理图内方块(玩家背包内没有)，自动添加进待取列表");
-    public static final ConfigBooleanHotkeyed MATERIAL_TODO_OVERLAY_GET_ITEM_IMM = new ConfigBooleanHotkeyed("材料代取OverLay立即取货", false, "", "启用后鼠标中键点击，原理图内方块(玩家背包内没有)，会立即取货（需要lms carpet addition）");
     public static final ConfigHotkey CLEAR_MATERIAL_TODO_OVERLAY = new ConfigHotkey("清除材料待取Overlay", "", "");
 
     public static final ConfigHotkey LMS_TAKE_ITEM = new ConfigHotkey("打开假人取货菜单", "", "打开假人取货菜单");
 
-
-    public static final ConfigHotkey MATERIAL_TODO_OVERLAY_BOT_SUPPORT = new ConfigHotkey("材料代取overlay假人取货支持", "", "需要lms carpet addition");
-
     public static final ConfigBoolean LMS_FETCH_SUPPORT = new ConfigBoolean("假人远程取货支持" , false,"需要lms carpet addition");
+    public static final ConfigBooleanHotkeyed LMS_FETCH_SUPPORT_PLACE_ = new ConfigBooleanHotkeyed("右键投影方块取货", false,"","右键投影方块取货");
+    public static final ConfigBooleanHotkeyed MID_CLICK_TAKE_ITEM = new ConfigBooleanHotkeyed("中间投影取货", false, "", "启用后鼠标中键点击，原理图内方块(玩家背包内没有)，会立即取货（需要lms carpet addition）");
+
     public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV = new ConfigBooleanHotkeyed("假人取货自动打开假人背包", false, "", "自动打开假人背包");
     public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV_MODE = new ConfigBooleanHotkeyed("假人取货自动打开假人背包交互模式", false, "", "true为指令交互 false为主手右键交互");
 
@@ -93,10 +92,78 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed TRANSPARENT_ITEM_FRAME = new ConfigBooleanHotkeyed("透明展示框", false,"","需要关闭MoreCulling的自定义展示框渲染器才能正常工作");
     public static final ConfigBooleanHotkeyed DISABLE_ITEM_ENTITY_MULPOSE = new ConfigBooleanHotkeyed("禁用掉落物旋转", false,"","禁用掉落物旋转");
     public static final ConfigBooleanHotkeyed DISABLE_SUBTITLE_OVERLAY_BACKGROUND = new ConfigBooleanHotkeyed("禁用字幕背景", false,"","禁用字幕背景");
+    public static final ConfigBooleanHotkeyed CAN_ALWAYS_DISCONNECT = new ConfigBooleanHotkeyed("随时可以断开连接", false,"","为ReconfigScreen和ConnectScreen增加了退出按钮 可随时断开连接");
+    public static final ConfigBooleanHotkeyed DISABLE_CONTAINER_BACKGROUND = new ConfigBooleanHotkeyed("禁用容器背景渲染", false,"","禁用容器背景渲染");
+
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
     public static final ImmutableList<IConfigBase> ALL = addCompatibility();
+    public static final ImmutableList<IConfigBase> LMS = addLMS();
+    public static final ImmutableList<IConfigBase> DISABLES = addDisables();
+    public static final ImmutableList<IConfigBase> FUNCTIONS = addFunctions();
+
+    private static ImmutableList<IConfigBase> addFunctions() {
+        List<IConfigBase> functions = new ArrayList<>();
+
+        functions.add(FLAT_MINING);
+        functions.add(FORCE_BLOCK_BREAK_COOL_DOWN);
+
+        functions.add(LOW_HEALTH_EXECUTE_OR_SEND);
+        functions.add(LOW_HEALTH_VALUE);
+        functions.add(LOW_HEALTH_SEND_MODE);
+        functions.add(LOW_HEALTH_SEND_CONTENT);
+
+        functions.add(TAP_FILTER);
+        functions.add(ENABLE_TAP_FILTER_PREFIX);
+        functions.add(TAP_FILTER_PREFIX);
+        functions.add(ENABLE_TAP_FILTER_WHITELIST);
+        functions.add(TAP_FILTER_WHITELIST);
+        functions.add(TAP_FILTER_BLACKLIST);
+
+
+        functions.add(ENABLE_FAKE_PLAYER_KILL_AURA);
+        functions.add(FAKE_PLAYER_KILL_AURA_RANGE);
+        functions.add(FAKE_PLAYER_KILL_AURA_PREFIX);
+        functions.add(FAKE_PLAYER_KILL_AURA_WHITELIST);
+        functions.add(FAKE_PLAYER_KILL_AURA_BLACKLIST);
+
+        functions.add(ENABLE_MATERIAL_TODO_OVERLAY);
+        functions.add(MATERIAL_TODO_OVERLAY_X_OFFSET);
+        functions.add(MATERIAL_TODO_OVERLAY_Y_OFFSET);
+        functions.add(CLEAR_MATERIAL_TODO_OVERLAY);
+
+        return ImmutableList.copyOf(functions);
+    }
+
+    private static ImmutableList<IConfigBase> addDisables() {
+        List<IConfigBase> disables = new ArrayList<>();
+
+        disables.add(DISABLE_SUBTITLE);
+        disables.add(DISABLE_CONNECT_TIMED_OUT);
+        disables.add(DISABLE_ITEM_ENTITY_MULPOSE);
+        disables.add(DISABLE_PLAYER_ARMOR_RENDER);
+        disables.add(DISABLE_CONTAINER_BACKGROUND);
+        disables.add(DISABLE_PLACE_BLOCK_NEARBY_PORTAL);
+        disables.add(DISABLE_PLAYER_LIST_HUD_BACKGROUND);
+
+        return ImmutableList.copyOf(disables);
+    }
+
+    private static ImmutableList<IConfigBase> addLMS() {
+        List<IConfigBase> lms = new ArrayList<>();
+
+        lms.add(LMS_FETCH_SUPPORT);
+        lms.add(LMS_TAKE_ITEM);
+        lms.add(MID_CLICK_TAKE_ITEM);
+        lms.add(LMS_FETCH_SUPPORT_PLACE_);
+        lms.add(AUTO_OPEN_FAKE_PLAYER_INV);
+        lms.add(AUTO_OPEN_FAKE_PLAYER_INV_MODE);
+        lms.add(AUTO_KILL_FAKE_PLAYERS);
+        lms.add(AUTO_COOLDOWN);
+
+        return ImmutableList.copyOf(lms);
+    }
 
     public static ImmutableList<IConfigBase> addCompatibility() {
         List<IConfigBase> list = new ArrayList<>();
@@ -126,12 +193,11 @@ public class Configs implements IConfigHandler {
         list.add(TAP_FILTER_PREFIX);
 
         list.add(ENABLE_MATERIAL_TODO_OVERLAY);
-        list.add(MATERIAL_TODO_OVERLAY_GET_ITEM_IMM);
         list.add(CLEAR_MATERIAL_TODO_OVERLAY);
         list.add(MATERIAL_TODO_OVERLAY_X_OFFSET);
         list.add(MATERIAL_TODO_OVERLAY_Y_OFFSET);
-        list.add(MATERIAL_TODO_OVERLAY_BOT_SUPPORT);
         list.add(LMS_FETCH_SUPPORT);
+        list.add(MID_CLICK_TAKE_ITEM);
         list.add(LMS_TAKE_ITEM);
         list.add(AUTO_OPEN_FAKE_PLAYER_INV);
         list.add(AUTO_OPEN_FAKE_PLAYER_INV_MODE);
@@ -158,11 +224,15 @@ public class Configs implements IConfigHandler {
         list.add(TRANSPARENT_ITEM_FRAME);
         list.add(DISABLE_ITEM_ENTITY_MULPOSE);
         list.add(DISABLE_SUBTITLE_OVERLAY_BACKGROUND);
+        list.add(DISABLE_CONTAINER_BACKGROUND);
+        list.add(CAN_ALWAYS_DISCONNECT);
 
         list.add(TEST);
 
         return ImmutableList.copyOf(list);
     }
+
+
 
     public static final ImmutableList<IHotkeyTogglable> SWITCH_KEY = ImmutableList.of(
             CREEPER_WARN,
@@ -189,13 +259,13 @@ public class Configs implements IConfigHandler {
     public static final ImmutableList<ConfigHotkey> KEY_LIST = ImmutableList.of(
             ASA,
             CLEAR_MATERIAL_TODO_OVERLAY,
-            MATERIAL_TODO_OVERLAY_BOT_SUPPORT,
             LMS_TAKE_ITEM,
             ENABLE_FAKE_PLAYER_KILL_AURA
 
     );
 
     public static final ImmutableList<IConfigBase> ALL_CONFIGS = addAllConfigs();
+
     public static ImmutableList<IConfigBase> addAllConfigs() {
         List<IConfigBase> list = new ArrayList<>();
         list.addAll(ALL);
