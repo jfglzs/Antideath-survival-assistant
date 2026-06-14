@@ -36,15 +36,15 @@ public class ItemStorageDataManager {
             var str = message.getString().trim();
 
             if (str.contains("maxCount:") && str.startsWith("{") && str.endsWith("}")) {
-                ChatUtils.sendMessWithSound("§c请求的数量超出配置的最大上限", SoundEvents.VILLAGER_DEATH, 1, 1);
+                ChatUtils.sendMessWithSound(ChatUtils.toComponent("请求的数量超出配置的最大上限").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH, 1, 1);
                 return false;
             }
             else if (str.startsWith("{") && str.endsWith("}") && str.contains("waitSecond:")) {
-                ChatUtils.sendMessWithSound("§c假人取货还在冷却中", SoundEvents.VILLAGER_DEATH, 1, 1);
+                ChatUtils.sendMessWithSound(ChatUtils.toComponent("假人取货还在冷却中").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH, 1, 1);
                 return false;
             }
             else if (str.equals("[]")) {
-                ChatUtils.sendMessWithSound("§c全无品: 这个物品暂时没有存货", SoundEvents.VILLAGER_NO, 1, 1);
+                ChatUtils.sendMessWithSound(ChatUtils.toComponent("全无品: 这个物品暂时没有存货").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
                 return false;
             }
             else if (str.contains("id:") && str.contains("count:") && str.startsWith("[{") && str.endsWith("}]")) {
@@ -56,7 +56,7 @@ public class ItemStorageDataManager {
                                 String name = playerItemStorage.name();
                                 if (name != null) {
                                     MCUtils.executeCommand("player %s spawn".formatted(name));
-                                    ChatUtils.sendMessWithSound("假人: [%s] 取出数量: [%d]".formatted(name, playerItemStorage.count()), SoundEvents.VILLAGER_YES, 1, 1);
+                                    ChatUtils.sendMessWithSound(ChatUtils.toComponent("假人: [%s] 取出数量: [%d]".formatted(name, playerItemStorage.count())), SoundEvents.VILLAGER_YES, 1, 1);
 
                                     if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
                                         waitForInv.add(name);
@@ -70,21 +70,25 @@ public class ItemStorageDataManager {
                     }
                     catch (Exception e) {
                         AsaMod.LOGGER.error(e.getMessage(), e);
-                        ChatUtils.sendMessOnlyClientVisible(e.getMessage());
+                        ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent(e.getMessage()));
                     }
                 }
                 else {
                     try {
                         itemStorages = LENIENT_GSON.fromJson(str, itemType);
                         if (Configs.TEST.getBooleanValue()) {
-                            ChatUtils.sendMessOnlyClientVisible(Arrays.toString(itemStorages.toArray()));
+                            ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent(Arrays.toString(itemStorages.toArray())));
                         }
                     }
                     catch (Exception e) {
                         AsaMod.LOGGER.error(e.getMessage(), e);
-                        ChatUtils.sendMessOnlyClientVisible(e.getMessage());
+                        ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent(e.getMessage()));
                     }
                 }
+                return false;
+            }
+            else if (str.startsWith("[{") && str.endsWith("]") && str.contains("<...>")) {
+                ChatUtils.sendMessWithSound(ChatUtils.toComponent("无法通过getStorageData命令查询容器数据 \n 原因: NBT被折叠 \n 请安装Antideath-carpet-addition v1.4.5以上版本并开启 fixNbtFold 规则 \n 或者将LMS 更新至 1.15").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
                 return false;
             }
             return true;
@@ -102,7 +106,7 @@ public class ItemStorageDataManager {
             return Component.empty();
         }
 
-        String stackId = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
+        String stackId = MCUtils.getItemID(stack.getItem());
 
         if (!itemStorages.isEmpty()) {
             for (ItemStorage itemStorage : itemStorages) {
@@ -127,7 +131,7 @@ public class ItemStorageDataManager {
     }
 
     public static void reflushCache() {
-        if (Configs.TEST.getBooleanValue()) ChatUtils.sendMessOnlyClientVisible("Cache reflushed!");
+        if (Configs.TEST.getBooleanValue()) ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent("Cache reflushed!"));
         MCUtils.executeCommand("getStorageData");
     }
 
@@ -142,13 +146,11 @@ public class ItemStorageDataManager {
                         ThreadUtils.runAsync(() -> {
                             try {
                                 Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
-                                ThreadUtils.runOnClientThread(() -> {
-                                        MCUtils.executeCommand("player %s inventory".formatted(name));
-                                });
+                                ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s inventory".formatted(name))).join();
                                 waitForKilling.add(name);
                             }
                             catch (Exception e) {
-                                ChatUtils.sendMessOnlyClientVisible(e.getMessage());
+                                ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent(e.getMessage()));
                                 AsaMod.LOGGER.error(e.getMessage(), e);
                             }
                         });

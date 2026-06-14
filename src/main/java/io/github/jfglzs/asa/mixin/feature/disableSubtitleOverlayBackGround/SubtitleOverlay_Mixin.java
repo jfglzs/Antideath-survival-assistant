@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.feature.disablePlayerTabOverlayBackGround;
+package io.github.jfglzs.asa.mixin.feature.disableSubtitleOverlayBackGround;
 //~ if >= 26.1 'GuiGraphics' -> 'GuiGraphicsExtractor' {
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

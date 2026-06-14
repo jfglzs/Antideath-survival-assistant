@@ -45,8 +45,15 @@ public class ConfigUi extends GuiConfigsBase {
         Tab tab = ConfigUi.tab;
         if (tab == Tab.ALL) {
             configs = Configs.ALL_CONFIGS;
-        } else {
-            configs = Configs.ALL_CONFIGS;
+        }
+        else if (tab == Tab.LMS) {
+            configs = Configs.LMS;
+        }
+        else if (tab == Tab.DISABLES) {
+            configs = Configs.DISABLES;
+        }
+        else {
+            configs = Configs.FUNCTIONS;
         }
         return ConfigOptionWrapper.createFor(configs);
     }
@@ -71,6 +78,9 @@ public class ConfigUi extends GuiConfigsBase {
 
     public enum Tab {
         ALL("所有"),
+        FUNCTIONS("功能"),
+        DISABLES("禁用类功能"),
+        LMS("LMS")
         ;
 
         public final String translation;

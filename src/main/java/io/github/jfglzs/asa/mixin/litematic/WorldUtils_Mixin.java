@@ -2,6 +2,8 @@ package io.github.jfglzs.asa.mixin.litematic;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.litematica.util.WorldUtils;
+import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.world.level.block.Blocks;
@@ -21,7 +23,12 @@ public class WorldUtils_Mixin {
     )
     private static void doSchematicWorldPickBlock_Inject(boolean closest, Minecraft mc, CallbackInfoReturnable<Boolean> cir, @Local ItemStack stack, @Local BlockPos pos) {
         if (PlayerUtils.checkRemainCount(stack.getItem()) == 0 && !mc.player.isCreative() && mc.level.getBlockState(pos).getBlock() == Blocks.AIR) {
-            MaterialToDoRenderer.INSTANCE.addItem(stack);
+            if (Configs.MID_CLICK_TAKE_ITEM.getBooleanValue()) {
+                ItemStorageDataManager.submit(stack.getItem(), stack.getMaxStackSize());
+            }
+            else {
+                MaterialToDoRenderer.INSTANCE.addItem(stack);
+            }
         }
     }
 }
