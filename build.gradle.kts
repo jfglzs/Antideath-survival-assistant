@@ -126,9 +126,6 @@ dependencies {
         return "fi.dy.masa.${name}:${name}-fabric-${mcVersion}:${version}"
     }
 
-    fun fabricApiDependency(name: String) =
-        project.fabricApi.module(name, getProperty("fabric_api_version"))
-
     "minecraft"("com.mojang:minecraft:${minecraftVersion}")
     if (!unobfuscated) {
         "mappings"(
@@ -144,15 +141,7 @@ dependencies {
     autoRuntimeOnly("me.fallenbreath:mixin-auditor:0.2.0-${if (unobfuscated) "u" else "o"}")
     autoImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
     autoImplementation("com.terraformersmc:modmenu:${property("modmenu_version")}")
-
-    autoImplementation(fabricApiDependency("fabric-lifecycle-events-v1"))
-    autoImplementation(fabricApiDependency("fabric-message-api-v1"))
-
-    autoRuntimeOnly(fabricApiDependency("fabric-screen-api-v1"))
-
-    if ("26.1" != minecraftVersion) {
-        autoRuntimeOnly(fabricApiDependency("fabric-key-binding-api-v1"))
-    }
+    autoImplementation("net.fabricmc.fabric-api:fabric-api:${getProperty("fabric_api_version")}")
 
     autoImplementation(masaDependency("malilib"))
     autoImplementation(masaDependency("tweakeroo"))

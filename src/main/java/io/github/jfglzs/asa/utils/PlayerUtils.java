@@ -19,14 +19,13 @@ import static io.github.jfglzs.asa.utils.MCUtils.getPlayer;
 public class PlayerUtils {
     public static int getInventoryItemCount(Item item) {
         Inventory inventory = MCUtils.getPlayer().getInventory();
-        int itemCount = IntStream.range(0, inventory.getContainerSize())
+        //            if (inventory.getStack(40).getItem().equals(item)) itemCount += inventory.getStack(40).getCount();
+
+        return IntStream.range(0, inventory.getContainerSize())
                 .mapToObj(inventory::getItem)
                 .filter(stack -> stack != null && stack.getItem().equals(item))
                 .mapToInt(ItemStack::getCount)
                 .sum();
-//            if (inventory.getStack(40).getItem().equals(item)) itemCount += inventory.getStack(40).getCount();
-
-        return itemCount;
     }
 
     public static List<Integer> getAllBoxIndexes(int maxIndex) {

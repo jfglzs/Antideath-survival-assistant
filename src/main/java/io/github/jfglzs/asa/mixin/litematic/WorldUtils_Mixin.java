@@ -21,7 +21,13 @@ public class WorldUtils_Mixin {
             method = "doSchematicWorldPickBlock",
             at = @At(value = "INVOKE", target = "Lfi/dy/masa/litematica/schematic/pickblock/SchematicPickBlockEventHandler;onSchematicPickBlockPrePick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/item/ItemStack;)Z")
     )
-    private static void doSchematicWorldPickBlock_Inject(boolean closest, Minecraft mc, CallbackInfoReturnable<Boolean> cir, @Local ItemStack stack, @Local BlockPos pos) {
+    private static void doSchematicWorldPickBlock_Inject(
+            boolean closest,
+            Minecraft mc,
+            CallbackInfoReturnable<Boolean> cir,
+            @Local ItemStack stack,
+            @Local BlockPos pos
+    ) {
         if (PlayerUtils.checkRemainCount(stack.getItem()) == 0 && !mc.player.isCreative() && mc.level.getBlockState(pos).getBlock() == Blocks.AIR) {
             if (Configs.MID_CLICK_TAKE_ITEM.getBooleanValue()) {
                 ItemStorageDataManager.submit(stack.getItem(), stack.getMaxStackSize());

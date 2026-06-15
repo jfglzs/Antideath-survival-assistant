@@ -52,6 +52,9 @@ public class ConfigUi extends GuiConfigsBase {
         else if (tab == Tab.DISABLES) {
             configs = Configs.DISABLES;
         }
+        else if (tab == Tab.COMMAND) {
+            configs = Configs.COMMANDS;
+        }
         else {
             configs = Configs.FUNCTIONS;
         }
@@ -80,6 +83,7 @@ public class ConfigUi extends GuiConfigsBase {
         ALL("所有"),
         FUNCTIONS("功能"),
         DISABLES("禁用类功能"),
+        COMMAND("命令"),
         LMS("LMS")
         ;
 
