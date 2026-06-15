@@ -16,9 +16,7 @@ public class ClientTickEvent {
 
     public static void onUpdate(Minecraft client) {
         for (Predicate<Integer> condition : callBacks.keySet()) {
-            if (condition.test(tickCount)) {
-                callBacks.get(condition).onTick(client);
-            }
+            if (condition.test(tickCount)) callBacks.get(condition).onTick(client);
         }
         tickCount++;
     }

@@ -5,6 +5,7 @@ package io.github.jfglzs.asa.mixin.feature.disableContainerBackGround;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.gui.GuiGraphics;
 import org.spongepowered.asm.mixin.injection.At;
+import io.github.jfglzs.asa.config.Configs;
 *///?}
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,6 +21,7 @@ public class AbstractContainerScreen_Mixin {
             )
     )
     public void renderBackground(AbstractContainerScreen instance, GuiGraphics guiGraphics, Operation<Void> original) {
+        if (!Configs.DISABLE_CONTAINER_BACKGROUND.getBooleanValue()) original.call(instance, guiGraphics);
     }
     *///?}
 }

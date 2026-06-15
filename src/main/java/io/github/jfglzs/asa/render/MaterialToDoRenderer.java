@@ -23,17 +23,17 @@ public class MaterialToDoRenderer implements IRenderer {
     }
 
     //~ if < 1.21.11 'GuiContext' -> 'GuiGraphics' {
-    //? if < 26.1 {
+        //? if < 26.1 {
         /*@Override
         public void onRenderGameOverlayPost(GuiContext ctx) {
             this.render(ctx);
         }
-    *///?} else {
+        *///?} else {
     @Override
     public void onExtractGuiOverlayPost(GuiContext ctx, float partialTicks, ProfilerFiller profiler) {
         this.render(ctx);
     }
-    //?}
+        //?}
 
     public void render(GuiContext ctx) {
         if (Configs.ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue()) {
@@ -67,7 +67,7 @@ public class MaterialToDoRenderer implements IRenderer {
     }
 
     public void addItem(ItemStack stack) {
-        if (items.contains(stack.getItem())) {
+        if (items.contains(stack.getItem()) || Configs.ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue()) {
             return;
         }
 

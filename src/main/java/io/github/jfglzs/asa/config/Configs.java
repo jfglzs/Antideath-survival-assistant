@@ -56,7 +56,7 @@ public class Configs implements IConfigHandler {
 
     public static final ConfigBoolean LMS_FETCH_SUPPORT = new ConfigBoolean("假人远程取货支持" , false,"需要lms carpet addition");
     public static final ConfigBooleanHotkeyed LMS_FETCH_SUPPORT_PLACE_ = new ConfigBooleanHotkeyed("右键投影方块取货", false,"","右键投影方块取货");
-    public static final ConfigBooleanHotkeyed MID_CLICK_TAKE_ITEM = new ConfigBooleanHotkeyed("中间投影取货", false, "", "启用后鼠标中键点击，原理图内方块(玩家背包内没有)，会立即取货（需要lms carpet addition）");
+    public static final ConfigBooleanHotkeyed MID_CLICK_TAKE_ITEM = new ConfigBooleanHotkeyed("中键投影取货", false, "", "启用后鼠标中键点击，原理图内方块(玩家背包内没有)，会立即取货（需要lms carpet addition）");
 
     public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV = new ConfigBooleanHotkeyed("假人取货自动打开假人背包", false, "", "自动打开假人背包");
     public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV_MODE = new ConfigBooleanHotkeyed("假人取货自动打开假人背包交互模式", false, "", "true为指令交互 false为主手右键交互");
@@ -95,6 +95,10 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed CAN_ALWAYS_DISCONNECT = new ConfigBooleanHotkeyed("随时可以断开连接", false,"","为ReconfigScreen和ConnectScreen增加了退出按钮 可随时断开连接");
     public static final ConfigBooleanHotkeyed DISABLE_CONTAINER_BACKGROUND = new ConfigBooleanHotkeyed("禁用容器背景渲染", false,"","禁用容器背景渲染");
 
+    public static final ConfigBooleanHotkeyed PLAYER_MANIPULATE_COMMAND = new ConfigBooleanHotkeyed("/pm 命令", false,"","支持批量操作假人 格式 \n /pm <前缀> <开始值> <结束值> <Action> \n /pm <开始值> <结束值> <Action>");
+    public static final ConfigInteger PLAYER_MANIPULATE_COMMAND_WAIT_TIME = new ConfigInteger("/pm 命令执行冷却", 10, 1, 1000, "每执行一个action后的等待时间 单位ms");
+    public static final ConfigString PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX = new ConfigString("/pm 命令默认前缀","bot_");
+
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
@@ -102,6 +106,16 @@ public class Configs implements IConfigHandler {
     public static final ImmutableList<IConfigBase> LMS = addLMS();
     public static final ImmutableList<IConfigBase> DISABLES = addDisables();
     public static final ImmutableList<IConfigBase> FUNCTIONS = addFunctions();
+    public static final ImmutableList<IConfigBase> COMMANDS = addCommands();
+
+    private static ImmutableList<IConfigBase> addCommands() {
+        List<IConfigBase> command = new ArrayList<>();
+        command.add(PLAYER_MANIPULATE_COMMAND);
+        command.add(PLAYER_MANIPULATE_COMMAND_WAIT_TIME);
+        command.add(PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX);
+
+        return ImmutableList.copyOf(command);
+    }
 
     private static ImmutableList<IConfigBase> addFunctions() {
         List<IConfigBase> functions = new ArrayList<>();
@@ -146,6 +160,8 @@ public class Configs implements IConfigHandler {
         disables.add(DISABLE_CONTAINER_BACKGROUND);
         disables.add(DISABLE_PLACE_BLOCK_NEARBY_PORTAL);
         disables.add(DISABLE_PLAYER_LIST_HUD_BACKGROUND);
+        disables.add(DISABLE_SUBTITLE_OVERLAY_BACKGROUND);
+        disables.add(TRANSPARENT_ITEM_FRAME);
 
         return ImmutableList.copyOf(disables);
     }
@@ -226,6 +242,9 @@ public class Configs implements IConfigHandler {
         list.add(DISABLE_SUBTITLE_OVERLAY_BACKGROUND);
         list.add(DISABLE_CONTAINER_BACKGROUND);
         list.add(CAN_ALWAYS_DISCONNECT);
+        list.add(PLAYER_MANIPULATE_COMMAND);
+        list.add(PLAYER_MANIPULATE_COMMAND_WAIT_TIME);
+        list.add(PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX);
 
         list.add(TEST);
 
@@ -252,7 +271,8 @@ public class Configs implements IConfigHandler {
             TRANSPARENT_ITEM_FRAME,
             ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST,
             ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST,
-            DISABLE_SUBTITLE_OVERLAY_BACKGROUND
+            DISABLE_SUBTITLE_OVERLAY_BACKGROUND,
+            PLAYER_MANIPULATE_COMMAND
 
     );
 

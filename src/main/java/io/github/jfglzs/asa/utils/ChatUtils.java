@@ -29,6 +29,15 @@ public class ChatUtils {
         }
     }
 
+    public static void sendOverLayMessage(Component chat) {
+        if (client.player == null) return;
+        //? if >= 26.1 {
+        client.player.sendOverlayMessage(chat);
+        //?} else {
+        /*client.player.displayClientMessage(chat, true);
+        *///?}
+    }
+
     public static void sendMessageToServer(String chat) {
         if (client.player != null) {
             client.player.connection.sendChat(chat);
