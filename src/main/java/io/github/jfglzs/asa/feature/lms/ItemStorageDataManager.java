@@ -12,7 +12,6 @@ import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
@@ -28,6 +27,12 @@ public class ItemStorageDataManager {
     private static final Type itemType = new TypeToken<List<ItemStorage>>(){}.getType();
     private static final Set<String> waitForInv = new HashSet<>();
     private static final Set<String> waitForKilling = new HashSet<>();
+
+    record PlayerItemStorage(String name, int count, String id) {
+    }
+
+    record ItemStorage(int count, String id) {
+    }
 
     public static void init() {
         ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {

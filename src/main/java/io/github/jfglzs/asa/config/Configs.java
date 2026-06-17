@@ -99,6 +99,9 @@ public class Configs implements IConfigHandler {
     public static final ConfigInteger PLAYER_MANIPULATE_COMMAND_WAIT_TIME = new ConfigInteger("/pm 命令执行冷却", 10, 1, 1000, "每执行一个action后的等待时间 单位ms");
     public static final ConfigString PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX = new ConfigString("/pm 命令默认前缀","bot_");
 
+    public static final ConfigBooleanHotkeyed CHAT_MESSAGE_MAPPING = new ConfigBooleanHotkeyed("聊天消息映射", false,"","需要关闭MoreCulling的自定义展示框渲染器才能正常工作");
+    public static final ConfigStringList CHAT_MESSAGE_MAPPING_LIST = new ConfigStringList("聊天消息映射列表", ImmutableList.of(), "可将聊天消息映射为命令 \n 格式: \n !s=spectator ");
+
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
@@ -146,6 +149,8 @@ public class Configs implements IConfigHandler {
         functions.add(MATERIAL_TODO_OVERLAY_X_OFFSET);
         functions.add(MATERIAL_TODO_OVERLAY_Y_OFFSET);
         functions.add(CLEAR_MATERIAL_TODO_OVERLAY);
+        functions.add(CHAT_MESSAGE_MAPPING);
+        functions.add(CHAT_MESSAGE_MAPPING_LIST);
 
         return ImmutableList.copyOf(functions);
     }
@@ -245,6 +250,8 @@ public class Configs implements IConfigHandler {
         list.add(PLAYER_MANIPULATE_COMMAND);
         list.add(PLAYER_MANIPULATE_COMMAND_WAIT_TIME);
         list.add(PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX);
+        list.add(CHAT_MESSAGE_MAPPING);
+        list.add(CHAT_MESSAGE_MAPPING_LIST);
 
         list.add(TEST);
 

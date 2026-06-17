@@ -8,6 +8,7 @@ import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.config.HotkeysCallback;
 import io.github.jfglzs.asa.config.InputHandler;
 import io.github.jfglzs.asa.events.ClientTickEvent;
+import io.github.jfglzs.asa.feature.chatMessageMapping.ChatMappingProcessor;
 import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
@@ -19,7 +20,6 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallba
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.AbstractClientPlayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,6 +38,23 @@ public class AsaMod implements ClientModInitializer {
         this.init();
 	}
 
+    //~ if >= 26.1 'registerGameOverlayRenderer' -> 'registerInGameGuiRenderer' {
+    private void init() {
+        ItemStorageDataManager.init();
+        Configs.INSTANCE.load();
+        HotkeysCallback.init();
+        ConfigManager.getInstance().registerConfigHandler(MOD_ID, INSTANCE);
+        InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
+        InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
+        RenderEventHandler.getInstance().registerInGameGuiRenderer(MaterialToDoRenderer.INSTANCE);
+        RenderEventHandler.getInstance().registerInGameGuiRenderer(RemainingItemRender.INSTANCE);
+        ChatMappingProcessor.init();
+        this.registerEvents();
+        this.registerCommands();
+        LOGGER.info("Masa registered");
+    }
+    //~}
+
     private void registerEvents() {
         ClientTickEvents.END_CLIENT_TICK.register(ClientTickEvent::onUpdate);
         ClientTickEvent.register(i -> true, LowHealthSendCommandOrChat::trigger);
@@ -54,25 +71,6 @@ public class AsaMod implements ClientModInitializer {
             PlayerManipulateCommand.register(dispatcher);
         });
     }
-
-    //~ if >= 26.1 'registerGameOverlayRenderer' -> 'registerInGameGuiRenderer' {
-    private void init() {
-        ItemStorageDataManager.init();
-        Configs.INSTANCE.load();
-        HotkeysCallback.init();
-        ConfigManager.getInstance().registerConfigHandler(MOD_ID, INSTANCE);
-        InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
-        InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
-        RenderEventHandler.getInstance().registerInGameGuiRenderer(MaterialToDoRenderer.INSTANCE);
-        RenderEventHandler.getInstance().registerInGameGuiRenderer(RemainingItemRender.INSTANCE);
-        this.registerEvents();
-        this.registerCommands();
-        LOGGER.info("Masa registered");
-    }
-    //~}
-
-
-
 
     public static void test() {
     }

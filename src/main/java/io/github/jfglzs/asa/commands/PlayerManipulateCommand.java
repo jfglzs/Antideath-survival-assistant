@@ -6,16 +6,23 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.suggestion.Suggestions;
+import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.*;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 
+import java.util.concurrent.CompletableFuture;
+
 public class PlayerManipulateCommand {
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
         var command = CommandUtils.literal("pm")
                 .requires(source -> Configs.PLAYER_MANIPULATE_COMMAND.getBooleanValue())
-                .then(CommandUtils.argument("prefix", StringArgumentType.word()).then(makeCommand(true)))
+                .then(CommandUtils.argument("prefix", StringArgumentType.word())
+                        .suggests(PlayerManipulateCommand::getPrefixSuggestions)
+                        .then(makeCommand(true))
+                )
                 .then(makeCommand(false));
         dispatcher.register(command);
     }
@@ -24,6 +31,7 @@ public class PlayerManipulateCommand {
         return CommandUtils.argument("start", IntegerArgumentType.integer(1))
                 .then(CommandUtils.argument("end", IntegerArgumentType.integer(1, 1000))
                         .then(CommandUtils.argument("action", StringArgumentType.greedyString())
+                                .suggests(PlayerManipulateCommand::getActionSuggestions)
                                 .executes(source -> process(source, enablePrefix)))
                 );
     }
@@ -51,4 +59,19 @@ public class PlayerManipulateCommand {
             }
         }
     }
+
+    private static CompletableFuture<Suggestions> getPrefixSuggestions(CommandContext<FabricClientCommandSource> sp, SuggestionsBuilder c) {
+        c.suggest("bot_");
+        return c.buildFuture();
+    }
+
+    private static CompletableFuture<Suggestions> getActionSuggestions(CommandContext<FabricClientCommandSource> sp, SuggestionsBuilder c) {
+        c.suggest("attack interval 10");
+        c.suggest("use perTick 64");
+        c.suggest("use");
+        c.suggest("attack");
+        c.suggest("move forward");
+        return c.buildFuture();
+    }
 }
+
