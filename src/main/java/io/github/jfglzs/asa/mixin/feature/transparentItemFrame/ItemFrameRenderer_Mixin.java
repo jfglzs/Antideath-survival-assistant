@@ -22,13 +22,15 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraft.client.Minecraft;
 */
 //?}
-
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+//? if >= 26.2
+import org.objectweb.asm.Opcodes;
 
 //? if >= 26.1 {
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -120,14 +122,19 @@ public abstract class ItemFrameRenderer_Mixin {
                     opcode = Opcodes.GETFIELD
             ),
             */
-            //?} else {
-            /*
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/entity/decoration/ItemFrame;getItem()Lnet/minecraft/world/item/ItemStack;",
-                    shift = At.Shift.AFTER
+            //?} else if >= 26.2 {
+            /*at = @At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;isInvisible:Z",
+                    opcode = Opcodes.GETFIELD
             ),
-            */
+
+            *///?} else {
+            //at = @At(
+            //        value = "INVOKE",
+            //        target = "Lnet/minecraft/world/entity/decoration/ItemFrame;getItem()Lnet/minecraft/world/item/ItemStack;",
+            //        shift = At.Shift.AFTER
+            //),
             //?}
 
             cancellable = true
@@ -141,9 +148,11 @@ public abstract class ItemFrameRenderer_Mixin {
     /*
     private void render(ItemFrameRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, CallbackInfo ci) {
     */
-            //?} else if >= 1.21.10 {
+            //?} else if >= 1.21.10 && < 26.2 {
     private void render(ItemFrameRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
-        //?}
+            //?} else {
+    /*private void render(ItemFrameRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
+            *///?}
 
         if (!Configs.TRANSPARENT_ITEM_FRAME.getBooleanValue()) {
             return;
@@ -175,7 +184,7 @@ public abstract class ItemFrameRenderer_Mixin {
             renderState.item.render(poseStack, bufferSource, i, OverlayTexture.NO_OVERLAY);
         }
         */
-        //?} else if = 26.1 {
+        //?} else if >= 26.1 {
 
         poseStack.translate(0.0F, 0.0F, 0.4375F);
 
