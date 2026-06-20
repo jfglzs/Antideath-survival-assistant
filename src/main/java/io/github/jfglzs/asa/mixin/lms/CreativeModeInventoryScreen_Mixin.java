@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
+import io.github.jfglzs.asa.utils.MCUtils;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.entity.player.Inventory;
@@ -97,7 +98,7 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             ItemStorageDataManager.submit(stack.getItem(), stack.getCount() * count);
             menu.setCarried(ItemStack.EMPTY);
             Configs.lockCreativeScreen = false;
-            this.minecraft.setScreen(null);
+            MCUtils.setScreen(null);
             ci.cancel();
         }
     }

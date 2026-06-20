@@ -8,6 +8,7 @@ import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.config.HotkeysCallback;
 import io.github.jfglzs.asa.config.InputHandler;
 import io.github.jfglzs.asa.events.ClientTickEvent;
+import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.chatMessageMapping.ChatMappingProcessor;
 import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
@@ -40,7 +41,6 @@ public class AsaMod implements ClientModInitializer {
 
     //~ if >= 26.1 'registerGameOverlayRenderer' -> 'registerInGameGuiRenderer' {
     private void init() {
-        ItemStorageDataManager.init();
         Configs.INSTANCE.load();
         HotkeysCallback.init();
         ConfigManager.getInstance().registerConfigHandler(MOD_ID, INSTANCE);
@@ -48,6 +48,7 @@ public class AsaMod implements ClientModInitializer {
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
         RenderEventHandler.getInstance().registerInGameGuiRenderer(MaterialToDoRenderer.INSTANCE);
         RenderEventHandler.getInstance().registerInGameGuiRenderer(RemainingItemRender.INSTANCE);
+        ItemStorageDataManager.init();
         ChatMappingProcessor.init();
         this.registerEvents();
         this.registerCommands();
@@ -60,6 +61,7 @@ public class AsaMod implements ClientModInitializer {
         ClientTickEvent.register(i -> true, LowHealthSendCommandOrChat::trigger);
         ClientTickEvent.register(i -> true, ItemStorageDataManager::scanMatchedPlayersAndInteract);
         ClientTickEvent.register(i -> true, this::testOnTick);
+        ClientTickEvent.register(i -> ENABLE_AUTO_WASTE_CLEAN.getBooleanValue(), client -> AutoWasteCleanProcessor.run());
         ClientTickEvent.register(i -> i % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender.INSTANCE::update);
         ClientTickEvent.register(i -> i % 20 == 0 && CREEPER_WARN.getBooleanValue(), CreeperCheckClient::creeperWarner);
         ClientTickEvent.register(i -> i % 40 == 0 && ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue(), MaterialToDoRenderer.INSTANCE::update);

@@ -18,7 +18,7 @@ public class MultiPlayerGameMode_Mixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void startDestroyBlock_Inject(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
+    private void startDestroyBlock(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
         if (this.asa$shouldFlatDigger(pos)) {
             cir.setReturnValue(false);
         }
@@ -29,7 +29,7 @@ public class MultiPlayerGameMode_Mixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void continueDestroyBlock_Inject(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
+    private void continueDestroyBlock(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
         if (this.asa$shouldFlatDigger(pos)) {
             cir.setReturnValue(false);
         }

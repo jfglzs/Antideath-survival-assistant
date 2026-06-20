@@ -17,7 +17,8 @@
     "requireAnnotations": true
   },
   "client": [
-    "feature.canAlwaysDisconnect.ConnectScreen_Mixin",
+    "feature.autoWasteClean.AbstractContainerScreen_Mixin",
+    "feature.autoWasteClean.ClientPacketListener_Mixin",
     "feature.canAlwaysDisconnect.ServerReconfigScreen_Mixin",
     "feature.disableContainerBackGround.AbstractContainerScreen_Mixin",
     "feature.disableContainerBackGround.Screen_Mixin",

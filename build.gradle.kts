@@ -77,6 +77,18 @@ repositories {
         url = uri("https://maven.terraformersmc.com/releases")
         content { includeGroup("com.terraformersmc") }
     }
+    maven {
+        url = uri("https://cursemaven.com")
+    }
+    maven {
+        url = uri("https://maven.shedaniel.me/")
+    }
+    maven {
+        url = uri("https://raw.githubusercontent.com/Aton-Kish/mcmod/maven")
+    }
+    maven {
+        url = uri("https://jitpack.io")
+    }
 }
 
 val commonVmArgs = listOf(
@@ -126,6 +138,10 @@ dependencies {
         return "fi.dy.masa.${name}:${name}-fabric-${mcVersion}:${version}"
     }
 
+    fun autoCompileOnly(files: ConfigurableFileCollection) {
+        if (unobfuscated) "compileOnly"(files) else "modCompileOnly"(files)
+    }
+
     "minecraft"("com.mojang:minecraft:${minecraftVersion}")
     if (!unobfuscated) {
         "mappings"(
@@ -143,12 +159,16 @@ dependencies {
     autoImplementation("com.terraformersmc:modmenu:${property("modmenu_version")}")
     autoImplementation("net.fabricmc.fabric-api:fabric-api:${getProperty("fabric_api_version")}")
 
+//    autoImplementation("com.github.MoRanpcy:quickshulker:${getProperty("quick_shulker_version")}")
+
     autoImplementation(masaDependency("malilib"))
     autoImplementation(masaDependency("tweakeroo"))
     autoImplementation(masaDependency("litematica"))
     autoImplementation(masaDependency("itemscroller"))
     autoImplementation(masaDependency("minihud"))
 }
+
+
 
 tasks.processResources {
     inputs.property("modver", modVersion)

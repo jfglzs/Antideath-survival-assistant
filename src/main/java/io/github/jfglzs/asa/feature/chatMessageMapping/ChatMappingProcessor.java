@@ -20,7 +20,7 @@ public class ChatMappingProcessor {
                     for (String string : Configs.CHAT_MESSAGE_MAPPING_LIST.getStrings()) {
                         String[] split = string.split("=", 2);
                         String messageString = message.getString();
-                        if (sender != null && messageString.startsWith("<")) {
+                        if (messageString.startsWith("<")) {
                             int index = messageString.indexOf("> ");
                             if (index != -1) messageString = messageString.substring(index + 2);
                             if (messageString.startsWith(split[0])) {

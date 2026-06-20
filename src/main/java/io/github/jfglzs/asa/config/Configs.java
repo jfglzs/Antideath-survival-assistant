@@ -12,6 +12,7 @@ import fi.dy.masa.malilib.config.options.*;
 import fi.dy.masa.malilib.util.data.json.JsonUtils;
 import java.nio.file.Path;
 //~}
+import io.github.jfglzs.asa.config.options.AutoCleanWasteMode;
 import io.github.jfglzs.asa.config.options.LowHealthSendMode;
 import java.io.File;
 import java.util.ArrayList;
@@ -102,88 +103,103 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed CHAT_MESSAGE_MAPPING = new ConfigBooleanHotkeyed("聊天消息映射", false,"","需要关闭MoreCulling的自定义展示框渲染器才能正常工作");
     public static final ConfigStringList CHAT_MESSAGE_MAPPING_LIST = new ConfigStringList("聊天消息映射列表", ImmutableList.of(), "可将聊天消息映射为命令 \n 格式: \n !s=spectator ");
 
+    public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN = new ConfigBooleanHotkeyed("启用自动垃圾清理",false,"开启后可自动清理垃圾");
+    public static final ConfigOptionList AUTO_WASTE_CLEAN_MODE = new ConfigOptionList( "启用自动垃圾清理-清理模式", AutoCleanWasteMode.DROP);
+    public static final ConfigHotkey SAVE_ITEMS = new ConfigHotkey( "启用自动垃圾清理-保存背包物品", ""," 将玩家背包物品保存至黑名单/白名单");
+    public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN_WHITELIST = new ConfigBooleanHotkeyed("启用自动垃圾清理白名单", false,"","");
+    public static final ConfigStringList AUTO_WASTE_CLEAN_WHITELIST = new ConfigStringList( "自动垃圾清理白名单", ImmutableList.of(),"自动垃圾清理白名单");
+    public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN_BLACKLIST = new ConfigBooleanHotkeyed("启用自动垃圾清理黑名单", false,"","");
+    public static final ConfigStringList AUTO_WASTE_CLEAN_BLACKLIST = new ConfigStringList( "自动垃圾清理黑名单", ImmutableList.of(),"自动垃圾清理黑名单");
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
     public static final ImmutableList<IConfigBase> ALL = addCompatibility();
     public static final ImmutableList<IConfigBase> LMS = addLMS();
-    public static final ImmutableList<IConfigBase> DISABLES = addDisables();
+    public static final ImmutableList<IConfigBase> DISABLES  = addDisables();
     public static final ImmutableList<IConfigBase> FUNCTIONS = addFunctions();
     public static final ImmutableList<IConfigBase> COMMANDS = addCommands();
 
     private static ImmutableList<IConfigBase> addCommands() {
-        List<IConfigBase> command = new ArrayList<>();
-        command.add(PLAYER_MANIPULATE_COMMAND);
-        command.add(PLAYER_MANIPULATE_COMMAND_WAIT_TIME);
-        command.add(PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX);
+        List<IConfigBase> list = new ArrayList<>();
+        list.add(PLAYER_MANIPULATE_COMMAND);
+        list.add(PLAYER_MANIPULATE_COMMAND_WAIT_TIME);
+        list.add(PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX);
 
-        return ImmutableList.copyOf(command);
+        return ImmutableList.copyOf(list);
     }
 
     private static ImmutableList<IConfigBase> addFunctions() {
-        List<IConfigBase> functions = new ArrayList<>();
+        List<IConfigBase> list = new ArrayList<>();
 
-        functions.add(FLAT_MINING);
-        functions.add(FORCE_BLOCK_BREAK_COOL_DOWN);
+        list.add(FLAT_MINING);
+        list.add(FORCE_BLOCK_BREAK_COOL_DOWN);
 
-        functions.add(LOW_HEALTH_EXECUTE_OR_SEND);
-        functions.add(LOW_HEALTH_VALUE);
-        functions.add(LOW_HEALTH_SEND_MODE);
-        functions.add(LOW_HEALTH_SEND_CONTENT);
+        list.add(LOW_HEALTH_EXECUTE_OR_SEND);
+        list.add(LOW_HEALTH_VALUE);
+        list.add(LOW_HEALTH_SEND_MODE);
+        list.add(LOW_HEALTH_SEND_CONTENT);
 
-        functions.add(TAP_FILTER);
-        functions.add(ENABLE_TAP_FILTER_PREFIX);
-        functions.add(TAP_FILTER_PREFIX);
-        functions.add(ENABLE_TAP_FILTER_WHITELIST);
-        functions.add(TAP_FILTER_WHITELIST);
-        functions.add(TAP_FILTER_BLACKLIST);
+        list.add(TAP_FILTER);
+        list.add(ENABLE_TAP_FILTER_PREFIX);
+        list.add(TAP_FILTER_PREFIX);
+        list.add(ENABLE_TAP_FILTER_WHITELIST);
+        list.add(TAP_FILTER_WHITELIST);
+        list.add(TAP_FILTER_BLACKLIST);
 
 
-        functions.add(ENABLE_FAKE_PLAYER_KILL_AURA);
-        functions.add(FAKE_PLAYER_KILL_AURA_RANGE);
-        functions.add(FAKE_PLAYER_KILL_AURA_PREFIX);
-        functions.add(FAKE_PLAYER_KILL_AURA_WHITELIST);
-        functions.add(FAKE_PLAYER_KILL_AURA_BLACKLIST);
+        list.add(ENABLE_FAKE_PLAYER_KILL_AURA);
+        list.add(FAKE_PLAYER_KILL_AURA_RANGE);
+        list.add(FAKE_PLAYER_KILL_AURA_PREFIX);
+        list.add(FAKE_PLAYER_KILL_AURA_WHITELIST);
+        list.add(FAKE_PLAYER_KILL_AURA_BLACKLIST);
 
-        functions.add(ENABLE_MATERIAL_TODO_OVERLAY);
-        functions.add(MATERIAL_TODO_OVERLAY_X_OFFSET);
-        functions.add(MATERIAL_TODO_OVERLAY_Y_OFFSET);
-        functions.add(CLEAR_MATERIAL_TODO_OVERLAY);
-        functions.add(CHAT_MESSAGE_MAPPING);
-        functions.add(CHAT_MESSAGE_MAPPING_LIST);
+        list.add(ENABLE_MATERIAL_TODO_OVERLAY);
+        list.add(MATERIAL_TODO_OVERLAY_X_OFFSET);
+        list.add(MATERIAL_TODO_OVERLAY_Y_OFFSET);
+        list.add(CLEAR_MATERIAL_TODO_OVERLAY);
+        list.add(CHAT_MESSAGE_MAPPING);
+        list.add(CHAT_MESSAGE_MAPPING_LIST);
 
-        return ImmutableList.copyOf(functions);
+        list.add(ENABLE_AUTO_WASTE_CLEAN);
+        list.add(AUTO_WASTE_CLEAN_MODE);
+        list.add(SAVE_ITEMS);
+        list.add(ENABLE_AUTO_WASTE_CLEAN_WHITELIST);
+        list.add(AUTO_WASTE_CLEAN_WHITELIST);
+        list.add(ENABLE_AUTO_WASTE_CLEAN_BLACKLIST);
+        list.add(AUTO_WASTE_CLEAN_BLACKLIST);
+
+        return ImmutableList.copyOf(list);
     }
 
     private static ImmutableList<IConfigBase> addDisables() {
-        List<IConfigBase> disables = new ArrayList<>();
+        List<IConfigBase> list = new ArrayList<>();
 
-        disables.add(DISABLE_SUBTITLE);
-        disables.add(DISABLE_CONNECT_TIMED_OUT);
-        disables.add(DISABLE_ITEM_ENTITY_MULPOSE);
-        disables.add(DISABLE_PLAYER_ARMOR_RENDER);
-        disables.add(DISABLE_CONTAINER_BACKGROUND);
-        disables.add(DISABLE_PLACE_BLOCK_NEARBY_PORTAL);
-        disables.add(DISABLE_PLAYER_LIST_HUD_BACKGROUND);
-        disables.add(DISABLE_SUBTITLE_OVERLAY_BACKGROUND);
-        disables.add(TRANSPARENT_ITEM_FRAME);
+        list.add(DISABLE_SUBTITLE);
+        list.add(DISABLE_CONNECT_TIMED_OUT);
+        list.add(DISABLE_ITEM_ENTITY_MULPOSE);
+        list.add(DISABLE_PLAYER_ARMOR_RENDER);
+        list.add(DISABLE_CONTAINER_BACKGROUND);
+        list.add(DISABLE_PLACE_BLOCK_NEARBY_PORTAL);
+        list.add(DISABLE_PLAYER_LIST_HUD_BACKGROUND);
+        list.add(DISABLE_SUBTITLE_OVERLAY_BACKGROUND);
+        list.add(TRANSPARENT_ITEM_FRAME);
 
-        return ImmutableList.copyOf(disables);
+        return ImmutableList.copyOf(list);
     }
 
     private static ImmutableList<IConfigBase> addLMS() {
-        List<IConfigBase> lms = new ArrayList<>();
+        List<IConfigBase> list = new ArrayList<>();
 
-        lms.add(LMS_FETCH_SUPPORT);
-        lms.add(LMS_TAKE_ITEM);
-        lms.add(MID_CLICK_TAKE_ITEM);
-        lms.add(LMS_FETCH_SUPPORT_PLACE_);
-        lms.add(AUTO_OPEN_FAKE_PLAYER_INV);
-        lms.add(AUTO_OPEN_FAKE_PLAYER_INV_MODE);
-        lms.add(AUTO_KILL_FAKE_PLAYERS);
-        lms.add(AUTO_COOLDOWN);
+        list.add(LMS_FETCH_SUPPORT);
+        list.add(LMS_TAKE_ITEM);
+        list.add(MID_CLICK_TAKE_ITEM);
+        list.add(LMS_FETCH_SUPPORT_PLACE_);
+        list.add(AUTO_OPEN_FAKE_PLAYER_INV);
+        list.add(AUTO_OPEN_FAKE_PLAYER_INV_MODE);
+        list.add(AUTO_KILL_FAKE_PLAYERS);
+        list.add(AUTO_COOLDOWN);
 
-        return ImmutableList.copyOf(lms);
+        return ImmutableList.copyOf(list);
     }
 
     public static ImmutableList<IConfigBase> addCompatibility() {
@@ -253,6 +269,14 @@ public class Configs implements IConfigHandler {
         list.add(CHAT_MESSAGE_MAPPING);
         list.add(CHAT_MESSAGE_MAPPING_LIST);
 
+        list.add(ENABLE_AUTO_WASTE_CLEAN);
+        list.add(AUTO_WASTE_CLEAN_MODE);
+        list.add(SAVE_ITEMS);
+        list.add(ENABLE_AUTO_WASTE_CLEAN_WHITELIST);
+        list.add(AUTO_WASTE_CLEAN_WHITELIST);
+        list.add(ENABLE_AUTO_WASTE_CLEAN_BLACKLIST);
+        list.add(AUTO_WASTE_CLEAN_BLACKLIST);
+
         list.add(TEST);
 
         return ImmutableList.copyOf(list);
@@ -279,7 +303,8 @@ public class Configs implements IConfigHandler {
             ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST,
             ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST,
             DISABLE_SUBTITLE_OVERLAY_BACKGROUND,
-            PLAYER_MANIPULATE_COMMAND
+            PLAYER_MANIPULATE_COMMAND,
+            ENABLE_AUTO_WASTE_CLEAN
 
     );
 
@@ -287,7 +312,8 @@ public class Configs implements IConfigHandler {
             ASA,
             CLEAR_MATERIAL_TODO_OVERLAY,
             LMS_TAKE_ITEM,
-            ENABLE_FAKE_PLAYER_KILL_AURA
+            ENABLE_FAKE_PLAYER_KILL_AURA,
+            SAVE_ITEMS
 
     );
 
