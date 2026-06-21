@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static io.github.jfglzs.asa.utils.MCUtils.getPlayer;
-
 public class PlayerUtils {
     public static int getInventoryItemCount(Item item) {
         return getInventory()
@@ -36,33 +34,28 @@ public class PlayerUtils {
     }
 
     public static ItemStack getItemStack(int slotIndex) {
-        Player player = getPlayer();
+        Player player = MCUtils.getPlayer();
         if (player == null) return ItemStack.EMPTY;
         return player.getInventory().getItem(slotIndex);
     }
 
     public static List<Integer> getAllBoxIndexes(int maxIndex) {
-        List<Integer> shulkerBoxIndexes = new ArrayList<>();
-        Player player = getPlayer();
-        if (player == null) return shulkerBoxIndexes;
-        Inventory inventory = player.getInventory();
+        List<Integer> results = new ArrayList<>();
+        Inventory inventory = MCUtils.getPlayer().getInventory();
 
 
         for (int i = 0; i < maxIndex; i++) {
             ItemStack stack = inventory.getItem(i);
-            Item item = stack.getItem();
-
-            // 判断是否为潜影盒
-            if (item instanceof BlockItem blockItem && blockItem.getBlock() instanceof ShulkerBoxBlock) {
-                shulkerBoxIndexes.add(i);
+            if (isShulkerBox(stack)) {
+                results.add(i);
             }
         }
 
-        return shulkerBoxIndexes;
+        return results;
     }
 
     public static List<Integer> getNotEmptyBoxIndexes(List<Integer> shulkerBoxIndexes) {
-        Player player = getPlayer();
+        Player player = MCUtils.getPlayer();
         List<Integer> results = new ArrayList<>();
 
         for (int i : shulkerBoxIndexes) {
@@ -87,7 +80,7 @@ public class PlayerUtils {
     public static int checkRemainCount(Item item) {
         int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(36))
                 .stream()
-                .flatMap(i -> getStoredItems_(getPlayer()
+                .flatMap(i -> getStoredItems_(MCUtils.getPlayer()
                         .getInventory()
                         .getItem(i))
                         .stream()
