@@ -66,12 +66,12 @@ public class AsaMod implements ClientModInitializer {
 
     private void registerEvents() {
         ClientTickEvents.END_CLIENT_TICK.register(ClientTickEvent::onUpdate);
+        ClientTickEvent.register(i -> true, this::testOnTick);
         ClientTickEvent.register(i -> true, LowHealthSendCommandOrChat::trigger);
         ClientTickEvent.register(i -> true, ItemStorageDataManager::scanMatchedPlayersAndInteract);
-        ClientTickEvent.register(i -> true, this::testOnTick);
-        ClientTickEvent.register(i -> ENABLE_AUTO_WASTE_CLEAN.getBooleanValue(), client -> AutoWasteCleanProcessor.run());
-        ClientTickEvent.register(i -> i % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender.INSTANCE::update);
         ClientTickEvent.register(i -> i % 20 == 0 && CREEPER_WARN.getBooleanValue(), CreeperCheckClient::creeperWarner);
+        ClientTickEvent.register(i -> i % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender.INSTANCE::update);
+        ClientTickEvent.register(i -> ENABLE_AUTO_WASTE_CLEAN.getBooleanValue(), client -> AutoWasteCleanProcessor.run());
         ClientTickEvent.register(i -> i % 40 == 0 && ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue(), MaterialToDoRenderer.INSTANCE::update);
         ClientTickEvent.register(i -> i % 1200 == 0 && LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client ->  ItemStorageDataManager.reflushCache());
     }
