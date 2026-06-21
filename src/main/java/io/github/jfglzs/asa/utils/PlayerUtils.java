@@ -1,13 +1,11 @@
 package io.github.jfglzs.asa.utils;
 
 import fi.dy.masa.malilib.util.InventoryUtils;
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 
 import java.util.ArrayList;
@@ -18,14 +16,15 @@ import static io.github.jfglzs.asa.utils.MCUtils.getPlayer;
 
 public class PlayerUtils {
     public static int getInventoryItemCount(Item item) {
-        return getInventory(MCUtils.getPlayer())
+        return getInventory()
                 .stream()
+                .filter(stack -> stack.getItem() == item)
                 .mapToInt(ItemStack::getCount)
                 .sum();
     }
 
-    public static List<ItemStack> getInventory(Player player) {
-        Inventory inventory = player.getInventory();
+    public static List<ItemStack> getInventory() {
+        Inventory inventory = MCUtils.getPlayer().getInventory();
         return IntStream
                 .range(0, inventory.getContainerSize())
                 .mapToObj(inventory::getItem)
@@ -62,90 +61,18 @@ public class PlayerUtils {
         return shulkerBoxIndexes;
     }
 
-    public static List<Integer> getUnFullBoxIndexes(int indexes) {
-        Player player = getPlayer();
-        List<Integer> shulkerBoxIndexes = getAllBoxIndexes(indexes);
-        List<Integer> UnFullShulkerBoxIndexes = new ArrayList<>();
-
-        for (int i : shulkerBoxIndexes) {
-            int isNotAir = 0;
-            int loop = 0;
-            List<ItemStack> IS = getStoredItems_(player.getInventory().getItem(i));
-
-            for (ItemStack stack : IS) {
-                loop++;
-                Item item = stack.getItem();
-                if (item != Items.AIR) isNotAir++;
-                if (isNotAir != 27 && loop == 27 && i > 8) UnFullShulkerBoxIndexes.add(i); //不支持快捷栏直接打开盒子 所以排除快捷栏
-            }
-        }
-
-        return UnFullShulkerBoxIndexes;
-    }
-
     public static List<Integer> getNotEmptyBoxIndexes(List<Integer> shulkerBoxIndexes) {
         Player player = getPlayer();
-        List<Integer> NotEmptyShulkerBoxIndexes = new ArrayList<>();
+        List<Integer> results = new ArrayList<>();
 
         for (int i : shulkerBoxIndexes) {
-            int emptyOrUnfull = 0;
-            int loop = 0;
-            List<ItemStack> IS = getStoredItems_(player.getInventory().getItem(i));
-
-            for (ItemStack stack : IS) {
-                loop++;
-                if (stack.getItem().equals(Items.AIR)) emptyOrUnfull++;
-                if (!(emptyOrUnfull == 27) && loop == 27) NotEmptyShulkerBoxIndexes.add(i);
+            List<ItemStack> boxStacks = getStoredItems_(player.getInventory().getItem(i));
+            if (!boxStacks.stream().filter(itemStack -> !itemStack.isEmpty()).toList().isEmpty()) {
+                results.add(i);
             }
         }
 
-        return NotEmptyShulkerBoxIndexes;
-    }
-
-    public static List<Integer> getPureUnFullBoxByItemId(int maxIndex, List<String> whitelist) {
-        Player player = getPlayer();
-        List<Integer> result = new ArrayList<>();
-
-        for (int slot : getAllBoxIndexes(maxIndex)) {
-
-            ItemStack box = player.getInventory().getItem(slot);
-            List<ItemStack> items = getStoredItems_(box);
-
-            String itemId = null;
-            boolean valid = true;
-            boolean hasItem = false;
-
-            for (ItemStack stack : items) {
-
-                if (stack.isEmpty()) {
-                    continue;
-                }
-
-                hasItem = true;
-
-                String currentId = MCUtils.getItemID(stack.getItem());
-
-                // 白名单过滤
-                if (!whitelist.isEmpty() && !whitelist.contains(currentId)) {
-                    valid = false;
-                    break;
-                }
-
-                if (itemId == null) {
-                    itemId = currentId;
-                }
-                else if (!itemId.equals(currentId)) {
-                    valid = false;
-                    break;
-                }
-            }
-            // 空盒不要
-            if (valid && hasItem && isBoxFull(box)) {
-                result.add(slot);
-            }
-        }
-
-        return result;
+        return results;
     }
 
     public static List<ItemStack> getStoredItems_(ItemStack box) {
@@ -158,20 +85,22 @@ public class PlayerUtils {
     }
 
     public static int checkRemainCount(Item item) {
-        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(36)).stream()
-                .flatMap(i -> getStoredItems_(getPlayer().getInventory().getItem(i)).stream())
+        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(36))
+                .stream()
+                .flatMap(i -> getStoredItems_(getPlayer()
+                        .getInventory()
+                        .getItem(i))
+                        .stream()
+                )
                 .filter(j -> j.getItem().equals(item))
                 .mapToInt(ItemStack::getCount)
                 .sum();
-
         return storedCount + getInventoryItemCount(item);
     }
 
     public static ItemStack getPlayerMainHandStack() {
-        if (MCUtils.getMinecraftClient().player == null) {
-            return ItemStack.EMPTY;
-        }
-        return MCUtils.getMinecraftClient().player.getMainHandItem();
+        Player player = MCUtils.getMinecraftClient().player;
+        return player == null ? ItemStack.EMPTY : player.getMainHandItem();
     }
 
     public static boolean isSurvivalMode(Player player) {

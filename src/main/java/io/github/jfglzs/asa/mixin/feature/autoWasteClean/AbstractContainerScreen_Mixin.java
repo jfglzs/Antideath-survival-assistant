@@ -11,9 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class)
 public class AbstractContainerScreen_Mixin {
-    //~ if >= 26.2 'setScreen' -> 'setScreenAndShow' {
     @Inject(
-            method = "setScreen",
+            method = {"setScreen", "setScreenAndShow"},
             at = @At("TAIL")
     )
     private void setScreen(Screen screen, CallbackInfo ci) {
@@ -21,5 +20,4 @@ public class AbstractContainerScreen_Mixin {
             AutoWasteCleanProcessor.process(containerScreen);
         }
     }
-    //~}
 }

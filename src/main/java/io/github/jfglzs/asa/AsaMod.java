@@ -14,6 +14,7 @@ import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.render.RemainingItemRender;
+import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.CommandUtils;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import net.fabricmc.api.ClientModInitializer;
@@ -32,7 +33,14 @@ public class AsaMod implements ClientModInitializer {
     public static final String MOD_ID = "antideath-survival-assistant";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	@Override
+    public static void debugMessage(String string) {
+        if (TEST.getBooleanValue()) {
+            ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent(string));
+            LOGGER.info(string);
+        }
+    }
+
+    @Override
 	public void onInitializeClient() {
         version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
         LOGGER.info("AsaMod v{} is being loading...", version);

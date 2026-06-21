@@ -2,6 +2,7 @@ package io.github.jfglzs.asa.mixin.litematic;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.litematica.util.WorldUtils;
+import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
@@ -19,7 +20,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class WorldUtils_Mixin {
     @Inject(
             method = "doSchematicWorldPickBlock",
-            at = @At(value = "INVOKE", target = "Lfi/dy/masa/litematica/schematic/pickblock/SchematicPickBlockEventHandler;onSchematicPickBlockPrePick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/item/ItemStack;)Z")
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lfi/dy/masa/litematica/schematic/pickblock/SchematicPickBlockEventHandler;onSchematicPickBlockPrePick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/item/ItemStack;)Z"
+            )
     )
     private static void doSchematicWorldPickBlock_Inject(
             boolean closest,
@@ -28,11 +32,17 @@ public class WorldUtils_Mixin {
             @Local ItemStack stack,
             @Local BlockPos pos
     ) {
-        if (PlayerUtils.checkRemainCount(stack.getItem()) == 0 && !mc.player.isCreative() && mc.level.getBlockState(pos).getBlock() == Blocks.AIR) {
+        if (
+                PlayerUtils.checkRemainCount(stack.getItem()) == 0 &&
+                PlayerUtils.isSurvivalMode(mc.player) &&
+                mc.level.getBlockState(pos).getBlock() == Blocks.AIR
+        ) {
             if (Configs.MID_CLICK_TAKE_ITEM.getBooleanValue()) {
+                AsaMod.debugMessage("Submitted %s %d to ItemStorageDataManager");
                 ItemStorageDataManager.submit(stack.getItem(), stack.getMaxStackSize());
             }
             else {
+                AsaMod.debugMessage("addItem %s to MaterialToDoRenderer");
                 MaterialToDoRenderer.INSTANCE.addItem(stack);
             }
         }

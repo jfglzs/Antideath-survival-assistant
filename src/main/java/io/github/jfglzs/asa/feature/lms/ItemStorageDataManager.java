@@ -136,7 +136,6 @@ public class ItemStorageDataManager {
     }
 
     public static void reflushCache() {
-        if (Configs.TEST.getBooleanValue()) ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent("Cache reflushed!"));
         MCUtils.executeCommand("getStorageData");
     }
 

@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.utils;
 
 
+import io.github.jfglzs.asa.AsaMod;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -25,6 +26,7 @@ public class MCUtils {
     }
 
     public static void executeCommand(String command) {
+        AsaMod.debugMessage("Executing command: " + command);
         if (mc.player != null && command != null) {
             mc.player.connection.sendCommand(command);
         }

@@ -66,9 +66,12 @@ public class PlayerManipulateCommand {
     }
 
     private static CompletableFuture<Suggestions> getActionSuggestions(CommandContext<FabricClientCommandSource> sp, SuggestionsBuilder c) {
+        c.suggest("spawn");
+        c.suggest("kill");
+        c.suggest("use");
+        c.suggest("dropStack all");
         c.suggest("attack interval 10");
         c.suggest("use perTick 64");
-        c.suggest("use");
         c.suggest("attack");
         c.suggest("move forward");
         return c.buildFuture();

@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat;
 
 import com.google.common.util.concurrent.RateLimiter;
+import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
@@ -17,9 +18,11 @@ public class LowHealthSendCommandOrChat {
 
             if (LOW_HEALTH_SEND_MODE.getOptionListValue().getStringValue().equals("发送聊天消息")) {
                 ChatUtils.sendMessageToServer(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue());
+                AsaMod.debugMessage("Sending Chat %s".formatted(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue()));
             }
             else {
                 MCUtils.executeCommand(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue());
+                AsaMod.debugMessage("Send Command %s".formatted(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue()));
             }
         }
     }

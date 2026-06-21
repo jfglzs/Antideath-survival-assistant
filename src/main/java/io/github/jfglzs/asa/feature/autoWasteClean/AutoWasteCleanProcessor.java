@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.feature.autoWasteClean;
 
 import fi.dy.masa.itemscroller.util.InventoryUtils;
+import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
@@ -41,11 +42,14 @@ public class AutoWasteCleanProcessor {
                 if (stack.isEmpty() || shouldKeep(stack)) continue;
 
                 if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
-                    if (slot.container instanceof Inventory)
+                    if (slot.container instanceof Inventory) {
                         runnableQueue.offer(() -> InventoryUtils.dropStack(container, slot.index));
+                        AsaMod.debugMessage("Dropped Inventory container for slot " + slot.index);
+                    }
                 }
                 else if (menu instanceof ChestMenu && mode.equals("转移至容器")) {
-                    runnableQueue.offer(() -> InventoryUtils.tryMoveStacks(slot, container, true, true, true));
+                    runnableQueue.offer(() -> InventoryUtils.tryMoveStacks(slot, container, true, true, false));
+                    AsaMod.debugMessage("Moved Inventory Item to container for slot " + slot.index);
                 }
             }
         }
@@ -73,13 +77,14 @@ public class AutoWasteCleanProcessor {
 
     public static void saveItemToList() {
         Set<String> items = new HashSet<>();
-        for (ItemStack stack : PlayerUtils.getInventory(MCUtils.getPlayer())) {
+        for (ItemStack stack : PlayerUtils.getInventory()) {
             if (stack.isEmpty()) continue;
             if (PlayerUtils.isShulkerBox(stack)) {
                 for (ItemStack boxStack : PlayerUtils.getStoredItems_(stack)) {
                     items.add(MCUtils.getItemID(boxStack.getItem()));
                 }
-            } else {
+            }
+            else {
                 items.add(MCUtils.getItemID(stack.getItem()));
             }
         }
@@ -94,5 +99,7 @@ public class AutoWasteCleanProcessor {
             Configs.AUTO_WASTE_CLEAN_WHITELIST.setStrings(strings);
             ChatUtils.sendOverLayMessage(ChatUtils.toComponent("成功将玩家物品栏保存至白名单"));
         }
+
+        AsaMod.debugMessage("Saved Items to List \n " + strings);
     }
 }
