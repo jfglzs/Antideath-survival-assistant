@@ -35,7 +35,7 @@ public class AsaMod implements ClientModInitializer {
 
     public static void debugMessage(String string) {
         if (TEST.getBooleanValue()) {
-            ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent(string));
+            ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent("[ASA] " + string));
             LOGGER.info(string);
         }
     }

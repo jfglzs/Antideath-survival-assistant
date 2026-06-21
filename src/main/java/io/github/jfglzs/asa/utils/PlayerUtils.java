@@ -35,8 +35,7 @@ public class PlayerUtils {
 
     public static ItemStack getItemStack(int slotIndex) {
         Player player = MCUtils.getPlayer();
-        if (player == null) return ItemStack.EMPTY;
-        return player.getInventory().getItem(slotIndex);
+        return player == null ? ItemStack.EMPTY : player.getInventory().getItem(slotIndex);
     }
 
     public static List<Integer> getAllBoxIndexes(int maxIndex) {
