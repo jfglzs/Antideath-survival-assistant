@@ -285,4 +285,8 @@ public class Configs implements IConfigHandler {
             //?}
         }
     }
+
+    public static void switchMode(ConfigOptionList option) {
+        option.setOptionListValue(option.getOptionListValue().cycle(true));
+    }
 }

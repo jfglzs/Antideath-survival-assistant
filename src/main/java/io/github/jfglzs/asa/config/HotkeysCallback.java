@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.config;
 
+import fi.dy.masa.malilib.config.IConfigOptionListEntry;
 import fi.dy.masa.malilib.config.options.ConfigHotkey;
 import fi.dy.masa.malilib.hotkeys.IHotkeyCallback;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
@@ -36,17 +37,20 @@ public class HotkeysCallback implements IHotkeyCallback {
         }
         else if (key == ENABLE_FAKE_PLAYER_KILL_AURA.getKeybind()) {
             FakePlayerKillAura.kill();
+            return true;
         }
         else if (key == SAVE_ITEMS.getKeybind()) {
             AutoWasteCleanProcessor.saveItemToList();
+            return true;
         }
         else if (key == TEST.getKeybind()){
             AsaMod.test();
             return true;
         }
         else if (key == SWITCH_CLEAN_MODE.getKeybind()) {
-            AUTO_WASTE_CLEAN_MODE.getOptionListValue().cycle(true);
-            ChatUtils.sendOverLayMessage(ChatUtils.toComponent("启用自动垃圾清理： %s".formatted(Configs.AUTO_WASTE_CLEAN_MODE.getStringValue())));
+            Configs.switchMode(AUTO_WASTE_CLEAN_MODE);
+            ChatUtils.sendOverLayMessage(ChatUtils.toComponent("自动垃圾清理： %s".formatted(Configs.AUTO_WASTE_CLEAN_MODE.getStringValue())));
+            return true;
         }
         return false;
     }
