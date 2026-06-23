@@ -43,12 +43,12 @@ public class AutoWasteCleanProcessor {
 
                 if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
                     if (slot.container instanceof Inventory) {
-                        InventoryUtils.dropStack(container, slot.index);
+                        runnableQueue.offer(() -> InventoryUtils.dropStack(container, slot.index));
                         AsaMod.debugMessage("Dropped Inventory container for slot " + slot.index);
                     }
                 }
                 else if (menu instanceof ChestMenu && mode.equals("转移至容器")) {
-                    InventoryUtils.tryMoveStacks(slot, container, true, true, false);
+                    runnableQueue.offer(() -> InventoryUtils.tryMoveStacks(slot, container, true, true, false));
                     AsaMod.debugMessage("Moved Inventory Item to container for slot " + slot.index);
                 }
             }
