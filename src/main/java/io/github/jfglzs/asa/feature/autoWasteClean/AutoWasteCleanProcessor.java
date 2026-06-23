@@ -16,15 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import java.util.*;
 
 public class AutoWasteCleanProcessor {
-    private static final Queue<Runnable> runnableQueue = new LinkedList<>();
-
-    public static void run() {
-        if (Configs.ENABLE_AUTO_WASTE_CLEAN.getBooleanValue()) {
-            Runnable runnable = runnableQueue.poll();
-            if (runnable != null) runnable.run();
-        }
-    }
-
     /**
      * InventoryScreen(玩家背包)
      * ChestMenu(箱子末影箱)
@@ -43,12 +34,12 @@ public class AutoWasteCleanProcessor {
 
                 if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
                     if (slot.container instanceof Inventory) {
-                        runnableQueue.offer(() -> InventoryUtils.dropStack(container, slot.index));
+                        InventoryUtils.dropStack(container, slot.index);
                         AsaMod.debugMessage("Dropped Inventory container for slot " + slot.index);
                     }
                 }
                 else if (menu instanceof ChestMenu && mode.equals("转移至容器")) {
-                    runnableQueue.offer(() -> InventoryUtils.tryMoveStacks(slot, container, true, true, false));
+                    InventoryUtils.tryMoveStacks(slot, container, true, true, false);
                     AsaMod.debugMessage("Moved Inventory Item to container for slot " + slot.index);
                 }
             }

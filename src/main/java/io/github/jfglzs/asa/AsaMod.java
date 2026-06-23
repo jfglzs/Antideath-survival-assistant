@@ -4,6 +4,7 @@ import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InputEventHandler;
 import fi.dy.masa.malilib.event.RenderEventHandler;
 import io.github.jfglzs.asa.commands.PlayerManipulateCommand;
+import io.github.jfglzs.asa.commands.ServerManagerCommand;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.config.HotkeysCallback;
 import io.github.jfglzs.asa.config.InputHandler;
@@ -71,7 +72,6 @@ public class AsaMod implements ClientModInitializer {
         ClientTickEvent.register(i -> true, ItemStorageDataManager::scanMatchedPlayersAndInteract);
         ClientTickEvent.register(i -> i % 20 == 0 && CREEPER_WARN.getBooleanValue(), CreeperCheckClient::creeperWarner);
         ClientTickEvent.register(i -> i % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender.INSTANCE::update);
-        ClientTickEvent.register(i -> ENABLE_AUTO_WASTE_CLEAN.getBooleanValue(), client -> AutoWasteCleanProcessor.run());
         ClientTickEvent.register(i -> i % 40 == 0 && ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue(), MaterialToDoRenderer.INSTANCE::update);
         ClientTickEvent.register(i -> i % 1200 == 0 && LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client ->  ItemStorageDataManager.reflushCache());
     }
@@ -79,6 +79,7 @@ public class AsaMod implements ClientModInitializer {
     private void registerCommands() {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, context) -> {
             PlayerManipulateCommand.register(dispatcher);
+            ServerManagerCommand.register(dispatcher);
         });
     }
 

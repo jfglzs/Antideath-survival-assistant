@@ -16,6 +16,7 @@ import io.github.jfglzs.asa.config.options.AutoCleanWasteMode;
 import io.github.jfglzs.asa.config.options.LowHealthSendMode;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static io.github.jfglzs.asa.AsaMod.MOD_ID;
@@ -104,6 +105,7 @@ public class Configs implements IConfigHandler {
     public static final ConfigStringList CHAT_MESSAGE_MAPPING_LIST = new ConfigStringList("聊天消息映射列表", ImmutableList.of(), "可将聊天消息映射为命令 \n 格式: \n !s=spectator ");
 
     public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN = new ConfigBooleanHotkeyed("启用自动垃圾清理",false,"开启后可自动清理垃圾");
+    public static final ConfigHotkey SWITCH_CLEAN_MODE = new ConfigHotkey( "启用自动垃圾清理-切换模式", "","切换清理模式");
     public static final ConfigOptionList AUTO_WASTE_CLEAN_MODE = new ConfigOptionList( "启用自动垃圾清理-清理模式", AutoCleanWasteMode.DROP);
     public static final ConfigHotkey SAVE_ITEMS = new ConfigHotkey( "启用自动垃圾清理-保存背包物品", ""," 将玩家背包物品保存至黑名单/白名单");
     public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN_WHITELIST = new ConfigBooleanHotkeyed("启用自动垃圾清理白名单", false,"","");
@@ -204,85 +206,15 @@ public class Configs implements IConfigHandler {
 
     public static ImmutableList<IConfigBase> addCompatibility() {
         List<IConfigBase> list = new ArrayList<>();
-        list.add(ASA);
-
-        list.add(CREEPER_WARN);
-        list.add(CREEPER_WARN_RANGE);
-
-        list.add(DISABLE_LOADING_TERRAIN_SCREEN);
-        list.add(DISABLE_SUBTITLE);
-        list.add(DISABLE_CONNECT_TIMED_OUT);
-        list.add(DISABLE_PLAYER_ARMOR_RENDER);
-        list.add(DISABLE_PLACE_BLOCK_NEARBY_PORTAL);
-        list.add(DISABLE_PLACE_BLOCK_NEARBY_PORTAL_WHITELIST);
-
-        list.add(DISPLAY_REMAIN_ITEM);
-        list.add(DISPLAY_REMAIN_ITEM_OVERLAY_X_OFFSET);
-        list.add(DISPLAY_REMAIN_ITEM_OVERLAY_Y_OFFSET);
-
-        list.add(PREVENT_INTENTIONAL_GAME_DESIGN);
-
-        list.add(TAP_FILTER);
-        list.add(ENABLE_TAP_FILTER_WHITELIST);
-        list.add(TAP_FILTER_WHITELIST);
-        list.add(TAP_FILTER_BLACKLIST);
-        list.add(ENABLE_TAP_FILTER_PREFIX);
-        list.add(TAP_FILTER_PREFIX);
-
-        list.add(ENABLE_MATERIAL_TODO_OVERLAY);
-        list.add(CLEAR_MATERIAL_TODO_OVERLAY);
-        list.add(MATERIAL_TODO_OVERLAY_X_OFFSET);
-        list.add(MATERIAL_TODO_OVERLAY_Y_OFFSET);
-        list.add(LMS_FETCH_SUPPORT);
-        list.add(MID_CLICK_TAKE_ITEM);
-        list.add(LMS_TAKE_ITEM);
-        list.add(AUTO_OPEN_FAKE_PLAYER_INV);
-        list.add(AUTO_OPEN_FAKE_PLAYER_INV_MODE);
-        list.add(AUTO_KILL_FAKE_PLAYERS);
-        list.add(AUTO_COOLDOWN);
-
-        list.add(FORCE_BLOCK_BREAK_COOL_DOWN);
-        list.add(FLAT_MINING);
-        list.add(LOW_HEALTH_EXECUTE_OR_SEND);
-        list.add(LOW_HEALTH_VALUE);
-        list.add(LOW_HEALTH_SEND_MODE);
-        list.add(LOW_HEALTH_SEND_CONTENT);
-
-        list.add(DISABLE_PLAYER_LIST_HUD_BACKGROUND);
-        list.add(ENABLE_FAKE_PLAYER_KILL_AURA);
-        list.add(FAKE_PLAYER_KILL_AURA_PREFIX);
-        list.add(FAKE_PLAYER_KILL_AURA_RANGE);
-        list.add(ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST);
-        list.add(FAKE_PLAYER_KILL_AURA_WHITELIST);
-        list.add(ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST);
-        list.add(FAKE_PLAYER_KILL_AURA_BLACKLIST);
-
-        list.add(MINI_HUD_FPS_OPT);
-        list.add(TRANSPARENT_ITEM_FRAME);
-        list.add(DISABLE_ITEM_ENTITY_MULPOSE);
-        list.add(DISABLE_SUBTITLE_OVERLAY_BACKGROUND);
-        list.add(DISABLE_CONTAINER_BACKGROUND);
-        list.add(CAN_ALWAYS_DISCONNECT);
-        list.add(PLAYER_MANIPULATE_COMMAND);
-        list.add(PLAYER_MANIPULATE_COMMAND_WAIT_TIME);
-        list.add(PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX);
-        list.add(CHAT_MESSAGE_MAPPING);
-        list.add(CHAT_MESSAGE_MAPPING_LIST);
-
-        list.add(ENABLE_AUTO_WASTE_CLEAN);
-        list.add(AUTO_WASTE_CLEAN_MODE);
-        list.add(SAVE_ITEMS);
-        list.add(ENABLE_AUTO_WASTE_CLEAN_WHITELIST);
-        list.add(AUTO_WASTE_CLEAN_WHITELIST);
-        list.add(ENABLE_AUTO_WASTE_CLEAN_BLACKLIST);
-        list.add(AUTO_WASTE_CLEAN_BLACKLIST);
-
-        list.add(TEST);
-
+        Arrays.stream(Configs.class.getDeclaredFields()).filter(field -> IConfigBase.class.isAssignableFrom(field.getType())).forEach(field -> {
+            try {
+                list.add((IConfigBase) field.get(null));
+            }
+            catch (Exception ignored) {
+            }
+        });
         return ImmutableList.copyOf(list);
     }
-
-
 
     public static final ImmutableList<IHotkeyTogglable> SWITCH_KEY = ImmutableList.of(
             CREEPER_WARN,
@@ -313,7 +245,8 @@ public class Configs implements IConfigHandler {
             CLEAR_MATERIAL_TODO_OVERLAY,
             LMS_TAKE_ITEM,
             ENABLE_FAKE_PLAYER_KILL_AURA,
-            SAVE_ITEMS
+            SAVE_ITEMS,
+            SWITCH_CLEAN_MODE
 
     );
 
