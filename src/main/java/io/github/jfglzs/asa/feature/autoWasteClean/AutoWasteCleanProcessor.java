@@ -39,20 +39,24 @@ public class AutoWasteCleanProcessor {
             for (Slot slot : menu.slots) {
 
                 ItemStack stack = slot.getItem();
-                if (stack.isEmpty() || shouldKeep(stack)) continue;
+                if (isStackEmpty(stack) || shouldKeep(stack)) continue;
 
                 if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
                     if (slot.container instanceof Inventory) {
-                        runnableQueue.offer(() -> InventoryUtils.dropStack(container, slot.index));
+                        InventoryUtils.dropStack(container, slot.index);
                         AsaMod.debugMessage("Dropped Inventory container for slot " + slot.index);
                     }
                 }
                 else if (menu instanceof ChestMenu && mode.equals("转移至容器")) {
-                    runnableQueue.offer(() -> InventoryUtils.tryMoveStacks(slot, container, true, true, false));
+                    InventoryUtils.tryMoveStacks(slot, container, true, true, false);
                     AsaMod.debugMessage("Moved Inventory Item to container for slot " + slot.index);
                 }
             }
         }
+    }
+
+    private static boolean isStackEmpty(ItemStack stack) {
+        return stack.isEmpty();
     }
 
     private static boolean shouldKeep(ItemStack stack) {
@@ -68,7 +72,7 @@ public class AutoWasteCleanProcessor {
         }
 
         for (ItemStack boxStack : PlayerUtils.getStoredItems_(stack)) {
-            if (boxStack.isEmpty()) continue;
+            if (isStackEmpty(boxStack)) continue;
             if (shouldKeep(boxStack)) return true;
         }
 
@@ -78,9 +82,10 @@ public class AutoWasteCleanProcessor {
     public static void saveItemToList() {
         Set<String> items = new HashSet<>();
         for (ItemStack stack : PlayerUtils.getInventory()) {
-            if (stack.isEmpty()) continue;
+            if (isStackEmpty(stack)) continue;
             if (PlayerUtils.isShulkerBox(stack)) {
                 for (ItemStack boxStack : PlayerUtils.getStoredItems_(stack)) {
+                    if (isStackEmpty(stack)) continue;
                     items.add(MCUtils.getItemID(boxStack.getItem()));
                 }
             }

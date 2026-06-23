@@ -107,9 +107,9 @@ public class Configs implements IConfigHandler {
     public static final ConfigOptionList AUTO_WASTE_CLEAN_MODE = new ConfigOptionList( "启用自动垃圾清理-清理模式", AutoCleanWasteMode.DROP);
     public static final ConfigHotkey SAVE_ITEMS = new ConfigHotkey( "启用自动垃圾清理-保存背包物品", ""," 将玩家背包物品保存至黑名单/白名单");
     public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN_WHITELIST = new ConfigBooleanHotkeyed("启用自动垃圾清理白名单", false,"","");
-    public static final ConfigStringList AUTO_WASTE_CLEAN_WHITELIST = new ConfigStringList( "自动垃圾清理白名单", ImmutableList.of(),"自动垃圾清理白名单");
+    public static final ConfigStringList AUTO_WASTE_CLEAN_WHITELIST = new ConfigStringList( "自动垃圾清理-白名单", ImmutableList.of(),"自动垃圾清理白名单");
     public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN_BLACKLIST = new ConfigBooleanHotkeyed("启用自动垃圾清理黑名单", false,"","");
-    public static final ConfigStringList AUTO_WASTE_CLEAN_BLACKLIST = new ConfigStringList( "自动垃圾清理黑名单", ImmutableList.of(),"自动垃圾清理黑名单");
+    public static final ConfigStringList AUTO_WASTE_CLEAN_BLACKLIST = new ConfigStringList( "自动垃圾清理-黑名单", ImmutableList.of(),"自动垃圾清理黑名单");
 
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
