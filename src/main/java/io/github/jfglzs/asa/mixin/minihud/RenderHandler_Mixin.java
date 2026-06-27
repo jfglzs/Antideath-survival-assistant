@@ -16,13 +16,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(RenderHandler.class)
+@Mixin(value = RenderHandler.class, priority = 1900)
 public class RenderHandler_Mixin {
     @Shadow
     @Final
     private List<String> lines;
     @Unique
-    private final List<String> list = new ArrayList<>();
+    private final List<String> asa$list = new ArrayList<>();
 
 
     @ModifyReceiver(
@@ -31,10 +31,7 @@ public class RenderHandler_Mixin {
             remap = false
     )
     private List<String> updateLines_add(List<String> original, Object e) {
-        if (Configs.MINI_HUD_FPS_OPT.getBooleanValue()) {
-            return list;
-        }
-        return original;
+        return Configs.MINI_HUD_FPS_OPT.getBooleanValue() ? asa$list : original;
     }
 
     @ModifyReceiver(
@@ -43,10 +40,7 @@ public class RenderHandler_Mixin {
             remap = false
     )
     private List<String> updateLines_clear(List<String> original) {
-        if (Configs.MINI_HUD_FPS_OPT.getBooleanValue()) {
-            return list;
-        }
-        return original;
+        return Configs.MINI_HUD_FPS_OPT.getBooleanValue() ? asa$list : original;
     }
 
     @WrapOperation(
@@ -66,8 +60,8 @@ public class RenderHandler_Mixin {
                 original.call(instance);
                 ThreadUtils.runOnClientThread(() -> {
                         lines.clear();
-                        lines.addAll(list);
-                }).join();
+                        lines.addAll(asa$list);
+                });
             });
             return;
         }

@@ -8,7 +8,8 @@
     "litematic.MaterialListHudRenderer_Mixin",
     "litematic.WorldUtils_Mixin",
     "lms.PlacementHandler_Mixin",
-    "minihud.RenderHandler_Mixin"
+    "minihud.RenderHandler_Mixin",
+    "minihud.mountLoggersOnMiniHud.RenderHandler_Mixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -33,6 +34,7 @@
     "feature.tabFilter.PlayerTabOverlay_Mixin",
     "feature.transparentItemFrame.ItemFrameRenderer_Mixin",
     "lms.AbstractContainerScreen_Mixin",
-    "lms.CreativeModeInventoryScreen_Mixin"
+    "lms.CreativeModeInventoryScreen_Mixin",
+    "minihud.mountLoggersOnMiniHud.ClientPacketListener_Mixin"
   ]
 }

@@ -113,6 +113,13 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN_BLACKLIST = new ConfigBooleanHotkeyed("启用自动垃圾清理黑名单", false,"","");
     public static final ConfigStringList AUTO_WASTE_CLEAN_BLACKLIST = new ConfigStringList( "自动垃圾清理-黑名单", ImmutableList.of(),"自动垃圾清理黑名单");
 
+    public static final ConfigBooleanHotkeyed MOUNT_LOGGERS_ON_MINIHUD = new ConfigBooleanHotkeyed("挂载Logger信息到MiniHud", false,"","");
+    public static final ConfigBooleanHotkeyed ENABLE_MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST = new ConfigBooleanHotkeyed("启用挂载Logger信息到MiniHud-白名单", false,"","");
+    public static final ConfigStringList MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST = new ConfigStringList( "挂载Logger信息到MiniHud-白名单", ImmutableList.of(),".contains(xxx)");
+
+    public static final ConfigBooleanHotkeyed ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST = new ConfigBooleanHotkeyed("启用挂载Logger信息到MiniHud-黑名单", false,"","");
+    public static final ConfigStringList MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST = new ConfigStringList( "挂载Logger信息到MiniHud-黑名单", ImmutableList.of(),".contains(xxx)");
+
     public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
 
     public static final ImmutableList<IConfigBase> ALL = addCompatibility();
@@ -169,6 +176,12 @@ public class Configs implements IConfigHandler {
         list.add(AUTO_WASTE_CLEAN_WHITELIST);
         list.add(ENABLE_AUTO_WASTE_CLEAN_BLACKLIST);
         list.add(AUTO_WASTE_CLEAN_BLACKLIST);
+
+        list.add(MOUNT_LOGGERS_ON_MINIHUD);
+        list.add(MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST);
+
+        list.add(ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST);
+        list.add(MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST);
 
         return ImmutableList.copyOf(list);
     }
