@@ -18,10 +18,10 @@ public class LowHealthSendCommandOrChat {
 
     public static void trigger(Minecraft client) {
         Player player = client.player;
-        if (LOW_HEALTH_EXECUTE_OR_SEND.getBooleanValue() && player != null) {
+        if (LOW_HEALTH_EXECUTE_OR_SEND.getBooleanValue() && PlayerUtils.isSurvivalMode(player)) {
             float health = player.getHealth();
             if (health < LOW_HEALTH_VALUE.getFloatValue()) {
-                if (PlayerUtils.isSurvivalMode(player) || !rateLimiter.tryAcquire() || MCUtils.getScreen() instanceof DeathScreen) return;
+                if (!rateLimiter.tryAcquire()) return;
 
                 if (LOW_HEALTH_SEND_MODE.getOptionListValue().getStringValue().equals("发送聊天消息")) {
                     ChatUtils.sendMessageToServer(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue());

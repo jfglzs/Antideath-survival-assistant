@@ -62,7 +62,7 @@ public class AutoWasteCleanProcessor {
             return false;
         }
 
-        for (ItemStack boxStack : PlayerUtils.getStoredItems_(stack)) {
+        for (ItemStack boxStack : PlayerUtils.getBoxItemStacks(stack)) {
             if (isStackEmpty(boxStack)) continue;
             if (shouldKeep(boxStack)) return true;
         }
@@ -75,7 +75,7 @@ public class AutoWasteCleanProcessor {
         for (ItemStack stack : PlayerUtils.getInventory()) {
             if (isStackEmpty(stack)) continue;
             if (PlayerUtils.isShulkerBox(stack)) {
-                for (ItemStack boxStack : PlayerUtils.getStoredItems_(stack)) {
+                for (ItemStack boxStack : PlayerUtils.getBoxItemStacks(stack)) {
                     if (isStackEmpty(stack)) continue;
                     items.add(MCUtils.getItemID(boxStack.getItem()));
                 }

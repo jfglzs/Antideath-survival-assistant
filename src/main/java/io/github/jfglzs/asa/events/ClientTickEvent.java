@@ -1,14 +1,14 @@
 package io.github.jfglzs.asa.events;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.Minecraft;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class ClientTickEvent {
     private static int tickCount = 1;
-    private static final List<TickTask> tickTasks = new ArrayList<>();
+    private static final List<TickTask> tickTasks = new ObjectArrayList<>();
 
     public static void register(Predicate<Integer> condition, ClientTickCallback callback) {
         tickTasks.add(TickTask.of(condition, callback));

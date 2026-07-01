@@ -58,7 +58,7 @@ public class PlayerUtils {
         List<Integer> results = new ArrayList<>();
 
         for (int i : shulkerBoxIndexes) {
-            List<ItemStack> boxStacks = getStoredItems_(player.getInventory().getItem(i));
+            List<ItemStack> boxStacks = getBoxItemStacks(player.getInventory().getItem(i));
             if (!boxStacks.stream().filter(itemStack -> !itemStack.isEmpty()).toList().isEmpty()) {
                 results.add(i);
             }
@@ -67,19 +67,19 @@ public class PlayerUtils {
         return results;
     }
 
-    public static List<ItemStack> getStoredItems_(ItemStack box) {
+    public static List<ItemStack> getBoxItemStacks(ItemStack box) {
         return InventoryUtils.getStoredItems(box, 27);
     }
 
     public static boolean isBoxFull(ItemStack box) {
-        List<ItemStack> items = getStoredItems_(box);
+        List<ItemStack> items = getBoxItemStacks(box);
         return items.stream().filter(stack -> stack.getMaxStackSize() - stack.getCount() != 0).toList().isEmpty();
     }
 
     public static int checkRemainCount(Item item) {
         int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(36))
                 .stream()
-                .flatMap(i -> getStoredItems_(MCUtils.getPlayer()
+                .flatMap(i -> getBoxItemStacks(MCUtils.getPlayer()
                         .getInventory()
                         .getItem(i))
                         .stream()

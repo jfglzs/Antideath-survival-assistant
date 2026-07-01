@@ -81,9 +81,6 @@ public class ItemStorageDataManager {
                 else {
                     try {
                         itemStorages = LENIENT_GSON.fromJson(str, itemType);
-                        if (Configs.TEST.getBooleanValue()) {
-                            ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent(Arrays.toString(itemStorages.toArray())));
-                        }
                     }
                     catch (Exception e) {
                         AsaMod.LOGGER.error(e.getMessage(), e);

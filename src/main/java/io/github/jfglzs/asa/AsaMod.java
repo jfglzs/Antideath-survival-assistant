@@ -9,7 +9,6 @@ import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.config.HotkeysCallback;
 import io.github.jfglzs.asa.config.InputHandler;
 import io.github.jfglzs.asa.events.ClientTickEvent;
-import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.chatMessageMapping.ChatMappingProcessor;
 import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
@@ -18,11 +17,13 @@ import io.github.jfglzs.asa.render.RemainingItemRender;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.CommandUtils;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
+import io.github.jfglzs.asa.utils.MCUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +36,7 @@ public class AsaMod implements ClientModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static void debugMessage(String string) {
-        if (TEST.getBooleanValue()) {
+        if (DEBUG.getBooleanValue()) {
             ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent("[ASA] " + string));
             LOGGER.info(string);
         }
@@ -84,6 +85,7 @@ public class AsaMod implements ClientModInitializer {
     }
 
     public static void test() {
+        MCUtils.setScreen(new JoinMultiplayerScreen(null));
     }
 
     public void testOnTick(Minecraft client) {

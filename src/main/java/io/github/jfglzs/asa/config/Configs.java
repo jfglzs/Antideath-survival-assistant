@@ -120,13 +120,19 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST = new ConfigBooleanHotkeyed("启用挂载Logger信息到MiniHud-黑名单", false,"","");
     public static final ConfigStringList MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST = new ConfigStringList( "挂载Logger信息到MiniHud-黑名单", ImmutableList.of(),".contains(xxx)");
 
-    public static final ConfigBooleanHotkeyed TEST = new ConfigBooleanHotkeyed( "mod调试", false,"测试", "", " ");
+    public static final ConfigBooleanHotkeyed CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING = new ConfigBooleanHotkeyed("可在游戏中打开多人游戏菜单", false,"","可在游戏中打开多人游戏菜单");
+
+    public static final ConfigBooleanHotkeyed STRONG_PORTAL_COLLISION = new ConfigBooleanHotkeyed("地狱门硬碰撞箱", false,"","开启后会将地狱门的碰撞箱替换成实体方块");;
+    public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("1", false,"","1111");
+
+    public static final ConfigHotkey TEST = new ConfigHotkey( "mod调试","","测试", "", " ");
 
     public static final ImmutableList<IConfigBase> ALL = addCompatibility();
     public static final ImmutableList<IConfigBase> LMS = addLMS();
     public static final ImmutableList<IConfigBase> DISABLES  = addDisables();
     public static final ImmutableList<IConfigBase> FUNCTIONS = addFunctions();
     public static final ImmutableList<IConfigBase> COMMANDS = addCommands();
+
 
     private static ImmutableList<IConfigBase> addCommands() {
         List<IConfigBase> list = new ArrayList<>();
@@ -182,6 +188,7 @@ public class Configs implements IConfigHandler {
 
         list.add(ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST);
         list.add(MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST);
+        list.add(STRONG_PORTAL_COLLISION);
 
         return ImmutableList.copyOf(list);
     }
@@ -229,39 +236,33 @@ public class Configs implements IConfigHandler {
         return ImmutableList.copyOf(list);
     }
 
-    public static final ImmutableList<IHotkeyTogglable> SWITCH_KEY = ImmutableList.of(
-            CREEPER_WARN,
-            DISABLE_LOADING_TERRAIN_SCREEN,
-            DISABLE_SUBTITLE,
-            DISABLE_PLAYER_ARMOR_RENDER,
-            DISPLAY_REMAIN_ITEM,
-            DISABLE_PLACE_BLOCK_NEARBY_PORTAL,
-            PREVENT_INTENTIONAL_GAME_DESIGN,
-            ENABLE_MATERIAL_TODO_OVERLAY,
-            DISABLE_PLAYER_LIST_HUD_BACKGROUND,
-            AUTO_OPEN_FAKE_PLAYER_INV,
-            AUTO_KILL_FAKE_PLAYERS,
-            MINI_HUD_FPS_OPT,
-            FORCE_BLOCK_BREAK_COOL_DOWN,
-            FLAT_MINING,
-            TRANSPARENT_ITEM_FRAME,
-            ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST,
-            ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST,
-            DISABLE_SUBTITLE_OVERLAY_BACKGROUND,
-            PLAYER_MANIPULATE_COMMAND,
-            ENABLE_AUTO_WASTE_CLEAN
+    public static final ImmutableList<IHotkeyTogglable> SWITCH_KEY = addSwitchKey();
 
-    );
+    private static ImmutableList<IHotkeyTogglable> addSwitchKey() {
+        List<IHotkeyTogglable> list = new ArrayList<>();
+        Arrays.stream(Configs.class.getDeclaredFields()).filter(field -> ConfigBooleanHotkeyed.class.isAssignableFrom(field.getType())).forEach(field -> {
+            try {
+                list.add((IHotkeyTogglable) field.get(null));
+            }
+            catch (Exception ignored) {
+            }
+        });
+        return ImmutableList.copyOf(list);
+    }
 
-    public static final ImmutableList<ConfigHotkey> KEY_LIST = ImmutableList.of(
-            ASA,
-            CLEAR_MATERIAL_TODO_OVERLAY,
-            LMS_TAKE_ITEM,
-            ENABLE_FAKE_PLAYER_KILL_AURA,
-            SAVE_ITEMS,
-            SWITCH_CLEAN_MODE
+    public static final ImmutableList<ConfigHotkey> KEY_LIST = addkey();
 
-    );
+    private static ImmutableList<ConfigHotkey> addkey() {
+        List<ConfigHotkey> list = new ArrayList<>();
+        Arrays.stream(Configs.class.getDeclaredFields()).filter(field -> ConfigHotkey.class.isAssignableFrom(field.getType())).forEach(field -> {
+            try {
+                list.add((ConfigHotkey) field.get(null));
+            }
+            catch (Exception ignored) {
+            }
+        });
+        return ImmutableList.copyOf(list);
+    }
 
     public static final ImmutableList<IConfigBase> ALL_CONFIGS = addAllConfigs();
 

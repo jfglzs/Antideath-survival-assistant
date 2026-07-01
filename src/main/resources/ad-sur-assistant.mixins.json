@@ -5,6 +5,7 @@
   "mixins": [
     "feature.disableConnectionTimedOut.Connection_Mixin",
     "feature.disablePlayerTabOverlayBackGround.PlayerTabOverlay_Mixin",
+    "feature.strongNetherPortalCollision.BlockBehaviour_Mixin",
     "litematic.MaterialListHudRenderer_Mixin",
     "litematic.WorldUtils_Mixin",
     "lms.PlacementHandler_Mixin",
@@ -21,6 +22,8 @@
     "feature.autoWasteClean.AbstractContainerScreen_Mixin",
     "feature.autoWasteClean.ClientPacketListener_Mixin",
     "feature.canAlwaysDisconnect.ServerReconfigScreen_Mixin",
+    "feature.canOpenMutiPlayerScreenOnGaming.JoinMultiplayerScreen_Mixin",
+    "feature.canOpenMutiPlayerScreenOnGaming.PauseScreen_Mixin",
     "feature.disableContainerBackGround.AbstractContainerScreen_Mixin",
     "feature.disableContainerBackGround.Screen_Mixin",
     "feature.disableItemEntityMulPose.ItemEntityRenderer_Mixin",

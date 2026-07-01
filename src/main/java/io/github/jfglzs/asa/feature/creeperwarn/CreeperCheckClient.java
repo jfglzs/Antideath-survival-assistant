@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.feature.creeperwarn;
 
 import io.github.jfglzs.asa.utils.ChatUtils;
+import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -33,12 +34,11 @@ public class CreeperCheckClient {
         LocalPlayer player = mc.player;
         Level world = mc.level;
 
-        if (player == null || world == null) return null;
-        if (player.isCreative() || player.isSpectator()) return null;
+        if (world == null) return null;
+        if (!PlayerUtils.isSurvivalMode(player)) return null;
 
         double range = CREEPER_WARN_RANGE.getDoubleValue();
         AABB box = player.getBoundingBox().inflate(range);
-
 
         return world.getEntitiesOfClass(Creeper.class, box, (creeper) -> true);
     }

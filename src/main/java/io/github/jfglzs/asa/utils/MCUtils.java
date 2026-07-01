@@ -5,6 +5,7 @@ import io.github.jfglzs.asa.AsaMod;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -17,7 +18,7 @@ public class MCUtils {
         return Minecraft.getInstance();
     }
 
-    public static Player getPlayer() {
+    public static LocalPlayer getPlayer() {
         return getMinecraftClient().player;
     }
 

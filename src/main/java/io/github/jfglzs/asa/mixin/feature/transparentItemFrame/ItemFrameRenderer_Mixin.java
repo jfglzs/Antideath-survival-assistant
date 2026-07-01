@@ -7,21 +7,21 @@ import net.minecraft.client.renderer.entity.ItemFrameRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 
 //? if <= 1.21.3 {
-/*
-import net.minecraft.client.renderer.entity.ItemRenderer;
+
+/*import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.level.saveddata.maps.MapId;
 import net.minecraft.world.item.ItemDisplayContext;
-*/
-//?}
+
+*///?}
 
 //? if = 1.21.1 {
-/*
-import net.minecraft.world.item.MapItem;
+
+/*import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraft.client.Minecraft;
-*/
-//?}
+
+*///?}
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -36,10 +36,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 //?} else if < 1.21.10 {
-/*
-import net.minecraft.client.renderer.MultiBufferSource;
-*/
-//?} else {
+
+/*import net.minecraft.client.renderer.MultiBufferSource;
+
+*///?} else {
 /*
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.state.CameraRenderState;
@@ -52,10 +52,10 @@ import net.minecraft.client.renderer.MapRenderer;
 //?}
 
 //? if != 1.21.1 && < 26.1 {
-/*
-import org.objectweb.asm.Opcodes;
-*/
-//?}
+
+/*import org.objectweb.asm.Opcodes;
+
+*///?}
 
 @Mixin(value = ItemFrameRenderer.class, priority = 900)
 public abstract class ItemFrameRenderer_Mixin {
@@ -77,30 +77,30 @@ public abstract class ItemFrameRenderer_Mixin {
     protected abstract int getLightVal(boolean par1, int par2, int par3);
     */
     //?} else if = 1.21.1 {
-    /*
-    @Shadow
+    
+    /*@Shadow
     protected abstract int getLightVal(ItemFrame entity, int par2, int par3);
-    */
-    //?}
+    
+    *///?}
 
     //? if <= 1.21.3 {
-    /*
-    @Shadow
+    
+    /*@Shadow
     @Final
     private ItemRenderer itemRenderer;
-    */
-    //?}
+    
+    *///?}
 
     @Inject(
             //? if = 1.21.1 {
-            /*
-            method = "render(Lnet/minecraft/world/entity/decoration/ItemFrame;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
-            */
-            //?} else if < 1.21.10 {
-            /*
-            method = "render(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
-            */
-            //?} else if >= 26.1 {
+            
+            /*method = "render(Lnet/minecraft/world/entity/decoration/ItemFrame;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
+            
+            *///?} else if < 1.21.10 {
+            
+            /*method = "render(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
+            
+            *///?} else if >= 26.1 {
             method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
             //?} else {
             /*
@@ -114,15 +114,15 @@ public abstract class ItemFrameRenderer_Mixin {
                     target = "Lnet/minecraft/client/renderer/block/BlockModelRenderState;isEmpty()Z"
             ),
             //?} else if != 1.21.1 && < 26.1 {
-            /*
-            at = @At(
+            
+            /*at = @At(
                     value = "FIELD",
                     target = "Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;isInvisible:Z",
                     ordinal = 0,
                     opcode = Opcodes.GETFIELD
             ),
-            */
-            //?} else if >= 26.2 {
+            
+            *///?} else if >= 26.2 {
             /*at = @At(
                     value = "FIELD",
                     target = "Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;isInvisible:Z",
@@ -130,25 +130,25 @@ public abstract class ItemFrameRenderer_Mixin {
             ),
 
             *///?} else {
-            //at = @At(
-            //        value = "INVOKE",
-            //        target = "Lnet/minecraft/world/entity/decoration/ItemFrame;getItem()Lnet/minecraft/world/item/ItemStack;",
-            //        shift = At.Shift.AFTER
-            //),
-            //?}
+            /*at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/entity/decoration/ItemFrame;getItem()Lnet/minecraft/world/item/ItemStack;",
+                    shift = At.Shift.AFTER
+            ),
+            *///?}
 
             cancellable = true
     )
 
             //? if = 1.21.1 {
-    /*
-    private void render(ItemFrame entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
-    */
-            //?} else if < 1.21.10 {
-    /*
-    private void render(ItemFrameRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, CallbackInfo ci) {
-    */
-            //?} else if >= 1.21.10 && < 26.2 {
+    
+    /*private void render(ItemFrame entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
+    
+            *///?} else if < 1.21.10 {
+    
+    /*private void render(ItemFrameRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, CallbackInfo ci) {
+    
+            *///?} else if >= 1.21.10 && < 26.2 {
     private void render(ItemFrameRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
             //?} else {
     /*private void render(ItemFrameRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
@@ -159,8 +159,8 @@ public abstract class ItemFrameRenderer_Mixin {
         }
 
         //? if < 1.21.10 && > 1.21.3 {
-        /*
-        poseStack.translate(0.0F, 0.0F, 0.4375F);
+        
+        /*poseStack.translate(0.0F, 0.0F, 0.4375F);
 
         if (renderState.mapId != null) {
             int i = renderState.rotation % 4 * 2;
@@ -183,8 +183,8 @@ public abstract class ItemFrameRenderer_Mixin {
 
             renderState.item.render(poseStack, bufferSource, i, OverlayTexture.NO_OVERLAY);
         }
-        */
-        //?} else if >= 26.1 {
+        
+        *///?} else if >= 26.1 {
 
         poseStack.translate(0.0F, 0.0F, 0.4375F);
 
@@ -314,8 +314,8 @@ public abstract class ItemFrameRenderer_Mixin {
         }
         */
         //?} else {
-        /*
-        var itemStack = entity.getItem();
+        
+        /*var itemStack = entity.getItem();
 
         if (!itemStack.isEmpty()) {
             MapId mapId = entity.getFramedMapId(itemStack);
@@ -363,8 +363,8 @@ public abstract class ItemFrameRenderer_Mixin {
                 );
             }
         }
-        */
-        //?}
+        
+        *///?}
 
         poseStack.popPose();
         ci.cancel();

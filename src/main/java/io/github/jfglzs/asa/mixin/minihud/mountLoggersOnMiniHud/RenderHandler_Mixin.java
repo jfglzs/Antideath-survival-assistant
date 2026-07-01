@@ -33,23 +33,22 @@ public class RenderHandler_Mixin {
 
         if (mc.player != null && player.connection instanceof IClientPacketListener listener) {
             List<String> tabList = listener.asa$TabList();
-            if (tabList != null) {
-                lines.add("Carpet-Loggers:");
-                for (String line : tabList) {
-                    if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getBooleanValue()) {
-                        if (Configs.MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getStrings().stream().anyMatch(line::contains)) {
-                            lines.add(line);
-                        }
-                        continue;
+            if (tabList == null) return;
+            lines.add(null);
+            for (String line : tabList) {
+                if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getBooleanValue()) {
+                    if (Configs.MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getStrings().stream().anyMatch(line::contains)) {
+                        lines.add(line);
                     }
-                    else if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getBooleanValue()) {
-                        if (Configs.MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getStrings().stream().noneMatch(line::contains)) {
-                            lines.add(line);
-                        }
-                        continue;
-                    }
-                    lines.add(line);
+                    continue;
                 }
+                else if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getBooleanValue()) {
+                    if (Configs.MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getStrings().stream().noneMatch(line::contains)) {
+                        lines.add(line);
+                    }
+                    continue;
+                }
+                lines.add(line);
             }
         }
     }
