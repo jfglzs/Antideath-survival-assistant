@@ -28,7 +28,7 @@ public class RenderHandler_Mixin {
     private void updateLines(CallbackInfo ci) {
         if (!Configs.MOUNT_LOGGERS_ON_MINIHUD.getBooleanValue()) return;
 
-        Minecraft mc = MCUtils.getMinecraftClient();
+        Minecraft mc = MCUtils.getMinecraft();
         LocalPlayer player = mc.player;
 
         if (mc.player != null && player.connection instanceof IClientPacketListener listener) {

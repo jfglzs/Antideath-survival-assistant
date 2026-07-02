@@ -7,25 +7,23 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 public class MCUtils {
     private static final Minecraft mc = Minecraft.getInstance();
 
-    public static Minecraft getMinecraftClient() {
+    public static Minecraft getMinecraft() {
         return Minecraft.getInstance();
     }
 
-    public static LocalPlayer getPlayer() {
-        return getMinecraftClient().player;
+    public static LocalPlayer getLocalPlayer() {
+        return getMinecraft().player;
     }
 
-    public static ClientLevel getWorld() {
-       return (ClientLevel) getPlayer().level();
+    public static ClientLevel getLevel() {
+       return (ClientLevel) getLocalPlayer().level();
     }
 
     public static void executeCommand(String command) {

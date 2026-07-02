@@ -6,7 +6,7 @@ import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockCollisions;
-//? if =< 1.21.1 {
+//? if <= 1.21.1 {
 //import net.minecraft.world.level.BlockGetter;
 //?} else {
 import net.minecraft.world.level.CollisionGetter;
@@ -38,7 +38,7 @@ public class BlockCollisions_Mixin {
     /*private VoxelShape getCollisionShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context, Operation<VoxelShape> original) {
     *///?}
         if (Configs.ENABLE_STRONG_BLOCK_COLLISION.getBooleanValue() && context instanceof EntityCollisionContext ectx) {
-            if (ectx.getEntity() != MCUtils.getPlayer()) {
+            if (ectx.getEntity() != MCUtils.getLocalPlayer()) {
                 //? if > 1.21.1 {
                 return original.call(context, state, getter, pos);
                 //?} else {

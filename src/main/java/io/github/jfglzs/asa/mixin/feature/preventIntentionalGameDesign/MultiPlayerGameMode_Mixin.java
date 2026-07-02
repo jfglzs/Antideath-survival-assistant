@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static io.github.jfglzs.asa.config.Configs.DISABLE_PLACE_BLOCK_NEARBY_PORTAL;
 import static io.github.jfglzs.asa.config.Configs.DISABLE_PLACE_BLOCK_NEARBY_PORTAL_WHITELIST;
-import static io.github.jfglzs.asa.utils.MCUtils.getWorld;
+import static io.github.jfglzs.asa.utils.MCUtils.getLevel;
 
 @Mixin(MultiPlayerGameMode.class)
 public class MultiPlayerGameMode_Mixin {
@@ -52,7 +52,7 @@ public class MultiPlayerGameMode_Mixin {
             BlockPos pos = hitResult.getBlockPos();
             for (Direction dir : Direction.values()) {
                 BlockPos neighbor = pos.relative(dir);
-                BlockState state = getWorld().getBlockState(neighbor);
+                BlockState state = getLevel().getBlockState(neighbor);
                 Block block = state.getBlock();
                 if (block == Blocks.NETHER_PORTAL && !isWhiteList()) cir.setReturnValue(InteractionResult.FAIL);
             }
@@ -70,7 +70,7 @@ public class MultiPlayerGameMode_Mixin {
     private void interactBlockInternal_Inject(LocalPlayer player, InteractionHand hand, BlockHitResult result, CallbackInfoReturnable<InteractionResult> cir) {
         if (!Configs.PREVENT_INTENTIONAL_GAME_DESIGN.getBooleanValue()) return;
 
-        BlockState state = getWorld().getBlockState(result.getBlockPos());
+        BlockState state = getLevel().getBlockState(result.getBlockPos());
         ResourceKey<Level> worldKey = player.level().dimension();
 
         if (worldKey.equals(Level.OVERWORLD) || worldKey.equals(Level.END)) {

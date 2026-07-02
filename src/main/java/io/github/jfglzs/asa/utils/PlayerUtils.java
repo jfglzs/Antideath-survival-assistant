@@ -22,7 +22,7 @@ public class PlayerUtils {
     }
 
     public static List<ItemStack> getInventory() {
-        Inventory inventory = MCUtils.getPlayer().getInventory();
+        Inventory inventory = MCUtils.getLocalPlayer().getInventory();
         return IntStream
                 .range(0, inventory.getContainerSize())
                 .mapToObj(inventory::getItem)
@@ -34,13 +34,13 @@ public class PlayerUtils {
     }
 
     public static ItemStack getItemStack(int slotIndex) {
-        Player player = MCUtils.getPlayer();
+        Player player = MCUtils.getLocalPlayer();
         return player == null ? ItemStack.EMPTY : player.getInventory().getItem(slotIndex);
     }
 
     public static List<Integer> getAllBoxIndexes(int maxIndex) {
         List<Integer> results = new ArrayList<>();
-        Inventory inventory = MCUtils.getPlayer().getInventory();
+        Inventory inventory = MCUtils.getLocalPlayer().getInventory();
 
 
         for (int i = 0; i < maxIndex; i++) {
@@ -54,7 +54,7 @@ public class PlayerUtils {
     }
 
     public static List<Integer> getNotEmptyBoxIndexes(List<Integer> shulkerBoxIndexes) {
-        Player player = MCUtils.getPlayer();
+        Player player = MCUtils.getLocalPlayer();
         List<Integer> results = new ArrayList<>();
 
         for (int i : shulkerBoxIndexes) {
@@ -79,7 +79,7 @@ public class PlayerUtils {
     public static int checkRemainCount(Item item) {
         int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(36))
                 .stream()
-                .flatMap(i -> getBoxItemStacks(MCUtils.getPlayer()
+                .flatMap(i -> getBoxItemStacks(MCUtils.getLocalPlayer()
                         .getInventory()
                         .getItem(i))
                         .stream()
@@ -91,7 +91,7 @@ public class PlayerUtils {
     }
 
     public static ItemStack getPlayerMainHandStack() {
-        Player player = MCUtils.getMinecraftClient().player;
+        Player player = MCUtils.getMinecraft().player;
         return player == null ? ItemStack.EMPTY : player.getMainHandItem();
     }
 

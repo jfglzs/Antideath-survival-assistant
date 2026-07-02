@@ -13,7 +13,6 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 
 import static io.github.jfglzs.asa.config.Configs.CREEPER_WARN_RANGE;
-import static io.github.jfglzs.asa.utils.MCUtils.getMinecraftClient;
 
 public class CreeperCheckClient {
     public static void creeperWarner(Minecraft mc) {

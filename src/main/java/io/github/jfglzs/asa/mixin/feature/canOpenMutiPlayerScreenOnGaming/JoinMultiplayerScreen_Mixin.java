@@ -27,7 +27,7 @@ public class JoinMultiplayerScreen_Mixin implements IJoinMultiPlayerScreen {
             *///?} else if < 1.21.10 {
             /*MCUtils.getWorld().disconnect(ClientLevel.DEFAULT_QUIT_MESSAGE);
             *///?} else {
-            MCUtils.getMinecraftClient().disconnectFromWorld(ClientLevel.DEFAULT_QUIT_MESSAGE);
+            MCUtils.getMinecraft().disconnectFromWorld(ClientLevel.DEFAULT_QUIT_MESSAGE);
             //?}
             this.asa$canDisconnect = false;
         }

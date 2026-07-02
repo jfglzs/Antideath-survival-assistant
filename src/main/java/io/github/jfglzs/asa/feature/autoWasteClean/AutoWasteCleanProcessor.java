@@ -23,7 +23,7 @@ public class AutoWasteCleanProcessor {
     public static void process(AbstractContainerScreen<?> container) {
         if (Configs.ENABLE_AUTO_WASTE_CLEAN.getBooleanValue()) {
             var menu = container.getMenu();
-            var player = MCUtils.getMinecraftClient().player;
+            var player = MCUtils.getMinecraft().player;
             if (!PlayerUtils.isSurvivalMode(player)) return;
             String mode = Configs.AUTO_WASTE_CLEAN_MODE.getStringValue();
 
