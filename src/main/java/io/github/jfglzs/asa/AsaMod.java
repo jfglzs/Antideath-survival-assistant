@@ -62,7 +62,6 @@ public class AsaMod implements ClientModInitializer {
         ChatMappingProcessor.init();
         this.registerEvents();
         this.registerCommands();
-        LOGGER.info("Masa registered");
     }
     //~}
 
