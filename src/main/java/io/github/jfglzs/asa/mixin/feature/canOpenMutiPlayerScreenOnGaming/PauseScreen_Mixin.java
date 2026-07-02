@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.mixin.feature.canOpenMutiPlayerScreenOnGaming;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import io.github.jfglzs.asa.accessor.IJoinMultiPlayerScreen;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
@@ -25,8 +26,9 @@ public class PauseScreen_Mixin {
     private void createPauseMenu(CallbackInfo ci, @Local GridLayout.RowHelper row) {
         if (!Configs.CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING.getBooleanValue()) return;
         row.addChild(Button.builder(Component.translatable("asa.multiplayer.screen.title"), (button) -> {
-            MCUtils.setScreen(new JoinMultiplayerScreen(((Screen) (Object) this)));
-
+            JoinMultiplayerScreen screen = new JoinMultiplayerScreen(null);
+            ((IJoinMultiPlayerScreen) screen).asa$setCanDisconnect();
+            MCUtils.setScreen(screen);
         }).width(204).build(), 2);
     }
 }

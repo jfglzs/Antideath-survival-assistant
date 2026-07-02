@@ -30,13 +30,11 @@ public class AutoWasteCleanProcessor {
             for (Slot slot : menu.slots) {
 
                 ItemStack stack = slot.getItem();
-                if (isStackEmpty(stack) || shouldKeep(stack)) continue;
+                if (isStackEmpty(stack) || shouldKeep(stack) || !(slot.container instanceof Inventory)) continue;
 
                 if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
-                    if (slot.container instanceof Inventory) {
-                        InventoryUtils.dropStack(container, slot.index);
-                        AsaMod.debugMessage("Dropped Inventory container for slot " + slot.index);
-                    }
+                    InventoryUtils.dropStack(container, slot.index);
+                    AsaMod.debugMessage("Dropped Inventory container for slot " + slot.index);
                 }
                 else if (menu instanceof ChestMenu && mode.equals("转移至容器")) {
                     InventoryUtils.tryMoveStacks(slot, container, true, true, false);

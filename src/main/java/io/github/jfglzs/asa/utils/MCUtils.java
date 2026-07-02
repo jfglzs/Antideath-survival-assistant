@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 public class MCUtils {
     private static final Minecraft mc = Minecraft.getInstance();
@@ -39,6 +40,11 @@ public class MCUtils {
 
     public static String getItemID(Item item) {
         var id = BuiltInRegistries.ITEM.getKey(item);
+        return id.toString();
+    }
+
+    public static String getBlockID(Block block) {
+        var id = BuiltInRegistries.BLOCK.getKey(block);
         return id.toString();
     }
 

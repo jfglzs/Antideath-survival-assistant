@@ -3,9 +3,9 @@
   "package": "io.github.jfglzs.asa.mixin",
   "compatibilityLevel": "${compatibility_level}",
   "mixins": [
+    "feature.customBlockCollision.BlockCollisions_Mixin",
     "feature.disableConnectionTimedOut.Connection_Mixin",
     "feature.disablePlayerTabOverlayBackGround.PlayerTabOverlay_Mixin",
-    "feature.strongNetherPortalCollision.BlockBehaviour_Mixin",
     "litematic.MaterialListHudRenderer_Mixin",
     "litematic.WorldUtils_Mixin",
     "lms.PlacementHandler_Mixin",

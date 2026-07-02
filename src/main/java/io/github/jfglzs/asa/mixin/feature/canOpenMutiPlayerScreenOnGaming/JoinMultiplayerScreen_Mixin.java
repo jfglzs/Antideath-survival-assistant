@@ -4,6 +4,7 @@ import io.github.jfglzs.asa.accessor.IJoinMultiPlayerScreen;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
+import net.minecraft.client.multiplayer.ClientLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,7 +22,7 @@ public class JoinMultiplayerScreen_Mixin implements IJoinMultiPlayerScreen {
     )
     private void join(CallbackInfo ci) {
         if (Configs.CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING.getBooleanValue() && this.asa$canDisconnect) {
-            MCUtils.getMinecraftClient().disconnect(null, true);
+            MCUtils.getMinecraftClient().disconnectFromWorld(ClientLevel.DEFAULT_QUIT_MESSAGE);
             this.asa$canDisconnect = false;
         }
     }

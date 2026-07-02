@@ -122,10 +122,15 @@ public class Configs implements IConfigHandler {
 
     public static final ConfigBooleanHotkeyed CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING = new ConfigBooleanHotkeyed("可在游戏中打开多人游戏菜单", false,"","可在游戏中打开多人游戏菜单");
 
-    public static final ConfigBooleanHotkeyed STRONG_PORTAL_COLLISION = new ConfigBooleanHotkeyed("地狱门硬碰撞箱", false,"","开启后会将地狱门的碰撞箱替换成实体方块");;
-    public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("1", false,"","1111");
+    public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION = new ConfigBooleanHotkeyed("启用自定义方块碰撞箱",false,"开启后可自定义方块碰撞箱");
+    public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_WHITELIST = new ConfigBooleanHotkeyed("启用自定义方块碰撞箱白名单", false,"","启用自定义方块碰撞箱白名单");
+    public static final ConfigStringList STRONG_BLOCK_COLLISION_WHITELIST = new ConfigStringList( "自定义方块碰撞箱-白名单", ImmutableList.of(),"自定义方块碰撞箱白名单");
+    public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST = new ConfigBooleanHotkeyed("启用自定义方块碰撞箱黑名单", false,"","启用自定义方块碰撞箱黑名单");
+    public static final ConfigStringList STRONG_BLOCK_COLLISION_BLACKLIST = new ConfigStringList( "自定义方块碰撞箱-黑名单", ImmutableList.of(),"自定义方块碰撞箱黑名单");
 
-    public static final ConfigHotkey TEST = new ConfigHotkey( "mod调试","","测试", "", " ");
+
+    public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false,"","1111");
+    public static final ConfigHotkey TEST = new ConfigHotkey( "触发调试","","测试", "1111");
 
     public static final ImmutableList<IConfigBase> ALL = addCompatibility();
     public static final ImmutableList<IConfigBase> LMS = addLMS();
@@ -189,6 +194,13 @@ public class Configs implements IConfigHandler {
         list.add(ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST);
         list.add(MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST);
         list.add(STRONG_PORTAL_COLLISION);
+
+        list.add(ENABLE_STRONG_BLOCK_COLLISION);
+        list.add(ENABLE_STRONG_BLOCK_COLLISION_WHITELIST);
+        list.add(STRONG_BLOCK_COLLISION_WHITELIST);
+        list.add(ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST);
+        list.add(STRONG_BLOCK_COLLISION_BLACKLIST);
+
 
         return ImmutableList.copyOf(list);
     }
