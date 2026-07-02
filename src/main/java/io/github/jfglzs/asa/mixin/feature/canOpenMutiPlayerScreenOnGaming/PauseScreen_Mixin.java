@@ -24,11 +24,12 @@ public class PauseScreen_Mixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/layouts/GridLayout;arrangeElements()V")
     )
     private void createPauseMenu(CallbackInfo ci, @Local GridLayout.RowHelper row) {
-        if (!Configs.CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING.getBooleanValue()) return;
-        row.addChild(Button.builder(Component.translatable("asa.multiplayer.screen.title"), (button) -> {
-            JoinMultiplayerScreen screen = new JoinMultiplayerScreen(null);
-            ((IJoinMultiPlayerScreen) screen).asa$setCanDisconnect();
-            MCUtils.setScreen(screen);
-        }).width(204).build(), 2);
+        if (Configs.CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING.getBooleanValue()) {
+            row.addChild(Button.builder(Component.translatable("asa.multiplayer.screen.title"), (button) -> {
+                JoinMultiplayerScreen screen = new JoinMultiplayerScreen(null);
+                ((IJoinMultiPlayerScreen) screen).asa$setCanDisconnect();
+                MCUtils.setScreen(screen);
+            }).width(204).build(), 2);
+        }
     }
 }
