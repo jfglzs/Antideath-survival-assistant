@@ -6,7 +6,11 @@ import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockCollisions;
+//? if =< 1.21.1 {
+//import net.minecraft.world.level.BlockGetter;
+//?} else {
 import net.minecraft.world.level.CollisionGetter;
+//?}
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
@@ -21,17 +25,29 @@ public class BlockCollisions_Mixin {
             method = "computeNext",
             at = @At(
                     value = "INVOKE",
+                    //? if > 1.21.1 {
                     target = "Lnet/minecraft/world/phys/shapes/CollisionContext;getCollisionShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/CollisionGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;"
+                    //?} else {
+                    /*target = "Lnet/minecraft/world/level/block/state/BlockState;getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;"
+                    *///?}
             )
     )
-    private VoxelShape getCollisionShape(
-            CollisionContext context, BlockState state, CollisionGetter getter, BlockPos pos, Operation<VoxelShape> original
-    ) {
+    //? if > 1.21.1 {
+    private VoxelShape getCollisionShape(CollisionContext context, BlockState state, CollisionGetter getter, BlockPos pos, Operation<VoxelShape> original) {
+    //?} else {
+    /*private VoxelShape getCollisionShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context, Operation<VoxelShape> original) {
+    *///?}
         if (Configs.ENABLE_STRONG_BLOCK_COLLISION.getBooleanValue() && context instanceof EntityCollisionContext ectx) {
             if (ectx.getEntity() != MCUtils.getPlayer()) {
+                //? if > 1.21.1 {
                 return original.call(context, state, getter, pos);
+                //?} else {
+                /*return original.call(state, getter, pos, context);
+                *///?}
             }
+
             String blockID = MCUtils.getBlockID(state.getBlock());
+
             if (Configs.ENABLE_STRONG_BLOCK_COLLISION_WHITELIST.getBooleanValue()) {
                 if (Configs.STRONG_BLOCK_COLLISION_WHITELIST.getStrings().stream().anyMatch(blockID::equals)) {
                     return Shapes.block();
@@ -43,6 +59,11 @@ public class BlockCollisions_Mixin {
                 }
             }
         }
+
+        //? if > 1.21.1 {
         return original.call(context, state, getter, pos);
+        //?} else {
+        /*return original.call(state, getter, pos, context);
+        *///?}
     }
 }

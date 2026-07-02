@@ -5,6 +5,7 @@ import io.github.jfglzs.asa.AsaMod;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -23,8 +24,8 @@ public class MCUtils {
         return getMinecraftClient().player;
     }
 
-    public static Level getWorld() {
-       return getPlayer().level();
+    public static ClientLevel getWorld() {
+       return (ClientLevel) getPlayer().level();
     }
 
     public static void executeCommand(String command) {

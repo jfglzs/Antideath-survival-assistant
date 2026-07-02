@@ -22,7 +22,13 @@ public class JoinMultiplayerScreen_Mixin implements IJoinMultiPlayerScreen {
     )
     private void join(CallbackInfo ci) {
         if (Configs.CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING.getBooleanValue() && this.asa$canDisconnect) {
+            //? if < 1.21.8 {
+            /*MCUtils.getWorld().disconnect();
+            *///?} else if < 1.21.10 {
+            /*MCUtils.getWorld().disconnect(ClientLevel.DEFAULT_QUIT_MESSAGE);
+            *///?} else {
             MCUtils.getMinecraftClient().disconnectFromWorld(ClientLevel.DEFAULT_QUIT_MESSAGE);
+            //?}
             this.asa$canDisconnect = false;
         }
     }

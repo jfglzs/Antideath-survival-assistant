@@ -193,7 +193,6 @@ public class Configs implements IConfigHandler {
 
         list.add(ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST);
         list.add(MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST);
-        list.add(STRONG_PORTAL_COLLISION);
 
         list.add(ENABLE_STRONG_BLOCK_COLLISION);
         list.add(ENABLE_STRONG_BLOCK_COLLISION_WHITELIST);

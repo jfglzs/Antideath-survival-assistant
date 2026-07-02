@@ -40,11 +40,11 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 /*import net.minecraft.client.renderer.MultiBufferSource;
 
 *///?} else {
-/*
-import net.minecraft.client.renderer.SubmitNodeCollector;
+
+/*import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.state.CameraRenderState;
-*/
-//?}
+
+*///?}
 
 //? if != 1.21.1 {
 import net.minecraft.client.renderer.entity.state.ItemFrameRenderState;
@@ -72,11 +72,11 @@ public abstract class ItemFrameRenderer_Mixin {
     //?}
 
     //? if = 1.21.3 {
-    /*
-    @Shadow
+    
+    /*@Shadow
     protected abstract int getLightVal(boolean par1, int par2, int par3);
-    */
-    //?} else if = 1.21.1 {
+    
+    *///?} else if = 1.21.1 {
     
     /*@Shadow
     protected abstract int getLightVal(ItemFrame entity, int par2, int par3);
@@ -103,10 +103,10 @@ public abstract class ItemFrameRenderer_Mixin {
             *///?} else if >= 26.1 {
             method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
             //?} else {
-            /*
-            method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
-            */
-            //?}
+            
+            /*method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
+            
+            *///?}
 
             //? if = 26.1 {
             at = @At(
@@ -237,8 +237,8 @@ public abstract class ItemFrameRenderer_Mixin {
         }
 
         //?} else if >= 1.21.10 && < 26.1 {
-        /*
-        poseStack.translate(0.0F, 0.0F, 0.4375F);
+        
+        /*poseStack.translate(0.0F, 0.0F, 0.4375F);
 
         if (renderState.mapId != null) {
             int i = renderState.rotation % 4 * 2;
@@ -268,10 +268,10 @@ public abstract class ItemFrameRenderer_Mixin {
                     renderState.outlineColor
             );
         }
-        */
-        //?} else if != 1.21.1 {
-        /*
-        if (!renderState.itemStack.isEmpty()) {
+        
+        *///?} else if != 1.21.1 {
+        
+        /*if (!renderState.itemStack.isEmpty()) {
             MapId mapId = renderState.mapId;
 
             if (renderState.isInvisible) {
@@ -312,8 +312,8 @@ public abstract class ItemFrameRenderer_Mixin {
                 );
             }
         }
-        */
-        //?} else {
+        
+        *///?} else {
         
         /*var itemStack = entity.getItem();
 
