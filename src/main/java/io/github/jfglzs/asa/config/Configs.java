@@ -58,7 +58,7 @@ public class Configs implements IConfigHandler {
 
     public static final ConfigBoolean LMS_FETCH_SUPPORT = new ConfigBoolean("假人远程取货支持" , false,"需要lms carpet addition");
     public static final ConfigBooleanHotkeyed LMS_FETCH_SUPPORT_PLACE_ = new ConfigBooleanHotkeyed("右键投影方块取货", false,"","右键投影方块取货");
-    public static final ConfigBooleanHotkeyed MID_CLICK_TAKE_ITEM = new ConfigBooleanHotkeyed("中键投影取货", false, "", "启用后鼠标中键点击，原理图内方块(玩家背包内没有)，会立即取货（需要lms carpet addition）");
+    public static final ConfigBooleanHotkeyed MID_CLICK_TAKE_ITEM = new ConfigBooleanHotkeyed("中键投影取货", false, "", "启用后鼠标中键点击，原理图内方块(玩家背包内没有)，会立即取货（需要lms carpet addition）\n shift+中键取1盒 \n中键取1组");
 
     public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV = new ConfigBooleanHotkeyed("假人取货自动打开假人背包", false, "", "自动打开假人背包");
     public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV_MODE = new ConfigBooleanHotkeyed("假人取货自动打开假人背包交互模式", false, "", "true为指令交互 false为主手右键交互");
@@ -127,6 +127,9 @@ public class Configs implements IConfigHandler {
     public static final ConfigStringList STRONG_BLOCK_COLLISION_WHITELIST = new ConfigStringList( "自定义方块碰撞箱-白名单", ImmutableList.of(),"自定义方块碰撞箱白名单");
     public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST = new ConfigBooleanHotkeyed("启用自定义方块碰撞箱黑名单", false,"","启用自定义方块碰撞箱黑名单");
     public static final ConfigStringList STRONG_BLOCK_COLLISION_BLACKLIST = new ConfigStringList( "自定义方块碰撞箱-黑名单", ImmutableList.of(),"自定义方块碰撞箱黑名单");
+
+    public static final ConfigBooleanHotkeyed CUSTOM_LITEMATICA_BLOCK_REPLACE = new ConfigBooleanHotkeyed("启用自定义投影方块替换", false,"","启用自定义方块碰撞箱白名单");
+    public static final ConfigStringList CUSTOM_LITEMATICA_BLOCK_REPLACE_LIST = new ConfigStringList( "自定义投影方块替换", ImmutableList.of(),"自定义投影方块替换名单 \n 格式: \n minecraft:item|minecraft:item1");
 
 
     public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false,"","1111");
@@ -199,6 +202,8 @@ public class Configs implements IConfigHandler {
         list.add(STRONG_BLOCK_COLLISION_WHITELIST);
         list.add(ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST);
         list.add(STRONG_BLOCK_COLLISION_BLACKLIST);
+        list.add(CUSTOM_LITEMATICA_BLOCK_REPLACE);
+        list.add(CUSTOM_LITEMATICA_BLOCK_REPLACE_LIST);
 
 
         return ImmutableList.copyOf(list);

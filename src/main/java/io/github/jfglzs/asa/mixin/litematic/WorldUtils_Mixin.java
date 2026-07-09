@@ -1,20 +1,31 @@
 package io.github.jfglzs.asa.mixin.litematic;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import fi.dy.masa.litematica.materials.MaterialCache;
 import fi.dy.masa.litematica.util.WorldUtils;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
+import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Mixin(WorldUtils.class)
 public class WorldUtils_Mixin {
@@ -39,12 +50,41 @@ public class WorldUtils_Mixin {
         ) {
             if (Configs.MID_CLICK_TAKE_ITEM.getBooleanValue()) {
                 AsaMod.debugMessage("Submitted %s %d to ItemStorageDataManager");
-                ItemStorageDataManager.submit(stack.getItem(), stack.getMaxStackSize());
+                ItemStorageDataManager.submit(stack.getItem(), mc.player.isShiftKeyDown() ? stack.getMaxStackSize() * 27 : stack.getMaxStackSize());
             }
             else {
                 AsaMod.debugMessage("addItem %s to MaterialToDoRenderer");
                 MaterialToDoRenderer.INSTANCE.addItem(stack);
             }
         }
+    }
+
+    @WrapOperation(
+            method = "doEasyPlaceAction",
+            at = @At(value = "INVOKE", target = "Lfi/dy/masa/litematica/materials/MaterialCache;getRequiredBuildItemForState(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/item/ItemStack;")
+    )
+    private static ItemStack getRequiredBuildItemForState(MaterialCache instance, BlockState state, Level world, BlockPos pos, Operation<ItemStack> original) {
+        if (Configs.CUSTOM_LITEMATICA_BLOCK_REPLACE.getBooleanValue()) {
+            Map<String, String> mappings = asa$getBlockMappings();
+            String oriBlockID = MCUtils.getBlockID(state.getBlock());
+            String replacedBlockId = mappings.get(oriBlockID);
+            if (replacedBlockId != null) {
+                AsaMod.debugMessage("Replaced block：" + oriBlockID + " -> " + replacedBlockId);
+                return new ItemStack(MCUtils.getBlock(replacedBlockId));
+            }
+        }
+        return original.call(instance, state, world, pos);
+    }
+
+
+    @Unique
+    private static Map<String, String> asa$getBlockMappings() {
+        Map<String, String> mappings = new HashMap<>();
+        List<String> blockIdMap = Configs.CUSTOM_LITEMATICA_BLOCK_REPLACE_LIST.getStrings();
+        for (String blocks : blockIdMap) {
+            String[] strings = blocks.split("\\|", 2);
+            mappings.put(strings[0], strings[1]);
+        }
+        return mappings;
     }
 }

@@ -12,9 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class Connection_Mixin {
     @Inject(
             method = "exceptionCaught",
-            at = @At(
-                     value = "HEAD"
-            ),
+            at = @At(value = "HEAD"),
             cancellable = true
     )
     public void exceptionCaughtInject(ChannelHandlerContext context, Throwable ex, CallbackInfo ci) {

@@ -7,9 +7,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+
+import java.lang.reflect.Field;
 
 public class MCUtils {
     private static final Minecraft mc = Minecraft.getInstance();
@@ -45,6 +49,19 @@ public class MCUtils {
     public static String getBlockID(Block block) {
         var id = BuiltInRegistries.BLOCK.getKey(block);
         return id.toString();
+    }
+
+    public static Block getBlock(String blockID) {
+        String id = blockID;
+        if (id.contains("minecraft")) id = id.replace("minecraft:", "");
+        //? if >= 1.21.11 {
+        var identifier = Identifier.withDefaultNamespace(id);
+        //?} else {
+        /*var identifier = ResourceLocation.withDefaultNamespace(id);
+         *///?}
+        //~ if <=1.21.1 '.getValue(' -> '.get(' {
+        return BuiltInRegistries.BLOCK.getValue(identifier);
+        //~}
     }
 
     public static void setScreen(Screen screen) {
