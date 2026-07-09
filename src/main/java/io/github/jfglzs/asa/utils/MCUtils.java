@@ -7,13 +7,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
+//~ if < 1.21.11 'Identifier' -> 'ResourceLocation' {
 import net.minecraft.resources.Identifier;
+//~}
 import net.minecraft.world.item.Item;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-
-import java.lang.reflect.Field;
 
 public class MCUtils {
     private static final Minecraft mc = Minecraft.getInstance();

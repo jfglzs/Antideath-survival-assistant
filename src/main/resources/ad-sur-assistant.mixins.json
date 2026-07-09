@@ -8,7 +8,6 @@
     "feature.disablePlayerTabOverlayBackGround.PlayerTabOverlay_Mixin",
     "litematic.MaterialListHudRenderer_Mixin",
     "litematic.WorldUtils_Mixin",
-    "lms.PlacementHandler_Mixin",
     "minihud.RenderHandler_Mixin",
     "minihud.mountLoggersOnMiniHud.RenderHandler_Mixin"
   ],
