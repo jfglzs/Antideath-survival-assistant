@@ -90,7 +90,7 @@ public class ItemStorageDataManager {
                 return false;
             }
             else if (str.startsWith("[{") && str.endsWith("]") && str.contains("<...>")) {
-                ChatUtils.sendMessWithSound(ChatUtils.toComponent("无法通过getStorageData命令查询容器数据 \n 原因: NBT被折叠 \n 请安装Antideath-carpet-addition v1.4.5以上版本并开启 fixNbtFold 规则 \n 或者将LMS 更新至 1.15").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
+                ChatUtils.sendMessWithSound(ChatUtils.toComponent("无法通过getStorageData命令查询容器数据 \n 原因: NBT被折叠 \n 请安装Antideath-carpet-addition v1.4.5以上版本并开启 fixNbtFold 规则 \n 或者将LMS 更新至 1.14.1").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
                 return false;
             }
             return true;

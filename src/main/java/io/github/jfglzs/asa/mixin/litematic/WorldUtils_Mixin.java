@@ -29,6 +29,38 @@ import java.util.Map;
 
 @Mixin(WorldUtils.class)
 public class WorldUtils_Mixin {
+    @WrapOperation(
+            method = "doEasyPlaceAction",
+            at = @At(
+                    value = "INVOKE",
+                    //? if < 1.21.11 {
+                    /*target = "Lfi/dy/masa/litematica/materials/MaterialCache;getRequiredBuildItemForState(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/item/ItemStack;"
+                    *///?} else {
+                    target = "Lfi/dy/masa/litematica/materials/MaterialCache;getRequiredBuildItemForState(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/item/ItemStack;"
+                    //?}
+                    )
+    )
+    //? if > 1.21.10 {
+    private static ItemStack getRequiredBuildItemForState(MaterialCache instance, BlockState state, Level world, BlockPos pos, Operation<ItemStack> original) {
+    //?} else {
+    /*private static ItemStack getRequiredBuildItemForState(MaterialCache instance, BlockState state, Operation<ItemStack> original) {
+    *///?}
+        if (Configs.CUSTOM_LITEMATICA_BLOCK_REPLACE.getBooleanValue()) {
+            Map<String, String> mappings = asa$getBlockMappings();
+            String oriBlockID = MCUtils.getBlockID(state.getBlock());
+            String replacedBlockId = mappings.get(oriBlockID);
+            if (replacedBlockId != null) {
+                AsaMod.debugMessage("Replaced block：" + oriBlockID + " -> " + replacedBlockId);
+                return new ItemStack(MCUtils.getBlock(replacedBlockId));
+            }
+        }
+        //? if < 1.21.11 {
+        /*return original.call(instance, state);
+        *///?} else {
+        return original.call(instance, state, world, pos);
+        //?}
+    }
+
     @Inject(
             method = "doSchematicWorldPickBlock",
             at = @At(
@@ -57,23 +89,6 @@ public class WorldUtils_Mixin {
                 MaterialToDoRenderer.INSTANCE.addItem(stack);
             }
         }
-    }
-
-    @WrapOperation(
-            method = "doEasyPlaceAction",
-            at = @At(value = "INVOKE", target = "Lfi/dy/masa/litematica/materials/MaterialCache;getRequiredBuildItemForState(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/item/ItemStack;")
-    )
-    private static ItemStack getRequiredBuildItemForState(MaterialCache instance, BlockState state, Level world, BlockPos pos, Operation<ItemStack> original) {
-        if (Configs.CUSTOM_LITEMATICA_BLOCK_REPLACE.getBooleanValue()) {
-            Map<String, String> mappings = asa$getBlockMappings();
-            String oriBlockID = MCUtils.getBlockID(state.getBlock());
-            String replacedBlockId = mappings.get(oriBlockID);
-            if (replacedBlockId != null) {
-                AsaMod.debugMessage("Replaced block：" + oriBlockID + " -> " + replacedBlockId);
-                return new ItemStack(MCUtils.getBlock(replacedBlockId));
-            }
-        }
-        return original.call(instance, state, world, pos);
     }
 
 

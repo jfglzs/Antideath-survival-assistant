@@ -3,6 +3,7 @@ package io.github.jfglzs.asa.feature.autoWasteClean;
 import fi.dy.masa.itemscroller.util.InventoryUtils;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.events.OpenScreenEvent;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
@@ -16,6 +17,15 @@ import net.minecraft.world.item.ItemStack;
 import java.util.*;
 
 public class AutoWasteCleanProcessor {
+
+    public static void init() {
+        OpenScreenEvent.INSTANCE.register(screen -> {
+            if (screen instanceof AbstractContainerScreen<?> containerScreen) {
+                process(containerScreen);
+            }
+        });
+    }
+
     /**
      * InventoryScreen(玩家背包)
      * ChestMenu(箱子末影箱)

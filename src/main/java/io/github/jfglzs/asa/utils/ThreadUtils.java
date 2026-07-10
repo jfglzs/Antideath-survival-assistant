@@ -2,7 +2,9 @@ package io.github.jfglzs.asa.utils;
 
 import net.minecraft.client.Minecraft;
 
+import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Supplier;
@@ -10,6 +12,13 @@ import java.util.function.Supplier;
 public class ThreadUtils {
     public static final Minecraft mc = Minecraft.getInstance();
     public static final ExecutorService threadPool = Executors.newCachedThreadPool();
+    public static final Queue<Runnable> queue = new ConcurrentLinkedQueue<>();
+
+    public static void onClientEndTick() {
+        while (!queue.isEmpty()) {
+            queue.poll().run();
+        }
+    }
 
     public static void runAsync(Runnable runnable) {
         threadPool.submit(runnable);
@@ -21,5 +30,9 @@ public class ThreadUtils {
 
     public static <T> T runOnClientThread(Supplier<T> supplier) {
         return mc.submit(supplier).join();
+    }
+
+    public static void runOnClientEndTick(Runnable runnable) {
+        queue.offer(runnable);
     }
 }

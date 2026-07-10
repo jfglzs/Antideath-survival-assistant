@@ -159,7 +159,7 @@ dependencies {
     autoImplementation("com.terraformersmc:modmenu:${property("modmenu_version")}")
     autoImplementation("net.fabricmc.fabric-api:fabric-api:${getProperty("fabric_api_version")}")
 
-//    autoImplementation("com.github.MoRanpcy:quickshulker:${getProperty("quick_shulker_version")}")
+    autoImplementation("com.github.MoRanpcy:quickshulker:${getProperty("quick_shulker_version")}")
 
     autoImplementation(masaDependency("malilib"))
     autoImplementation(masaDependency("tweakeroo"))

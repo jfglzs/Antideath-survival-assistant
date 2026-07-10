@@ -131,6 +131,11 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed CUSTOM_LITEMATICA_BLOCK_REPLACE = new ConfigBooleanHotkeyed("启用自定义投影方块替换", false,"","启用自定义方块碰撞箱白名单");
     public static final ConfigStringList CUSTOM_LITEMATICA_BLOCK_REPLACE_LIST = new ConfigStringList( "自定义投影方块替换", ImmutableList.of(),"自定义投影方块替换名单 \n 格式: \n minecraft:item|minecraft:item1");
 
+    public static final ConfigBooleanHotkeyed AUTO_BOX_RESTROKE = new ConfigBooleanHotkeyed("启用自动盒子补货", false,"","启用自动盒子补货(需要开启tweakeroo的自动补货)");
+    public static final ConfigBooleanHotkeyed ENABLE_AUTO_BOX_RESTROKE_WHITELIST = new ConfigBooleanHotkeyed("启用自动盒子补货白名单", false,"","启用自动盒子补货白名单");
+    public static final ConfigStringList AUTO_BOX_RESTROKE_WHITELIST = new ConfigStringList( "自动盒子补货白名单", ImmutableList.of(),"自动盒子补货白名单");
+    public static final ConfigBooleanHotkeyed ENABLE_AUTO_BOX_RESTROKE_BLACKLIST = new ConfigBooleanHotkeyed("启用自动盒子补货黑名单", false,"","启用自动盒子补货黑名单");
+    public static final ConfigStringList AUTO_BOX_RESTROKE_BLACKLIST = new ConfigStringList( "自动盒子补货黑名单", ImmutableList.of(),"自动盒子补货黑名单");
 
     public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false,"","1111");
     public static final ConfigHotkey TEST = new ConfigHotkey( "触发调试","","测试", "1111");
@@ -204,6 +209,12 @@ public class Configs implements IConfigHandler {
         list.add(STRONG_BLOCK_COLLISION_BLACKLIST);
         list.add(CUSTOM_LITEMATICA_BLOCK_REPLACE);
         list.add(CUSTOM_LITEMATICA_BLOCK_REPLACE_LIST);
+
+        list.add(AUTO_BOX_RESTROKE);
+        list.add(ENABLE_AUTO_BOX_RESTROKE_WHITELIST);
+        list.add(AUTO_BOX_RESTROKE_WHITELIST);
+        list.add(ENABLE_AUTO_BOX_RESTROKE_BLACKLIST);
+        list.add(AUTO_BOX_RESTROKE_BLACKLIST);
 
 
         return ImmutableList.copyOf(list);

@@ -9,7 +9,8 @@
     "litematic.MaterialListHudRenderer_Mixin",
     "litematic.WorldUtils_Mixin",
     "minihud.RenderHandler_Mixin",
-    "minihud.mountLoggersOnMiniHud.RenderHandler_Mixin"
+    "minihud.mountLoggersOnMiniHud.RenderHandler_Mixin",
+    "tweakeroo.InventoryUtils_Mixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -18,8 +19,8 @@
     "requireAnnotations": true
   },
   "client": [
-    "feature.autoWasteClean.AbstractContainerScreen_Mixin",
-    "feature.autoWasteClean.ClientPacketListener_Mixin",
+    "event.openScreenEvent.AbstractContainerScreen_Mixin",
+    "event.openScreenEvent.ClientPacketListener_Mixin",
     "feature.canAlwaysDisconnect.ServerReconfigScreen_Mixin",
     "feature.canOpenMutiPlayerScreenOnGaming.JoinMultiplayerScreen_Mixin",
     "feature.canOpenMutiPlayerScreenOnGaming.PauseScreen_Mixin",

@@ -9,6 +9,8 @@ import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.config.HotkeysCallback;
 import io.github.jfglzs.asa.config.InputHandler;
 import io.github.jfglzs.asa.events.ClientTickEvent;
+import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
+import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
 import io.github.jfglzs.asa.feature.chatMessageMapping.ChatMappingProcessor;
 import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
@@ -18,12 +20,16 @@ import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.CommandUtils;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.ThreadUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,8 +64,10 @@ public class AsaMod implements ClientModInitializer {
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
         RenderEventHandler.getInstance().registerInGameGuiRenderer(MaterialToDoRenderer.INSTANCE);
         RenderEventHandler.getInstance().registerInGameGuiRenderer(RemainingItemRender.INSTANCE);
+        AutoWasteCleanProcessor.init();
         ItemStorageDataManager.init();
         ChatMappingProcessor.init();
+        BoxRestockMannager.init();
         this.registerEvents();
         this.registerCommands();
     }
@@ -70,6 +78,7 @@ public class AsaMod implements ClientModInitializer {
         ClientTickEvent.register(i -> true, this::testOnTick);
         ClientTickEvent.register(i -> true, LowHealthSendCommandOrChat::trigger);
         ClientTickEvent.register(i -> true, ItemStorageDataManager::scanMatchedPlayersAndInteract);
+        ClientTickEvent.register(i -> true, client ->  ThreadUtils.onClientEndTick());
         ClientTickEvent.register(i -> i % 20 == 0 && CREEPER_WARN.getBooleanValue(), CreeperCheckClient::creeperWarner);
         ClientTickEvent.register(i -> i % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender.INSTANCE::update);
         ClientTickEvent.register(i -> i % 40 == 0 && ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue(), MaterialToDoRenderer.INSTANCE::update);
@@ -87,5 +96,13 @@ public class AsaMod implements ClientModInitializer {
     }
 
     public void testOnTick(Minecraft client) {
+//        if (MCUtils.getScreen() instanceof ShulkerBoxScreen boxScreen) {
+//            boxScreen.getMenu().slots.forEach((slot) -> {
+//                ItemStack item = slot.getItem();
+//                if (!item.isEmpty() && !(slot.container instanceof Inventory)) {
+//                    System.out.println(item.getItem());
+//                }
+//            });
+//        }
     }
 }

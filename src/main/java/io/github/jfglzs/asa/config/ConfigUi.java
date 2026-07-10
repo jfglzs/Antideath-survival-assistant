@@ -13,7 +13,6 @@ import static io.github.jfglzs.asa.AsaMod.*;
 public class ConfigUi extends GuiConfigsBase {
     private static Tab tab = Tab.ALL;
 
-
     public ConfigUi() {
         super(10, 50, MOD_ID, null, "%s V%s 配置界面".formatted(MOD_ID, version));
     }
