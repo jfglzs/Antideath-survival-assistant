@@ -40,7 +40,7 @@ public class BoxRestockMannager {
 //                mc.gameMode.handleContainerInput(player.inventoryMenu.containerId, targetSlot.index, button, ContainerInput.PICKUP, player);
 //                mc.gameMode.handleContainerInput(menu.containerId, targetSlot.index, 0, ContainerInput.PICKUP, player);
 
-                    MCUtils.setScreen(null);
+                    MCUtils.getMinecraft().player.closeContainer();
                     context = null;
                     return;
                 }

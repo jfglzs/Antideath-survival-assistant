@@ -32,8 +32,9 @@ public class InventoryUtils_Mixin {
         if (Configs.AUTO_BOX_RESTROKE.getBooleanValue() && stackHand.getCount() < threshold) {
             for (int index : PlayerUtils.getAllBoxIndexes(36)) {
                 ItemStack boxStack = player.inventoryMenu.getSlot(index).getItem();
+                if (boxStack.isEmpty() || stackHand.isEmpty()) return;
                 for (ItemStack itemStack : PlayerUtils.getBoxItemStacks(boxStack)) {
-                    if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(itemStack, stackHand) && !stackHand.isEmpty() && !itemStack.isEmpty()) {
+                    if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(itemStack, stackHand)) {
                         ShulkerUtils.open(index);
                         BoxRestockMannager.context = new BoxRestockMannager.BoxRestockContext(stackHand);
                     }
