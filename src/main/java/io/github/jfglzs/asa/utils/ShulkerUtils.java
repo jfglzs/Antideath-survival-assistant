@@ -4,7 +4,7 @@ import net.kyrptonaught.quickshulker.network.OpenShulkerPacket;
 
 public class ShulkerUtils {
     public static void open(int index) {
-        if (MCUtils.isModLoaded("quickshulker")) {
+        if (Mods.isShulkerBoxLoaded) {
             OpenShulkerPacket.sendOpenPacket(index);
         }
         else {

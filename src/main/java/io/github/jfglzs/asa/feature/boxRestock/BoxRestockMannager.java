@@ -4,6 +4,7 @@ import fi.dy.masa.itemscroller.util.InventoryUtils;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.events.OpenScreenEvent;
 import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.Mods;
 import io.github.jfglzs.asa.utils.ThreadUtils;
 import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
 import net.minecraft.world.inventory.Slot;
@@ -15,7 +16,7 @@ public class BoxRestockMannager {
 
     public static void init() {
         OpenScreenEvent.INSTANCE.register(screen -> {
-            if (screen instanceof ShulkerBoxScreen) {
+            if (screen instanceof ShulkerBoxScreen && Mods.isShulkerBoxLoaded) {
                 ThreadUtils.runOnClientEndTick(BoxRestockMannager::process);
             }
         });

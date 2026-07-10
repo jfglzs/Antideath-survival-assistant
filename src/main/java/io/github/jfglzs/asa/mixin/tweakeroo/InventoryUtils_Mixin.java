@@ -2,7 +2,9 @@ package io.github.jfglzs.asa.mixin.tweakeroo;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.tweakeroo.util.InventoryUtils;
+import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
+import io.github.jfglzs.asa.utils.Mods;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import io.github.jfglzs.asa.utils.ShulkerUtils;
 import net.minecraft.world.InteractionHand;
@@ -27,7 +29,7 @@ public class InventoryUtils_Mixin {
             @Local(name = "threshold") int threshold,
             @Local(name = "stackHand") ItemStack stackHand
     ) {
-        if (stackHand.getCount() < threshold) {
+        if (Configs.AUTO_BOX_RESTROKE.getBooleanValue() && stackHand.getCount() < threshold) {
             for (int index : PlayerUtils.getAllBoxIndexes(36)) {
                 ItemStack boxStack = player.inventoryMenu.getSlot(index).getItem();
                 for (ItemStack itemStack : PlayerUtils.getBoxItemStacks(boxStack)) {
