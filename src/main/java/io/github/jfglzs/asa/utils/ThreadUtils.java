@@ -10,29 +10,29 @@ import java.util.concurrent.Executors;
 import java.util.function.Supplier;
 
 public class ThreadUtils {
-    public static final Minecraft mc = Minecraft.getInstance();
-    public static final ExecutorService threadPool = Executors.newCachedThreadPool();
-    public static final Queue<Runnable> queue = new ConcurrentLinkedQueue<>();
+    public static final Minecraft MC = Minecraft.getInstance();
+    public static final ExecutorService THREAD_POOL = Executors.newCachedThreadPool();
+    public static final Queue<Runnable> TASK_QUEUE = new ConcurrentLinkedQueue<>();
 
     public static void onClientEndTick() {
-        while (!queue.isEmpty()) {
-            queue.poll().run();
+        while (!TASK_QUEUE.isEmpty()) {
+            TASK_QUEUE.poll().run();
         }
     }
 
     public static void runAsync(Runnable runnable) {
-        threadPool.submit(runnable);
+        THREAD_POOL.submit(runnable);
     }
 
     public static CompletableFuture<Void> runOnClientThread(Runnable runnable) {
-        return mc.submit(runnable);
+        return MC.submit(runnable);
     }
 
     public static <T> T runOnClientThread(Supplier<T> supplier) {
-        return mc.submit(supplier).join();
+        return MC.submit(supplier).join();
     }
 
     public static void runOnClientEndTick(Runnable runnable) {
-        queue.offer(runnable);
+        TASK_QUEUE.offer(runnable);
     }
 }
