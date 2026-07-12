@@ -9,7 +9,7 @@
     "litematic.MaterialListHudRenderer_Mixin",
     "litematic.WorldUtils_Mixin",
     "minihud.RenderHandler_Mixin",
-    "minihud.mountLoggersOnMiniHud.RenderHandler_Mixin",
+    "feature.mountLoggersOnMiniHud.RenderHandler_Mixin",
     "tweakeroo.InventoryUtils_Mixin"
   ],
   "injectors": {
@@ -38,6 +38,6 @@
     "feature.transparentItemFrame.ItemFrameRenderer_Mixin",
     "lms.AbstractContainerScreen_Mixin",
     "lms.CreativeModeInventoryScreen_Mixin",
-    "minihud.mountLoggersOnMiniHud.ClientPacketListener_Mixin"
+    "feature.mountLoggersOnMiniHud.ClientPacketListener_Mixin"
   ]
 }

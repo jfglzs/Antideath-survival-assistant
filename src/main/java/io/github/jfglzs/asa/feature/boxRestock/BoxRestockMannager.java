@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class BoxRestockMannager {
     public static BoxRestockContext context = null;
@@ -22,7 +23,6 @@ public class BoxRestockMannager {
         });
     }
 
-    //也真是服了 打开快捷潜影盒能给我setScreen 3次 一直提示containerId不匹配
     public static void process() {
         if (context == null || !Configs.AUTO_BOX_RESTROKE.getBooleanValue()) return;
 
@@ -34,14 +34,9 @@ public class BoxRestockMannager {
                 if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(slotItem, stackHand) && canMove(slotItem)) {
                     //过滤hotbar防止自己补自己
                     if (slot.index >= 54 && slot.index <= 62) continue;
-                    InventoryUtils.tryMoveStacks(slot, boxScreen, true, true, true);
-
-//                mc.gameMode.handleContainerInput(menu.containerId, slot.index, button, ContainerInput.PICKUP, player);
-//                mc.gameMode.handleContainerInput(player.inventoryMenu.containerId, targetSlot.index, button, ContainerInput.PICKUP, player);
-//                mc.gameMode.handleContainerInput(menu.containerId, targetSlot.index, 0, ContainerInput.PICKUP, player);
-
-                    MCUtils.getMinecraft().player.closeContainer();
+                    InventoryUtils.tryMoveStacks(slot, boxScreen, true, true, true);;
                     context = null;
+                    MCUtils.getMinecraft().player.closeContainer();
                     return;
                 }
             }
@@ -51,13 +46,13 @@ public class BoxRestockMannager {
     private static boolean canMove(ItemStack stack) {
         Item item = stack.getItem();
         String itemID = MCUtils.getItemID(item);
-        if (Configs.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue()) {
+        if (Configs.ENABLE_AUTO_BOX_RESTROKE_BLACKLIST.getBooleanValue()) {
             return Configs.AUTO_BOX_RESTROKE_BLACKLIST.getStrings().stream().noneMatch(itemID::equals);
         }
-        else if (Configs.ENABLE_STRONG_BLOCK_COLLISION_WHITELIST.getBooleanValue()) {
+        else if (Configs.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue()) {
             return Configs.AUTO_BOX_RESTROKE_WHITELIST.getStrings().stream().anyMatch(itemID::equals);
         }
-        return false;
+        return true;
     }
 
     public record BoxRestockContext(ItemStack stackHand) {}

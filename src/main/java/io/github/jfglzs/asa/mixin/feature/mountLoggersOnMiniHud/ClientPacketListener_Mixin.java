@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.minihud.mountLoggersOnMiniHud;
+package io.github.jfglzs.asa.mixin.feature.mountLoggersOnMiniHud;
 
 import io.github.jfglzs.asa.accessor.IClientPacketListener;
 import io.github.jfglzs.asa.config.Configs;

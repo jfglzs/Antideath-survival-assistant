@@ -2,13 +2,10 @@ package io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat;
 
 import com.google.common.util.concurrent.RateLimiter;
 import io.github.jfglzs.asa.AsaMod;
-import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.DeathScreen;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
 
 import static io.github.jfglzs.asa.config.Configs.*;
@@ -23,12 +20,13 @@ public class LowHealthSendCommandOrChat {
             if (health < LOW_HEALTH_VALUE.getFloatValue()) {
                 if (!rateLimiter.tryAcquire()) return;
 
+                String content = LOW_HEALTH_SEND_CONTENT.getStringValue();
                 if (LOW_HEALTH_SEND_MODE.getOptionListValue().getStringValue().equals("发送聊天消息")) {
-                    ChatUtils.sendMessageToServer(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue());
-                    AsaMod.debugMessage("Send Chat %s".formatted(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue()));
+                    ChatUtils.sendMessageToServer(content);
+                    AsaMod.debugMessage("Send Chat %s".formatted(content));
                 } else {
-                    MCUtils.executeCommand(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue());
-                    AsaMod.debugMessage("Send Command %s".formatted(Configs.LOW_HEALTH_SEND_CONTENT.getStringValue()));
+                    MCUtils.executeCommand(content);
+                    AsaMod.debugMessage("Send Command %s".formatted(content));
                 }
             }
         }
