@@ -1,10 +1,8 @@
 package io.github.jfglzs.asa.mixin.event.openScreenEvent;
 
 import io.github.jfglzs.asa.events.OpenScreenEvent;
-import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.utils.MCUtils;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
 import org.spongepowered.asm.mixin.Mixin;

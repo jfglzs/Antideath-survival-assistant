@@ -17,9 +17,16 @@ public class BoxRestockMannager {
 
     public static void init() {
         OpenScreenEvent.INSTANCE.register(screen -> {
-            if (screen instanceof ShulkerBoxScreen && Mods.isShulkerBoxLoaded) {
-                ThreadUtils.runOnClientEndTick(BoxRestockMannager::process);
+            if (
+                    screen instanceof ShulkerBoxScreen
+                    && Mods.isShulkerBoxLoaded
+                    && context != null
+                    && Configs.AUTO_BOX_RESTROKE.getBooleanValue()
+            ) {
+                process();
+                return true;
             }
+            return false;
         });
     }
 

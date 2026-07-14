@@ -56,7 +56,7 @@ public class RenderHandler_Mixin {
     )
     private void onRenderGameOverlayPostAdvanced(RenderHandler instance, Operation<Void> original) {
         if (Configs.MINI_HUD_FPS_OPT.getBooleanValue()) {
-            Thread.startVirtualThread(() -> {
+            ThreadUtils.runOnTaskThread(() -> {
                 original.call(instance);
                 ThreadUtils.runOnClientThread(() -> {
                         lines.clear();

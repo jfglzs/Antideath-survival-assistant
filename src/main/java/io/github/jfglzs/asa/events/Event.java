@@ -3,23 +3,26 @@ package io.github.jfglzs.asa.events;
 import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 
 import java.util.Set;
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class Event<T> {
-    private final Set<Consumer<T>> listeners = new ReferenceOpenHashSet<>();
+    private final Set<Function<T, Boolean>> listeners = new ReferenceOpenHashSet<>();
 
-    public void register(Consumer<T> event) {
+    public void register(Function<T, Boolean> event) {
         this.listeners.add(event);
     }
 
-    public void update(T obj) {
-        this.listeners.forEach(l -> {
+    public boolean update(T obj) {
+        for (Function<T, Boolean> listener : listeners) {
             try {
-                l.accept(obj);
+                if (listener.apply(obj)) {
+                    return true;
+                }
             }
             catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        });
+        }
+        return false;
     }
 }

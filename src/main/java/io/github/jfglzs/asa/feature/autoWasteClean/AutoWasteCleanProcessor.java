@@ -23,6 +23,7 @@ public class AutoWasteCleanProcessor {
             if (screen instanceof AbstractContainerScreen<?> containerScreen) {
                 process(containerScreen);
             }
+            return false;
         });
     }
 
