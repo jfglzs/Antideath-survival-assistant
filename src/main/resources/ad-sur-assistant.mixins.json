@@ -25,6 +25,7 @@
     "feature.canAlwaysDisconnect.ServerReconfigScreen_Mixin",
     "feature.canOpenMutiPlayerScreenOnGaming.JoinMultiplayerScreen_Mixin",
     "feature.canOpenMutiPlayerScreenOnGaming.PauseScreen_Mixin",
+    "feature.confirmScreenAlwaysYes.ConfirmScreen_Mixin",
     "feature.disableContainerBackGround.AbstractContainerScreen_Mixin",
     "feature.disableContainerBackGround.Screen_Mixin",
     "feature.disableItemEntityMulPose.ItemEntityRenderer_Mixin",

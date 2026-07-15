@@ -92,13 +92,6 @@ public class AsaMod implements ClientModInitializer {
     }
 
     public void testOnTick(Minecraft client) {
-//        if (MCUtils.getScreen() instanceof ShulkerBoxScreen boxScreen) {
-//            boxScreen.getMenu().slots.forEach((slot) -> {
-//                ItemStack item = slot.getItem();
-//                if (!item.isEmpty() && !(slot.container instanceof Inventory)) {
-//                    System.out.println(item.getItem());
-//                }
-//            });
-//        }
+        System.out.println(MCUtils.getScreen() == null ? null : MCUtils.getScreen().getClass().getName());
     }
 }

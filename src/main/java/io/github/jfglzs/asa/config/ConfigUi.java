@@ -61,5 +61,4 @@ public class ConfigUi extends GuiConfigsBase {
             this.parent.initGui();
         }
     }
-
 }

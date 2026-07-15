@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.config;
 
+import com.azure.json.implementation.jackson.core.JsonParser;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -189,6 +190,9 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed ENABLE_AUTO_BOX_RESTROKE_BLACKLIST = new ConfigBooleanHotkeyed("启用自动盒子补货黑名单", false,"","启用自动盒子补货黑名单");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigStringList AUTO_BOX_RESTROKE_BLACKLIST = new ConfigStringList( "自动盒子补货黑名单", ImmutableList.of(),"自动盒子补货黑名单");
+    @Config(tab = Tab.DISABLES)
+    public static final ConfigBooleanHotkeyed CONFIRM_SCREEN_ALWAYS_YES = new ConfigBooleanHotkeyed( "禁用确认执行屏幕", false,"","禁用确认执行屏幕");
+
     @Config
     public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false,"","1111");
     @Config
