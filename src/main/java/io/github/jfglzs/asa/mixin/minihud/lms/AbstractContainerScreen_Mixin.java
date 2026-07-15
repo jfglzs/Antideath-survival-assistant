@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.lms;
+package io.github.jfglzs.asa.mixin.minihud.lms;
 
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
@@ -32,7 +32,7 @@ public abstract class AbstractContainerScreen_Mixin extends Screen {
             for (String name : fakePlayerNames) {
                 var titleString = this.title.getString();
                 if (titleString.contains(name)) {
-                    ThreadUtils.runAsync(() -> {
+                    ThreadUtils.runOnTaskThread(() -> {
                         try {
                             Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
                             ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s kill".formatted(name)));

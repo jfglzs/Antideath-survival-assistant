@@ -1,12 +1,10 @@
 package io.github.jfglzs.asa.config;
 
-import fi.dy.masa.malilib.config.IConfigOptionListEntry;
 import fi.dy.masa.malilib.config.options.ConfigHotkey;
 import fi.dy.masa.malilib.hotkeys.IHotkeyCallback;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.KeyAction;
 import io.github.jfglzs.asa.AsaMod;
-import io.github.jfglzs.asa.config.options.AutoCleanWasteMode;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.fakePlayerKillAura.FakePlayerKillAura;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
@@ -14,7 +12,6 @@ import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
-import net.minecraft.network.chat.Component;
 
 import static io.github.jfglzs.asa.config.Configs.*;
 
@@ -58,7 +55,7 @@ public class HotkeysCallback implements IHotkeyCallback {
     public static void init() {
         HotkeysCallback hotkeysCallback = new HotkeysCallback();
 
-        for (ConfigHotkey configHotkey : Configs.KEY_LIST) {
+        for (ConfigHotkey configHotkey : ConfigsManager.KEY_LIST) {
             configHotkey.getKeybind().setCallback(hotkeysCallback);
         }
     }

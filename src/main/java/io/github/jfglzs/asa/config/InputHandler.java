@@ -11,14 +11,14 @@ public class InputHandler implements IKeybindProvider, IKeyboardInputHandler {
     @Override
     public void addKeysToMap(IKeybindManager manager) {
         //没被添加到的,按下按键时不会被识别
-        Configs.KEY_LIST.forEach( hotkey -> manager.addKeybindToMap(hotkey.getKeybind()));
-        Configs.SWITCH_KEY.forEach( hotkey -> manager.addKeybindToMap(hotkey.getKeybind()));
+        ConfigsManager.KEY_LIST.forEach(hotkey -> manager.addKeybindToMap(hotkey.getKeybind()));
+        ConfigsManager.SWITCH_KEY.forEach(hotkey -> manager.addKeybindToMap(hotkey.getKeybind()));
     }
 
     @Override
     public void addHotkeys(IKeybindManager manager) {
-        manager.addHotkeysForCategory(AsaMod.MOD_ID, "按下式", Configs.KEY_LIST);
-        manager.addHotkeysForCategory(AsaMod.MOD_ID, "切换式", Configs.SWITCH_KEY);
+        manager.addHotkeysForCategory(AsaMod.MOD_ID, "按下式", ConfigsManager.KEY_LIST);
+        manager.addHotkeysForCategory(AsaMod.MOD_ID, "切换式", ConfigsManager.SWITCH_KEY);
     }
 
     public static InputHandler getInstance(){

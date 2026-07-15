@@ -5,6 +5,7 @@ import fi.dy.masa.malilib.event.InputEventHandler;
 import fi.dy.masa.malilib.event.RenderEventHandler;
 import io.github.jfglzs.asa.commands.PlayerManipulateCommand;
 import io.github.jfglzs.asa.commands.ServerManagerCommand;
+import io.github.jfglzs.asa.config.ConfigsManager;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.config.HotkeysCallback;
 import io.github.jfglzs.asa.config.InputHandler;
@@ -50,6 +51,7 @@ public class AsaMod implements ClientModInitializer {
 
     //~ if >= 26.1 'registerGameOverlayRenderer' -> 'registerInGameGuiRenderer' {
     private void init() {
+        ConfigsManager.init();
         Configs.INSTANCE.load();
         HotkeysCallback.init();
         ConfigManager.getInstance().registerConfigHandler(MOD_ID, INSTANCE);
