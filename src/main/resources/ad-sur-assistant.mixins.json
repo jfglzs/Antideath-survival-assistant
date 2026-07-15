@@ -38,7 +38,7 @@
     "feature.preventIntentionalGameDesign.MultiPlayerGameMode_Mixin",
     "feature.tabFilter.PlayerTabOverlay_Mixin",
     "feature.transparentItemFrame.ItemFrameRenderer_Mixin",
-    "minihud.lms.AbstractContainerScreen_Mixin",
-    "minihud.lms.CreativeModeInventoryScreen_Mixin"
+    "lms.AbstractContainerScreen_Mixin",
+    "lms.CreativeModeInventoryScreen_Mixin"
   ]
 }

@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.minihud.lms;
+package io.github.jfglzs.asa.mixin.lms;
 
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;

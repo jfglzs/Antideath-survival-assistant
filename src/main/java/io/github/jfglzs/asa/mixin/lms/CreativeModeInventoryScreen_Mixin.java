@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.minihud.lms;
+package io.github.jfglzs.asa.mixin.lms;
 //~ if >= 26.1 'ClickType' -> 'ContainerInput' {
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Share;
