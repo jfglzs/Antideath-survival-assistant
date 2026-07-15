@@ -20,12 +20,12 @@
     "requireAnnotations": true
   },
   "client": [
-    "event.openScreenEvent.AbstractContainerScreen_Mixin",
-    "event.openScreenEvent.ClientPacketListener_Mixin",
+    "event.screenEvents.AbstractContainerScreen_Mixin",
+    "event.screenEvents.ClientPacketListener_Mixin",
     "feature.canAlwaysDisconnect.ServerReconfigScreen_Mixin",
     "feature.canOpenMutiPlayerScreenOnGaming.JoinMultiplayerScreen_Mixin",
     "feature.canOpenMutiPlayerScreenOnGaming.PauseScreen_Mixin",
-    "feature.confirmScreenAlwaysYes.ConfirmScreen_Mixin",
+    "feature.confirmScreenAlwaysYes.ClientPacketListener_Mixin",
     "feature.disableContainerBackGround.AbstractContainerScreen_Mixin",
     "feature.disableContainerBackGround.Screen_Mixin",
     "feature.disableItemEntityMulPose.ItemEntityRenderer_Mixin",

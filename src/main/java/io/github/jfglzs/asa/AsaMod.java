@@ -92,6 +92,5 @@ public class AsaMod implements ClientModInitializer {
     }
 
     public void testOnTick(Minecraft client) {
-        System.out.println(MCUtils.getScreen() == null ? null : MCUtils.getScreen().getClass().getName());
     }
 }

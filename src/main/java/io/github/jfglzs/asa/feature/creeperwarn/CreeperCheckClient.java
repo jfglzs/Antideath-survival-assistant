@@ -20,7 +20,7 @@ public class CreeperCheckClient {
         if (creepers != null && !creepers.isEmpty()) {
             ChatUtils.sendMessWithSound(
                     ChatUtils.toComponent(
-                            "苦力拍来了，距离您 %.2f 米".formatted(creepers.getFirst().distanceTo(mc.player))
+                            "苦力怕来了，距离您 %.2f 米".formatted(creepers.getFirst().distanceTo(mc.player))
                     ).copy().withStyle(ChatFormatting.RED),
                     SoundEvents.TNT_PRIMED,
                     1,

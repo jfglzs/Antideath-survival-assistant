@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.event.openScreenEvent;
+package io.github.jfglzs.asa.mixin.event.screenEvents;
 
 import io.github.jfglzs.asa.events.OpenScreenEvent;
 import io.github.jfglzs.asa.utils.MCUtils;
