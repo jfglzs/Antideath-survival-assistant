@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigsManager {
-    public static final List<IConfigBase> ALL = new ArrayList<>();
-    public static final List<IConfigBase> LMS = new ArrayList<>();;
-    public static final List<IConfigBase> DISABLES = new ArrayList<>();
-    public static final List<IConfigBase> FUNCTIONS = new ArrayList<>();
-    public static final List<IConfigBase> COMMANDS  = new ArrayList<>();
+    private static final List<IConfigBase> ALL = new ArrayList<>();
+    private static final List<IConfigBase> LMS = new ArrayList<>();;
+    private static final List<IConfigBase> DISABLES = new ArrayList<>();
+    private static final List<IConfigBase> FUNCTIONS = new ArrayList<>();
+    private static final List<IConfigBase> COMMANDS  = new ArrayList<>();
 
     public static final List<ConfigHotkey> KEY_LIST = new ArrayList<>();
     public static final List<IHotkeyTogglable> SWITCH_KEY = new ArrayList<>();
@@ -59,10 +59,12 @@ public class ConfigsManager {
     }
 
     public static ImmutableList<IConfigBase> getConfigs(Tab tab) {
-            if (tab == Tab.ALL) return ImmutableList.copyOf(ALL);
-            else if (tab == Tab.FUNCTIONS) return ImmutableList.copyOf(FUNCTIONS);
-            else if (tab == Tab.LMS) return ImmutableList.copyOf(LMS);
-            else if (tab == Tab.DISABLES) return ImmutableList.copyOf(DISABLES);
-            else return ImmutableList.copyOf(COMMANDS);
+           return switch (tab) {
+               case ALL -> ImmutableList.copyOf(ALL);
+               case FUNCTIONS -> ImmutableList.copyOf(FUNCTIONS);
+               case DISABLES -> ImmutableList.copyOf(DISABLES);
+               case COMMAND -> ImmutableList.copyOf(COMMANDS);
+               case LMS -> ImmutableList.copyOf(LMS);
+           };
     }
 }

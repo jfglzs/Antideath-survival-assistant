@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import fi.dy.masa.malilib.config.ConfigUtils;
-import fi.dy.masa.malilib.config.IConfigBase;
 import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.config.options.*;
 //~ if >= 26.1 '.JsonUtils' -> '.data.json.JsonUtils' {
@@ -14,6 +13,7 @@ import java.nio.file.Path;
 import io.github.jfglzs.asa.annotations.Config;
 import io.github.jfglzs.asa.config.options.AutoCleanWasteMode;
 import io.github.jfglzs.asa.config.options.LowHealthSendMode;
+
 import java.io.File;
 
 import static io.github.jfglzs.asa.AsaMod.MOD_ID;
@@ -138,7 +138,7 @@ public class Configs implements IConfigHandler {
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigStringList CHAT_MESSAGE_MAPPING_LIST = new ConfigStringList("聊天消息映射列表", ImmutableList.of(), "可将聊天消息映射为命令 \n 格式: \n !s=spectator ");
     @Config(tab = Tab.FUNCTIONS)
-    public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN = new ConfigBooleanHotkeyed("启用自动垃圾清理",false,"开启后可自动清理垃圾");
+    public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN = new ConfigBooleanHotkeyed("启用自动垃圾清理",false,"","开启后可自动清理垃圾");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigHotkey SWITCH_CLEAN_MODE = new ConfigHotkey( "启用自动垃圾清理-切换模式", "","切换清理模式");
     @Config(tab = Tab.FUNCTIONS)
@@ -166,7 +166,7 @@ public class Configs implements IConfigHandler {
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING = new ConfigBooleanHotkeyed("可在游戏中打开多人游戏菜单", false,"","可在游戏中打开多人游戏菜单");
     @Config(tab = Tab.FUNCTIONS)
-    public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION = new ConfigBooleanHotkeyed("启用自定义方块碰撞箱",false,"开启后可自定义方块碰撞箱");
+    public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION = new ConfigBooleanHotkeyed("启用自定义方块碰撞箱",false,"", "开启后可自定义方块碰撞箱");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_WHITELIST = new ConfigBooleanHotkeyed("启用自定义方块碰撞箱白名单", false,"","启用自定义方块碰撞箱白名单");
     @Config(tab = Tab.FUNCTIONS)
@@ -194,8 +194,6 @@ public class Configs implements IConfigHandler {
     @Config
     public static final ConfigHotkey TEST = new ConfigHotkey( "触发调试","","测试", "1111");
 
-    public static final ImmutableList<IConfigBase> ALL_CONFIGS = ConfigsManager.getConfigs(Tab.ALL);
-
     @Override
     public void load() {
         File settingFile = new File(FILE_PATH);
@@ -205,7 +203,7 @@ public class Configs implements IConfigHandler {
             //~}
             if (jsonElement != null && jsonElement.isJsonObject()) {
                 JsonObject obj = jsonElement.getAsJsonObject();
-                ConfigUtils.readConfigBase(obj, MOD_ID, ALL_CONFIGS);
+                ConfigUtils.readConfigBase(obj, MOD_ID, ConfigsManager.getConfigs(Tab.ALL));
             }
         }
     }
@@ -214,7 +212,7 @@ public class Configs implements IConfigHandler {
     public void save() {
         if ((CONFIG_DIR.exists() && CONFIG_DIR.isDirectory()) || CONFIG_DIR.mkdirs()) {
             JsonObject configRoot = new JsonObject();
-            ConfigUtils.writeConfigBase(configRoot, MOD_ID, ALL_CONFIGS);
+            ConfigUtils.writeConfigBase(configRoot, MOD_ID, ConfigsManager.getConfigs(Tab.ALL));
             //? if < 26.1 {
             /*JsonUtils.writeJsonToFile(configRoot, new File(FILE_PATH));
             *///?} else {
