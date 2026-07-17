@@ -84,7 +84,7 @@ public class AsaMod implements ClientModInitializer {
     private void registerCommands() {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, context) -> {
             PlayerManipulateCommand.register(dispatcher);
-            ServerManagerCommand.register(dispatcher);
+//            ServerManagerCommand.register(dispatcher);
         });
     }
 
