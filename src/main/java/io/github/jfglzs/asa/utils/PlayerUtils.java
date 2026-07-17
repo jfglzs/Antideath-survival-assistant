@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.utils;
 
 import fi.dy.masa.malilib.util.InventoryUtils;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -77,9 +78,11 @@ public class PlayerUtils {
     }
 
     public static int checkRemainCount(Item item) {
+        LocalPlayer localPlayer = MCUtils.getLocalPlayer();
+        if (localPlayer == null) return 0;
         int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(36))
                 .stream()
-                .flatMap(i -> getBoxItemStacks(MCUtils.getLocalPlayer()
+                .flatMap(i -> getBoxItemStacks(localPlayer
                         .getInventory()
                         .getItem(i))
                         .stream()

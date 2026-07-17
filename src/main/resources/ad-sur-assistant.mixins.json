@@ -3,6 +3,7 @@
   "package": "io.github.jfglzs.asa.mixin",
   "compatibilityLevel": "${compatibility_level}",
   "mixins": [
+    "feature.disablePacketKick.PacketDecoder_Mixin",
     "feature.customBlockCollision.BlockStateBase_Mixin",
     "feature.disableConnectionTimedOut.Connection_Mixin",
     "feature.disablePlayerTabOverlayBackGround.PlayerTabOverlay_Mixin",

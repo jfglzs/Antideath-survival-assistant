@@ -45,9 +45,9 @@ public class ConfigsManager {
         ALL.add(obj);
         for (Tab tab : config.tab()) {
             if (tab == Tab.FUNCTIONS) FUNCTIONS.add(obj);
-            if (tab == Tab.LMS) LMS.add(obj);
-            if (tab == Tab.DISABLES) DISABLES.add(obj);
-            if (tab == Tab.COMMAND) COMMANDS.add(obj);
+            else if (tab == Tab.LMS) LMS.add(obj);
+            else if (tab == Tab.DISABLES) DISABLES.add(obj);
+            else if (tab == Tab.COMMAND) COMMANDS.add(obj);
         }
 
         if (obj instanceof ConfigHotkey hotkey) {
