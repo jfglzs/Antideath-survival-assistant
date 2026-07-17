@@ -41,7 +41,8 @@ public class AutoWasteCleanProcessor {
             for (Slot slot : menu.slots) {
 
                 ItemStack stack = slot.getItem();
-                if (isStackEmpty(stack) || shouldKeep(stack) || !(slot.container instanceof Inventory)) continue;
+                boolean isInv = slot.container instanceof Inventory;
+                if (isStackEmpty(stack) || shouldKeep(stack) || !isInv) continue;
 
                 if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
                     InventoryUtils.dropStack(container, slot.index);

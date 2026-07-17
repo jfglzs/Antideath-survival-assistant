@@ -3,9 +3,9 @@
   "package": "io.github.jfglzs.asa.mixin",
   "compatibilityLevel": "${compatibility_level}",
   "mixins": [
-    "feature.disablePacketKick.PacketDecoder_Mixin",
     "feature.customBlockCollision.BlockStateBase_Mixin",
     "feature.disableConnectionTimedOut.Connection_Mixin",
+    "feature.disablePacketKick.PacketDecoder_Mixin",
     "feature.disablePlayerTabOverlayBackGround.PlayerTabOverlay_Mixin",
     "feature.mountLoggersOnMiniHud.RenderHandler_Mixin",
     "feature.test.Entity_Mixin",
@@ -21,8 +21,9 @@
     "requireAnnotations": true
   },
   "client": [
-    "event.screenEvents.AbstractContainerScreen_Mixin",
     "event.screenEvents.ClientPacketListener_Mixin",
+    "event.screenEvents.Gui_Mixin",
+    "event.screenEvents.Minecraft_Mixin",
     "feature.canAlwaysDisconnect.ServerReconfigScreen_Mixin",
     "feature.canOpenMutiPlayerScreenOnGaming.JoinMultiplayerScreen_Mixin",
     "feature.canOpenMutiPlayerScreenOnGaming.PauseScreen_Mixin",
