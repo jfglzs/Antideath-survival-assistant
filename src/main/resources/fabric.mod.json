@@ -29,10 +29,6 @@
   "depends": {
     "fabricloader": "${loader}",
     "malilib": "*",
-    "tweakeroo": "*",
-    "litematica": "*",
-    "minecraft": "${mc}",
-    "fabric-lifecycle-events-v1": "*",
-    "fabric-message-api-v1": "*"
+    "minecraft": "${mc}"
   }
 }

@@ -7,7 +7,9 @@ public enum Tab {
     FUNCTIONS("功能"),
     DISABLES("禁用类功能"),
     COMMAND("命令"),
-    LMS("LMS");
+    OPTIMIZATIONS("优化"),
+    LISTS("列表"),
+    LMS("假人全物品");
 
     public final String translation;
 

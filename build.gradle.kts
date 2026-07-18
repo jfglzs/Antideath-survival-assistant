@@ -199,6 +199,10 @@ tasks.withType<Test> {
     enabled = false
 }
 
+tasks.named("stonecutterPrepare") {
+    dependsOn(tasks.named("clean"))
+}
+
 java {
     val javaVersion = if (unobfuscated) JavaVersion.VERSION_25 else JavaVersion.VERSION_21
     sourceCompatibility = javaVersion

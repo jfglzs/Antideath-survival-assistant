@@ -7,6 +7,8 @@
     "feature.disableConnectionTimedOut.Connection_Mixin",
     "feature.disablePacketKick.PacketDecoder_Mixin",
     "feature.disablePlayerTabOverlayBackGround.PlayerTabOverlay_Mixin",
+    "feature.disableProfiler.Profiler_Mixin",
+    "feature.entityOptimization.Entity_Mixin",
     "feature.mountLoggersOnMiniHud.RenderHandler_Mixin",
     "feature.test.Entity_Mixin",
     "litematic.MaterialListHudRenderer_Mixin",

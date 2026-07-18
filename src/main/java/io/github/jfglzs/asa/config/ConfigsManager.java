@@ -19,6 +19,8 @@ public class ConfigsManager {
     private static final List<IConfigBase> DISABLES = new ArrayList<>();
     private static final List<IConfigBase> FUNCTIONS = new ArrayList<>();
     private static final List<IConfigBase> COMMANDS  = new ArrayList<>();
+    private static final List<IConfigBase> OPTIMIZATIONS  = new ArrayList<>();
+    private static final List<IConfigBase> LISTS  = new ArrayList<>();
 
     public static final List<ConfigHotkey> KEY_LIST = new ArrayList<>();
     public static final List<IHotkeyTogglable> SWITCH_KEY = new ArrayList<>();
@@ -44,10 +46,12 @@ public class ConfigsManager {
 
         ALL.add(obj);
         for (Tab tab : config.tab()) {
+            if (tab == Tab.LMS) LMS.add(obj);
+            if (tab == Tab.COMMAND) COMMANDS.add(obj);
+            if (tab == Tab.DISABLES) DISABLES.add(obj);
             if (tab == Tab.FUNCTIONS) FUNCTIONS.add(obj);
-            else if (tab == Tab.LMS) LMS.add(obj);
-            else if (tab == Tab.DISABLES) DISABLES.add(obj);
-            else if (tab == Tab.COMMAND) COMMANDS.add(obj);
+            if (tab == Tab.OPTIMIZATIONS) OPTIMIZATIONS.add(obj);
+            if (tab == Tab.LISTS) LISTS.add(obj);
         }
 
         if (obj instanceof ConfigHotkey hotkey) {
@@ -59,12 +63,16 @@ public class ConfigsManager {
     }
 
     public static ImmutableList<IConfigBase> getConfigs(Tab tab) {
-           return switch (tab) {
+        ImmutableList<IConfigBase> list = switch (tab) {
                case ALL -> ImmutableList.copyOf(ALL);
                case FUNCTIONS -> ImmutableList.copyOf(FUNCTIONS);
                case DISABLES -> ImmutableList.copyOf(DISABLES);
                case COMMAND -> ImmutableList.copyOf(COMMANDS);
                case LMS -> ImmutableList.copyOf(LMS);
-           };
+               case OPTIMIZATIONS ->  ImmutableList.copyOf(OPTIMIZATIONS);
+               case LISTS -> ImmutableList.copyOf(LISTS);
+        };
+        if (list.isEmpty()) throw new IllegalStateException("Not initialized");
+        return list;
     }
 }
