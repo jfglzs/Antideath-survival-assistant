@@ -13,6 +13,8 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.core.BlockPos;
 
 public class AutoVaultCommand {
+    public static final String prefix = "[ASA-AutoVault] ";
+
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
         var command = CommandUtils.literal("autovault")
                 .requires(cs -> Configs.AUTO_VAULT_COMMAND.getBooleanValue())
@@ -61,6 +63,8 @@ public class AutoVaultCommand {
             return 0;
         }
 
+        context.getSource().sendError(ChatUtils.toComponent( AutoVaultCommand.prefix + "设置成功!"));
+
         AutoVaultExecutor.set(prefix, start, end, blockX, blockY, blockZ, direction, in);
         return Command.SINGLE_SUCCESS;
     }
@@ -70,19 +74,21 @@ public class AutoVaultCommand {
         int y = IntegerArgumentType.getInteger(context, "blockY");
         int z = IntegerArgumentType.getInteger(context, "blockZ");
         if (!AutoVaultExecutor.setBlockPos(new BlockPos(x, y, z))) {
-            context.getSource().sendError(ChatUtils.toComponent("无效的方块坐标"));
+            context.getSource().sendError(ChatUtils.toComponent(prefix + "无效的方块坐标"));
             return 0;
         }
         return Command.SINGLE_SUCCESS;
     }
 
     private static int stop(CommandContext<FabricClientCommandSource> context) {
+        context.getSource().sendFeedback(ChatUtils.toComponent(prefix + "已停止"));
         AutoVaultExecutor.isRunning = false;
         AutoVaultExecutor.reset();
         return Command.SINGLE_SUCCESS;
     }
 
     private static int start(CommandContext<FabricClientCommandSource> context) {
+        context.getSource().sendFeedback(ChatUtils.toComponent(prefix + "已启动"));
         AutoVaultExecutor.isRunning = true;
         return Command.SINGLE_SUCCESS;
     }

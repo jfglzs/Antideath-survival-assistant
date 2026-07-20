@@ -198,7 +198,7 @@ public class Configs implements IConfigHandler {
     @Config(tab = Tab.OPTIMIZATIONS)
     public static final ConfigBooleanHotkeyed CLIENT_ENTITY_TICK_OPTIMIZATION = new ConfigBooleanHotkeyed( "客户端实体Tick优化", false,"","优化/剔除了一些计算 使得客户端更加流畅");
     @Config(tab = Tab.COMMAND)
-    public static final ConfigBooleanHotkeyed AUTO_VAULT_COMMAND = new ConfigBooleanHotkeyed( "自动宝库命令 /autovault", false,"","自动开启宝库命令");
+    public static final ConfigBooleanHotkeyed AUTO_VAULT_COMMAND = new ConfigBooleanHotkeyed( "自动宝库命令 /autovault", false,"","自动开启宝库命令 用法 \n/autovault player <前缀> <开始值> <结束值> <方块X> <方块Y> <方块Z> <DIR> <In> 等效于:\n/player _AntiDeath_ spawn at <方块X> <方块Y> <方块Z> facing <dir> <in>\n/autovault set <宝库XYZ>");
 
     @Config
     public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false,"","1111");
