@@ -31,10 +31,10 @@ public class BoxRestockMannager {
                     if (slot.index >= 54 && slot.index <= 62) continue;
                     InventoryUtils.tryMoveStacks(slot, boxScreen, true, true, true);
                     MCUtils.getLocalPlayer().closeContainer();
-                    context = null;
-                    return;
+                    break;
                 }
             }
+            context = null;
         }
     }
 

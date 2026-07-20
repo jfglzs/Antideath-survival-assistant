@@ -1,13 +1,12 @@
 package io.github.jfglzs.asa.utils;
 
 import io.github.jfglzs.asa.AsaMod;
+import io.github.jfglzs.asa.events.ClientTickEvent;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 
 import java.util.Queue;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.LockSupport;
 
 public class ThreadUtils {
@@ -38,11 +37,15 @@ public class ThreadUtils {
         thread.setDaemon(true);
         thread.setName("ASA-TaskThread");
         thread.start();
+
+        ClientTickEvents.START_CLIENT_TICK.register(client -> {})
     }
 
-    public static void runAsync(Runnable toRun) {
-        THREAD_POOL.submit(toRun);
+    public static Future<?> runAsync(Runnable toRun) {
+        return THREAD_POOL.submit(toRun);
     }
+
+    public
 
     public static CompletableFuture<Void> runOnClientThread(Runnable toRun) {
         return MC.submit(toRun);

@@ -3,12 +3,14 @@ package io.github.jfglzs.asa;
 import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InputEventHandler;
 import fi.dy.masa.malilib.event.RenderEventHandler;
+import io.github.jfglzs.asa.commands.AutoVaultCommand;
 import io.github.jfglzs.asa.commands.PlayerManipulateCommand;
 import io.github.jfglzs.asa.config.ConfigsManager;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.config.HotkeysCallback;
 import io.github.jfglzs.asa.config.InputHandler;
 import io.github.jfglzs.asa.events.ClientTickEvent;
+import io.github.jfglzs.asa.feature.autoVault.AutoVaultExecutor;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.chatMessageMapping.ChatMappingProcessor;
 import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
@@ -71,6 +73,7 @@ public class AsaMod implements ClientModInitializer {
     private void registerEvents() {
         ClientTickEvents.END_CLIENT_TICK.register(ClientTickEvent::onUpdate);
         ClientTickEvent.register(i -> true, this::testOnTick);
+        ClientTickEvent.register(i -> true, client -> AutoVaultExecutor.run());
         ClientTickEvent.register(i -> true, LowHealthSendCommandOrChat::trigger);
         ClientTickEvent.register(i -> true, ItemStorageDataManager::scanMatchedPlayersAndInteract);
         ClientTickEvent.register(i -> i % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender.INSTANCE::update);
@@ -82,6 +85,7 @@ public class AsaMod implements ClientModInitializer {
     private void registerCommands() {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, context) -> {
             PlayerManipulateCommand.register(dispatcher);
+            AutoVaultCommand.register(dispatcher);
         });
     }
 

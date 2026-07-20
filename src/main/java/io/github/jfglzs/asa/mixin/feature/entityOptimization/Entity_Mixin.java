@@ -5,6 +5,7 @@ import io.github.jfglzs.asa.utils.EntityUtils;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -42,7 +43,7 @@ public abstract class Entity_Mixin {
     )
     protected void collide(Vec3 movement, CallbackInfoReturnable<Vec3> cir) {
         Object self = this;
-        if (asa$canDisable(level) && !EntityUtils.isPlayer(self) && !(self instanceof ItemEntity)) {
+        if (asa$canDisable(level) && !EntityUtils.isPlayer(self) && !(self instanceof ItemEntity) && !(self instanceof FireworkRocketEntity)) {
             cir.setReturnValue(Vec3.ZERO);
         }
     }

@@ -4,10 +4,12 @@ import fi.dy.masa.itemscroller.util.InventoryUtils;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.events.OpenScreenEvent;
+import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -33,13 +35,14 @@ public class AutoWasteCleanProcessor {
      */
     public static void process(AbstractContainerScreen<?> container) {
         if (Configs.ENABLE_AUTO_WASTE_CLEAN.getBooleanValue()) {
+            //兼容快捷盒子补货
+            if (container instanceof ShulkerBoxScreen && BoxRestockMannager.context != null) return;
             var menu = container.getMenu();
             var player = MCUtils.getMinecraft().player;
             if (!PlayerUtils.isSurvivalMode(player)) return;
             String mode = Configs.AUTO_WASTE_CLEAN_MODE.getStringValue();
 
             for (Slot slot : menu.slots) {
-
                 ItemStack stack = slot.getItem();
                 boolean isInv = slot.container instanceof Inventory;
                 if (isStackEmpty(stack) || shouldKeep(stack) || !isInv) continue;
@@ -52,6 +55,9 @@ public class AutoWasteCleanProcessor {
                     InventoryUtils.tryMoveStacks(slot, container, true, true, false);
                     AsaMod.debugMessage("Moved Inventory Item to container for slot " + slot.index);
                 }
+
+                ChatUtils.sendOverLayMessage(ChatUtils.toComponent("[ASA] 清理完成"));
+                player.closeContainer();
             }
         }
     }

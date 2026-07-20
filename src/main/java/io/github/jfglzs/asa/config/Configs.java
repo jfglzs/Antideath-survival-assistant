@@ -197,6 +197,9 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed DISABLE_PROFILER = new ConfigBooleanHotkeyed( "禁用Profiler", false,"","禁用后可提升帧数但会导致饼图不可用");
     @Config(tab = Tab.OPTIMIZATIONS)
     public static final ConfigBooleanHotkeyed CLIENT_ENTITY_TICK_OPTIMIZATION = new ConfigBooleanHotkeyed( "客户端实体Tick优化", false,"","优化/剔除了一些计算 使得客户端更加流畅");
+    @Config(tab = Tab.COMMAND)
+    public static final ConfigBooleanHotkeyed AUTO_VAULT_COMMAND = new ConfigBooleanHotkeyed( "自动宝库命令 /autovault", false,"","自动开启宝库命令");
+
     @Config
     public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false,"","1111");
     @Config

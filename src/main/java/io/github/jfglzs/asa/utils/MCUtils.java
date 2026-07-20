@@ -6,6 +6,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
 //~ if < 1.21.11 'Identifier' -> 'ResourceLocation' {
 import net.minecraft.resources.Identifier;
@@ -26,7 +27,7 @@ public class MCUtils {
     }
 
     public static ClientLevel getLevel() {
-       return (ClientLevel) getLocalPlayer().level();
+       return MCUtils.getMinecraft().level;
     }
 
     public static void executeCommand(String command) {
@@ -73,5 +74,16 @@ public class MCUtils {
         //~ if >= 26.2 '.screen' -> '.gui.screen()' {
         return mc.screen;
         //~}
+    }
+
+    public static boolean isPlayerOnline(String player) {
+        ClientLevel level = MCUtils.getMinecraft().level;
+        if (level == null) return false;
+        for (AbstractClientPlayer clientPlayer : level.players()) {
+            if (clientPlayer.getName().getString().equalsIgnoreCase(player)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
