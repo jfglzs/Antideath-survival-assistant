@@ -52,7 +52,7 @@ public class AutoVaultExecutor {
     }
 
     public static String makeCommand() {
-        if (current >= start && current <= end) {
+        if (current > start && current <= end) {
             current++;
         }
         else {
