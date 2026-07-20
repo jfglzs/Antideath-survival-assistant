@@ -37,15 +37,11 @@ public class ThreadUtils {
         thread.setDaemon(true);
         thread.setName("ASA-TaskThread");
         thread.start();
-
-        ClientTickEvents.START_CLIENT_TICK.register(client -> {})
     }
 
     public static Future<?> runAsync(Runnable toRun) {
         return THREAD_POOL.submit(toRun);
     }
-
-    public
 
     public static CompletableFuture<Void> runOnClientThread(Runnable toRun) {
         return MC.submit(toRun);

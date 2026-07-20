@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class AutoVaultExecutor {
     private static final RateLimiter LIMITER = RateLimiter.create(1);
     private static final String SPAWN_COMMAND = "player %s spawn at %.2f %.2f %.2f facing %.1f %.1f";
+    private static final String KILL_COMMAND = "player %s kill";
     private static final String USE_COMMAND = "player %s use";
     private static ExecutorState executorState = ExecutorState.IDLE;
     private static BlockPos vaultPos;
@@ -76,22 +77,25 @@ public class AutoVaultExecutor {
         if (vaultPos == null || state.getBlock() != Blocks.VAULT) return;
         VaultState vaultState = state.getValue(VaultBlock.STATE);
 
-        if (executorState == ExecutorState.IDLE && vaultState == VaultState.INACTIVE) {
+        if (executorState == ExecutorState.IDLE && vaultState == VaultState.ACTIVE) {
             if (LIMITER.tryAcquire()) {
                 MCUtils.executeCommand(makeCommand());
                 executorState = ExecutorState.SPAWNING;
             }
         }
         else if (executorState == ExecutorState.SPAWNING) {
-            if (LIMITER.tryAcquire()) {
-                if (MCUtils.isPlayerOnline(name)) {
+            if (MCUtils.isPlayerOnline(name)) {
+                if (LIMITER.tryAcquire()) {
                     MCUtils.executeCommand(USE_COMMAND.formatted(name));
                     executorState = ExecutorState.ON_ACTION;
                 }
             }
         }
-        else if (vaultState == VaultState.INACTIVE) {
-            executorState = ExecutorState.IDLE;
+        else if (vaultState == VaultState.ACTIVE && executorState == ExecutorState.ON_ACTION) {
+            if (LIMITER.tryAcquire()) {
+                MCUtils.executeCommand(KILL_COMMAND.formatted(name));
+                executorState = ExecutorState.IDLE;
+            }
         }
     }
 
