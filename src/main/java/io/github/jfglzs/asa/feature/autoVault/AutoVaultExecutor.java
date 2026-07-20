@@ -77,7 +77,7 @@ public class AutoVaultExecutor {
         if (vaultPos == null || state.getBlock() != Blocks.VAULT) return;
         VaultState vaultState = state.getValue(VaultBlock.STATE);
 
-        if (executorState == ExecutorState.IDLE && (vaultState == VaultState.INACTIVE || vaultState == VaultState.ACTIVE)) {
+        if (executorState == ExecutorState.IDLE && canUseVault(vaultState)) {
             if (LIMITER.tryAcquire()) {
                 MCUtils.executeCommand(makeCommand());
                 executorState = ExecutorState.SPAWNING;
@@ -85,16 +85,22 @@ public class AutoVaultExecutor {
         }
         else if (executorState == ExecutorState.SPAWNING) {
             if (MCUtils.isPlayerOnline(name)) {
-                MCUtils.executeCommand(USE_COMMAND.formatted(name));
-                executorState = ExecutorState.ON_ACTION;
+                if (LIMITER.tryAcquire()) {
+                    MCUtils.executeCommand(USE_COMMAND.formatted(name));
+                    executorState = ExecutorState.ON_ACTION;
+                }
             }
         }
-        else if (vaultState == VaultState.ACTIVE && executorState == ExecutorState.ON_ACTION) {
+        else if (canUseVault(vaultState) && executorState == ExecutorState.ON_ACTION) {
             if (LIMITER.tryAcquire()) {
                 MCUtils.executeCommand(KILL_COMMAND.formatted(name));
                 executorState = ExecutorState.IDLE;
             }
         }
+    }
+
+    public static boolean canUseVault(VaultState vaultState) {
+        return vaultState == VaultState.INACTIVE || vaultState == VaultState.ACTIVE;
     }
 
     private enum ExecutorState {
