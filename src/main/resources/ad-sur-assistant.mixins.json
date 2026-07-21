@@ -21,6 +21,7 @@
   "client": [
     "event.openScreenEvent.AbstractContainerScreen_Mixin",
     "event.openScreenEvent.ClientPacketListener_Mixin",
+    "feature.boxRestock.ClientPacketListener_Mixin",
     "feature.canAlwaysDisconnect.ServerReconfigScreen_Mixin",
     "feature.canOpenMutiPlayerScreenOnGaming.JoinMultiplayerScreen_Mixin",
     "feature.canOpenMutiPlayerScreenOnGaming.PauseScreen_Mixin",

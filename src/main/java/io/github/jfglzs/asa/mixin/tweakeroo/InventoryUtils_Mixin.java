@@ -33,16 +33,19 @@ public class InventoryUtils_Mixin {
             @Local(name = "threshold") int threshold,
             @Local(name = "stackHand") ItemStack stackHand
     ) {
-        if (Configs.AUTO_BOX_RESTROKE.getBooleanValue() && stackHand.getCount() < threshold) {
+        if (hand != InteractionHand.MAIN_HAND) return;
+
+        ItemStack currentHandStack = player.getItemInHand(hand);
+        if (BoxRestockMannager.canStartAutoRestock(currentHandStack, threshold)) {
             for (int index : PlayerUtils.getAllBoxIndexes(36)) {
                 ItemStack boxStack = player.inventoryMenu.getSlot(index).getItem();
-                if (boxStack.isEmpty() || stackHand.isEmpty() || stackHand.getMaxStackSize() == 1) return;
+                if (boxStack.isEmpty() || currentHandStack.isEmpty() || currentHandStack.getMaxStackSize() == 1) return;
                 for (ItemStack itemStack : PlayerUtils.getBoxItemStacks(boxStack)) {
-                    if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(itemStack, stackHand)) {
-                        if (limiter.tryAcquire()) {
+                    if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(itemStack, currentHandStack)) {
+                        if (limiter.tryAcquire() && BoxRestockMannager.startAutoRestock(currentHandStack, index, threshold)) {
+                            System.out.println("[ASA BoxRestock] opening shulker slot=" + index + " item=" + currentHandStack.getItem() + " count=" + currentHandStack.getCount());
                             ShulkerUtils.open(index);
-                            BoxRestockMannager.context = new BoxRestockMannager.BoxRestockContext(stackHand);
-                            break;
+                            return;
                         }
                     }
                 }
