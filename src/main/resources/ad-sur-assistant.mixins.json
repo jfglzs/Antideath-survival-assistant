@@ -4,6 +4,7 @@
   "compatibilityLevel": "${compatibility_level}",
   "mixins": [
     "event.packetEvent.ClientPacketListener_Mixin",
+    "feature.async.PrimedTnt_Mixin",
     "feature.customBlockCollision.BlockStateBase_Mixin",
     "feature.disableConnectionTimedOut.Connection_Mixin",
     "feature.disablePacketKick.PacketDecoder_Mixin",
@@ -12,10 +13,10 @@
     "feature.entityOptimization.Entity_Mixin",
     "feature.mountLoggersOnMiniHud.RenderHandler_Mixin",
     "feature.test.Entity_Mixin",
-    "litematic.MaterialListHudRenderer_Mixin",
-    "litematic.WorldUtils_Mixin",
-    "minihud.RenderHandler_Mixin",
-    "tweakeroo.InventoryUtils_Mixin"
+    "masa.litematic.MaterialListHudRenderer_Mixin",
+    "masa.litematic.WorldUtils_Mixin",
+    "masa.minihud.RenderHandler_Mixin",
+    "masa.tweakeroo.InventoryUtils_Mixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -40,11 +41,11 @@
     "feature.disableSubtitleOverlayBackGround.SubtitleOverlay_Mixin",
     "feature.flatMining.MultiPlayerGameMode_Mixin",
     "feature.forceBlockBreakCoolDown.MultiPlayerGameMode_Mixin",
+    "feature.lms.AbstractContainerScreen_Mixin",
+    "feature.lms.CreativeModeInventoryScreen_Mixin",
     "feature.mountLoggersOnMiniHud.ClientPacketListener_Mixin",
     "feature.preventIntentionalGameDesign.MultiPlayerGameMode_Mixin",
     "feature.tabFilter.PlayerTabOverlay_Mixin",
-    "feature.transparentItemFrame.ItemFrameRenderer_Mixin",
-    "lms.AbstractContainerScreen_Mixin",
-    "lms.CreativeModeInventoryScreen_Mixin"
+    "feature.transparentItemFrame.ItemFrameRenderer_Mixin"
   ]
 }

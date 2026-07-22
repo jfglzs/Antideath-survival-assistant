@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.litematic;
+package io.github.jfglzs.asa.mixin.masa.litematic;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

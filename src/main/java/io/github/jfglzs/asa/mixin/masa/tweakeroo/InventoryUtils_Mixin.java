@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.tweakeroo;
+package io.github.jfglzs.asa.mixin.masa.tweakeroo;
 
 import com.google.common.util.concurrent.RateLimiter;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(InventoryUtils.class)
 public class InventoryUtils_Mixin {
     @Unique
-    private static RateLimiter limiter = RateLimiter.create(1);
+    private static final RateLimiter LIMITER = RateLimiter.create(0.3);
 
     @Inject(
             method = "preRestockHand",
@@ -39,7 +39,7 @@ public class InventoryUtils_Mixin {
                 if (boxStack.isEmpty() || stackHand.isEmpty() || stackHand.getMaxStackSize() == 1) return;
                 for (ItemStack itemStack : PlayerUtils.getBoxItemStacks(boxStack)) {
                     if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(itemStack, stackHand)) {
-                        if (limiter.tryAcquire()) {
+                        if (LIMITER.tryAcquire()) {
                             ShulkerUtils.open(index);
                             BoxRestockMannager.context = new BoxRestockMannager.BoxRestockContext(stackHand);
                             break;

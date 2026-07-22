@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.litematic;
+package io.github.jfglzs.asa.mixin.masa.litematic;
 
 import fi.dy.masa.litematica.materials.MaterialListHudRenderer;
 import io.github.jfglzs.asa.config.Configs;

@@ -52,7 +52,7 @@ public class AutoVaultExecutor {
     }
 
     public static String makeCommand() {
-        if (current > start && current <= end) {
+        if (current >= start && current <= end) {
             current++;
         }
         else {
@@ -84,11 +84,10 @@ public class AutoVaultExecutor {
             }
         }
         else if (executorState == ExecutorState.SPAWNING) {
+            if (!LIMITER.tryAcquire()) return;
             if (MCUtils.isPlayerOnline(name)) {
-                if (LIMITER.tryAcquire()) {
-                    MCUtils.executeCommand(USE_COMMAND.formatted(name));
-                    executorState = ExecutorState.ON_ACTION;
-                }
+                MCUtils.executeCommand(USE_COMMAND.formatted(name));
+                executorState = ExecutorState.ON_ACTION;
             }
         }
         else if (canUseVault(vaultState) && executorState == ExecutorState.ON_ACTION) {

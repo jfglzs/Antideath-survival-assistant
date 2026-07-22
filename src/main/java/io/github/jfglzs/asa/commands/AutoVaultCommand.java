@@ -63,7 +63,7 @@ public class AutoVaultCommand {
             return 0;
         }
 
-        context.getSource().sendError(ChatUtils.toComponent( AutoVaultCommand.prefix + "设置成功!"));
+        context.getSource().sendFeedback(ChatUtils.toComponent( AutoVaultCommand.prefix + "设置成功!"));
 
         AutoVaultExecutor.set(prefix, start, end, blockX, blockY, blockZ, direction, in);
         return Command.SINGLE_SUCCESS;

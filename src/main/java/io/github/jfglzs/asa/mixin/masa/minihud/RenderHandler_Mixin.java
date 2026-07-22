@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.minihud;
+package io.github.jfglzs.asa.mixin.masa.minihud;
 
 
 import com.llamalad7.mixinextras.injector.ModifyReceiver;
