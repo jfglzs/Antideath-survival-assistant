@@ -4,7 +4,6 @@
   "compatibilityLevel": "${compatibility_level}",
   "mixins": [
     "event.packetEvent.ClientPacketListener_Mixin",
-    "feature.async.PrimedTnt_Mixin",
     "feature.customBlockCollision.BlockStateBase_Mixin",
     "feature.disableConnectionTimedOut.Connection_Mixin",
     "feature.disablePacketKick.PacketDecoder_Mixin",
