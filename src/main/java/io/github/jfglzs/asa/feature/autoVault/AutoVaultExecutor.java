@@ -65,6 +65,7 @@ public class AutoVaultExecutor {
     }
 
     public static void reset() {
+        AutoVaultExecutor.isRunning = false;
         executorState = ExecutorState.IDLE;
     }
 

@@ -59,7 +59,7 @@ public class AutoVaultCommand {
         float in = FloatArgumentType.getFloat(context, "in");
 
         if (start > end) {
-            context.getSource().sendError(ChatUtils.toComponent("无效的开始值"));
+            context.getSource().sendError(ChatUtils.toComponent(AutoVaultCommand.prefix + "无效的开始值"));
             return 0;
         }
 
@@ -77,12 +77,12 @@ public class AutoVaultCommand {
             context.getSource().sendError(ChatUtils.toComponent(prefix + "无效的方块坐标"));
             return 0;
         }
+        context.getSource().sendFeedback(ChatUtils.toComponent( AutoVaultCommand.prefix + "设置成功!"));
         return Command.SINGLE_SUCCESS;
     }
 
     private static int stop(CommandContext<FabricClientCommandSource> context) {
         context.getSource().sendFeedback(ChatUtils.toComponent(prefix + "已停止"));
-        AutoVaultExecutor.isRunning = false;
         AutoVaultExecutor.reset();
         return Command.SINGLE_SUCCESS;
     }
