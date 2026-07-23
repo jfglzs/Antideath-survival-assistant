@@ -3,7 +3,7 @@ package io.github.jfglzs.asa.mixin.masa.litematic;
 import fi.dy.masa.litematica.materials.MaterialListEntry;
 //~ if >= 1.21.11 'util.ItemType' -> 'util.data.ItemType' {
 import fi.dy.masa.malilib.util.data.ItemType;
-//?}
+//~}
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import org.spongepowered.asm.mixin.Final;

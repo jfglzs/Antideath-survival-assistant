@@ -77,6 +77,10 @@ public class PlayerUtils {
         return items.stream().filter(stack -> stack.getMaxStackSize() - stack.getCount() != 0).toList().isEmpty();
     }
 
+    public static boolean isBoxEmpty(ItemStack box) {
+        return getBoxItemStacks(box).isEmpty();
+    }
+
     public static int checkRemainCount(Item item) {
         LocalPlayer localPlayer = MCUtils.getLocalPlayer();
         if (localPlayer == null) return 0;

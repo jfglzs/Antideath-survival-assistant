@@ -17,17 +17,14 @@ public class ShulkerUtils {
     }
 
     public static boolean findBoxToOpen(ItemStack stack) {
-        if (stack == null || stack.isEmpty()) {
-            PlayerUtils.closeContainer();
-            return false;
-        }
+        if (stack == null) return true;
 
         List<Integer> boxes = PlayerUtils.getAllBoxIndexes(9, 36);
         for (Integer index : boxes) {
             ItemStack boxStack = PlayerUtils.getInventory().get(index);
-            List<ItemStack> boxItemStacks = PlayerUtils.getBoxItemStacks(boxStack);
-            for (ItemStack boxItemStack : boxItemStacks) {
-                if (InventoryUtils.areStacksEqualIgnoreDurability(stack, boxItemStack)) {
+            if (PlayerUtils.isBoxEmpty(boxStack)) break;
+            for (ItemStack boxItemStack : PlayerUtils.getBoxItemStacks(boxStack)) {
+                if (stack.isEmpty() || InventoryUtils.areStacksEqualIgnoreDurability(stack, boxItemStack)) {
                     ShulkerUtils.open(index);
                     return true;
                 }

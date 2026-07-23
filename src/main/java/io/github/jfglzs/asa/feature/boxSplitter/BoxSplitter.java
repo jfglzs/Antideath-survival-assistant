@@ -24,18 +24,13 @@ public class BoxSplitter {
             return;
         }
 
-        if (stack.isEmpty()) {
-            ChatUtils.sendOverLayMessage(ChatUtils.c("物品不可为空"));
-            return;
-        }
-
         isRunning = true;
         itemToSplit = stack.copy();
         run();
     }
 
     public static void run() {
-        if (!isRunning || itemToSplit.isEmpty()) return;
+        if (!isRunning) return;
 
         Screen screen = MCUtils.getScreen();
         if (screen instanceof ShulkerBoxScreen boxScreen) {
@@ -43,7 +38,7 @@ public class BoxSplitter {
             for (Slot slot : menu.slots) {
                 ItemStack item = slot.getItem();
                 if (item.isEmpty()) continue;
-                if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(itemToSplit, item)) {
+                if (itemToSplit.isEmpty() || fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(itemToSplit, item)) {
                     InventoryUtils.dropStack(boxScreen, slot.index);
                 }
             }
