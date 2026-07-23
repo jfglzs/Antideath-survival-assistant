@@ -207,6 +207,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigStringList FAKE_PLAYER_INVENTORY_ITEM_CACHE_WHITE_LIST = new ConfigStringList( "假人背包物品缓存-假人白名单", ImmutableList.of(),"","");
     @Config(tab = Tab.LMS)
     public static final ConfigHotkey CLEAN_PLAYER_INV_CHACHE = new ConfigHotkey( "假人背包物品缓存-清理缓存", "","","");
+    @Config(tab = Tab.LMS)
+    public static final ConfigBooleanHotkeyed LITEMATICA_CACULATE_QWP = new ConfigBooleanHotkeyed( "投影材料列表-统计全物品", false,"","开启后材料投影材料列表会统计全物品");
 
     @Config
     public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false,"","1111");

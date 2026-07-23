@@ -22,7 +22,7 @@ public class ShulkerUtils {
             return false;
         }
 
-        List<Integer> boxes = PlayerUtils.getAllBoxIndexes(36);
+        List<Integer> boxes = PlayerUtils.getAllBoxIndexes(9, 36);
         for (Integer index : boxes) {
             ItemStack boxStack = PlayerUtils.getInventory().get(index);
             List<ItemStack> boxItemStacks = PlayerUtils.getBoxItemStacks(boxStack);

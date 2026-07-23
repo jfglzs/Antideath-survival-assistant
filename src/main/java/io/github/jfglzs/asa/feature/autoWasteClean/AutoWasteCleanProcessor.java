@@ -56,7 +56,7 @@ public class AutoWasteCleanProcessor {
                     AsaMod.debugMessage("Moved Inventory Item to container for slot " + slot.index);
                 }
 
-                ChatUtils.sendOverLayMessage(ChatUtils.c("[ASA] 清理完成"));
+                ChatUtils.sendOverLayMessage(ChatUtils.c("清理完成"));
                 player.closeContainer();
             }
         }

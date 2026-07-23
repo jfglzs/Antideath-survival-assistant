@@ -12,6 +12,7 @@
     "feature.entityOptimization.Entity_Mixin",
     "feature.mountLoggersOnMiniHud.RenderHandler_Mixin",
     "feature.test.Entity_Mixin",
+    "masa.litematic.MaterialListEntry_Mixin",
     "masa.litematic.MaterialListHudRenderer_Mixin",
     "masa.litematic.WorldUtils_Mixin",
     "masa.minihud.RenderHandler_Mixin",

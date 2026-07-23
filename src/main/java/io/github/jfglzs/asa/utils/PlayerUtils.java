@@ -39,12 +39,12 @@ public class PlayerUtils {
         return player == null ? ItemStack.EMPTY : player.getInventory().getItem(slotIndex);
     }
 
-    public static List<Integer> getAllBoxIndexes(int maxIndex) {
+    public static List<Integer> getAllBoxIndexes(int minIndex, int maxIndex) {
         List<Integer> results = new ArrayList<>();
         Inventory inventory = MCUtils.getLocalPlayer().getInventory();
 
 
-        for (int i = 0; i < maxIndex; i++) {
+        for (int i = minIndex; i < maxIndex; i++) {
             ItemStack stack = inventory.getItem(i);
             if (isShulkerBox(stack)) {
                 results.add(i);
@@ -80,7 +80,7 @@ public class PlayerUtils {
     public static int checkRemainCount(Item item) {
         LocalPlayer localPlayer = MCUtils.getLocalPlayer();
         if (localPlayer == null) return 0;
-        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(36))
+        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(0, 36))
                 .stream()
                 .flatMap(i -> getBoxItemStacks(localPlayer
                         .getInventory()

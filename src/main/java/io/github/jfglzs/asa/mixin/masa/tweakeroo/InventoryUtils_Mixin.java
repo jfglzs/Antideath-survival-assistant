@@ -34,7 +34,7 @@ public class InventoryUtils_Mixin {
             @Local(name = "stackHand") ItemStack stackHand
     ) {
         if (Configs.AUTO_BOX_RESTROKE.getBooleanValue() && stackHand.getCount() < threshold) {
-            for (int index : PlayerUtils.getAllBoxIndexes(36)) {
+            for (int index : PlayerUtils.getAllBoxIndexes(9, 36)) {
                 ItemStack boxStack = player.inventoryMenu.getSlot(index).getItem();
                 if (boxStack.isEmpty() || stackHand.isEmpty() || stackHand.getMaxStackSize() == 1) return;
                 for (ItemStack itemStack : PlayerUtils.getBoxItemStacks(boxStack)) {

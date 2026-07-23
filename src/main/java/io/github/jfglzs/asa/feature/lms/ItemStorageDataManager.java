@@ -27,7 +27,7 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 public class ItemStorageDataManager {
-    private static Map<String, PlayerInventory> playerInv = new Object2ReferenceArrayMap<>();
+    private static final Map<String, PlayerInventory> PLAYER_INV = new Object2ReferenceArrayMap<>();
     private static List<ItemStorage> itemStorages = new ObjectArrayList<>();
     private static final Gson LENIENT_GSON = new GsonBuilder().setLenient().create();
     private static final Type playerType = new TypeToken<List<PlayerItemStorage>>() {}.getType();
@@ -36,13 +36,12 @@ public class ItemStorageDataManager {
     private static final Set<String> waitForKilling = new ObjectArraySet<>();
 
     public record PlayerInventory(ImmutableList<Slot> slots) {
-
     }
+
     record PlayerItemStorage(String name, int count, String id) {
-
     }
-    record ItemStorage(int count, String id) {
 
+    record ItemStorage(int count, String id) {
     }
     public static void init() {
         ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
@@ -67,11 +66,11 @@ public class ItemStorageDataManager {
                     try {
                         List<PlayerItemStorage> currentList = LENIENT_GSON.fromJson(str, playerType);
                         if (currentList != null && !currentList.isEmpty()) {
-                            for (PlayerItemStorage playerItemStorage : currentList) {
-                                String name = playerItemStorage.name();
+                            for (PlayerItemStorage itemStorage : currentList) {
+                                String name = itemStorage.name();
                                 if (name != null) {
                                     MCUtils.executeCommand("player %s spawn".formatted(name));
-                                    ChatUtils.sendMessWithSound(ChatUtils.c("假人: [%s] 取出数量: [%d]".formatted(name, playerItemStorage.count())), SoundEvents.VILLAGER_YES, 1, 1);
+                                    ChatUtils.sendMessWithSound(ChatUtils.c("假人: [%s] 取出数量: [%d]".formatted(name, itemStorage.count())), SoundEvents.VILLAGER_YES, 1, 1);
 
                                     if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
                                         waitForInv.add(name);
@@ -110,8 +109,8 @@ public class ItemStorageDataManager {
     public static void submit(Item item, int count) {
         if (item == null) return;
         if (Configs.FAKE_PLAYER_INVENTORY_ITEM_CACHE.getBooleanValue()) {
-            for (String name : playerInv.keySet()) {
-                PlayerInventory inventory = playerInv.get(name);
+            for (String name : PLAYER_INV.keySet()) {
+                PlayerInventory inventory = PLAYER_INV.get(name);
                 for (Slot slot : inventory.slots) {
                     if (canSend(slot.getItem(), item)) {
                         MCUtils.executeCommand("player %s spawn".formatted(name));
@@ -130,7 +129,8 @@ public class ItemStorageDataManager {
     }
 
     public static void removeAll() {
-        playerInv.clear();
+        PLAYER_INV.clear();
+        ChatUtils.sendOverLayMessage(ChatUtils.c("缓存已清空"));
     }
 
     public static boolean canSend(ItemStack stack, Item item) {
@@ -147,7 +147,7 @@ public class ItemStorageDataManager {
     }
 
     public static void addPlayerInventory(String name, PlayerInventory playerInventory) {
-        playerInv.put(name, playerInventory);
+        PLAYER_INV.put(name, playerInventory);
     }
 
     public static Component get(ItemStack stack) {
@@ -155,27 +155,32 @@ public class ItemStorageDataManager {
             return Component.empty();
         }
 
-        String stackId = MCUtils.getItemID(stack.getItem());
+        int count = getRemainCount(stack);
 
-        if (!itemStorages.isEmpty()) {
-            for (ItemStorage itemStorage : itemStorages) {
-                if (itemStorage.id().equals(stackId)) {
-                    int count = itemStorage.count();
-                    int oneBoxCount = stack.getMaxStackSize() * 27;
-
-                    if (count < oneBoxCount) {
-                        return Component.nullToEmpty("存货: %s 个".formatted(count)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
-                    }
-                    else {
-                        return Component.nullToEmpty("存货: %s 个 (%.2f 潜影盒) ".formatted(count, (float) count / oneBoxCount)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
-                    }
-                }
-            }
-        } else {
+        if (itemStorages.isEmpty()) {
             return Component.nullToEmpty("物品未查询").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED);
+        }
+        else if (count != 0) {
+            int oneBoxCount = stack.getMaxStackSize() * 27;
+            if (count < oneBoxCount) {
+                return Component.nullToEmpty("存货: %s 个".formatted(count)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
+            }
+            else {
+                return Component.nullToEmpty("存货: %s 个 (%.2f 潜影盒) ".formatted(count, (float) count / oneBoxCount)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
+            }
         }
 
         return Component.nullToEmpty("暂无存货").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED);
+    }
+
+    public static int getRemainCount(ItemStack stack) {
+        String stackId = MCUtils.getItemID(stack.getItem());
+        for (ItemStorage itemStorage : itemStorages) {
+            if (itemStorage.id().equals(stackId)) {
+                return itemStorage.count();
+            }
+        }
+        return 0;
     }
 
     public static void reflushCache() {
