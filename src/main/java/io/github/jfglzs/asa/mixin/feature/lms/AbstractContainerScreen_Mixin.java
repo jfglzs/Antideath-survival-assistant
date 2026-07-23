@@ -73,6 +73,7 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
             for (String name : names) {
                 if (title.contains(name)) {
                     ItemStorageDataManager.addPlayerInventory(name, new ItemStorageDataManager.PlayerInventory(ImmutableList.copyOf(this.menu.slots)));
+                    ChatUtils.sendOverLayMessage(ChatUtils.c("已缓存 %s 的物品栏".formatted(name)));
                     break;
                 }
             }

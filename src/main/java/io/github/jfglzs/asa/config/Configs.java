@@ -205,6 +205,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed FAKE_PLAYER_INVENTORY_ITEM_CACHE = new ConfigBooleanHotkeyed( "假人背包物品缓存", false,"","开启后会缓存假人背包内的物品 中间投影方块时优先从缓存的假人取出");
     @Config(tab = Tab.LISTS)
     public static final ConfigStringList FAKE_PLAYER_INVENTORY_ITEM_CACHE_WHITE_LIST = new ConfigStringList( "假人背包物品缓存-假人白名单", ImmutableList.of(),"","");
+    @Config(tab = Tab.LMS)
+    public static final ConfigHotkey CLEAN_PLAYER_INV_CHACHE = new ConfigHotkey( "假人背包物品缓存-清理缓存", "","","");
 
     @Config
     public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false,"","1111");

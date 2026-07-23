@@ -36,14 +36,14 @@ public class ItemStorageDataManager {
     private static final Set<String> waitForKilling = new ObjectArraySet<>();
 
     public record PlayerInventory(ImmutableList<Slot> slots) {
-    }
 
+    }
     record PlayerItemStorage(String name, int count, String id) {
-    }
 
+    }
     record ItemStorage(int count, String id) {
-    }
 
+    }
     public static void init() {
         ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
             if (!Configs.LMS_FETCH_SUPPORT.getBooleanValue()) return true;
@@ -125,8 +125,12 @@ public class ItemStorageDataManager {
                     }
                 }
             }
-            MCUtils.executeCommand("getItem %s %d nbt".formatted(MCUtils.getItemID(item), count));
         }
+        MCUtils.executeCommand("getItem %s %d nbt".formatted(MCUtils.getItemID(item), count));
+    }
+
+    public static void removeAll() {
+        playerInv.clear();
     }
 
     public static boolean canSend(ItemStack stack, Item item) {
@@ -161,7 +165,8 @@ public class ItemStorageDataManager {
 
                     if (count < oneBoxCount) {
                         return Component.nullToEmpty("存货: %s 个".formatted(count)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
-                    } else {
+                    }
+                    else {
                         return Component.nullToEmpty("存货: %s 个 (%.2f 潜影盒) ".formatted(count, (float) count / oneBoxCount)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
                     }
                 }

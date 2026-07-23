@@ -8,6 +8,7 @@ import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.feature.fakePlayerKillAura.FakePlayerKillAura;
+import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
@@ -53,6 +54,9 @@ public class HotkeysCallback implements IHotkeyCallback {
         }
         else if (key == TRIGGER_BOX_SPLITTER.getKeybind()) {
             BoxSplitter.addTask(PlayerUtils.getPlayerMainHandStack());
+        }
+        else if (key == CLEAN_PLAYER_INV_CHACHE.getKeybind()) {
+            ItemStorageDataManager.removeAll();
         }
         return false;
     }
