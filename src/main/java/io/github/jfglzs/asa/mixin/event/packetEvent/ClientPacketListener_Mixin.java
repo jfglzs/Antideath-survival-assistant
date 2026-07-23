@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.mixin.event.packetEvent;
 
 import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
+import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.protocol.game.ClientboundContainerSetContentPacket;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,5 +17,6 @@ public class ClientPacketListener_Mixin {
     )
     private void handleContainerContent(ClientboundContainerSetContentPacket packet, CallbackInfo ci) {
         BoxRestockMannager.run();
+        BoxSplitter.run();
     }
 }

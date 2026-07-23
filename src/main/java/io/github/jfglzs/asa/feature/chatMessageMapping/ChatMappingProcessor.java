@@ -35,7 +35,7 @@ public class ChatMappingProcessor {
                 }
                 catch (Exception e) {
                     AsaMod.LOGGER.error("Error while processing chat message!", e);
-                    ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent(e.getMessage()));
+                    ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(e.getMessage()));
                 }
             }
             return true;

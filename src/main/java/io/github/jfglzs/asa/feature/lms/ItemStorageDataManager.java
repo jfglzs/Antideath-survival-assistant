@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.feature.lms;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -7,13 +8,18 @@ import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.PlayerUtils;
 import io.github.jfglzs.asa.utils.ThreadUtils;
+import it.unimi.dsi.fastutil.objects.Object2ReferenceArrayMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -21,12 +27,16 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 public class ItemStorageDataManager {
-    private static List<ItemStorage> itemStorages = new ArrayList<>();
+    private static Map<String, PlayerInventory> playerInv = new Object2ReferenceArrayMap<>();
+    private static List<ItemStorage> itemStorages = new ObjectArrayList<>();
     private static final Gson LENIENT_GSON = new GsonBuilder().setLenient().create();
-    private static final Type playerType = new TypeToken<List<PlayerItemStorage>>(){}.getType();
-    private static final Type itemType = new TypeToken<List<ItemStorage>>(){}.getType();
-    private static final Set<String> waitForInv = new HashSet<>();
-    private static final Set<String> waitForKilling = new HashSet<>();
+    private static final Type playerType = new TypeToken<List<PlayerItemStorage>>() {}.getType();
+    private static final Type itemType = new TypeToken<List<ItemStorage>>() {}.getType();
+    private static final Set<String> waitForInv = new ObjectArraySet<>();
+    private static final Set<String> waitForKilling = new ObjectArraySet<>();
+
+    public record PlayerInventory(ImmutableList<Slot> slots) {
+    }
 
     record PlayerItemStorage(String name, int count, String id) {
     }
@@ -41,15 +51,15 @@ public class ItemStorageDataManager {
             var str = message.getString().trim();
 
             if (str.contains("maxCount:") && str.startsWith("{") && str.endsWith("}")) {
-                ChatUtils.sendMessWithSound(ChatUtils.toComponent("请求的数量超出配置的最大上限").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH, 1, 1);
+                ChatUtils.sendMessWithSound(ChatUtils.c("请求的数量超出配置的最大上限").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH, 1, 1);
                 return false;
             }
             else if (str.startsWith("{") && str.endsWith("}") && str.contains("waitSecond:")) {
-                ChatUtils.sendMessWithSound(ChatUtils.toComponent("假人取货还在冷却中").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH, 1, 1);
+                ChatUtils.sendMessWithSound(ChatUtils.c("假人取货还在冷却中").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH, 1, 1);
                 return false;
             }
             else if (str.equals("[]")) {
-                ChatUtils.sendMessWithSound(ChatUtils.toComponent("全无品: 这个物品暂时没有存货").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
+                ChatUtils.sendMessWithSound(ChatUtils.c("全无品: 这个物品暂时没有存货").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
                 return false;
             }
             else if (str.contains("id:") && str.contains("count:") && str.startsWith("[{") && str.endsWith("}]")) {
@@ -61,7 +71,7 @@ public class ItemStorageDataManager {
                                 String name = playerItemStorage.name();
                                 if (name != null) {
                                     MCUtils.executeCommand("player %s spawn".formatted(name));
-                                    ChatUtils.sendMessWithSound(ChatUtils.toComponent("假人: [%s] 取出数量: [%d]".formatted(name, playerItemStorage.count())), SoundEvents.VILLAGER_YES, 1, 1);
+                                    ChatUtils.sendMessWithSound(ChatUtils.c("假人: [%s] 取出数量: [%d]".formatted(name, playerItemStorage.count())), SoundEvents.VILLAGER_YES, 1, 1);
 
                                     if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
                                         waitForInv.add(name);
@@ -75,7 +85,7 @@ public class ItemStorageDataManager {
                     }
                     catch (Exception e) {
                         AsaMod.LOGGER.error(e.getMessage(), e);
-                        ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent(e.getMessage()));
+                        ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(e.getMessage()));
                     }
                 }
                 else {
@@ -84,13 +94,13 @@ public class ItemStorageDataManager {
                     }
                     catch (Exception e) {
                         AsaMod.LOGGER.error(e.getMessage(), e);
-                        ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent(e.getMessage()));
+                        ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(e.getMessage()));
                     }
                 }
                 return false;
             }
             else if (str.startsWith("[{") && str.endsWith("]") && str.contains("<...>")) {
-                ChatUtils.sendMessWithSound(ChatUtils.toComponent("无法通过getStorageData命令查询容器数据 \n 原因: NBT被折叠 \n 请安装Antideath-carpet-addition v1.4.5以上版本并开启 fixNbtFold 规则 \n 或者将LMS 更新至 1.14.1").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
+                ChatUtils.sendMessWithSound(ChatUtils.c("无法通过getStorageData命令查询容器数据 \n 原因: NBT被折叠 \n 请安装Antideath-carpet-addition v1.4.5以上版本并开启 fixNbtFold 规则 \n 或者将LMS 更新至 1.14.1").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
                 return false;
             }
             return true;
@@ -98,9 +108,42 @@ public class ItemStorageDataManager {
     }
 
     public static void submit(Item item, int count) {
-        if (item != null) {
+        if (item == null) return;
+        if (Configs.FAKE_PLAYER_INVENTORY_ITEM_CACHE.getBooleanValue()) {
+            for (String name : playerInv.keySet()) {
+                PlayerInventory inventory = playerInv.get(name);
+                for (Slot slot : inventory.slots) {
+                    if (canSend(slot.getItem(), item)) {
+                        MCUtils.executeCommand("player %s spawn".formatted(name));
+                        if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
+                            waitForInv.add(name);
+                        }
+                        else {
+                            waitForKilling.add(name);
+                        }
+                        return;
+                    }
+                }
+            }
             MCUtils.executeCommand("getItem %s %d nbt".formatted(MCUtils.getItemID(item), count));
         }
+    }
+
+    public static boolean canSend(ItemStack stack, Item item) {
+        if (stack.getItem() == item) return true;
+        if (PlayerUtils.isShulkerBox(stack)) {
+            List<ItemStack> stacks = PlayerUtils.getBoxItemStacks(stack);
+            for (ItemStack boxStack : stacks) {
+                if (boxStack.getItem() == item) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static void addPlayerInventory(String name, PlayerInventory playerInventory) {
+        playerInv.put(name, playerInventory);
     }
 
     public static Component get(ItemStack stack) {
@@ -118,14 +161,12 @@ public class ItemStorageDataManager {
 
                     if (count < oneBoxCount) {
                         return Component.nullToEmpty("存货: %s 个".formatted(count)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
-                    }
-                    else {
+                    } else {
                         return Component.nullToEmpty("存货: %s 个 (%.2f 潜影盒) ".formatted(count, (float) count / oneBoxCount)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
                     }
                 }
             }
-        }
-        else {
+        } else {
             return Component.nullToEmpty("物品未查询").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED);
         }
 
@@ -149,9 +190,8 @@ public class ItemStorageDataManager {
                                 Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
                                 ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s inventory".formatted(name))).join();
                                 waitForKilling.add(name);
-                            }
-                            catch (Exception e) {
-                                ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent(e.getMessage()));
+                            } catch (Exception e) {
+                                ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(e.getMessage()));
                                 AsaMod.LOGGER.error(e.getMessage(), e);
                             }
                         });

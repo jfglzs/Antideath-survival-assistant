@@ -44,7 +44,7 @@ public class ChatUtils {
         }
     }
 
-    public static Component toComponent(String text) {
-        return text == null ? Component.empty() : Component.nullToEmpty(text);
+    public static Component c(String text) {
+        return text == null ? Component.empty() : Component.nullToEmpty("[ASA] " + text);
     }
 }

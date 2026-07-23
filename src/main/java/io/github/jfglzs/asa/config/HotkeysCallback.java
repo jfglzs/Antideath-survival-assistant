@@ -6,10 +6,12 @@ import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.KeyAction;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
+import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.feature.fakePlayerKillAura.FakePlayerKillAura;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 
@@ -46,8 +48,11 @@ public class HotkeysCallback implements IHotkeyCallback {
         }
         else if (key == SWITCH_CLEAN_MODE.getKeybind()) {
             Configs.switchMode(AUTO_WASTE_CLEAN_MODE);
-            ChatUtils.sendOverLayMessage(ChatUtils.toComponent("自动垃圾清理： %s".formatted(Configs.AUTO_WASTE_CLEAN_MODE.getStringValue())));
+            ChatUtils.sendOverLayMessage(ChatUtils.c("自动垃圾清理： %s".formatted(Configs.AUTO_WASTE_CLEAN_MODE.getStringValue())));
             return true;
+        }
+        else if (key == TRIGGER_BOX_SPLITTER.getKeybind()) {
+            BoxSplitter.addTask(PlayerUtils.getPlayerMainHandStack());
         }
         return false;
     }

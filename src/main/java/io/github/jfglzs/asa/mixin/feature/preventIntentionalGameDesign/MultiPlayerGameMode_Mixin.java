@@ -80,7 +80,7 @@ public class MultiPlayerGameMode_Mixin {
             if (!state.is(BlockTags.BEDS)) return;
         }
 
-        ChatUtils.sendMessWithSound(ChatUtils.toComponent("已阻止方块交互"), SoundEvents.VILLAGER_DEATH, 1, 1);
+        ChatUtils.sendMessWithSound(ChatUtils.c("已阻止方块交互"), SoundEvents.VILLAGER_DEATH, 1, 1);
         player.swing(hand);
         cir.setReturnValue(InteractionResult.FAIL);
     }

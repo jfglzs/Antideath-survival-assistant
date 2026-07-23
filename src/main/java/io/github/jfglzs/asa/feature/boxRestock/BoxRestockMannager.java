@@ -4,6 +4,7 @@ import fi.dy.masa.itemscroller.util.InventoryUtils;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.Mods;
+import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
@@ -30,7 +31,7 @@ public class BoxRestockMannager {
                     //过滤hotbar防止自己补自己
                     if (slot.index >= 54 && slot.index <= 62) continue;
                     InventoryUtils.tryMoveStacks(slot, boxScreen, true, true, true);
-                    MCUtils.getLocalPlayer().closeContainer();
+                    PlayerUtils.closeContainer();
                     break;
                 }
             }

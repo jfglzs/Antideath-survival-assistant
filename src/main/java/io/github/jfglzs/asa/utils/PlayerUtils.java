@@ -94,7 +94,7 @@ public class PlayerUtils {
     }
 
     public static ItemStack getPlayerMainHandStack() {
-        Player player = MCUtils.getMinecraft().player;
+        LocalPlayer player = MCUtils.getMinecraft().player;
         return player == null ? ItemStack.EMPTY : player.getMainHandItem();
     }
 
@@ -104,5 +104,12 @@ public class PlayerUtils {
 
     public static boolean isShulkerBox(ItemStack stack) {
         return stack.getItem() instanceof BlockItem bi && bi.getBlock() instanceof ShulkerBoxBlock;
+    }
+
+    public static void closeContainer() {
+        LocalPlayer player = MCUtils.getLocalPlayer();
+        if (player != null) {
+            player.closeContainer();
+        }
     }
 }

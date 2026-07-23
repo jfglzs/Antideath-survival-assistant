@@ -56,7 +56,7 @@ public class AutoWasteCleanProcessor {
                     AsaMod.debugMessage("Moved Inventory Item to container for slot " + slot.index);
                 }
 
-                ChatUtils.sendOverLayMessage(ChatUtils.toComponent("[ASA] 清理完成"));
+                ChatUtils.sendOverLayMessage(ChatUtils.c("[ASA] 清理完成"));
                 player.closeContainer();
             }
         }
@@ -105,11 +105,11 @@ public class AutoWasteCleanProcessor {
 
         if (Configs.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue()) {
             Configs.AUTO_WASTE_CLEAN_BLACKLIST.setStrings(strings);
-            ChatUtils.sendOverLayMessage(ChatUtils.toComponent("成功将玩家物品栏保存至黑名单"));
+            ChatUtils.sendOverLayMessage(ChatUtils.c("成功将玩家物品栏保存至黑名单"));
         }
         else if (Configs.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue()) {
             Configs.AUTO_WASTE_CLEAN_WHITELIST.setStrings(strings);
-            ChatUtils.sendOverLayMessage(ChatUtils.toComponent("成功将玩家物品栏保存至白名单"));
+            ChatUtils.sendOverLayMessage(ChatUtils.c("成功将玩家物品栏保存至白名单"));
         }
 
         AsaMod.debugMessage("Saved Items to List \n " + strings);

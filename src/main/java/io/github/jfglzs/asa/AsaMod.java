@@ -12,6 +12,7 @@ import io.github.jfglzs.asa.config.InputHandler;
 import io.github.jfglzs.asa.events.ClientTickEvent;
 import io.github.jfglzs.asa.feature.autoVault.AutoVaultExecutor;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
+import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.feature.chatMessageMapping.ChatMappingProcessor;
 import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
@@ -24,8 +25,6 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallba
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.world.inventory.Slot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +37,7 @@ public class AsaMod implements ClientModInitializer {
 
     public static void debugMessage(String string) {
         if (DEBUG.getBooleanValue()) {
-            ChatUtils.sendMessOnlyClientVisible(ChatUtils.toComponent("[ASA] " + string));
+            ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(string));
             LOGGER.info(string);
         }
     }
@@ -74,6 +73,7 @@ public class AsaMod implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(ClientTickEvent::onUpdate);
         ClientTickEvent.register(i -> true, this::testOnTick);
         ClientTickEvent.register(i -> true, client -> AutoVaultExecutor.run());
+        ClientTickEvent.register(i -> true, client -> BoxSplitter.tick());
         ClientTickEvent.register(i -> true, LowHealthSendCommandOrChat::trigger);
         ClientTickEvent.register(i -> true, ItemStorageDataManager::scanMatchedPlayersAndInteract);
         ClientTickEvent.register(i -> i % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender.INSTANCE::update);
