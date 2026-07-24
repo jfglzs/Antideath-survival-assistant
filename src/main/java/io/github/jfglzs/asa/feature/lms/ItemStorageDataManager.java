@@ -180,17 +180,17 @@ public class ItemStorageDataManager {
         String itemID = MCUtils.getItemID(stack.getItem());
         int count = getRemainCount(item);
 
-        if (ITEM_STORAGES.isEmpty()) {
-            components.add(Component.nullToEmpty("物品未查询").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED));
+        if (ITEM_STORAGES.isEmpty() && FAKE_ITEM_STORAGES.isEmpty()) {
+            components.add(Component.nullToEmpty("物品未查询/缓存").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED));
             return components;
         }
-        else if (count != 0) {
+        else if (count > 0) {
             int oneBoxCount = stack.getMaxStackSize() * 27;
             if (count < oneBoxCount) {
-                components.add(Component.nullToEmpty("存货: %s 个".formatted(count)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
+                components.add(Component.nullToEmpty("存货: %s".formatted(count)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
             }
             else {
-                components.add(Component.nullToEmpty("存货: %d 个 (%.2f 潜影盒) ".formatted(count, (float) count / oneBoxCount)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
+                components.add(Component.nullToEmpty("存货: %d (%.2f 潜影盒) ".formatted(count, (float) count / oneBoxCount)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
             }
             if (Configs.LITEMATICA_CALCULATE_FAKE.getBooleanValue()) {
                 components.add(Component.nullToEmpty("假人存货: %d".formatted(FAKE_ITEM_STORAGES.getInt(itemID))).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
