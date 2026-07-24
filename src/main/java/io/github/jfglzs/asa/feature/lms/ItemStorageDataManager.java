@@ -10,9 +10,7 @@ import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import io.github.jfglzs.asa.utils.ThreadUtils;
-import it.unimi.dsi.fastutil.objects.Object2ReferenceArrayMap;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import it.unimi.dsi.fastutil.objects.ObjectArraySet;
+import it.unimi.dsi.fastutil.objects.*;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -28,12 +26,13 @@ import java.util.*;
 
 public class ItemStorageDataManager {
     private static final Map<String, PlayerInventory> PLAYER_INV = new Object2ReferenceArrayMap<>();
-    private static List<ItemStorage> itemStorages = new ObjectArrayList<>();
+    private static final Object2IntMap<String> FAKE_ITEM_STORAGES = new Object2IntArrayMap<>();
+    private static final Object2IntMap<String> ITEM_STORAGES = new Object2IntArrayMap<>();
     private static final Gson LENIENT_GSON = new GsonBuilder().setLenient().create();
-    private static final Type playerType = new TypeToken<List<PlayerItemStorage>>() {}.getType();
-    private static final Type itemType = new TypeToken<List<ItemStorage>>() {}.getType();
-    private static final Set<String> waitForInv = new ObjectArraySet<>();
-    private static final Set<String> waitForKilling = new ObjectArraySet<>();
+    private static final Type PLAYER_TYPE = new TypeToken<List<PlayerItemStorage>>() {}.getType();
+    private static final Type ITEM_TYPE = new TypeToken<List<ItemStorage>>() {}.getType();
+    private static final Set<String> WAIT_FOR_INV = new ObjectArraySet<>();
+    private static final Set<String> WAIT_FOR_KILLING = new ObjectArraySet<>();
 
     public record PlayerInventory(ImmutableList<Slot> slots) {
     }
@@ -43,6 +42,7 @@ public class ItemStorageDataManager {
 
     record ItemStorage(int count, String id) {
     }
+
     public static void init() {
         ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
             if (!Configs.LMS_FETCH_SUPPORT.getBooleanValue()) return true;
@@ -64,7 +64,7 @@ public class ItemStorageDataManager {
             else if (str.contains("id:") && str.contains("count:") && str.startsWith("[{") && str.endsWith("}]")) {
                 if (str.contains("name:")) {
                     try {
-                        List<PlayerItemStorage> currentList = LENIENT_GSON.fromJson(str, playerType);
+                        List<PlayerItemStorage> currentList = LENIENT_GSON.fromJson(str, PLAYER_TYPE);
                         if (currentList != null && !currentList.isEmpty()) {
                             for (PlayerItemStorage itemStorage : currentList) {
                                 String name = itemStorage.name();
@@ -73,10 +73,10 @@ public class ItemStorageDataManager {
                                     ChatUtils.sendMessWithSound(ChatUtils.c("假人: [%s] 取出数量: [%d]".formatted(name, itemStorage.count())), SoundEvents.VILLAGER_YES, 1, 1);
 
                                     if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
-                                        waitForInv.add(name);
+                                        WAIT_FOR_INV.add(name);
                                     }
                                     else {
-                                        waitForKilling.add(name);
+                                        WAIT_FOR_KILLING.add(name);
                                     }
                                 }
                             }
@@ -89,7 +89,9 @@ public class ItemStorageDataManager {
                 }
                 else {
                     try {
-                        itemStorages = LENIENT_GSON.fromJson(str, itemType);
+                        ITEM_STORAGES.clear();
+                        List<ItemStorage> list = LENIENT_GSON.fromJson(str, ITEM_TYPE);
+                        list.forEach(itemStorage -> ITEM_STORAGES.put(itemStorage.id(), itemStorage.count()));
                     }
                     catch (Exception e) {
                         AsaMod.LOGGER.error(e.getMessage(), e);
@@ -115,16 +117,17 @@ public class ItemStorageDataManager {
                     if (canSend(slot.getItem(), item)) {
                         MCUtils.executeCommand("player %s spawn".formatted(name));
                         if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
-                            waitForInv.add(name);
+                            WAIT_FOR_INV.add(name);
                         }
                         else {
-                            waitForKilling.add(name);
+                            WAIT_FOR_KILLING.add(name);
                         }
                         return;
                     }
                 }
             }
         }
+
         MCUtils.executeCommand("getItem %s %d nbt".formatted(MCUtils.getItemID(item), count));
     }
 
@@ -146,41 +149,69 @@ public class ItemStorageDataManager {
         return false;
     }
 
-    public static void addPlayerInventory(String name, PlayerInventory playerInventory) {
-        PLAYER_INV.put(name, playerInventory);
+    public static void addPlayerInventory(String name, PlayerInventory inventory) {
+        PLAYER_INV.put(name, inventory);
+        calculateInventory();
     }
 
-    public static Component get(ItemStack stack) {
+    public static void calculateInventory() {
+        FAKE_ITEM_STORAGES.clear();
+        for (PlayerInventory pi : PLAYER_INV.values()) {
+            for (Slot slot : pi.slots) {
+                ItemStack stack = slot.getItem();
+                String itemID = MCUtils.getItemID(stack.getItem());
+                if (PlayerUtils.isShulkerBox(stack)) {
+                    for (ItemStack boxStack : PlayerUtils.getBoxItemStacks(stack)) {
+                        FAKE_ITEM_STORAGES.merge(MCUtils.getItemID(boxStack.getItem()), boxStack.getCount(), Integer::sum);
+                    }
+                }
+                FAKE_ITEM_STORAGES.merge(itemID, stack.getCount(), Integer::sum);
+            }
+        }
+    }
+
+    public static List<Component> get(ItemStack stack) {
+        List<Component> components = new ArrayList<>();
         if (stack.isEmpty()) {
-            return Component.empty();
+            return components;
         }
 
-        int count = getRemainCount(stack);
+        Item item = stack.getItem();
+        String itemID = MCUtils.getItemID(stack.getItem());
+        int count = getRemainCount(item);
 
-        if (itemStorages.isEmpty()) {
-            return Component.nullToEmpty("物品未查询").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED);
+        if (ITEM_STORAGES.isEmpty()) {
+            components.add(Component.nullToEmpty("物品未查询").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED));
+            return components;
         }
         else if (count != 0) {
             int oneBoxCount = stack.getMaxStackSize() * 27;
             if (count < oneBoxCount) {
-                return Component.nullToEmpty("存货: %s 个".formatted(count)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
+                components.add(Component.nullToEmpty("存货: %s 个".formatted(count)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
             }
             else {
-                return Component.nullToEmpty("存货: %s 个 (%.2f 潜影盒) ".formatted(count, (float) count / oneBoxCount)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN);
+                components.add(Component.nullToEmpty("存货: %d 个 (%.2f 潜影盒) ".formatted(count, (float) count / oneBoxCount)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
             }
+            if (Configs.LITEMATICA_CALCULATE_FAKE.getBooleanValue()) {
+                components.add(Component.nullToEmpty("假人存货: %d".formatted(FAKE_ITEM_STORAGES.getInt(itemID))).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
+            }
+            return components;
         }
 
-        return Component.nullToEmpty("暂无存货").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED);
+        components.add(Component.nullToEmpty("暂无存货").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED));
+        return components;
     }
 
-    public static int getRemainCount(ItemStack stack) {
-        String stackId = MCUtils.getItemID(stack.getItem());
-        for (ItemStorage itemStorage : itemStorages) {
-            if (itemStorage.id().equals(stackId)) {
-                return itemStorage.count();
-            }
+    public static int getRemainCount(Item item) {
+        String stackId = MCUtils.getItemID(item);
+        int count = 0;
+        if (Configs.LITEMATICA_CALCULATE_QWP.getBooleanValue()) {
+            count = count + ITEM_STORAGES.getInt(stackId);
         }
-        return 0;
+        if (Configs.LITEMATICA_CALCULATE_FAKE.getBooleanValue()) {
+            count = count + FAKE_ITEM_STORAGES.getInt(stackId);
+        }
+        return count;
     }
 
     public static void reflushCache() {
@@ -194,13 +225,14 @@ public class ItemStorageDataManager {
                     //~ if >=1.21.10 '.getName()' -> '.name()' {
                     var name = player.getGameProfile().name();
                     //~}
-                    if (waitForInv.remove(name)) {
+                    if (WAIT_FOR_INV.remove(name)) {
                         ThreadUtils.runAsync(() -> {
                             try {
                                 Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
                                 ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s inventory".formatted(name))).join();
-                                waitForKilling.add(name);
-                            } catch (Exception e) {
+                                WAIT_FOR_KILLING.add(name);
+                            }
+                            catch (Exception e) {
                                 ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(e.getMessage()));
                                 AsaMod.LOGGER.error(e.getMessage(), e);
                             }
@@ -212,6 +244,6 @@ public class ItemStorageDataManager {
     }
 
     public static Set<String> getFakePlayerNames() {
-        return waitForKilling;
+        return WAIT_FOR_KILLING;
     }
 }

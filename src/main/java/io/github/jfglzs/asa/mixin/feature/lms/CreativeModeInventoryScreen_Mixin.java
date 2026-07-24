@@ -113,7 +113,7 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             if (minecraft.player != null && !minecraft.player.isCreative() && Configs.LMS_FETCH_SUPPORT.getBooleanValue()) {
                 var texts = cir.getReturnValue();
                 var text = ItemStorageDataManager.get(stack);
-                texts.add(text);
+                texts.addAll(text);
                 cir.setReturnValue(texts);
             }
         }

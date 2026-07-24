@@ -7,6 +7,7 @@ import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.ShulkerUtils;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
@@ -24,21 +25,26 @@ public class BoxSplitter {
             return;
         }
 
+        if (stack.isEmpty()) {
+            ChatUtils.sendOverLayMessage(ChatUtils.c("物品不可为空"));
+            return;
+        }
+
         isRunning = true;
         itemToSplit = stack.copy();
         run();
     }
 
     public static void run() {
-        if (!isRunning) return;
+        if (!isRunning || itemToSplit.isEmpty()) return;
 
         Screen screen = MCUtils.getScreen();
         if (screen instanceof ShulkerBoxScreen boxScreen) {
             var menu = boxScreen.getMenu();
             for (Slot slot : menu.slots) {
                 ItemStack item = slot.getItem();
-                if (item.isEmpty()) continue;
-                if (itemToSplit.isEmpty() || fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(itemToSplit, item)) {
+                if (item.isEmpty() || slot.container instanceof Inventory) continue;
+                if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(itemToSplit, item)) {
                     InventoryUtils.dropStack(boxScreen, slot.index);
                 }
             }

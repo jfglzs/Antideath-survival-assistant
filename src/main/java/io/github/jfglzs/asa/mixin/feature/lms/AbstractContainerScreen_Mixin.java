@@ -10,6 +10,7 @@ import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import org.spongepowered.asm.mixin.Final;
@@ -39,13 +40,12 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
             at = @At("TAIL")
     )
     private void onClose(CallbackInfo ci) {
-        asa$cacheData();
+        this.asa$cacheData();
         if (Configs.AUTO_KILL_FAKE_PLAYERS.getBooleanValue()) {
             Set<String> fakePlayerNames = ItemStorageDataManager.getFakePlayerNames();
             for (String name : fakePlayerNames) {
                 var titleString = this.title.getString();
                 if (titleString.contains(name)) {
-
                     ThreadUtils.runOnTaskThread(() -> {
                         try {
                             Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
@@ -56,7 +56,7 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
                             AsaMod.LOGGER.error(e.getMessage(), e);
                         }
                         finally {
-                            fakePlayerNames.clear();
+                            fakePlayerNames.remove(name);
                         }
                     });
                     break;
@@ -72,7 +72,8 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
             List<String> names = Configs.FAKE_PLAYER_INVENTORY_ITEM_CACHE_WHITE_LIST.getStrings();
             for (String name : names) {
                 if (title.contains(name)) {
-                    ItemStorageDataManager.addPlayerInventory(name, new ItemStorageDataManager.PlayerInventory(ImmutableList.copyOf(this.menu.slots)));
+                    List<Slot> slots = this.menu.slots.stream().filter(slot -> !(slot.container instanceof Inventory)).toList();
+                    ItemStorageDataManager.addPlayerInventory(name, new ItemStorageDataManager.PlayerInventory(ImmutableList.copyOf(slots)));
                     ChatUtils.sendOverLayMessage(ChatUtils.c("已缓存 %s 的物品栏".formatted(name)));
                     break;
                 }

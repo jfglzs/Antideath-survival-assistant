@@ -18,7 +18,6 @@ public class ShulkerUtils {
 
     public static boolean findBoxToOpen(ItemStack stack) {
         if (stack == null) return true;
-
         List<Integer> boxes = PlayerUtils.getAllBoxIndexes(9, 36);
         for (Integer index : boxes) {
             ItemStack boxStack = PlayerUtils.getInventory().get(index);
@@ -30,6 +29,7 @@ public class ShulkerUtils {
                 }
             }
         }
+
         PlayerUtils.closeContainer();
         return false;
     }
