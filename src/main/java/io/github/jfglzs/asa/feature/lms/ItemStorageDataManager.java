@@ -6,10 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
-import io.github.jfglzs.asa.utils.ChatUtils;
-import io.github.jfglzs.asa.utils.MCUtils;
-import io.github.jfglzs.asa.utils.PlayerUtils;
-import io.github.jfglzs.asa.utils.ThreadUtils;
+import io.github.jfglzs.asa.utils.*;
 import it.unimi.dsi.fastutil.objects.*;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.ChatFormatting;
@@ -127,8 +124,9 @@ public class ItemStorageDataManager {
                 }
             }
         }
-
-        MCUtils.executeCommand("getItem %s %d nbt".formatted(MCUtils.getItemID(item), count));
+        if (CommandUtils.canUseCommand("getItem")) {
+            MCUtils.executeCommand("getItem %s %d nbt".formatted(MCUtils.getItemID(item), count));
+        }
     }
 
     public static void removeAll() {
