@@ -22,7 +22,7 @@ public class LowHealthSendCommandOrChat {
 
                 String content = LOW_HEALTH_SEND_CONTENT.getStringValue();
                 if (LOW_HEALTH_SEND_MODE.getOptionListValue().getStringValue().equals("发送聊天消息")) {
-                    ChatUtils.sendMessageToServer(content);
+                    ChatUtils.toServer(content);
                     AsaMod.debugMessage("Send Chat %s".formatted(content));
                 }
                 else {

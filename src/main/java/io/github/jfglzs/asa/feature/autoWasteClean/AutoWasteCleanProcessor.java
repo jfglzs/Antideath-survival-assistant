@@ -5,6 +5,7 @@ import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.events.OpenScreenEvent;
 import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
+import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
@@ -19,45 +20,38 @@ import net.minecraft.world.item.ItemStack;
 import java.util.*;
 
 public class AutoWasteCleanProcessor {
-
-    public static void init() {
-        OpenScreenEvent.INSTANCE.register(screen -> {
-            if (screen instanceof AbstractContainerScreen<?> containerScreen) {
-                process(containerScreen);
-            }
-            return false;
-        });
-    }
-
     /**
      * InventoryScreen(玩家背包)
      * ChestMenu(箱子末影箱)
      */
-    public static void process(AbstractContainerScreen<?> container) {
+    public static void process() {
         if (Configs.ENABLE_AUTO_WASTE_CLEAN.getBooleanValue()) {
             //兼容快捷盒子补货
-            if (container instanceof ShulkerBoxScreen && BoxRestockMannager.context != null) return;
-            var menu = container.getMenu();
-            var player = MCUtils.getMinecraft().player;
-            if (!PlayerUtils.isSurvivalMode(player)) return;
-            String mode = Configs.AUTO_WASTE_CLEAN_MODE.getStringValue();
+            var screen = MCUtils.getScreen();
+            if (screen instanceof ShulkerBoxScreen && BoxRestockMannager.context != null) return;
+            if (screen instanceof AbstractContainerScreen<?> containerScreen) {
+                var menu = containerScreen.getMenu();
+                var player = MCUtils.getMinecraft().player;
+                if (!PlayerUtils.isSurvivalMode(player)) return;
+                String mode = Configs.AUTO_WASTE_CLEAN_MODE.getStringValue();
 
-            for (Slot slot : menu.slots) {
-                ItemStack stack = slot.getItem();
-                boolean isInv = slot.container instanceof Inventory;
-                if (isStackEmpty(stack) || shouldKeep(stack) || !isInv) continue;
+                for (Slot slot : menu.slots) {
+                    ItemStack stack = slot.getItem();
+                    boolean isInv = slot.container instanceof Inventory;
+                    if (isStackEmpty(stack) || shouldKeep(stack) || !isInv) continue;
 
-                if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
-                    InventoryUtils.dropStack(container, slot.index);
-                    AsaMod.debugMessage("Dropped Inventory container for slot " + slot.index);
+                    if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
+                        InventoryUtils.dropStack(containerScreen, slot.index);
+                        AsaMod.debugMessage("Dropped Inventory container for slot " + slot.index);
+                    }
+                    else if (menu instanceof ChestMenu && mode.equals("转移至容器")) {
+                        InventoryUtils.tryMoveStacks(slot, containerScreen, true, true, false);
+                        AsaMod.debugMessage("Moved Inventory Item to container for slot " + slot.index);
+                    }
+
+                    ChatUtils.actionBar(ChatUtils.c("清理完成"));
+                    player.closeContainer();
                 }
-                else if (menu instanceof ChestMenu && mode.equals("转移至容器")) {
-                    InventoryUtils.tryMoveStacks(slot, container, true, true, false);
-                    AsaMod.debugMessage("Moved Inventory Item to container for slot " + slot.index);
-                }
-
-                ChatUtils.sendOverLayMessage(ChatUtils.c("清理完成"));
-                player.closeContainer();
             }
         }
     }
@@ -105,11 +99,11 @@ public class AutoWasteCleanProcessor {
 
         if (Configs.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue()) {
             Configs.AUTO_WASTE_CLEAN_BLACKLIST.setStrings(strings);
-            ChatUtils.sendOverLayMessage(ChatUtils.c("成功将玩家物品栏保存至黑名单"));
+            ChatUtils.actionBar(ChatUtils.c("成功将玩家物品栏保存至黑名单"));
         }
         else if (Configs.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue()) {
             Configs.AUTO_WASTE_CLEAN_WHITELIST.setStrings(strings);
-            ChatUtils.sendOverLayMessage(ChatUtils.c("成功将玩家物品栏保存至白名单"));
+            ChatUtils.actionBar(ChatUtils.c("成功将玩家物品栏保存至白名单"));
         }
 
         AsaMod.debugMessage("Saved Items to List \n " + strings);

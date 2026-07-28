@@ -18,7 +18,7 @@ public class CreeperCheckClient {
     public static void creeperWarner(Minecraft mc) {
         var creepers = CreeperCheckClient.isCreeperNearby(mc);
         if (creepers != null && !creepers.isEmpty()) {
-            ChatUtils.sendMessWithSound(
+            ChatUtils.withSound(
                     ChatUtils.c(
                             "苦力怕来了，距离您 %.2f 米".formatted(creepers.getFirst().distanceTo(mc.player))
                     ).copy().withStyle(ChatFormatting.RED),

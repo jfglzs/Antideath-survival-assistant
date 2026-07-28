@@ -21,12 +21,12 @@ public class BoxSplitter {
         if (isRunning) {
             isRunning = false;
             itemToSplit = ItemStack.EMPTY;
-            ChatUtils.sendOverLayMessage(ChatUtils.c("已停止"));
+            ChatUtils.actionBar(ChatUtils.c("已停止"));
             return;
         }
 
         if (stack.isEmpty()) {
-            ChatUtils.sendOverLayMessage(ChatUtils.c("物品不可为空"));
+            ChatUtils.actionBar(ChatUtils.c("物品不可为空"));
             return;
         }
 
@@ -55,7 +55,7 @@ public class BoxSplitter {
     public static void tick() {
         if (LIMITER.tryAcquire() && canOpenBox) {
             if (!ShulkerUtils.findBoxToOpen(itemToSplit)) {
-                ChatUtils.sendOverLayMessage(ChatUtils.c("分离完成"));
+                ChatUtils.actionBar(ChatUtils.c("分离完成"));
                 itemToSplit = ItemStack.EMPTY;
                 isRunning = false;
                 canOpenBox = false;

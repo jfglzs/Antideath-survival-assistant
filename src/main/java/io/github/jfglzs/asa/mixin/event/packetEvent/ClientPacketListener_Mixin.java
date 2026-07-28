@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.mixin.event.packetEvent;
 
+import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import net.minecraft.client.multiplayer.ClientPacketListener;
@@ -18,5 +19,6 @@ public class ClientPacketListener_Mixin {
     private void handleContainerContent(ClientboundContainerSetContentPacket packet, CallbackInfo ci) {
         BoxRestockMannager.run();
         BoxSplitter.run();
+        AutoWasteCleanProcessor.process();
     }
 }

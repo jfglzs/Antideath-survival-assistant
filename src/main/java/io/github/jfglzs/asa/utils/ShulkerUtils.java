@@ -12,7 +12,7 @@ public class ShulkerUtils {
             OpenShulkerPacket.sendOpenPacket(index);
         }
         else {
-            ChatUtils.sendOverLayMessage(ChatUtils.c("未安装快捷潜影盒"));
+            ChatUtils.actionBar(ChatUtils.c("未安装快捷潜影盒"));
         }
     }
 

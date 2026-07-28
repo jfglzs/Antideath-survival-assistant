@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.Strictness;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.*;
@@ -25,7 +26,7 @@ public class ItemStorageDataManager {
     private static final Map<String, PlayerInventory> PLAYER_INV = new Object2ReferenceArrayMap<>();
     private static final Object2IntMap<String> FAKE_ITEM_STORAGES = new Object2IntArrayMap<>();
     private static final Object2IntMap<String> ITEM_STORAGES = new Object2IntArrayMap<>();
-    private static final Gson LENIENT_GSON = new GsonBuilder().setLenient().create();
+    private static final Gson LENIENT_GSON = new GsonBuilder().setStrictness(Strictness.LENIENT).create();
     private static final Type PLAYER_TYPE = new TypeToken<List<PlayerItemStorage>>() {}.getType();
     private static final Type ITEM_TYPE = new TypeToken<List<ItemStorage>>() {}.getType();
     private static final Set<String> WAIT_FOR_INV = new ObjectArraySet<>();
@@ -47,15 +48,15 @@ public class ItemStorageDataManager {
             var str = message.getString().trim();
 
             if (str.contains("maxCount:") && str.startsWith("{") && str.endsWith("}")) {
-                ChatUtils.sendMessWithSound(ChatUtils.c("请求的数量超出配置的最大上限").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH, 1, 1);
+                ChatUtils.withSound(ChatUtils.c("请求的数量超出配置的最大上限").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH, 1, 1);
                 return false;
             }
             else if (str.startsWith("{") && str.endsWith("}") && str.contains("waitSecond:")) {
-                ChatUtils.sendMessWithSound(ChatUtils.c("假人取货还在冷却中").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH, 1, 1);
+                ChatUtils.withSound(ChatUtils.c("假人取货还在冷却中").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH, 1, 1);
                 return false;
             }
             else if (str.equals("[]")) {
-                ChatUtils.sendMessWithSound(ChatUtils.c("全无品: 这个物品暂时没有存货").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
+                ChatUtils.withSound(ChatUtils.c("全无品: 这个物品暂时没有存货").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
                 return false;
             }
             else if (str.contains("id:") && str.contains("count:") && str.startsWith("[{") && str.endsWith("}]")) {
@@ -67,7 +68,7 @@ public class ItemStorageDataManager {
                                 String name = itemStorage.name();
                                 if (name != null) {
                                     MCUtils.executeCommand("player %s spawn".formatted(name));
-                                    ChatUtils.sendMessWithSound(ChatUtils.c("假人: [%s] 取出数量: [%d]".formatted(name, itemStorage.count())), SoundEvents.VILLAGER_YES, 1, 1);
+                                    ChatUtils.withSound(ChatUtils.c("假人: [%s] 取出数量: [%d]".formatted(name, itemStorage.count())), SoundEvents.VILLAGER_YES, 1, 1);
 
                                     if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
                                         WAIT_FOR_INV.add(name);
@@ -86,8 +87,8 @@ public class ItemStorageDataManager {
                 }
                 else {
                     try {
-                        ITEM_STORAGES.clear();
                         List<ItemStorage> list = LENIENT_GSON.fromJson(str, ITEM_TYPE);
+                        ITEM_STORAGES.clear();
                         list.forEach(itemStorage -> ITEM_STORAGES.put(itemStorage.id(), itemStorage.count()));
                     }
                     catch (Exception e) {
@@ -98,7 +99,7 @@ public class ItemStorageDataManager {
                 return false;
             }
             else if (str.startsWith("[{") && str.endsWith("]") && str.contains("<...>")) {
-                ChatUtils.sendMessWithSound(ChatUtils.c("无法通过getStorageData命令查询容器数据 \n 原因: NBT被折叠 \n 请安装Antideath-carpet-addition v1.4.5以上版本并开启 fixNbtFold 规则 \n 或者将LMS 更新至 1.14.1").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
+                ChatUtils.withSound(ChatUtils.c("无法通过getStorageData命令查询容器数据 \n 原因: NBT被折叠 \n 请安装Antideath-carpet-addition v1.4.5以上版本并开启 fixNbtFold 规则 \n 或者将LMS 更新至 1.14.1").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
                 return false;
             }
             return true;
@@ -131,7 +132,8 @@ public class ItemStorageDataManager {
 
     public static void removeAll() {
         PLAYER_INV.clear();
-        ChatUtils.sendOverLayMessage(ChatUtils.c("缓存已清空"));
+        FAKE_ITEM_STORAGES.clear();
+        ChatUtils.actionBar(ChatUtils.c("缓存已清空"));
     }
 
     public static boolean canSend(ItemStack stack, Item item) {
@@ -180,7 +182,6 @@ public class ItemStorageDataManager {
 
         if (ITEM_STORAGES.isEmpty() && FAKE_ITEM_STORAGES.isEmpty()) {
             components.add(Component.nullToEmpty("物品未查询/缓存").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED));
-            return components;
         }
         else if (count > 0) {
             int oneBoxCount = stack.getMaxStackSize() * 27;
@@ -193,10 +194,11 @@ public class ItemStorageDataManager {
             if (Configs.LITEMATICA_CALCULATE_FAKE.getBooleanValue()) {
                 components.add(Component.nullToEmpty("假人存货: %d".formatted(FAKE_ITEM_STORAGES.getInt(itemID))).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
             }
-            return components;
+        }
+        else {
+            components.add(Component.nullToEmpty("暂无存货").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED));
         }
 
-        components.add(Component.nullToEmpty("暂无存货").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED));
         return components;
     }
 

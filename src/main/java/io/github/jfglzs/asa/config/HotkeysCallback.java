@@ -49,7 +49,7 @@ public class HotkeysCallback implements IHotkeyCallback {
         }
         else if (key == SWITCH_CLEAN_MODE.getKeybind()) {
             Configs.switchMode(AUTO_WASTE_CLEAN_MODE);
-            ChatUtils.sendOverLayMessage(ChatUtils.c("自动垃圾清理： %s".formatted(Configs.AUTO_WASTE_CLEAN_MODE.getStringValue())));
+            ChatUtils.actionBar(ChatUtils.c("自动垃圾清理： %s".formatted(Configs.AUTO_WASTE_CLEAN_MODE.getStringValue())));
             return true;
         }
         else if (key == TRIGGER_BOX_SPLITTER.getKeybind()) {

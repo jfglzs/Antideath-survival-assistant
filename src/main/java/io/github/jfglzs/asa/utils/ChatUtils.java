@@ -17,7 +17,7 @@ public class ChatUtils {
          *///?}
     }
 
-    public static void sendMessWithSound(Component chat, SoundEvent type, float volume, float pitch) {
+    public static void withSound(Component chat, SoundEvent type, float volume, float pitch) {
         LocalPlayer player = client.player;
         if (player != null) {
             player.playSound(type, volume, pitch);
@@ -29,7 +29,7 @@ public class ChatUtils {
         }
     }
 
-    public static void sendOverLayMessage(Component chat) {
+    public static void actionBar(Component chat) {
         if (client.player == null) return;
         //? if >= 26.1 {
         client.player.sendOverlayMessage(chat);
@@ -38,7 +38,7 @@ public class ChatUtils {
         *///?}
     }
 
-    public static void sendMessageToServer(String chat) {
+    public static void toServer(String chat) {
         if (client.player != null) {
             client.player.connection.sendChat(chat);
         }

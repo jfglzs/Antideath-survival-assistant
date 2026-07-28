@@ -50,7 +50,7 @@ public class PlayerManipulateCommand {
             try {
                 Thread.sleep(Configs.PLAYER_MANIPULATE_COMMAND_WAIT_TIME.getIntegerValue());
                 var playerName = prefix == null ? i : prefix + i;
-                ChatUtils.sendOverLayMessage(ProgressBar.getProgress((double) i / (end - start)));
+                ChatUtils.actionBar(ProgressBar.getProgress((double) i / (end - start)));
                 ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s %s".formatted(playerName, action)));
             }
             catch (Exception e) {
