@@ -59,10 +59,10 @@ public class AsaMod implements ClientModInitializer {
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
         RenderEventHandler.getInstance().registerInGameGuiRenderer(MaterialToDoRenderer.INSTANCE);
         RenderEventHandler.getInstance().registerInGameGuiRenderer(RemainingItemRender.INSTANCE);
-        AutoWasteCleanProcessor.init();
         ItemStorageDataManager.init();
         ChatMappingProcessor.init();
         ThreadUtils.init();
+        AutoWasteCleanProcessor.init();
         Mods.init();
         this.registerEvents();
         this.registerCommands();

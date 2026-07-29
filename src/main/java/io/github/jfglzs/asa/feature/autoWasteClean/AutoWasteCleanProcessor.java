@@ -9,6 +9,7 @@ import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
+import io.github.jfglzs.asa.utils.ThreadUtils;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,6 +21,13 @@ import net.minecraft.world.item.ItemStack;
 import java.util.*;
 
 public class AutoWasteCleanProcessor {
+    public static void init() {
+        OpenScreenEvent.INSTANCE.register(screen -> {
+            process();
+            return false;
+        });
+    }
+
     /**
      * InventoryScreen(玩家背包)
      * ChestMenu(箱子末影箱)
@@ -29,8 +37,8 @@ public class AutoWasteCleanProcessor {
             //兼容快捷盒子补货
             var screen = MCUtils.getScreen();
             if (screen instanceof ShulkerBoxScreen && BoxRestockMannager.context != null) return;
-            if (screen instanceof AbstractContainerScreen<?> containerScreen) {
-                var menu = containerScreen.getMenu();
+            if (screen instanceof AbstractContainerScreen<?> container) {
+                var menu = container.getMenu();
                 var player = MCUtils.getMinecraft().player;
                 if (!PlayerUtils.isSurvivalMode(player)) return;
                 String mode = Configs.AUTO_WASTE_CLEAN_MODE.getStringValue();
@@ -38,20 +46,21 @@ public class AutoWasteCleanProcessor {
                 for (Slot slot : menu.slots) {
                     ItemStack stack = slot.getItem();
                     boolean isInv = slot.container instanceof Inventory;
-                    if (isStackEmpty(stack) || shouldKeep(stack) || !isInv) continue;
+                    if (isStackEmpty(stack) || shouldKeep(stack)) continue;
 
                     if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
-                        InventoryUtils.dropStack(containerScreen, slot.index);
+                        InventoryUtils.dropStack(container, slot.index);
                         AsaMod.debugMessage("Dropped Inventory container for slot " + slot.index);
                     }
-                    else if (menu instanceof ChestMenu && mode.equals("转移至容器")) {
-                        InventoryUtils.tryMoveStacks(slot, containerScreen, true, true, false);
+                    else if (menu instanceof ChestMenu && mode.equals("转移至容器") && isInv) {
+                        InventoryUtils.tryMoveStacks(slot, container, true, true, false);
                         AsaMod.debugMessage("Moved Inventory Item to container for slot " + slot.index);
                     }
 
                     ChatUtils.actionBar(ChatUtils.c("清理完成"));
-                    player.closeContainer();
                 }
+
+                player.closeContainer();
             }
         }
     }

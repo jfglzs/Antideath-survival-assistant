@@ -19,6 +19,5 @@ public class ClientPacketListener_Mixin {
     private void handleContainerContent(ClientboundContainerSetContentPacket packet, CallbackInfo ci) {
         BoxRestockMannager.run();
         BoxSplitter.run();
-        AutoWasteCleanProcessor.process();
     }
 }
