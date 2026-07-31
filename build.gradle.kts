@@ -95,7 +95,8 @@ val commonVmArgs = listOf(
     "--sun-misc-unsafe-memory-access=allow",
     "-Dmixin.debug.export=true"
 )
-val devVmArg = "-XX:+AllowEnhancedClassRedefinition"
+//val devVmArg = "-XX:+AllowEnhancedClassRedefinition"
+val devVmArg = ""
 loomExtension.runConfigs.configureEach {
     // to make sure it generates all "Minecraft Client (:subproject_name)" applications
     isIdeConfigGenerated = true

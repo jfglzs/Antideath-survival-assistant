@@ -69,7 +69,7 @@ public class AutoVaultExecutor {
         executorState = ExecutorState.IDLE;
     }
 
-    public static void run() {
+    public static void tick() {
         if (!Configs.AUTO_VAULT_COMMAND.getBooleanValue() || !isRunning) return;
 
         ClientLevel level = MCUtils.getLevel();

@@ -36,7 +36,9 @@ public class AutoWasteCleanProcessor {
         if (Configs.ENABLE_AUTO_WASTE_CLEAN.getBooleanValue()) {
             //兼容快捷盒子补货
             var screen = MCUtils.getScreen();
+
             if (screen instanceof ShulkerBoxScreen && BoxRestockMannager.context != null) return;
+
             if (screen instanceof AbstractContainerScreen<?> container) {
                 var menu = container.getMenu();
                 var player = MCUtils.getMinecraft().player;

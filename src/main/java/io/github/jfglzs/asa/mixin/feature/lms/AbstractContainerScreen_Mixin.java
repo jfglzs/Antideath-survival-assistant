@@ -41,7 +41,7 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
     private void onClose(CallbackInfo ci) {
         this.asa$cacheData();
         if (Configs.AUTO_KILL_FAKE_PLAYERS.getBooleanValue()) {
-            Set<String> fakePlayerNames = ItemStorageDataManager.getFakePlayerNames();
+            Set<String> fakePlayerNames = ItemStorageDataManager.WAIT_FOR_KILLING();
             for (String name : fakePlayerNames) {
                 var titleString = this.title.getString();
                 if (titleString.contains(name)) {

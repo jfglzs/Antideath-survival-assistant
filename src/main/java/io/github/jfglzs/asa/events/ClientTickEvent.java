@@ -4,13 +4,14 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.Minecraft;
 
 import java.util.List;
+import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 
 public class ClientTickEvent {
     private static int tickCount = 1;
     private static final List<TickTask> tickTasks = new ObjectArrayList<>();
 
-    public static void register(Predicate<Integer> condition, ClientTickCallback callback) {
+    public static void register(IntPredicate condition, ClientTickCallback callback) {
         tickTasks.add(TickTask.of(condition, callback));
     };
 
@@ -27,8 +28,8 @@ public class ClientTickEvent {
         void onTick(Minecraft client);
     }
 
-    record TickTask(Predicate<Integer> condition, ClientTickCallback callback) {
-       public static TickTask of(Predicate<Integer> condition, ClientTickCallback callback) {
+    record TickTask(IntPredicate condition, ClientTickCallback callback) {
+       public static TickTask of(IntPredicate condition, ClientTickCallback callback) {
            if (condition == null || callback == null) throw new IllegalArgumentException("Condition or callback cannot be null");
            return new TickTask(condition, callback);
        }
