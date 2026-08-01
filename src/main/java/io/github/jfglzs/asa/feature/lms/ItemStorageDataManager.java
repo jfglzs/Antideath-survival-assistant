@@ -11,7 +11,6 @@ import it.unimi.dsi.fastutil.objects.*;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.inventory.Slot;
@@ -26,8 +25,10 @@ public class ItemStorageDataManager {
     private static final Object2IntMap<String> FAKE_ITEM_STORAGES = new Object2IntArrayMap<>();
     private static final Object2IntMap<String> ITEM_STORAGES = new Object2IntArrayMap<>();
     private static final Gson LENIENT_GSON = new GsonBuilder().setLenient().create();
-    private static final Type PLAYER_TYPE = new TypeToken<List<PlayerItemStorage>>() {}.getType();
-    private static final Type ITEM_TYPE = new TypeToken<List<ItemStorage>>() {}.getType();
+    private static final Type PLAYER_TYPE = new TypeToken<List<PlayerItemStorage>>() {
+    }.getType();
+    private static final Type ITEM_TYPE = new TypeToken<List<ItemStorage>>() {
+    }.getType();
     private static final Set<String> WAIT_FOR_INV = new ObjectArraySet<>();
     private static final Set<String> WAIT_FOR_KILLING = new ObjectArraySet<>();
 
@@ -209,27 +210,27 @@ public class ItemStorageDataManager {
     }
 
     public static void scanMatchedPlayersAndInteract(Minecraft mc) {
-        if (Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue()) {
-            if (mc.level != null) {
-                for (AbstractClientPlayer player : mc.level.players()) {
-                    //~ if >=1.21.10 '.getName()' -> '.name()' {
-                    var name = player.getGameProfile().name();
-                    //~}
-                    if (!WAIT_FOR_INV.remove(name)) return;
-                    ThreadUtils.runAsync(() -> {
-                        try {
-                            Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
-                            ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s inventory".formatted(name))).join();
-                            WAIT_FOR_KILLING.add(name);
-                        }
-                        catch (Exception e) {
-                            ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(e.getMessage()));
-                            AsaMod.LOGGER.error(e.getMessage(), e);
-                        }
-                    });
-                }
+        if (!Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue() || mc.level == null) return;
+
+        mc.level.players().forEach(player -> {
+            //~ if >=1.21.10 '.getName()' -> '.name()' {
+            var name = player.getGameProfile().name();
+            //~}
+
+            if (WAIT_FOR_INV.remove(name)) {
+                ThreadUtils.runAsync(() -> {
+                    try {
+                        Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
+                        ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s inventory".formatted(name))).join();
+                        WAIT_FOR_KILLING.add(name);
+                    }
+                    catch (Exception e) {
+                        ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(e.getMessage()));
+                        AsaMod.LOGGER.error(e.getMessage(), e);
+                    }
+                });
             }
-        }
+        });
     }
 
     public static Set<String> WAIT_FOR_KILLING() {
