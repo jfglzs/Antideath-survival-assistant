@@ -9,7 +9,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketType;
 import net.minecraft.network.protocol.common.ClientCommonPacketListener;
 import net.minecraft.network.protocol.common.CommonPacketTypes;
-import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
@@ -56,7 +55,7 @@ public class IdDispatchCodec_Mixin<B extends ByteBuf, V> {
 
     private record ASA$FakePacket() implements Packet<ClientCommonPacketListener> {
         @Override
-        public @NonNull PacketType<? extends Packet<ClientCommonPacketListener>> type() {
+        public PacketType<? extends Packet<ClientCommonPacketListener>> type() {
             return CommonPacketTypes.CLIENTBOUND_CUSTOM_PAYLOAD;
         }
         @Override
