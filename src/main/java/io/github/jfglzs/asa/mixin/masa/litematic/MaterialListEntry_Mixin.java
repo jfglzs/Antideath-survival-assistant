@@ -4,6 +4,7 @@ import fi.dy.masa.litematica.materials.MaterialListEntry;
 //~ if >= 26.1 'util.ItemType' -> 'util.data.ItemType' {
 import fi.dy.masa.malilib.util.data.ItemType;
 //~}
+import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
@@ -27,7 +28,12 @@ public class MaterialListEntry_Mixin {
     private void getCountAvailable(CallbackInfoReturnable<Integer> cir) {
         int value = cir.getReturnValue();
         ItemStack stack = this.item.getStack();
-        value = value + ItemStorageDataManager.getRemainCount(stack.getItem());
+        if (Configs.LITEMATICA_CALCULATE_QWP.getBooleanValue()) {
+            value = value + ItemStorageDataManager.getCount(stack.getItem(), true);
+        }
+        if (Configs.LITEMATICA_CALCULATE_FAKE.getBooleanValue()) {
+            value = value + ItemStorageDataManager.getCount(stack.getItem(), false);
+        }
         cir.setReturnValue(value);
     }
 }

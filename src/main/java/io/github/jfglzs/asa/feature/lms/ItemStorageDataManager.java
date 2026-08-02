@@ -62,40 +62,43 @@ public class ItemStorageDataManager {
             else if (str.contains("id:") && str.contains("count:") && str.startsWith("[{") && str.endsWith("}]")) {
                 if (str.contains("name:")) {
                     try {
-                        List<PlayerItemStorage> currentList = LENIENT_GSON.fromJson(str, PLAYER_TYPE);
+                        List<PlayerItemStorage> itemStorageList = LENIENT_GSON.fromJson(str, PLAYER_TYPE);
 
-                        if (currentList == null || currentList.isEmpty()) return false;
+                        if (itemStorageList == null || itemStorageList.isEmpty()) return false;
 
-                        for (PlayerItemStorage itemStorage : currentList) {
-                            String name = itemStorage.name();
+                        for (PlayerItemStorage storage : itemStorageList) {
+                            String name = storage.name();
 
                             if (name == null) continue;
 
                             MCUtils.executeCommand("player %s spawn".formatted(name));
-                            ChatUtils.withSound(ChatUtils.c("假人: [%s] 取出数量: [%d]".formatted(name, itemStorage.count())), SoundEvents.VILLAGER_YES, 1, 1);
+                            ChatUtils.withSound(ChatUtils.c("假人: [%s] 取出数量: [%d]".formatted(name, storage.count())), SoundEvents.VILLAGER_YES, 1, 1);
 
                             WAIT_FOR_INV.add(name);
                             WAIT_FOR_KILLING.add(name);
                         }
+                        return false;
                     }
                     catch (Exception e) {
-                        AsaMod.LOGGER.error(e.getMessage(), e);
-                        ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(e.getMessage()));
+                        AsaMod.debugMessage(() -> e.getCause() + e.getMessage());
                     }
                 }
                 else {
                     try {
                         List<ItemStorage> list = LENIENT_GSON.fromJson(str, ITEM_TYPE);
-                        AsaMod.LOGGER.debug(Arrays.toString(list.toArray()));
                         ITEM_STORAGES.clear();
-                        list.forEach(itemStorage -> ITEM_STORAGES.put(itemStorage.id(), itemStorage.count()));
+                        list.forEach(storage -> {
+                            String id = storage.id();
+                            int count = storage.count();
+                            AsaMod.debugMessage(() -> "Item: %s Count: %d".formatted(id, count));
+                            ITEM_STORAGES.put(id, count);
+                        });
+                        return false;
                     }
                     catch (Exception e) {
-                        AsaMod.LOGGER.error(e.getMessage(), e);
-                        ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(e.getMessage()));
+                        AsaMod.debugMessage(() -> e.getCause() + e.getMessage());
                     }
                 }
-                return false;
             }
             else if (str.startsWith("[{") && str.endsWith("]") && str.contains("<...>")) {
                 ChatUtils.withSound(ChatUtils.c("无法通过getStorageData命令查询容器数据 \n 原因: NBT被折叠 \n 请安装Antideath-carpet-addition v1.4.5以上版本并开启 fixNbtFold 规则 \n 或者将LMS 更新至 1.14.1").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
@@ -169,7 +172,7 @@ public class ItemStorageDataManager {
 
         Item item = stack.getItem();
         String itemID = MCUtils.getItemID(stack.getItem());
-        int count = getRemainCount(item);
+        int count = getCount(item, true) + getCount(item, false);
 
         if (ITEM_STORAGES.isEmpty() && FAKE_ITEM_STORAGES.isEmpty()) {
             components.add(Component.nullToEmpty("物品未查询/缓存").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED));
@@ -193,15 +196,11 @@ public class ItemStorageDataManager {
         return components;
     }
 
-    public static int getRemainCount(Item item) {
+    public static int getCount(Item item, boolean fake) {
         String stackId = MCUtils.getItemID(item);
         int count = 0;
-        if (Configs.LITEMATICA_CALCULATE_QWP.getBooleanValue()) {
-            count = count + ITEM_STORAGES.getInt(stackId);
-        }
-        if (Configs.LITEMATICA_CALCULATE_FAKE.getBooleanValue()) {
-            count = count + FAKE_ITEM_STORAGES.getInt(stackId);
-        }
+        if (fake) {count = Math.max(FAKE_ITEM_STORAGES.getInt(stackId), 0);}
+        else {count = count + Math.max(ITEM_STORAGES.getInt(stackId), 0);}
         return count;
     }
 

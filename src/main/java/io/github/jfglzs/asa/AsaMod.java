@@ -27,6 +27,8 @@ import net.minecraft.client.Minecraft;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.function.Supplier;
+
 import static io.github.jfglzs.asa.config.Configs.*;
 
 public class AsaMod implements ModInitializer {
@@ -35,10 +37,11 @@ public class AsaMod implements ModInitializer {
     public static final String MOD_ID_FANCY = "ASA";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    public static void debugMessage(String string) {
+    public static void debugMessage(Supplier<String> obj) {
         if (DEBUG.getBooleanValue()) {
-            ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(string));
-            LOGGER.info(string);
+            String s = obj.get();
+            ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(s));
+            LOGGER.info(s);
         }
     }
 

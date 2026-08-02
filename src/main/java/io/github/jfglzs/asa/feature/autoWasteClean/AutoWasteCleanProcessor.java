@@ -52,11 +52,11 @@ public class AutoWasteCleanProcessor {
 
                     if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
                         InventoryUtils.dropStack(container, slot.index);
-                        AsaMod.debugMessage("Dropped Inventory container for slot " + slot.index);
+                        AsaMod.debugMessage(() -> "Dropped Inventory container for slot " + slot.index);
                     }
                     else if (menu instanceof ChestMenu && mode.equals("转移至容器") && isInv) {
                         InventoryUtils.tryMoveStacks(slot, container, true, true, false);
-                        AsaMod.debugMessage("Moved Inventory Item to container for slot " + slot.index);
+                        AsaMod.debugMessage(() -> "Moved Inventory Item to container for slot " + slot.index);
                     }
 
                     ChatUtils.actionBar(ChatUtils.c("清理完成"));
@@ -117,6 +117,6 @@ public class AutoWasteCleanProcessor {
             ChatUtils.actionBar(ChatUtils.c("成功将玩家物品栏保存至白名单"));
         }
 
-        AsaMod.debugMessage("Saved Items to List \n " + strings);
+        AsaMod.debugMessage(() -> "Saved Items to List \n " + strings);
     }
 }
