@@ -16,7 +16,7 @@
   "icon": "assets/asa/icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
+    "main": [
       "io.github.jfglzs.asa.AsaMod"
     ],
     "modmenu": [

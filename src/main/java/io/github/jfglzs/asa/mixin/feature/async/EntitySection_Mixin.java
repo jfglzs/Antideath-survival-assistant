@@ -2,8 +2,6 @@
 //
 //import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 //import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-//import net.fabricmc.api.EnvType;
-//import net.fabricmc.api.Environment;
 //import net.minecraft.util.AbortableIterationConsumer;
 //import net.minecraft.util.ClassInstanceMultiMap;
 //import net.minecraft.world.level.entity.EntityAccess;

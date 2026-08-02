@@ -1,14 +1,12 @@
 package io.github.jfglzs.asa;
 
 import fi.dy.masa.malilib.config.ConfigManager;
+import fi.dy.masa.malilib.event.InitializationHandler;
 import fi.dy.masa.malilib.event.InputEventHandler;
 import fi.dy.masa.malilib.event.RenderEventHandler;
 import io.github.jfglzs.asa.commands.AutoVaultCommand;
 import io.github.jfglzs.asa.commands.PlayerManipulateCommand;
-import io.github.jfglzs.asa.config.ConfigsManager;
-import io.github.jfglzs.asa.config.Configs;
-import io.github.jfglzs.asa.config.HotkeysCallback;
-import io.github.jfglzs.asa.config.InputHandler;
+import io.github.jfglzs.asa.config.*;
 import io.github.jfglzs.asa.events.ClientTickEvent;
 import io.github.jfglzs.asa.feature.autoVault.AutoVaultExecutor;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
@@ -21,6 +19,7 @@ import io.github.jfglzs.asa.render.RemainingItemRender;
 import io.github.jfglzs.asa.utils.*;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
@@ -30,9 +29,10 @@ import org.slf4j.LoggerFactory;
 
 import static io.github.jfglzs.asa.config.Configs.*;
 
-public class AsaMod implements ClientModInitializer {
+public class AsaMod implements ModInitializer {
     public static String version;
     public static final String MOD_ID = "antideath-survival-assistant";
+    public static final String MOD_ID_FANCY = "ASA";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static void debugMessage(String string) {
@@ -43,11 +43,11 @@ public class AsaMod implements ClientModInitializer {
     }
 
     @Override
-	public void onInitializeClient() {
+    public void onInitialize() {
         version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
         LOGGER.info("AsaMod v{} is being loading...", version);
         this.init();
-	}
+    }
 
     //~ if >= 26.1 'registerGameOverlayRenderer' -> 'registerInGameGuiRenderer' {
     private void init() {
@@ -59,6 +59,7 @@ public class AsaMod implements ClientModInitializer {
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
         RenderEventHandler.getInstance().registerInGameGuiRenderer(MaterialToDoRenderer.INSTANCE);
         RenderEventHandler.getInstance().registerInGameGuiRenderer(RemainingItemRender.INSTANCE);
+        InitializationHandler.getInstance().registerInitializationHandler(InitHandler.INSTANCE);
         ItemStorageDataManager.init();
         ChatMappingProcessor.init();
         ThreadUtils.init();
@@ -67,6 +68,7 @@ public class AsaMod implements ClientModInitializer {
         this.registerEvents();
         this.registerCommands();
     }
+
     //~}
 
     private void registerEvents() {
