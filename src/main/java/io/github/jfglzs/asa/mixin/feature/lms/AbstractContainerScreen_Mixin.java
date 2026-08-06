@@ -51,7 +51,7 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
                             ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s kill".formatted(name)));
                         }
                         catch (Exception e) {
-                            ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(e.getMessage()));
+                            ChatUtils.clientMess(ChatUtils.c(e.getMessage()));
                             AsaMod.LOGGER.error(e.getMessage(), e);
                         }
                         finally {

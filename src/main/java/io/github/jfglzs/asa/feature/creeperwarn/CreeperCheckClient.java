@@ -15,10 +15,10 @@ import java.util.List;
 import static io.github.jfglzs.asa.config.Configs.CREEPER_WARN_RANGE;
 
 public class CreeperCheckClient {
-    public static void creeperWarner(Minecraft mc) {
+    public static void tick(Minecraft mc) {
         var creepers = CreeperCheckClient.isCreeperNearby(mc);
         if (creepers != null && !creepers.isEmpty()) {
-            ChatUtils.withSound(
+            ChatUtils.clientMesswithSound(
                     ChatUtils.c(
                             "苦力怕来了，距离您 %.2f 米".formatted(creepers.getFirst().distanceTo(mc.player))
                     ).copy().withStyle(ChatFormatting.RED),

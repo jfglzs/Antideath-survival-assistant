@@ -4,7 +4,6 @@ import fi.dy.masa.malilib.interfaces.IRenderer;
 //? >= 1.21.11
 import fi.dy.masa.malilib.render.GuiContext;
 import io.github.jfglzs.asa.config.Configs;
-import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.Minecraft;
 //? < 1.21.11
@@ -54,7 +53,7 @@ public class MaterialToDoRenderer implements IRenderer {
     }
     //~}
 
-    public void update(Minecraft mc) {
+    public void tick(Minecraft mc) {
         Queue<Item> newitems = new LinkedList<>();
 
         for (Item stack : items) {

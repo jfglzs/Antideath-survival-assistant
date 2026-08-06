@@ -8,7 +8,7 @@ import net.minecraft.sounds.SoundEvent;
 public class ChatUtils {
     private static final Minecraft client = Minecraft.getInstance();
 
-    public static void sendMessOnlyClientVisible(Component chat) {
+    public static void clientMess(Component chat) {
         if (client.player == null) return;
         //? if >= 26.1 {
         client.player.sendSystemMessage(chat);
@@ -17,7 +17,7 @@ public class ChatUtils {
          *///?}
     }
 
-    public static void withSound(Component chat, SoundEvent type, float volume, float pitch) {
+    public static void clientMesswithSound(Component chat, SoundEvent type, float volume, float pitch) {
         LocalPlayer player = client.player;
         if (player != null) {
             player.playSound(type, volume, pitch);
@@ -38,7 +38,7 @@ public class ChatUtils {
         *///?}
     }
 
-    public static void toServer(String chat) {
+    public static void serverMess(String chat) {
         if (client.player != null) {
             client.player.connection.sendChat(chat);
         }

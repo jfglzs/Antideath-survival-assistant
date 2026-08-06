@@ -18,7 +18,6 @@ import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.render.RemainingItemRender;
 import io.github.jfglzs.asa.utils.*;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
-import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -40,7 +39,7 @@ public class AsaMod implements ModInitializer {
     public static void debugMessage(Supplier<String> obj) {
         if (DEBUG.getBooleanValue()) {
             String s = obj.get();
-            ChatUtils.sendMessOnlyClientVisible(ChatUtils.c(s));
+            ChatUtils.clientMess(ChatUtils.c(s));
             LOGGER.info(s);
         }
     }
@@ -64,7 +63,6 @@ public class AsaMod implements ModInitializer {
         RenderEventHandler.getInstance().registerInGameGuiRenderer(RemainingItemRender.INSTANCE);
         InitializationHandler.getInstance().registerInitializationHandler(InitHandler.INSTANCE);
         ItemStorageDataManager.init();
-        ChatMappingProcessor.init();
         ThreadUtils.init();
         AutoWasteCleanProcessor.init();
         Mods.init();
@@ -79,11 +77,11 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(i -> true, this::testOnTick);
         ClientTickEvent.register(i -> true, client -> AutoVaultExecutor.tick());
         ClientTickEvent.register(i -> true, client -> BoxSplitter.tick());
-        ClientTickEvent.register(i -> true, LowHealthSendCommandOrChat::trigger);
+        ClientTickEvent.register(i -> true, LowHealthSendCommandOrChat::tick);
         ClientTickEvent.register(i -> true, ItemStorageDataManager::scanMatchedPlayersAndInteract);
-        ClientTickEvent.register(i -> i % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender.INSTANCE::update);
-        ClientTickEvent.register(i -> i % 20 == 0 && CREEPER_WARN.getBooleanValue(), CreeperCheckClient::creeperWarner);
-        ClientTickEvent.register(i -> i % 40 == 0 && ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue(), MaterialToDoRenderer.INSTANCE::update);
+        ClientTickEvent.register(i -> i % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender.INSTANCE::tick);
+        ClientTickEvent.register(i -> i % 20 == 0 && CREEPER_WARN.getBooleanValue(), CreeperCheckClient::tick);
+        ClientTickEvent.register(i -> i % 40 == 0 && ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue(), MaterialToDoRenderer.INSTANCE::tick);
         ClientTickEvent.register(i -> i % 20000 == 0 && LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client ->  ItemStorageDataManager.reflushCache());
     }
 

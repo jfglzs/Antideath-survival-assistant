@@ -1,8 +1,6 @@
 package io.github.jfglzs.asa.utils;
 
 import io.github.jfglzs.asa.AsaMod;
-import io.github.jfglzs.asa.events.ClientTickEvent;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 
 import java.util.Queue;
@@ -13,8 +11,13 @@ public class ThreadUtils {
     public static final Minecraft MC = Minecraft.getInstance();
     public static final ExecutorService THREAD_POOL = Executors.newCachedThreadPool();
     public static final Queue<Runnable> TASK_QUEUE = new ConcurrentLinkedQueue<>();
+    public static final Queue<Runnable> ENTITY_TASK = new ConcurrentLinkedQueue<>();
 
     public static void init() {
+        makeTaskThread();
+    }
+
+    public static void makeTaskThread() {
         Thread thread = new Thread(() -> {
             AsaMod.LOGGER.info("Starting TaskThread");
             while (true) {
@@ -39,8 +42,8 @@ public class ThreadUtils {
         thread.start();
     }
 
-    public static Future<?> runAsync(Runnable toRun) {
-        return THREAD_POOL.submit(toRun);
+    public static void runAsync(Runnable toRun) {
+        THREAD_POOL.submit(toRun);
     }
 
     public static CompletableFuture<Void> runOnClientThread(Runnable toRun) {

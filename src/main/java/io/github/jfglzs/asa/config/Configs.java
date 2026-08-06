@@ -193,6 +193,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed CONFIRM_SCREEN_ALWAYS_YES = new ConfigBooleanHotkeyed( "禁用确认执行屏幕(1.21.10+)", false,"","禁用确认执行屏幕");
     @Config(tab = Tab.DISABLES)
     public static final ConfigBooleanHotkeyed DISABLE_PACKET_KICK = new ConfigBooleanHotkeyed( "禁用数据包踢出", false,"","开启后会阻止玩家因为数据包错误被踢出服务器\n此功能建议搭配ViaFabricPLus食用");
+    @Config(tab = Tab.DISABLES)
+    public static final ConfigBooleanHotkeyed DISABLE_PACKET_KICK_PREVENT_CUSTOM_PAYLOAD = new ConfigBooleanHotkeyed( "禁用数据包踢出-拦截ServerboundCustomPayloadPacket", false,"","开启后会阻止玩家因为数据包错误被踢出服务器\n此功能建议搭配ViaFabricPLus食用");
     @Config(tab = {Tab.DISABLES, Tab.OPTIMIZATIONS})
     public static final ConfigBooleanHotkeyed DISABLE_PROFILER = new ConfigBooleanHotkeyed( "禁用Profiler", false,"","禁用后可提升帧数但会导致饼图不可用");
     @Config(tab = Tab.OPTIMIZATIONS)
@@ -211,6 +213,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed LITEMATICA_CALCULATE_QWP = new ConfigBooleanHotkeyed( "投影材料列表-统计全物品", false,"","开启后材料投影材料列表会统计全物品");
     @Config(tab = Tab.LMS)
     public static final ConfigBooleanHotkeyed LITEMATICA_CALCULATE_FAKE = new ConfigBooleanHotkeyed( "投影材料列表-统计假人背包", false,"","开启后材料投影材料列表会统计已缓存的假人背包");
+    @Config(tab = Tab.OPTIMIZATIONS)
+    public static final ConfigBooleanHotkeyed OPT_ITEM_FRAME = new ConfigBooleanHotkeyed( "展示框优化", false,"","开启后面对大量展示框、地图画时可大幅提升平均帧和百分之一low帧\n⚠⚠⚠警告⚠⚠⚠\n由于mojang不同版本间渲染代码改动较大（人话就是我懒得适配）\n仅能保证1.21.11+有满血性能\n测试数据:\nMinecraft 26.2 调优包 572地图画\n关闭优化 平均帧: 370~FPS 百分之一low: 80~FPS\n开启优化 平均帧: 900~FPS 百分之一low: 430~FPS");
 
 
     @Config

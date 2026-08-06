@@ -29,7 +29,7 @@ public class RemainingItemRender implements IRenderer {
     }
     //?}
 
-    public void update(Minecraft mc) {
+    public void tick(Minecraft mc) {
         this.stack = PlayerUtils.getPlayerMainHandStack();
     }
 
