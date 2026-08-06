@@ -216,7 +216,6 @@ public class Configs implements IConfigHandler {
     @Config(tab = Tab.OPTIMIZATIONS)
     public static final ConfigBooleanHotkeyed OPT_ITEM_FRAME = new ConfigBooleanHotkeyed( "展示框优化", false,"","开启后面对大量展示框、地图画时可大幅提升平均帧和百分之一low帧\n⚠⚠⚠警告⚠⚠⚠\n由于mojang不同版本间渲染代码改动较大（人话就是我懒得适配）\n仅能保证1.21.11+有满血性能\n测试数据:\nMinecraft 26.2 调优包 572地图画\n关闭优化 平均帧: 370~FPS 百分之一low: 80~FPS\n开启优化 平均帧: 900~FPS 百分之一low: 430~FPS");
 
-
     @Config
     public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false,"","1111");
     @Config
