@@ -96,5 +96,6 @@ public class AsaMod implements ModInitializer {
     }
 
     public void testOnTick(Minecraft client) {
+        test();
     }
 }
