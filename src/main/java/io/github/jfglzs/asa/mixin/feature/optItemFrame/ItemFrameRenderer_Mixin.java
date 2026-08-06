@@ -1,20 +1,25 @@
 package io.github.jfglzs.asa.mixin.feature.optItemFrame;
 
+//? if > 1.21.4 {
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import io.github.jfglzs.asa.config.Configs;
-import net.minecraft.client.renderer.block.BlockModelRenderState;
+//? if >= 26.1.2 {
 import net.minecraft.client.renderer.block.BlockModelResolver;
-import net.minecraft.client.renderer.entity.ItemFrameRenderer;
+import net.minecraft.client.renderer.block.BlockModelRenderState;
+//?}
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+//?}
+
+import org.spongepowered.asm.mixin.Mixin;
+import net.minecraft.client.renderer.entity.ItemFrameRenderer;
 
 @Mixin(ItemFrameRenderer.class)
 public class ItemFrameRenderer_Mixin {
@@ -40,7 +45,7 @@ public class ItemFrameRenderer_Mixin {
     }
     //?}
 
-    //? if >= 1.21.4 {
+    //? if >= 1.21.8 {
     @WrapOperation(
             method = "extractRenderState(Lnet/minecraft/world/entity/decoration/ItemFrame;Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;F)V",
             at = @At(
