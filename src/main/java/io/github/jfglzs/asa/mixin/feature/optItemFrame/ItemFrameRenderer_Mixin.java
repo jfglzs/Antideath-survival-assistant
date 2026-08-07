@@ -38,7 +38,7 @@ public class ItemFrameRenderer_Mixin {
                                    Operation<Void> original,
                                    @Local ItemStack stack
     ) {
-        if (Configs.OPT_ITEM_FRAME.getBooleanValue() && stack.isEmpty()) {
+        if (Configs.OPT_ITEM_FRAME.getBooleanValue() && !stack.isEmpty()) {
             return;
         }
         original.call(instance, renderState, isGlowing, map);
