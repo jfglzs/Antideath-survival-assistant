@@ -679,3 +679,17 @@ minecraft:item|minecraft:item1
 - 默认值：`false`
 - 参考选项：`true`，`false`
 - 分类：`ALL`，`LMS`
+
+### 展示框优化
+开启后面对大量展示框、地图画时可大幅提升平均帧和百分之一low帧  
+⚠⚠⚠警告⚠⚠⚠
+由于mojang不同版本间渲染代码改动较大（人话就是我懒得适配）
+仅能保证1.21.11+有满血性能  
+测试数据:  
+Minecraft 26.2 调优包 572地图画  
+关闭优化 平均帧: 370~FPS 百分之一low: 80~FPS  
+开启优化 平均帧: 900~FPS 百分之一low: 430~FPS  
+- 类型：`布尔值`
+- 默认值：`false`
+- 参考选项：`true`，`false`
+- 分类：`ALL`，`OPTIMIZATIONS`
