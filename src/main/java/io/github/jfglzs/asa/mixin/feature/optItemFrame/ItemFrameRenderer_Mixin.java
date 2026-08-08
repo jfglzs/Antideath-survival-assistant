@@ -1,6 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.optItemFrame;
 
-//? if > 1.21.8 {
+//? if >= 1.21.8 {
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;

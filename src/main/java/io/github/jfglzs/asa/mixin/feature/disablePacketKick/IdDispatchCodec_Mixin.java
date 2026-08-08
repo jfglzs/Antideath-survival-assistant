@@ -3,6 +3,7 @@ package io.github.jfglzs.asa.mixin.feature.disablePacketKick;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.feature.disablePacketKick.ASAFakePacket;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.IdDispatchCodec;
 import net.minecraft.network.protocol.Packet;
@@ -15,7 +16,7 @@ import org.spongepowered.asm.mixin.Unique;
 @Mixin(IdDispatchCodec.class)
 public class IdDispatchCodec_Mixin<B extends ByteBuf, V> {
     @Unique
-    private static final ASA$FakePacket asa$FAKEPACKET = new ASA$FakePacket();
+    private static final ASAFakePacket asa$FAKEPACKET = new ASAFakePacket();
 
     @WrapMethod(
             method = "decode(Lio/netty/buffer/ByteBuf;)Ljava/lang/Object;"
@@ -50,16 +51,6 @@ public class IdDispatchCodec_Mixin<B extends ByteBuf, V> {
                 return;
             }
             throw e;
-        }
-    }
-
-    private record ASA$FakePacket() implements Packet<ClientCommonPacketListener> {
-        @Override
-        public PacketType<? extends Packet<ClientCommonPacketListener>> type() {
-            return CommonPacketTypes.CLIENTBOUND_CUSTOM_PAYLOAD;
-        }
-        @Override
-        public void handle(ClientCommonPacketListener listener) {
         }
     }
 }
