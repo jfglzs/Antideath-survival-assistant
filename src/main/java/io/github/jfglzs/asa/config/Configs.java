@@ -70,13 +70,9 @@ public class Configs implements IConfigHandler {
     @Config(tab = Tab.LMS)
     public static final ConfigBoolean LMS_FETCH_SUPPORT = new ConfigBoolean("假人远程取货支持" , false,"需要lms carpet addition");
     @Config(tab = Tab.LMS)
-    public static final ConfigBooleanHotkeyed LMS_FETCH_SUPPORT_PLACE_ = new ConfigBooleanHotkeyed("右键投影方块取货", false,"","右键投影方块取货");
-    @Config(tab = Tab.LMS)
     public static final ConfigBooleanHotkeyed MID_CLICK_TAKE_ITEM = new ConfigBooleanHotkeyed("中键投影取货", false, "", "启用后鼠标中键点击，原理图内方块(玩家背包内没有)，会立即取货（需要lms carpet addition）\n shift+中键取1盒 \n中键取1组");
     @Config(tab = Tab.LMS)
     public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV = new ConfigBooleanHotkeyed("假人取货自动打开假人背包", false, "", "自动打开假人背包");
-    @Config(tab = Tab.LMS)
-    public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV_MODE = new ConfigBooleanHotkeyed("假人取货自动打开假人背包交互模式", false, "", "true为指令交互 false为主手右键交互");
     @Config(tab = Tab.LMS)
     public static final ConfigBooleanHotkeyed AUTO_KILL_FAKE_PLAYERS = new ConfigBooleanHotkeyed("假人远程取货自动下线假人", false, "", "");
     @Config(tab = Tab.LMS)
@@ -133,10 +129,6 @@ public class Configs implements IConfigHandler {
     public static final ConfigInteger PLAYER_MANIPULATE_COMMAND_WAIT_TIME = new ConfigInteger("/pm 命令执行冷却", 10, 1, 1000, "每执行一个action后的等待时间 单位ms");
     @Config(tab = Tab.COMMAND)
     public static final ConfigString PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX = new ConfigString("/pm 命令默认前缀","bot_");
-    @Config(tab = Tab.FUNCTIONS)
-    public static final ConfigBooleanHotkeyed CHAT_MESSAGE_MAPPING = new ConfigBooleanHotkeyed("聊天消息映射", false,"","需要关闭MoreCulling的自定义展示框渲染器才能正常工作");
-    @Config(tab = Tab.LISTS)
-    public static final ConfigStringList CHAT_MESSAGE_MAPPING_LIST = new ConfigStringList("聊天消息映射列表", ImmutableList.of(), "可将聊天消息映射为命令 \n 格式: \n !s=spectator ");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN = new ConfigBooleanHotkeyed("启用自动垃圾清理",false,"","开启后可自动清理垃圾");
     @Config(tab = Tab.FUNCTIONS)
