@@ -43,6 +43,6 @@ public class SignText_Mixin implements SignTextAccessor {
 
     @Override
     public boolean asa$hasText() {
-        return false;
+        return asa$HasText;
     }
 }

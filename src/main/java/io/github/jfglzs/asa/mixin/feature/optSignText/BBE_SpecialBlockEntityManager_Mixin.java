@@ -17,7 +17,7 @@ public class BBE_SpecialBlockEntityManager_Mixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void hasAnyText(SignText text, boolean filtered, CallbackInfoReturnable<Boolean> cir) {
+    private static void hasAnyText(SignText text, boolean filtered, CallbackInfoReturnable<Boolean> cir) {
         if (Configs.OPT_SIGN_TEXT.getBooleanValue()) {
             cir.setReturnValue(((SignTextAccessor) text).asa$hasText());
         }
