@@ -13,6 +13,7 @@
     "feature.disableProfiler.Profiler_Mixin",
     "feature.entityOptimization.Entity_Mixin",
     "feature.optItemFrame.ItemFrame_Mixin",
+    "feature.optSignText.BBE_SpecialBlockEntityManager_Mixin",
     "feature.optSignText.SignText_Mixin",
     "masa.litematic.MaterialListEntry_Mixin",
     "masa.litematic.MaterialListHudRenderer_Mixin",

@@ -27,11 +27,12 @@ public class FakePlayerKillAura {
     }
 
     private static boolean canKill(String name) {
+        String fake = name.toLowerCase();
         if (Configs.ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST.getBooleanValue()) {
-            return Configs.FAKE_PLAYER_KILL_AURA_WHITELIST.getStrings().contains(name);
+            return Configs.FAKE_PLAYER_KILL_AURA_WHITELIST.getStrings().contains(fake);
         }
         else if (Configs.ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST.getBooleanValue()) {
-            return !Configs.FAKE_PLAYER_KILL_AURA_BLACKLIST.getStrings().contains(name);
+            return !Configs.FAKE_PLAYER_KILL_AURA_BLACKLIST.getStrings().contains(fake);
         }
         return true;
     }
