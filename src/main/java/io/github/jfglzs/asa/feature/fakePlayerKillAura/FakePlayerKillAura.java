@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.feature.fakePlayerKillAura;
 
+import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import net.minecraft.client.Minecraft;
@@ -12,14 +13,16 @@ public class FakePlayerKillAura {
             var box = mc.player.getBoundingBox().inflate(Configs.FAKE_PLAYER_KILL_AURA_RANGE.getDoubleValue());
             var players = mc.level.getEntitiesOfClass(Player.class, box);
             for (Player player : players) {
-                var name = player.getName().getString().trim();
+                var name = player.getName().getString().toLowerCase();
                 var prefix = Configs.FAKE_PLAYER_KILL_AURA_PREFIX.getStringValue();
                 var canKill = canKill(name);
+                AsaMod.debugMessage(() -> "Name: " + name + " Prefix: " + prefix + " Can Kill: " + canKill);
                 if (prefix == null) {
                     if (!canKill) continue;
                 }
                 else {
-                    if (!(name.startsWith(prefix) && canKill)) continue;
+                    boolean isStartWithPrefix = name.startsWith(prefix);
+                    if (!(isStartWithPrefix && canKill)) continue;
                 }
                 MCUtils.executeCommand("player %s kill".formatted(name));
             }
@@ -27,12 +30,11 @@ public class FakePlayerKillAura {
     }
 
     private static boolean canKill(String name) {
-        String fake = name.toLowerCase();
         if (Configs.ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST.getBooleanValue()) {
-            return Configs.FAKE_PLAYER_KILL_AURA_WHITELIST.getStrings().contains(fake);
+            return Configs.FAKE_PLAYER_KILL_AURA_WHITELIST.getStrings().contains(name);
         }
         else if (Configs.ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST.getBooleanValue()) {
-            return !Configs.FAKE_PLAYER_KILL_AURA_BLACKLIST.getStrings().contains(fake);
+            return !Configs.FAKE_PLAYER_KILL_AURA_BLACKLIST.getStrings().contains(name);
         }
         return true;
     }
