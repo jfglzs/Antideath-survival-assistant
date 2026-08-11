@@ -1,4 +1,6 @@
 # AntiDeath Survival Assistant
+![modICON](/res/icon.png)
+
 [![Modrinth](https://img.shields.io/modrinth/dt/Antideath-survival-assistant?color=00AF5C&label=Modrinth%20downloads&logo=modrinth)](https://modrinth.com/mod/Antideath-survival-assistant)
 [![Github](https://img.shields.io/github/downloads/jfglzs/Antideath-survival-assistant/total?color=161616&label=Github%20downloads&logo=github)](https://github.com/jfglzs/Antideath-survival-assistant/releases)
 
