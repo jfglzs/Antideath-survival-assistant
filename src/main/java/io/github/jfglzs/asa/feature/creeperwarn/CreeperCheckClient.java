@@ -21,11 +21,11 @@ public class CreeperCheckClient {
             ChatUtils.clientMesswithSound(
                     ChatUtils.c(
                             "苦力怕来了，距离您 %.2f 米".formatted(creepers.getFirst().distanceTo(mc.player))
-                    ).copy().withStyle(ChatFormatting.RED),
+                               ).copy().withStyle(ChatFormatting.RED),
                     SoundEvents.TNT_PRIMED,
                     1,
                     1
-            );
+                                         );
         }
     }
 

@@ -12,6 +12,6 @@ public class InitHandler implements IInitializationHandler {
     public void registerModHandlers() {
         Registry.CONFIG_SCREEN.registerConfigScreenFactory(
                 new ModInfo(AsaMod.MOD_ID, AsaMod.MOD_ID_FANCY, ConfigUi::new)
-        );
+                                                          );
     }
 }

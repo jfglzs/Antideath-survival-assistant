@@ -54,7 +54,8 @@ public class AutoVaultExecutor {
     public static String makeCommand() {
         if (current >= start && current <= end) {
             current++;
-        } else {
+        }
+        else {
             current = start;
         }
 
@@ -80,12 +81,14 @@ public class AutoVaultExecutor {
         if (executorState == ExecutorState.IDLE && canUseVault(vaultState)) {
             MCUtils.executeCommand(makeCommand());
             executorState = ExecutorState.SPAWNING;
-        } else if (executorState == ExecutorState.SPAWNING) {
+        }
+        else if (executorState == ExecutorState.SPAWNING) {
             if (MCUtils.isPlayerOnline(name)) {
                 MCUtils.executeCommand(USE_COMMAND.formatted(name));
                 executorState = ExecutorState.ON_ACTION;
             }
-        } else if (canUseVault(vaultState) && executorState == ExecutorState.ON_ACTION) {
+        }
+        else if (canUseVault(vaultState) && executorState == ExecutorState.ON_ACTION) {
             MCUtils.executeCommand(KILL_COMMAND.formatted(name));
             executorState = ExecutorState.IDLE;
         }

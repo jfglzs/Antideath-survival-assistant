@@ -22,7 +22,7 @@ public class PlayerManipulateCommand {
                 .then(CommandUtils.argument("prefix", StringArgumentType.word())
                         .suggests(PlayerManipulateCommand::getPrefixSuggestions)
                         .then(makeCommand(true))
-                )
+                     )
                 .then(makeCommand(false));
         dispatcher.register(command);
     }
@@ -33,7 +33,7 @@ public class PlayerManipulateCommand {
                         .then(CommandUtils.argument("action", StringArgumentType.greedyString())
                                 .suggests(PlayerManipulateCommand::getActionSuggestions)
                                 .executes(source -> process(source, enablePrefix)))
-                );
+                     );
     }
 
     private static int process(CommandContext<FabricClientCommandSource> source, boolean enablePrefix) {
@@ -52,7 +52,8 @@ public class PlayerManipulateCommand {
                 var playerName = prefix == null ? i : prefix + i;
                 ChatUtils.actionBar(ProgressBar.getProgress((double) i / (end - start)));
                 ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s %s".formatted(playerName, action)));
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 AsaMod.LOGGER.error("cant execute player action: {}", action, e);
                 return;
             }

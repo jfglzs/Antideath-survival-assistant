@@ -204,7 +204,7 @@ public abstract class ItemFrameRenderer_Mixin {
                     renderState.isGlowFrame,
                     15728850,
                     renderState.lightCoords
-            );
+                                                 );
 
             this.mapRenderer.render(
                     renderState.mapRenderState,
@@ -212,17 +212,18 @@ public abstract class ItemFrameRenderer_Mixin {
                     submitNodeCollector,
                     true,
                     lightCoords
-            );
-        } else if (! renderState.item.isEmpty()) {
+                                   );
+        }
+        else if (! renderState.item.isEmpty()) {
             poseStack.mulPose(
                     Axis.ZP.rotationDegrees((float) renderState.rotation * 360.0F / 8.0F)
-            );
+                             );
 
             int lightVal = this.getLightCoords(
                     renderState.isGlowFrame,
                     15728880,
                     renderState.lightCoords
-            );
+                                              );
 
             poseStack.scale(0.5F, 0.5F, 0.5F);
 
@@ -232,7 +233,7 @@ public abstract class ItemFrameRenderer_Mixin {
                     lightVal,
                     OverlayTexture.NO_OVERLAY,
                     renderState.outlineColor
-            );
+                                   );
         }
 
         //?} else if >= 1.21.10 && < 26.1 {

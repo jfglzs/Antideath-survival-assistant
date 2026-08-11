@@ -24,7 +24,8 @@ public class LowHealthSendCommandOrChat {
                 if (LOW_HEALTH_SEND_MODE.getOptionListValue().getStringValue().equals("发送聊天消息")) {
                     ChatUtils.serverMess(content);
                     AsaMod.debugMessage(() -> "Send Chat %s".formatted(content));
-                } else {
+                }
+                else {
                     MCUtils.executeCommand(content);
                 }
             }

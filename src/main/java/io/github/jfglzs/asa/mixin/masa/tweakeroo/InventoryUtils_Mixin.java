@@ -32,7 +32,7 @@ public class InventoryUtils_Mixin {
             CallbackInfo ci,
             @Local(name = "threshold") int threshold,
             @Local(name = "stackHand") ItemStack stackHand
-    ) {
+                                      ) {
         if (Configs.AUTO_BOX_RESTROKE.getBooleanValue() && stackHand.getCount() < threshold) {
             for (int index : PlayerUtils.getAllBoxIndexes(9, 36)) {
                 ItemStack boxStack = player.inventoryMenu.getSlot(index).getItem();

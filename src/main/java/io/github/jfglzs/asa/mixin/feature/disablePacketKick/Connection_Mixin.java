@@ -33,7 +33,7 @@ public class Connection_Mixin {
         if (Configs.DISABLE_PACKET_KICK_PREVENT_CUSTOM_PAYLOAD.getBooleanValue()
                 && packet.type() == CommonPacketTypes.SERVERBOUND_CUSTOM_PAYLOAD
                 && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT
-                && !MCUtils.getMinecraft().isLocalServer()
+                && ! MCUtils.getMinecraft().isLocalServer()
         ) {
             ci.cancel();
         }

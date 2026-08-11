@@ -47,7 +47,7 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             ContainerInput actionType,
             CallbackInfo ci,
             @Share("type") LocalRef<ContainerInput> type
-    ) {
+                                 ) {
         if (
                 Configs.lockCreativeScreen
                         && actionType != ContainerInput.THROW
@@ -89,7 +89,7 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             ContainerInput actionType,
             CallbackInfo ci,
             @Share("type") LocalRef<ContainerInput> type
-    ) {
+                                 ) {
         if (Configs.lockCreativeScreen && type.get() != null && slotId == - 999) {
             ItemStack stack = this.menu.getCarried();
             int count = - 1;

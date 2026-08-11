@@ -93,7 +93,8 @@ public class RenderHandler_Mixin {
                         list.add(line);
                     }
                     continue;
-                } else if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getBooleanValue()) {
+                }
+                else if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getBooleanValue()) {
                     if (Configs.MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getStrings().stream().noneMatch(line::contains)) {
                         list.add(line);
                     }

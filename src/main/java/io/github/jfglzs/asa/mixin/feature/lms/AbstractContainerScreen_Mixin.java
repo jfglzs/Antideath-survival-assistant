@@ -49,10 +49,12 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
                         try {
                             Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
                             ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s kill".formatted(name)));
-                        } catch (Exception e) {
+                        }
+                        catch (Exception e) {
                             ChatUtils.clientMess(ChatUtils.c(e.getMessage()));
                             AsaMod.LOGGER.error(e.getMessage(), e);
-                        } finally {
+                        }
+                        finally {
                             fakePlayerNames.remove(name);
                         }
                     });

@@ -44,7 +44,8 @@ public class BoxRestockMannager {
         String itemID = MCUtils.getItemID(item);
         if (Configs.ENABLE_AUTO_BOX_RESTROKE_BLACKLIST.getBooleanValue()) {
             return Configs.AUTO_BOX_RESTROKE_BLACKLIST.getStrings().stream().noneMatch(itemID::equals);
-        } else if (Configs.ENABLE_AUTO_BOX_RESTROKE_WHITELIST.getBooleanValue()) {
+        }
+        else if (Configs.ENABLE_AUTO_BOX_RESTROKE_WHITELIST.getBooleanValue()) {
             return Configs.AUTO_BOX_RESTROKE_WHITELIST.getStrings().stream().anyMatch(itemID::equals);
         }
         return true;

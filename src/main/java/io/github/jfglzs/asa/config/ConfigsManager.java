@@ -39,7 +39,8 @@ public class ConfigsManager {
         ConfigBase<?> obj;
         try {
             obj = (ConfigBase<?>) field.get(null);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             AsaMod.LOGGER.error("error while adding tab", e);
             return;
         }
@@ -56,7 +57,8 @@ public class ConfigsManager {
 
         if (obj instanceof ConfigHotkey hotkey) {
             KEY_LIST.add(hotkey);
-        } else if (obj instanceof ConfigBooleanHotkeyed booleanHotkeyed) {
+        }
+        else if (obj instanceof ConfigBooleanHotkeyed booleanHotkeyed) {
             SWITCH_KEY.add(booleanHotkeyed);
         }
     }

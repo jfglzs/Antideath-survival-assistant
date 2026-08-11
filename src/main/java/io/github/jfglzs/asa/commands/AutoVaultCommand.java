@@ -23,10 +23,10 @@ public class AutoVaultCommand {
                                 .then(CommandUtils.argument("blockY", IntegerArgumentType.integer(- 64, 320))
                                         .then(CommandUtils.argument("blockZ", IntegerArgumentType.integer())
                                                 .executes(AutoVaultCommand::setPos)
-                                        )
-                                )
-                        )
-                )
+                                             )
+                                     )
+                             )
+                     )
                 .then(CommandUtils.literal("player")
                         .then(CommandUtils.argument("prefix", StringArgumentType.word())
                                 .then(CommandUtils.argument("start", IntegerArgumentType.integer(0))
@@ -37,14 +37,14 @@ public class AutoVaultCommand {
                                                                         .then(CommandUtils.argument("direction", FloatArgumentType.floatArg())
                                                                                 .then(CommandUtils.argument("in", FloatArgumentType.floatArg())
                                                                                         .executes(AutoVaultCommand::setPlayer))))))))
-                        )
-                )
+                             )
+                     )
                 .then(CommandUtils.literal("start")
                         .executes(AutoVaultCommand::start)
-                )
+                     )
                 .then(CommandUtils.literal("stop")
                         .executes(AutoVaultCommand::stop)
-                );
+                     );
         dispatcher.register(command);
     }
 

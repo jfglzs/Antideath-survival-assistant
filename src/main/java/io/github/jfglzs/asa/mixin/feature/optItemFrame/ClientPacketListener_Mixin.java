@@ -40,13 +40,14 @@ public class ClientPacketListener_Mixin {
                                   CallbackInfo ci,
                                   @Local MapId id,
                                   @Local MapItemSavedData savedData
-    ) {
+                                 ) {
         if (Configs.OPT_ITEM_FRAME.getBooleanValue()) {
             int saveDataHash = savedData.hashCode();
             int intID = id.id();
             if (intID != 0 && this.FIF$MAPS.get(intID) == saveDataHash) {
                 ci.cancel();
-            } else {
+            }
+            else {
                 this.FIF$MAPS.put(intID, saveDataHash);
             }
         }

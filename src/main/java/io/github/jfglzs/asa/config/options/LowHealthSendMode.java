@@ -30,7 +30,8 @@ public enum LowHealthSendMode implements IConfigOptionListEntry {
             if (++ id >= values().length) {
                 id = 0;
             }
-        } else {
+        }
+        else {
             if (-- id < 0) {
                 id = values().length - 1;
             }

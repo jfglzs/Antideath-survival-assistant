@@ -27,7 +27,8 @@ public class ThreadUtils {
                         if (task != null) {
                             task.run();
                         }
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e) {
                         AsaMod.LOGGER.error("Exception in {}", Thread.currentThread().getName(), e);
                     }
                 }

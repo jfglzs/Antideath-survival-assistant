@@ -38,7 +38,7 @@ public class ItemFrameRenderer_Mixin {
                                    boolean map,
                                    Operation<Void> original,
                                    @Local ItemStack stack
-    ) {
+                                  ) {
         if (Configs.OPT_ITEM_FRAME.getBooleanValue() && ! stack.isEmpty()) {
             return;
         }
@@ -60,7 +60,7 @@ public class ItemFrameRenderer_Mixin {
                                    ItemDisplayContext displayContext,
                                    Entity entity,
                                    Operation<Void> original
-    ) {
+                                  ) {
         if (Configs.OPT_ITEM_FRAME.getBooleanValue() && item.is(Items.FILLED_MAP)) {
             return;
         }

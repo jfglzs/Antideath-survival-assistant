@@ -10,7 +10,8 @@ public class ShulkerUtils {
     public static void open(int index) {
         if (Mods.isShulkerBoxLoaded) {
             OpenShulkerPacket.sendOpenPacket(index);
-        } else {
+        }
+        else {
             ChatUtils.actionBar(ChatUtils.c("未安装快捷潜影盒"));
         }
     }
