@@ -79,15 +79,15 @@ body:
   - type: input
     id: mod-version
     attributes:
-      label: Antideath-Carpet-Addition version
-      description: The Antideath-Carpet-Addition version(s) where this bug occurs in.
+      label: ASA version
+      description: The Antideath-survival-assisiant version(s) where this bug occurs in.
       placeholder: 1.3.5
     validations:
       required: true
   - type: input
     id: carpet-version
     attributes:
-      label: Fabric Carpet version
+      label: malilib version
       description: The Fabric Carpet version(s) where this bug occurs with.
       placeholder: 1.4.77
     validations:
