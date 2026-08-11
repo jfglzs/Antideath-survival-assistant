@@ -28,7 +28,6 @@
     "requireAnnotations": true
   },
   "client": [
-    "ClientRegistrySyncHandler_Mixin",
     "event.screenEvents.ClientPacketListener_Mixin",
     "event.screenEvents.Gui_Mixin",
     "event.screenEvents.Minecraft_Mixin",
