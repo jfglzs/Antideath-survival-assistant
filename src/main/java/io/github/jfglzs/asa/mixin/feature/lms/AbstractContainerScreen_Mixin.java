@@ -49,12 +49,10 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
                         try {
                             Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
                             ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s kill".formatted(name)));
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             ChatUtils.clientMess(ChatUtils.c(e.getMessage()));
                             AsaMod.LOGGER.error(e.getMessage(), e);
-                        }
-                        finally {
+                        } finally {
                             fakePlayerNames.remove(name);
                         }
                     });
@@ -71,7 +69,7 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
             List<String> names = Configs.FAKE_PLAYER_INVENTORY_ITEM_CACHE_WHITE_LIST.getStrings();
             for (String name : names) {
                 if (title.contains(name)) {
-                    List<Slot> slots = this.menu.slots.stream().filter(slot -> !(slot.container instanceof Inventory)).toList();
+                    List<Slot> slots = this.menu.slots.stream().filter(slot -> ! (slot.container instanceof Inventory)).toList();
                     ItemStorageDataManager.addPlayerInventory(name, new ItemStorageDataManager.PlayerInventory(ImmutableList.copyOf(slots)));
                     ChatUtils.actionBar(ChatUtils.c("已缓存 %s 的物品栏".formatted(name)));
                     break;

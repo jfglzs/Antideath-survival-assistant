@@ -10,7 +10,7 @@ import org.joml.Quaternionf;
 import org.joml.Quaternionfc;
 //?} else {
 /*import org.joml.Quaternionf;
-*///?}
+ *///?}
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -35,14 +35,14 @@ public class ItemEntityRenderer_Mixin {
             /*at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V")
             *///?}
 
-    )
-    //? if >= 26.1 {
+            )
+            //? if >= 26.1 {
     public void submit(PoseStack instance, Quaternionfc q, Operation<Void> original) {
-    //?} else if <= 1.21.4 {
-    /*public void submit(PoseStack instance, Quaternionf q, Operation<Void> original) {
-    *///?} else  {
-    /*public void submit(PoseStack instance, Quaternionfc q, Operation<Void> original) {
-    *///?}
-        if (!Configs.DISABLE_ITEM_ENTITY_MULPOSE.getBooleanValue()) original.call(instance, q);
+        //?} else if <= 1.21.4 {
+        /*public void submit(PoseStack instance, Quaternionf q, Operation<Void> original) {
+         *///?} else  {
+        /*public void submit(PoseStack instance, Quaternionfc q, Operation<Void> original) {
+         *///?}
+        if (! Configs.DISABLE_ITEM_ENTITY_MULPOSE.getBooleanValue()) original.call(instance, q);
     }
 }

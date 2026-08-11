@@ -42,7 +42,7 @@ public class AutoWasteCleanProcessor {
             if (screen instanceof AbstractContainerScreen<?> container) {
                 var menu = container.getMenu();
                 var player = MCUtils.getMinecraft().player;
-                if (!PlayerUtils.isSurvivalMode(player)) return;
+                if (! PlayerUtils.isSurvivalMode(player)) return;
                 String mode = Configs.AUTO_WASTE_CLEAN_MODE.getStringValue();
 
                 for (Slot slot : menu.slots) {
@@ -53,8 +53,7 @@ public class AutoWasteCleanProcessor {
                     if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
                         InventoryUtils.dropStack(container, slot.index);
                         AsaMod.debugMessage(() -> "Dropped Inventory container for slot " + slot.index);
-                    }
-                    else if (menu instanceof ChestMenu && mode.equals("转移至容器") && isInv) {
+                    } else if (menu instanceof ChestMenu && mode.equals("转移至容器") && isInv) {
                         InventoryUtils.tryMoveStacks(slot, container, true, true, false);
                         AsaMod.debugMessage(() -> "Moved Inventory Item to container for slot " + slot.index);
                     }
@@ -74,11 +73,11 @@ public class AutoWasteCleanProcessor {
     private static boolean shouldKeep(ItemStack stack) {
         String id = MCUtils.getItemID(stack.getItem());
 
-        if (!PlayerUtils.isShulkerBox(stack)) {
+        if (! PlayerUtils.isShulkerBox(stack)) {
             if (Configs.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue())
                 return Configs.AUTO_WASTE_CLEAN_BLACKLIST.getStrings().contains(id);
             else if (Configs.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue())
-                return !Configs.AUTO_WASTE_CLEAN_WHITELIST.getStrings().contains(id);
+                return ! Configs.AUTO_WASTE_CLEAN_WHITELIST.getStrings().contains(id);
 
             return false;
         }
@@ -100,8 +99,7 @@ public class AutoWasteCleanProcessor {
                     if (isStackEmpty(stack)) continue;
                     items.add(MCUtils.getItemID(boxStack.getItem()));
                 }
-            }
-            else {
+            } else {
                 items.add(MCUtils.getItemID(stack.getItem()));
             }
         }
@@ -111,8 +109,7 @@ public class AutoWasteCleanProcessor {
         if (Configs.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue()) {
             Configs.AUTO_WASTE_CLEAN_BLACKLIST.setStrings(strings);
             ChatUtils.actionBar(ChatUtils.c("成功将玩家物品栏保存至黑名单"));
-        }
-        else if (Configs.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue()) {
+        } else if (Configs.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue()) {
             Configs.AUTO_WASTE_CLEAN_WHITELIST.setStrings(strings);
             ChatUtils.actionBar(ChatUtils.c("成功将玩家物品栏保存至白名单"));
         }

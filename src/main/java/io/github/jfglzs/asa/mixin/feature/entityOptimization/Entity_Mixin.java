@@ -31,7 +31,7 @@ public abstract class Entity_Mixin {
     protected void applyEffectsFromBlocks(CallbackInfo ci) {
         if (asa$canDisable(level)) {
             boolean isPlayer = ((Object) this) instanceof Player;
-            if (!isPlayer) ci.cancel();
+            if (! isPlayer) ci.cancel();
         }
     }
     //~}
@@ -43,7 +43,7 @@ public abstract class Entity_Mixin {
     )
     protected void collide(Vec3 movement, CallbackInfoReturnable<Vec3> cir) {
         Object self = this;
-        if (asa$canDisable(level) && !EntityUtils.isPlayer(self) && !(self instanceof ItemEntity) && !(self instanceof FireworkRocketEntity)) {
+        if (asa$canDisable(level) && ! EntityUtils.isPlayer(self) && ! (self instanceof ItemEntity) && ! (self instanceof FireworkRocketEntity)) {
             cir.setReturnValue(Vec3.ZERO);
         }
     }

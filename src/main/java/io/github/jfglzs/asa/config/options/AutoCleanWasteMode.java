@@ -27,12 +27,11 @@ public enum AutoCleanWasteMode implements IConfigOptionListEntry {
         int id = this.ordinal();
 
         if (forward) {
-            if (++id >= values().length) {
+            if (++ id >= values().length) {
                 id = 0;
             }
-        }
-        else {
-            if (--id < 0) {
+        } else {
+            if (-- id < 0) {
                 id = values().length - 1;
             }
         }

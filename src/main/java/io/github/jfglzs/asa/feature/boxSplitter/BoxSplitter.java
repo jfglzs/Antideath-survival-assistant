@@ -36,7 +36,7 @@ public class BoxSplitter {
     }
 
     public static void run() {
-        if (!isRunning || itemToSplit.isEmpty()) return;
+        if (! isRunning || itemToSplit.isEmpty()) return;
 
         Screen screen = MCUtils.getScreen();
         if (screen instanceof ShulkerBoxScreen boxScreen) {
@@ -54,7 +54,7 @@ public class BoxSplitter {
 
     public static void tick() {
         if (LIMITER.tryAcquire() && canOpenBox) {
-            if (!ShulkerUtils.findBoxToOpen(itemToSplit)) {
+            if (! ShulkerUtils.findBoxToOpen(itemToSplit)) {
                 ChatUtils.actionBar(ChatUtils.c("分离完成"));
                 itemToSplit = ItemStack.EMPTY;
                 isRunning = false;

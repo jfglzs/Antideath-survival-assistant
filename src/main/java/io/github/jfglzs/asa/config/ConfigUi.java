@@ -25,7 +25,7 @@ public class ConfigUi extends GuiConfigsBase {
         int x = 10;
         int y = 26;
         for (Tab tab : Tab.values()) {
-            x += this.createButton(x, y, -1, tab);
+            x += this.createButton(x, y, - 1, tab);
         }
     }
 

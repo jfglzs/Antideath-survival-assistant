@@ -17,7 +17,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 //? if < 1.21.11 {
 /*import net.minecraft.resources.ResourceLocation;
-*///? } else {
+ *///? } else {
 import net.minecraft.resources.Identifier;
 //?}
 import net.minecraft.world.phys.BlockHitResult;
@@ -54,7 +54,7 @@ public class MultiPlayerGameMode_Mixin {
                 BlockPos neighbor = pos.relative(dir);
                 BlockState state = getLevel().getBlockState(neighbor);
                 Block block = state.getBlock();
-                if (block == Blocks.NETHER_PORTAL && !isWhiteList()) cir.setReturnValue(InteractionResult.FAIL);
+                if (block == Blocks.NETHER_PORTAL && ! isWhiteList()) cir.setReturnValue(InteractionResult.FAIL);
             }
         }
     }
@@ -68,16 +68,16 @@ public class MultiPlayerGameMode_Mixin {
             cancellable = true
     )
     private void interactBlockInternal_Inject(LocalPlayer player, InteractionHand hand, BlockHitResult result, CallbackInfoReturnable<InteractionResult> cir) {
-        if (!Configs.PREVENT_INTENTIONAL_GAME_DESIGN.getBooleanValue()) return;
+        if (! Configs.PREVENT_INTENTIONAL_GAME_DESIGN.getBooleanValue()) return;
 
         BlockState state = getLevel().getBlockState(result.getBlockPos());
         ResourceKey<Level> worldKey = player.level().dimension();
 
         if (worldKey.equals(Level.OVERWORLD) || worldKey.equals(Level.END)) {
-            if (!state.getBlock().equals(Blocks.RESPAWN_ANCHOR)) return;
+            if (! state.getBlock().equals(Blocks.RESPAWN_ANCHOR)) return;
         }
         if (worldKey.equals(Level.NETHER) || worldKey.equals(Level.END)) {
-            if (!state.is(BlockTags.BEDS)) return;
+            if (! state.is(BlockTags.BEDS)) return;
         }
 
         ChatUtils.clientMesswithSound(ChatUtils.c("已阻止方块交互"), SoundEvents.VILLAGER_DEATH, 1, 1);
@@ -95,7 +95,7 @@ public class MultiPlayerGameMode_Mixin {
             var identifier = Identifier.withDefaultNamespace(id);
             //?} else {
             /*var identifier = ResourceLocation.withDefaultNamespace(id);
-            *///?}
+             *///?}
             //~ if <=1.21.1 '.getValue(' -> '.get(' {
             Item listedItem = BuiltInRegistries.ITEM.getValue(identifier);
             //~}

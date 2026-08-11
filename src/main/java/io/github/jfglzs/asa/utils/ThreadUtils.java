@@ -21,18 +21,17 @@ public class ThreadUtils {
         Thread thread = new Thread(() -> {
             AsaMod.LOGGER.info("Starting TaskThread");
             while (true) {
-                while (!TASK_QUEUE.isEmpty()) {
+                while (! TASK_QUEUE.isEmpty()) {
                     try {
                         Runnable task = TASK_QUEUE.poll();
                         if (task != null) {
                             task.run();
                         }
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         AsaMod.LOGGER.error("Exception in {}", Thread.currentThread().getName(), e);
                     }
                 }
-                if (!Thread.interrupted()) {
+                if (! Thread.interrupted()) {
                     LockSupport.parkNanos(10000);
                 }
             }

@@ -46,8 +46,7 @@ public class ClientPacketListener_Mixin {
             int intID = id.id();
             if (intID != 0 && this.FIF$MAPS.get(intID) == saveDataHash) {
                 ci.cancel();
-            }
-            else {
+            } else {
                 this.FIF$MAPS.put(intID, saveDataHash);
             }
         }

@@ -25,7 +25,7 @@ public class ChatUtils {
             client.player.sendSystemMessage(chat);
             //?} else {
             /*client.player.displayClientMessage(chat, false);
-            *///?}
+             *///?}
         }
     }
 
@@ -35,7 +35,7 @@ public class ChatUtils {
         client.player.sendOverlayMessage(chat);
         //?} else {
         /*client.player.displayClientMessage(chat, true);
-        *///?}
+         *///?}
     }
 
     public static void serverMess(String chat) {

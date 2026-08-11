@@ -37,8 +37,8 @@ public class RemainingItemRender implements IRenderer {
         if (Configs.DISPLAY_REMAIN_ITEM.getBooleanValue()) {
             int xOffset = Configs.DISPLAY_REMAIN_ITEM_OVERLAY_X_OFFSET.getIntegerValue();
             int yOffset = Configs.DISPLAY_REMAIN_ITEM_OVERLAY_Y_OFFSET.getIntegerValue();
-            if (stack != null && !stack.getItem().equals(Items.AIR)) {
-                ctx.drawString(Minecraft.getInstance().font, "%s %s".formatted(stack.getHoverName().getString(), PlayerUtils.checkRemainCount(stack.getItem())), xOffset + 20, yOffset + 4, 0xFFFFFFFF,true);
+            if (stack != null && ! stack.getItem().equals(Items.AIR)) {
+                ctx.drawString(Minecraft.getInstance().font, "%s %s".formatted(stack.getHoverName().getString(), PlayerUtils.checkRemainCount(stack.getItem())), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
                 ctx.renderItem(stack, xOffset, yOffset);
             }
         }

@@ -29,9 +29,9 @@ public class MultiPlayerGameMode_Mixin {
                     target = "Lnet/minecraft/client/multiplayer/MultiPlayerGameMode;destroyBlock(Lnet/minecraft/core/BlockPos;)Z"
             )
     )
-    //~ if >= 26.1 'BlockState blockState, BlockPos blockPos, Direction direction, int i, CallbackInfoReturnable<Packet> cir' -> 'BlockPos pos, Direction direction, int sequence, CallbackInfoReturnable<Packet> cir' {
+            //~ if >= 26.1 'BlockState blockState, BlockPos blockPos, Direction direction, int i, CallbackInfoReturnable<Packet> cir' -> 'BlockPos pos, Direction direction, int sequence, CallbackInfoReturnable<Packet> cir' {
     private void continueDestroyBlock(BlockPos pos, Direction direction, int sequence, CallbackInfoReturnable<Packet> cir) {
-    //~}
+        //~}
         if (Configs.FORCE_BLOCK_BREAK_COOL_DOWN.getBooleanValue()) {
             DISABLE_BLOCK_BREAK_COOLDOWN.setBooleanValue(false);
             this.destroyDelay = 5;

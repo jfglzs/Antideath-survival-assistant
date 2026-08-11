@@ -17,12 +17,12 @@ public class PlayerTabOverlay_Mixin {
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;fill(IIIII)V"
-                    )
+            )
     )
-    //~}
+            //~}
 
     private void disableRowBackgroundFill(GuiGraphicsExtractor instance, int x1, int y1, int x2, int y2, int color, Operation<Void> original) {
-        if (!Configs.DISABLE_PLAYER_LIST_HUD_BACKGROUND.getBooleanValue()) {
+        if (! Configs.DISABLE_PLAYER_LIST_HUD_BACKGROUND.getBooleanValue()) {
             original.call(instance, x1, y1, x2, y2, color);
         }
     }

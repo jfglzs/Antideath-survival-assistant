@@ -14,6 +14,6 @@ public class MaterialListHudRenderer_Mixin {
             at = @At("HEAD")
     )
     public void toggleShouldRender_Inject(CallbackInfo ci) {
-        Configs.shouldDisableTitle = !Configs.shouldDisableTitle;
+        Configs.shouldDisableTitle = ! Configs.shouldDisableTitle;
     }
 }

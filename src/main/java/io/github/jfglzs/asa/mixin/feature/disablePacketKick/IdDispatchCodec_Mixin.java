@@ -25,9 +25,8 @@ public class IdDispatchCodec_Mixin<B extends ByteBuf, V> {
         ByteBuf buf = input.markReaderIndex();
         V result;
         try {
-             result = original.call(input);
-        }
-        catch (Exception e) {
+            result = original.call(input);
+        } catch (Exception e) {
             if (Configs.DISABLE_PACKET_KICK.getBooleanValue()) {
                 buf.skipBytes(buf.readableBytes());
                 return (V) asa$FAKEPACKET;
@@ -44,8 +43,7 @@ public class IdDispatchCodec_Mixin<B extends ByteBuf, V> {
         ByteBuf buf = output.markReaderIndex();
         try {
             original.call(output, value);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             if (Configs.DISABLE_PACKET_KICK.getBooleanValue()) {
                 buf.skipBytes(buf.readableBytes());
                 return;

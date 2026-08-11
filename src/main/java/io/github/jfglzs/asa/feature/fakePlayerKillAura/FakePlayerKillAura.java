@@ -18,11 +18,10 @@ public class FakePlayerKillAura {
                 var canKill = canKill(name);
                 AsaMod.debugMessage(() -> "Name: " + name + " Prefix: " + prefix + " Can Kill: " + canKill);
                 if (prefix == null) {
-                    if (!canKill) continue;
-                }
-                else {
+                    if (! canKill) continue;
+                } else {
                     boolean isStartWithPrefix = name.startsWith(prefix);
-                    if (!(isStartWithPrefix && canKill)) continue;
+                    if (! (isStartWithPrefix && canKill)) continue;
                 }
                 MCUtils.executeCommand("player %s kill".formatted(name));
             }
@@ -32,9 +31,8 @@ public class FakePlayerKillAura {
     private static boolean canKill(String name) {
         if (Configs.ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST.getBooleanValue()) {
             return Configs.FAKE_PLAYER_KILL_AURA_WHITELIST.getStrings().contains(name);
-        }
-        else if (Configs.ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST.getBooleanValue()) {
-            return !Configs.FAKE_PLAYER_KILL_AURA_BLACKLIST.getStrings().contains(name);
+        } else if (Configs.ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST.getBooleanValue()) {
+            return ! Configs.FAKE_PLAYER_KILL_AURA_BLACKLIST.getStrings().contains(name);
         }
         return true;
     }

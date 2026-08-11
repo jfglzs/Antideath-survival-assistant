@@ -23,7 +23,7 @@ public class SignText_Mixin implements SignTextAccessor {
     )
     private void init(Component[] messages, Component[] filteredMessages, DyeColor color, boolean hasGlowingText, CallbackInfo ci) {
         for (Component message : messages) {
-            if (!message.getString().isEmpty()) {
+            if (! message.getString().isEmpty()) {
                 this.asa$HasText = true;
             }
         }

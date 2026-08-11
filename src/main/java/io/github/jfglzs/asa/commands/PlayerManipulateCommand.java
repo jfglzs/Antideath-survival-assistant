@@ -52,8 +52,7 @@ public class PlayerManipulateCommand {
                 var playerName = prefix == null ? i : prefix + i;
                 ChatUtils.actionBar(ProgressBar.getProgress((double) i / (end - start)));
                 ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s %s".formatted(playerName, action)));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 AsaMod.LOGGER.error("cant execute player action: {}", action, e);
                 return;
             }

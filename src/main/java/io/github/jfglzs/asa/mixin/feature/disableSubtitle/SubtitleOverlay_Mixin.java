@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.disableSubtitle;
 //~ if >= 26.1 'GuiGraphics' -> 'GuiGraphicsExtractor' {
+
 import io.github.jfglzs.asa.config.Configs;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.SubtitleOverlay;

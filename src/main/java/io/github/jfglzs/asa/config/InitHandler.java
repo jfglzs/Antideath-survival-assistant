@@ -7,6 +7,7 @@ import io.github.jfglzs.asa.AsaMod;
 
 public class InitHandler implements IInitializationHandler {
     public static final InitHandler INSTANCE = new InitHandler();
+
     @Override
     public void registerModHandlers() {
         Registry.CONFIG_SCREEN.registerConfigScreenFactory(

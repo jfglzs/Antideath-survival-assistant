@@ -40,13 +40,13 @@ public class AutoVaultExecutor {
     }
 
     public static void set(String prefix, int start, int end, float blockX, float blockY, float blockZ, float direction, float in) {
-        AutoVaultExecutor.direction  = direction;
+        AutoVaultExecutor.direction = direction;
         AutoVaultExecutor.prefix = prefix;
         AutoVaultExecutor.current = start;
         AutoVaultExecutor.start = start;
         AutoVaultExecutor.blockX = blockX;
         AutoVaultExecutor.blockY = blockY;
-        AutoVaultExecutor.blockZ  = blockZ;
+        AutoVaultExecutor.blockZ = blockZ;
         AutoVaultExecutor.end = end;
         AutoVaultExecutor.in = in;
     }
@@ -54,8 +54,7 @@ public class AutoVaultExecutor {
     public static String makeCommand() {
         if (current >= start && current <= end) {
             current++;
-        }
-        else {
+        } else {
             current = start;
         }
 
@@ -70,25 +69,23 @@ public class AutoVaultExecutor {
     }
 
     public static void tick() {
-        if (!Configs.AUTO_VAULT_COMMAND.getBooleanValue() || !isRunning) return;
+        if (! Configs.AUTO_VAULT_COMMAND.getBooleanValue() || ! isRunning) return;
 
         ClientLevel level = MCUtils.getLevel();
         if (level == null) return;
         BlockState state = level.getBlockState(vaultPos);
-        if (vaultPos == null || state.getBlock() != Blocks.VAULT || !LIMITER.tryAcquire()) return;
+        if (vaultPos == null || state.getBlock() != Blocks.VAULT || ! LIMITER.tryAcquire()) return;
         VaultState vaultState = state.getValue(VaultBlock.STATE);
 
         if (executorState == ExecutorState.IDLE && canUseVault(vaultState)) {
             MCUtils.executeCommand(makeCommand());
             executorState = ExecutorState.SPAWNING;
-        }
-        else if (executorState == ExecutorState.SPAWNING) {
+        } else if (executorState == ExecutorState.SPAWNING) {
             if (MCUtils.isPlayerOnline(name)) {
                 MCUtils.executeCommand(USE_COMMAND.formatted(name));
                 executorState = ExecutorState.ON_ACTION;
             }
-        }
-        else if (canUseVault(vaultState) && executorState == ExecutorState.ON_ACTION) {
+        } else if (canUseVault(vaultState) && executorState == ExecutorState.ON_ACTION) {
             MCUtils.executeCommand(KILL_COMMAND.formatted(name));
             executorState = ExecutorState.IDLE;
         }

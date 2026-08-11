@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallba
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -82,7 +83,7 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(i -> i % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender.INSTANCE::tick);
         ClientTickEvent.register(i -> i % 20 == 0 && CREEPER_WARN.getBooleanValue(), CreeperCheckClient::tick);
         ClientTickEvent.register(i -> i % 40 == 0 && ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue(), MaterialToDoRenderer.INSTANCE::tick);
-        ClientTickEvent.register(i -> i % 20000 == 0 && LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client ->  ItemStorageDataManager.reflushCache());
+        ClientTickEvent.register(i -> i % 20000 == 0 && LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client -> ItemStorageDataManager.reflushCache());
     }
 
     private void registerCommands() {
@@ -96,6 +97,9 @@ public class AsaMod implements ModInitializer {
     }
 
     public void testOnTick(Minecraft client) {
-        test();
+        Screen screen = MCUtils.getScreen();
+        if (screen != null) {
+            debugMessage(() -> "CurrentScreen: %s".formatted(screen));
+        }
     }
 }

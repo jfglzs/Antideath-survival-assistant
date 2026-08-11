@@ -17,7 +17,7 @@ import static io.github.jfglzs.asa.config.Configs.CREEPER_WARN_RANGE;
 public class CreeperCheckClient {
     public static void tick(Minecraft mc) {
         var creepers = CreeperCheckClient.isCreeperNearby(mc);
-        if (creepers != null && !creepers.isEmpty()) {
+        if (creepers != null && ! creepers.isEmpty()) {
             ChatUtils.clientMesswithSound(
                     ChatUtils.c(
                             "苦力怕来了，距离您 %.2f 米".formatted(creepers.getFirst().distanceTo(mc.player))
@@ -34,7 +34,7 @@ public class CreeperCheckClient {
         Level world = mc.level;
 
         if (world == null) return null;
-        if (!PlayerUtils.isSurvivalMode(player)) return null;
+        if (! PlayerUtils.isSurvivalMode(player)) return null;
 
         double range = CREEPER_WARN_RANGE.getDoubleValue();
         AABB box = player.getBoundingBox().inflate(range);

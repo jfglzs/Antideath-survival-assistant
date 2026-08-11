@@ -18,14 +18,13 @@ public class LowHealthSendCommandOrChat {
         if (LOW_HEALTH_EXECUTE_OR_SEND.getBooleanValue() && PlayerUtils.isSurvivalMode(player)) {
             float health = player.getHealth();
             if (health < LOW_HEALTH_VALUE.getFloatValue()) {
-                if (!rateLimiter.tryAcquire()) return;
+                if (! rateLimiter.tryAcquire()) return;
 
                 String content = LOW_HEALTH_SEND_CONTENT.getStringValue();
                 if (LOW_HEALTH_SEND_MODE.getOptionListValue().getStringValue().equals("发送聊天消息")) {
                     ChatUtils.serverMess(content);
                     AsaMod.debugMessage(() -> "Send Chat %s".formatted(content));
-                }
-                else {
+                } else {
                     MCUtils.executeCommand(content);
                 }
             }

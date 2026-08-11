@@ -21,7 +21,7 @@ public class InputHandler implements IKeybindProvider, IKeyboardInputHandler {
         manager.addHotkeysForCategory(AsaMod.MOD_ID, "切换式", ConfigsManager.SWITCH_KEY);
     }
 
-    public static InputHandler getInstance(){
+    public static InputHandler getInstance() {
         return INSTANCE;
     }
 }

@@ -15,11 +15,11 @@ public abstract class ItemFrame_Mixin extends Entity {
 
     @Override
     public boolean isDiscrete() {
-        return !Configs.OPT_ITEM_FRAME.getBooleanValue() && super.isDiscrete();
+        return ! Configs.OPT_ITEM_FRAME.getBooleanValue() && super.isDiscrete();
     }
 
     @Override
     public boolean fireImmune() {
-        return !Configs.OPT_ITEM_FRAME.getBooleanValue() && super.fireImmune();
+        return ! Configs.OPT_ITEM_FRAME.getBooleanValue() && super.fireImmune();
     }
 }

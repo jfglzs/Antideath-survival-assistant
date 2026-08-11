@@ -27,7 +27,7 @@ public class MCUtils {
     }
 
     public static ClientLevel getLevel() {
-       return MCUtils.getMinecraft().level;
+        return MCUtils.getMinecraft().level;
     }
 
     public static void executeCommand(String command) {

@@ -22,7 +22,7 @@ public class MaterialToDoRenderer implements IRenderer {
     }
 
     //~ if < 1.21.11 'GuiContext' -> 'GuiGraphics' {
-        //? if < 26.1 {
+    //? if < 26.1 {
         /*@Override
         public void onRenderGameOverlayPost(GuiContext ctx) {
             this.render(ctx);
@@ -32,7 +32,7 @@ public class MaterialToDoRenderer implements IRenderer {
     public void onExtractGuiOverlayPost(GuiContext ctx, float partialTicks, ProfilerFiller profiler) {
         this.render(ctx);
     }
-        //?}
+    //?}
 
     public void render(GuiContext ctx) {
         if (Configs.ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue()) {
@@ -41,12 +41,12 @@ public class MaterialToDoRenderer implements IRenderer {
             for (Item item : items) {
                 ctx.renderItem(new ItemStack(item), xOffset, yOffset);
                 //? if <= 1.21.1 {
-                 /*ctx.drawString(Minecraft.getInstance().font, item.getDescription(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
-                *///?} else if >=26.1 {
+                /*ctx.drawString(Minecraft.getInstance().font, item.getDescription(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
+                 *///?} else if >=26.1 {
                 ctx.drawString(Minecraft.getInstance().font, item.getDescriptionId(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
                 //?} else {
-                 /*ctx.drawString(Minecraft.getInstance().font, item.getName(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
-                *///?}
+                /*ctx.drawString(Minecraft.getInstance().font, item.getName(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
+                 *///?}
                 yOffset += 18;
             }
         }

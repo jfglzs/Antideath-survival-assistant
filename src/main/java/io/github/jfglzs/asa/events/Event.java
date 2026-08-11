@@ -18,8 +18,7 @@ public class Event<T> {
                 if (listener.apply(obj)) {
                     return true;
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }

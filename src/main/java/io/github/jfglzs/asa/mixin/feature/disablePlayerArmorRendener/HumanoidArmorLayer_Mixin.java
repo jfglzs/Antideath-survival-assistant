@@ -28,6 +28,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import static io.github.jfglzs.asa.config.Configs.DISABLE_PLAYER_ARMOR_RENDER;
 
 @Mixin(HumanoidArmorLayer.class)
@@ -42,7 +43,7 @@ public class HumanoidArmorLayer_Mixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    //? if < 1.21.10 {
+            //? if < 1.21.10 {
     /*public void render_Inject(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, HumanoidRenderState state, float f, float g, CallbackInfo ci) {
         if (state instanceof PlayerRenderState && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
                 ci.cancel();

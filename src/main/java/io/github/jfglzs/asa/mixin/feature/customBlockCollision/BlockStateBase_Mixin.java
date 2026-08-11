@@ -37,8 +37,7 @@ public class BlockStateBase_Mixin {
                 if (Configs.STRONG_BLOCK_COLLISION_WHITELIST.getStrings().stream().anyMatch(blockID::equals) && asa$shouldKeep(blockID)) {
                     cir.setReturnValue(Shapes.block());
                 }
-            }
-            else if (Configs.ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST.getBooleanValue()) {
+            } else if (Configs.ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST.getBooleanValue()) {
                 if (Configs.STRONG_BLOCK_COLLISION_BLACKLIST.getStrings().stream().noneMatch(blockID::equals) && asa$shouldKeep(blockID)) {
                     cir.setReturnValue(Shapes.block());
                 }
@@ -50,8 +49,7 @@ public class BlockStateBase_Mixin {
     private EntityCollisionContext asa$getEntityCollisionContext(CollisionContext context) {
         if (MCUtils.isModLoaded("lithium")) {
             return context.getClass() == EntityCollisionContext.class ? (EntityCollisionContext) context : null;
-        }
-        else if (context instanceof EntityCollisionContext ctx) {
+        } else if (context instanceof EntityCollisionContext ctx) {
             return ctx;
         }
         return null;
@@ -59,6 +57,6 @@ public class BlockStateBase_Mixin {
 
     @Unique
     private static boolean asa$shouldKeep(String s) {
-        return !s.equals("minecraft:air") && !s.equals("minecraft:water") && !s.equals("minecraft:lava");
+        return ! s.equals("minecraft:air") && ! s.equals("minecraft:water") && ! s.equals("minecraft:lava");
     }
 }

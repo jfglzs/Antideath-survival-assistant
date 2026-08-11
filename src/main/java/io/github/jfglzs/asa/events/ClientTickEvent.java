@@ -13,7 +13,9 @@ public class ClientTickEvent {
 
     public static void register(IntPredicate condition, ClientTickCallback callback) {
         tickTasks.add(TickTask.of(condition, callback));
-    };
+    }
+
+    ;
 
     public static void onUpdate(Minecraft client) {
         tickCount++;
@@ -29,9 +31,10 @@ public class ClientTickEvent {
     }
 
     record TickTask(IntPredicate condition, ClientTickCallback callback) {
-       public static TickTask of(IntPredicate condition, ClientTickCallback callback) {
-           if (condition == null || callback == null) throw new IllegalArgumentException("Condition or callback cannot be null");
-           return new TickTask(condition, callback);
-       }
+        public static TickTask of(IntPredicate condition, ClientTickCallback callback) {
+            if (condition == null || callback == null)
+                throw new IllegalArgumentException("Condition or callback cannot be null");
+            return new TickTask(condition, callback);
+        }
     }
 }

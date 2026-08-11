@@ -39,7 +39,7 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 
 /*import net.minecraft.client.renderer.MultiBufferSource;
 
-*///?} else {
+ *///?} else {
 
 /*import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.state.CameraRenderState;
@@ -55,7 +55,7 @@ import net.minecraft.client.renderer.MapRenderer;
 
 /*import org.objectweb.asm.Opcodes;
 
-*///?}
+ *///?}
 
 @Mixin(value = ItemFrameRenderer.class, priority = 900)
 public abstract class ItemFrameRenderer_Mixin {
@@ -93,17 +93,17 @@ public abstract class ItemFrameRenderer_Mixin {
 
     @Inject(
             //? if = 1.21.1 {
-            
+
             /*method = "render(Lnet/minecraft/world/entity/decoration/ItemFrame;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
             
             *///?} else if < 1.21.10 {
-            
+
             /*method = "render(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
             
             *///?} else if >= 26.1 {
             method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
             //?} else {
-            
+
             /*method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
             
             *///?}
@@ -114,7 +114,7 @@ public abstract class ItemFrameRenderer_Mixin {
                     target = "Lnet/minecraft/client/renderer/block/BlockModelRenderState;isEmpty()Z"
             ),
             //?} else if != 1.21.1 && < 26.1 {
-            
+
             /*at = @At(
                     value = "FIELD",
                     target = "Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;isInvisible:Z",
@@ -141,20 +141,20 @@ public abstract class ItemFrameRenderer_Mixin {
     )
 
             //? if = 1.21.1 {
-    
-    /*private void render(ItemFrame entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
-    
-            *///?} else if < 1.21.10 {
-    
-    /*private void render(ItemFrameRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, CallbackInfo ci) {
-    
-            *///?} else if >= 1.21.10 && < 26.2 {
-    private void render(ItemFrameRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
-            //?} else {
-    /*private void render(ItemFrameRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
-            *///?}
 
-        if (!Configs.TRANSPARENT_ITEM_FRAME.getBooleanValue()) {
+    /*private void render(ItemFrame entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
+
+     *///?} else if < 1.21.10 {
+
+    /*private void render(ItemFrameRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, CallbackInfo ci) {
+
+     *///?} else if >= 1.21.10 && < 26.2 {
+    private void render(ItemFrameRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
+        //?} else {
+        /*private void render(ItemFrameRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
+         *///?}
+
+        if (! Configs.TRANSPARENT_ITEM_FRAME.getBooleanValue()) {
             return;
         }
 
@@ -197,8 +197,8 @@ public abstract class ItemFrameRenderer_Mixin {
             float s = 0.0078125F;
             poseStack.scale(0.0078125F, 0.0078125F, 0.0078125F);
 
-            poseStack.translate(-64.0F, -64.0F, 0.0F);
-            poseStack.translate(0.0F, 0.0F, -1.0F);
+            poseStack.translate(- 64.0F, - 64.0F, 0.0F);
+            poseStack.translate(0.0F, 0.0F, - 1.0F);
 
             int lightCoords = this.getLightCoords(
                     renderState.isGlowFrame,
@@ -213,8 +213,7 @@ public abstract class ItemFrameRenderer_Mixin {
                     true,
                     lightCoords
             );
-        }
-        else if (!renderState.item.isEmpty()) {
+        } else if (! renderState.item.isEmpty()) {
             poseStack.mulPose(
                     Axis.ZP.rotationDegrees((float) renderState.rotation * 360.0F / 8.0F)
             );

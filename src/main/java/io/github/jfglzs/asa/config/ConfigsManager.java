@@ -15,12 +15,13 @@ import java.util.List;
 
 public class ConfigsManager {
     private static final List<IConfigBase> ALL = new ArrayList<>();
-    private static final List<IConfigBase> LMS = new ArrayList<>();;
+    private static final List<IConfigBase> LMS = new ArrayList<>();
+    ;
     private static final List<IConfigBase> DISABLES = new ArrayList<>();
     private static final List<IConfigBase> FUNCTIONS = new ArrayList<>();
-    private static final List<IConfigBase> COMMANDS  = new ArrayList<>();
-    private static final List<IConfigBase> OPTIMIZATIONS  = new ArrayList<>();
-    private static final List<IConfigBase> LISTS  = new ArrayList<>();
+    private static final List<IConfigBase> COMMANDS = new ArrayList<>();
+    private static final List<IConfigBase> OPTIMIZATIONS = new ArrayList<>();
+    private static final List<IConfigBase> LISTS = new ArrayList<>();
 
     public static final List<ConfigHotkey> KEY_LIST = new ArrayList<>();
     public static final List<IHotkeyTogglable> SWITCH_KEY = new ArrayList<>();
@@ -38,8 +39,7 @@ public class ConfigsManager {
         ConfigBase<?> obj;
         try {
             obj = (ConfigBase<?>) field.get(null);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             AsaMod.LOGGER.error("error while adding tab", e);
             return;
         }
@@ -56,21 +56,20 @@ public class ConfigsManager {
 
         if (obj instanceof ConfigHotkey hotkey) {
             KEY_LIST.add(hotkey);
-        }
-        else if (obj instanceof ConfigBooleanHotkeyed booleanHotkeyed) {
+        } else if (obj instanceof ConfigBooleanHotkeyed booleanHotkeyed) {
             SWITCH_KEY.add(booleanHotkeyed);
         }
     }
 
     public static ImmutableList<IConfigBase> getConfigs(Tab tab) {
         ImmutableList<IConfigBase> list = switch (tab) {
-               case ALL -> ImmutableList.copyOf(ALL);
-               case FUNCTIONS -> ImmutableList.copyOf(FUNCTIONS);
-               case DISABLES -> ImmutableList.copyOf(DISABLES);
-               case COMMAND -> ImmutableList.copyOf(COMMANDS);
-               case LMS -> ImmutableList.copyOf(LMS);
-               case OPTIMIZATIONS ->  ImmutableList.copyOf(OPTIMIZATIONS);
-               case LISTS -> ImmutableList.copyOf(LISTS);
+            case ALL -> ImmutableList.copyOf(ALL);
+            case FUNCTIONS -> ImmutableList.copyOf(FUNCTIONS);
+            case DISABLES -> ImmutableList.copyOf(DISABLES);
+            case COMMAND -> ImmutableList.copyOf(COMMANDS);
+            case LMS -> ImmutableList.copyOf(LMS);
+            case OPTIMIZATIONS -> ImmutableList.copyOf(OPTIMIZATIONS);
+            case LISTS -> ImmutableList.copyOf(LISTS);
         };
         if (list.isEmpty()) throw new IllegalStateException("Not initialized");
         return list;

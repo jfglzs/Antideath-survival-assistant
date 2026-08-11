@@ -60,7 +60,7 @@ public class PlayerUtils {
 
         for (int i : shulkerBoxIndexes) {
             List<ItemStack> boxStacks = getBoxItemStacks(player.getInventory().getItem(i));
-            if (!boxStacks.stream().filter(itemStack -> !itemStack.isEmpty()).toList().isEmpty()) {
+            if (! boxStacks.stream().filter(itemStack -> ! itemStack.isEmpty()).toList().isEmpty()) {
                 results.add(i);
             }
         }
@@ -103,7 +103,7 @@ public class PlayerUtils {
     }
 
     public static boolean isSurvivalMode(Player player) {
-        return player != null && !player.isCreative() && !player.isSpectator();
+        return player != null && ! player.isCreative() && ! player.isSpectator();
     }
 
     public static boolean isShulkerBox(ItemStack stack) {

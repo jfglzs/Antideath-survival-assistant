@@ -43,23 +43,20 @@ public class ItemStorageDataManager {
 
     public static void init() {
         ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
-            if (!Configs.LMS_FETCH_SUPPORT.getBooleanValue()) return true;
+            if (! Configs.LMS_FETCH_SUPPORT.getBooleanValue()) return true;
 
             var str = message.getString().trim();
 
             if (str.contains("maxCount:") && str.startsWith("{") && str.endsWith("}")) {
                 ChatUtils.clientMesswithSound(ChatUtils.c("请求的数量超出配置的最大上限").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH, 1, 1);
                 return false;
-            }
-            else if (str.startsWith("{") && str.endsWith("}") && str.contains("waitSecond:")) {
+            } else if (str.startsWith("{") && str.endsWith("}") && str.contains("waitSecond:")) {
                 ChatUtils.clientMesswithSound(ChatUtils.c("假人取货还在冷却中").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH, 1, 1);
                 return false;
-            }
-            else if (str.equals("[]")) {
+            } else if (str.equals("[]")) {
                 ChatUtils.clientMesswithSound(ChatUtils.c("全无品: 这个物品暂时没有存货").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
                 return false;
-            }
-            else if (str.contains("id:") && str.contains("count:") && str.startsWith("[{") && str.endsWith("}]")) {
+            } else if (str.contains("id:") && str.contains("count:") && str.startsWith("[{") && str.endsWith("}]")) {
                 if (str.contains("name:")) {
                     try {
                         List<PlayerItemStorage> itemStorageList = LENIENT_GSON.fromJson(str, PLAYER_TYPE);
@@ -78,12 +75,10 @@ public class ItemStorageDataManager {
                             WAIT_FOR_KILLING.add(name);
                         }
                         return false;
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         AsaMod.debugMessage(() -> e.getCause() + e.getMessage());
                     }
-                }
-                else {
+                } else {
                     try {
                         List<ItemStorage> list = LENIENT_GSON.fromJson(str, ITEM_TYPE);
                         ITEM_STORAGES.clear();
@@ -94,13 +89,11 @@ public class ItemStorageDataManager {
                             ITEM_STORAGES.put(id, count);
                         });
                         return false;
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         AsaMod.debugMessage(() -> e.getCause() + e.getMessage());
                     }
                 }
-            }
-            else if (str.startsWith("[{") && str.endsWith("]") && str.contains("<...>")) {
+            } else if (str.startsWith("[{") && str.endsWith("]") && str.contains("<...>")) {
                 ChatUtils.clientMesswithSound(ChatUtils.c("无法通过getStorageData命令查询容器数据 \n 原因: NBT被折叠 \n 请安装Antideath-carpet-addition v1.4.5以上版本并开启 fixNbtFold 规则 \n 或者将LMS 更新至 1.14.1").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_NO, 1, 1);
                 return false;
             }
@@ -114,7 +107,7 @@ public class ItemStorageDataManager {
             for (String name : PLAYER_INV.keySet()) {
                 PlayerInventory inventory = PLAYER_INV.get(name);
                 for (Slot slot : inventory.slots) {
-                    if (!canSend(slot.getItem(), item)) continue;
+                    if (! canSend(slot.getItem(), item)) continue;
                     MCUtils.executeCommand("player %s spawn".formatted(name));
                     WAIT_FOR_INV.add(name);
                     WAIT_FOR_KILLING.add(name);
@@ -176,20 +169,17 @@ public class ItemStorageDataManager {
 
         if (ITEM_STORAGES.isEmpty() && FAKE_ITEM_STORAGES.isEmpty()) {
             components.add(Component.nullToEmpty("物品未查询/缓存").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED));
-        }
-        else if (count > 0) {
+        } else if (count > 0) {
             int oneBoxCount = stack.getMaxStackSize() * 27;
             if (count < oneBoxCount) {
                 components.add(Component.nullToEmpty("存货: %s".formatted(count)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
-            }
-            else {
+            } else {
                 components.add(Component.nullToEmpty("存货: %d (%.2f 潜影盒) ".formatted(count, (float) count / oneBoxCount)).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
             }
             if (Configs.LITEMATICA_CALCULATE_FAKE.getBooleanValue()) {
                 components.add(Component.nullToEmpty("假人存货: %d".formatted(FAKE_ITEM_STORAGES.getInt(itemID))).copy().withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
             }
-        }
-        else {
+        } else {
             components.add(Component.nullToEmpty("暂无存货").copy().withStyle(ChatFormatting.BOLD, ChatFormatting.RED));
         }
 
@@ -199,8 +189,11 @@ public class ItemStorageDataManager {
     public static int getCount(Item item, boolean fake) {
         String stackId = MCUtils.getItemID(item);
         int count = 0;
-        if (fake) {count = Math.max(FAKE_ITEM_STORAGES.getInt(stackId), 0);}
-        else {count = count + Math.max(ITEM_STORAGES.getInt(stackId), 0);}
+        if (fake) {
+            count = Math.max(FAKE_ITEM_STORAGES.getInt(stackId), 0);
+        } else {
+            count = count + Math.max(ITEM_STORAGES.getInt(stackId), 0);
+        }
         return count;
     }
 
@@ -209,7 +202,7 @@ public class ItemStorageDataManager {
     }
 
     public static void scanMatchedPlayersAndInteract(Minecraft mc) {
-        if (!Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue() || mc.level == null) return;
+        if (! Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue() || mc.level == null) return;
 
         mc.level.players().forEach(player -> {
             //~ if >=1.21.10 '.getName()' -> '.name()' {
@@ -222,8 +215,7 @@ public class ItemStorageDataManager {
                         Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
                         ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s inventory".formatted(name))).join();
                         WAIT_FOR_KILLING.add(name);
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         ChatUtils.clientMess(ChatUtils.c(e.getMessage()));
                         AsaMod.LOGGER.error(e.getMessage(), e);
                     }

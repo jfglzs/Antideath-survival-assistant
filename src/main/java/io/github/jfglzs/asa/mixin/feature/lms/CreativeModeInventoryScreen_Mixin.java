@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.lms;
 //~ if >= 26.1 'ClickType' -> 'ContainerInput' {
+
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
@@ -49,8 +50,8 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
     ) {
         if (
                 Configs.lockCreativeScreen
-                && actionType != ContainerInput.THROW
-                && actionType != ContainerInput.QUICK_CRAFT
+                        && actionType != ContainerInput.THROW
+                        && actionType != ContainerInput.QUICK_CRAFT
         ) {
             type.set(actionType);
         }
@@ -89,9 +90,9 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             CallbackInfo ci,
             @Share("type") LocalRef<ContainerInput> type
     ) {
-        if (Configs.lockCreativeScreen && type.get() != null && slotId == -999) {
+        if (Configs.lockCreativeScreen && type.get() != null && slotId == - 999) {
             ItemStack stack = this.menu.getCarried();
-            int count = -1;
+            int count = - 1;
             int maxCount = stack.getMaxStackSize();
             if (type.get() == ContainerInput.PICKUP && button == 0) count = maxCount;
             else if (type.get() == ContainerInput.PICKUP && button == 1) count = maxCount * 27;
@@ -110,7 +111,7 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
     )
     public void getTooltipFromItem(ItemStack stack, CallbackInfoReturnable<List<Component>> cir) {
         if (Configs.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.lockCreativeScreen) {
-            if (minecraft.player != null && !minecraft.player.isCreative() && Configs.LMS_FETCH_SUPPORT.getBooleanValue()) {
+            if (minecraft.player != null && ! minecraft.player.isCreative() && Configs.LMS_FETCH_SUPPORT.getBooleanValue()) {
                 var texts = cir.getReturnValue();
                 var text = ItemStorageDataManager.get(stack);
                 texts.addAll(text);

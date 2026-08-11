@@ -10,7 +10,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Pseudo
-@Mixin(targets = {"betterblockentities.client.render.immediate.blockentity.manager.SpecialBlockEntityManager","betterblockentities.client.render.immediate.blockentity.manager.SpecialBlockEntityManager$SignManager"})
+@Mixin(
+        targets = {
+                "betterblockentities.client.render.immediate.blockentity.manager.SpecialBlockEntityManager",
+                "betterblockentities.client.render.immediate.blockentity.manager.SpecialBlockEntityManager$SignManager"
+        }
+)
 public class BBE_SpecialBlockEntityManager_Mixin {
     @Inject(
             method = "hasAnyText",

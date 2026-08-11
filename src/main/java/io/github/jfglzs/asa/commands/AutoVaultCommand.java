@@ -20,23 +20,23 @@ public class AutoVaultCommand {
                 .requires(cs -> Configs.AUTO_VAULT_COMMAND.getBooleanValue())
                 .then(CommandUtils.literal("set")
                         .then(CommandUtils.argument("blockX", IntegerArgumentType.integer())
-                            .then(CommandUtils.argument("blockY", IntegerArgumentType.integer(-64, 320))
-                                .then(CommandUtils.argument("blockZ", IntegerArgumentType.integer())
-                                    .executes(AutoVaultCommand::setPos)
+                                .then(CommandUtils.argument("blockY", IntegerArgumentType.integer(- 64, 320))
+                                        .then(CommandUtils.argument("blockZ", IntegerArgumentType.integer())
+                                                .executes(AutoVaultCommand::setPos)
+                                        )
                                 )
-                            )
                         )
                 )
                 .then(CommandUtils.literal("player")
                         .then(CommandUtils.argument("prefix", StringArgumentType.word())
-                        .then(CommandUtils.argument("start", IntegerArgumentType.integer(0))
-                        .then(CommandUtils.argument("end", IntegerArgumentType.integer(0))
-                        .then(CommandUtils.argument("blockX", FloatArgumentType.floatArg())
-                        .then(CommandUtils.argument("blockY", FloatArgumentType.floatArg())
-                        .then(CommandUtils.argument("blockZ", FloatArgumentType.floatArg())
-                        .then(CommandUtils.argument("direction", FloatArgumentType.floatArg())
-                        .then(CommandUtils.argument("in", FloatArgumentType.floatArg())
-                            .executes(AutoVaultCommand::setPlayer))))))))
+                                .then(CommandUtils.argument("start", IntegerArgumentType.integer(0))
+                                        .then(CommandUtils.argument("end", IntegerArgumentType.integer(0))
+                                                .then(CommandUtils.argument("blockX", FloatArgumentType.floatArg())
+                                                        .then(CommandUtils.argument("blockY", FloatArgumentType.floatArg())
+                                                                .then(CommandUtils.argument("blockZ", FloatArgumentType.floatArg())
+                                                                        .then(CommandUtils.argument("direction", FloatArgumentType.floatArg())
+                                                                                .then(CommandUtils.argument("in", FloatArgumentType.floatArg())
+                                                                                        .executes(AutoVaultCommand::setPlayer))))))))
                         )
                 )
                 .then(CommandUtils.literal("start")
@@ -63,7 +63,7 @@ public class AutoVaultCommand {
             return 0;
         }
 
-        context.getSource().sendFeedback(ChatUtils.c( AutoVaultCommand.prefix + "设置成功!"));
+        context.getSource().sendFeedback(ChatUtils.c(AutoVaultCommand.prefix + "设置成功!"));
 
         AutoVaultExecutor.set(prefix, start, end, blockX, blockY, blockZ, direction, in);
         return Command.SINGLE_SUCCESS;
@@ -73,11 +73,11 @@ public class AutoVaultCommand {
         int x = IntegerArgumentType.getInteger(context, "blockX");
         int y = IntegerArgumentType.getInteger(context, "blockY");
         int z = IntegerArgumentType.getInteger(context, "blockZ");
-        if (!AutoVaultExecutor.setBlockPos(new BlockPos(x, y, z))) {
+        if (! AutoVaultExecutor.setBlockPos(new BlockPos(x, y, z))) {
             context.getSource().sendError(ChatUtils.c(prefix + "无效的方块坐标"));
             return 0;
         }
-        context.getSource().sendFeedback(ChatUtils.c( AutoVaultCommand.prefix + "设置成功!"));
+        context.getSource().sendFeedback(ChatUtils.c(AutoVaultCommand.prefix + "设置成功!"));
         return Command.SINGLE_SUCCESS;
     }
 

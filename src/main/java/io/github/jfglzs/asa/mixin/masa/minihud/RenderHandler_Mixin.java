@@ -65,8 +65,8 @@ public class RenderHandler_Mixin {
                 original.call(instance);
                 asa$mountHudInfo();
                 ThreadUtils.runOnClientThread(() -> {
-                        lines.clear();
-                        lines.addAll(asa$list);
+                    lines.clear();
+                    lines.addAll(asa$list);
                 });
             });
             return;
@@ -77,7 +77,7 @@ public class RenderHandler_Mixin {
 
     @Unique
     private void asa$mountHudInfo() {
-        if (!Configs.MOUNT_LOGGERS_ON_MINIHUD.getBooleanValue()) return;
+        if (! Configs.MOUNT_LOGGERS_ON_MINIHUD.getBooleanValue()) return;
 
         Minecraft mc = MCUtils.getMinecraft();
         LocalPlayer player = mc.player;
@@ -93,8 +93,7 @@ public class RenderHandler_Mixin {
                         list.add(line);
                     }
                     continue;
-                }
-                else if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getBooleanValue()) {
+                } else if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getBooleanValue()) {
                     if (Configs.MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getStrings().stream().noneMatch(line::contains)) {
                         list.add(line);
                     }
