@@ -86,7 +86,6 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed PREVENT_INTENTIONAL_GAME_DESIGN = new ConfigBooleanHotkeyed("防止被刻意的游戏设计杀死", false, "", "防止玩家被刻意的游戏设计杀死");
     @Config(tab = Tab.DISABLES)
     public static final ConfigBooleanHotkeyed DISABLE_PLAYER_LIST_HUD_BACKGROUND = new ConfigBooleanHotkeyed("禁用TAB菜单背景", false, "", "禁用TAB菜单背景");
-    ;
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigHotkey ENABLE_FAKE_PLAYER_KILL_AURA = new ConfigHotkey("触发假人杀戮光环", "", "触发假人杀戮光环");
     @Config(tab = Tab.FUNCTIONS)
@@ -95,12 +94,10 @@ public class Configs implements IConfigHandler {
     public static final ConfigDouble FAKE_PLAYER_KILL_AURA_RANGE = new ConfigDouble("假人杀戮光环范围", 4, 0, 32, "假人杀戮光环范围(以玩家为中心)");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST = new ConfigBooleanHotkeyed("启用假人杀戮光环黑名单", false, "", "启用假人杀戮光环黑名单");
-    ;
     @Config(tab = Tab.LISTS)
     public static final ConfigStringList FAKE_PLAYER_KILL_AURA_BLACKLIST = new ConfigStringList("假人杀戮光环黑名单", ImmutableList.of(), "假人杀戮光环黑名单（仅对名单内玩家生效，精确匹配，忽略大小写）");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST = new ConfigBooleanHotkeyed("启用假人杀戮光环白名单", false, "", "启用假人杀戮光环白名单");
-    ;
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigStringList FAKE_PLAYER_KILL_AURA_WHITELIST = new ConfigStringList("假人杀戮光环白名单", ImmutableList.of(), "假人杀戮光环白名单（仅对名单内玩家生效，精确匹配，忽略大小写）");
     @Config(tab = Tab.FUNCTIONS)
@@ -190,6 +187,8 @@ public class Configs implements IConfigHandler {
     @Config(tab = Tab.DISABLES)
     public static final ConfigBooleanHotkeyed DISABLE_PACKET_KICK = new ConfigBooleanHotkeyed("禁用数据包踢出", false, "", "开启后会阻止玩家因为数据包错误被踢出服务器\n此功能建议搭配ViaFabricPLus食用");
     @Config(tab = Tab.DISABLES)
+    public static final ConfigBooleanHotkeyed FORCE_JOIN_SERVER_IGNORE_UNKNOWN_PACKET = new ConfigBooleanHotkeyed("禁用数据包踢出-强制进入服务器", false, "", "此功能可以无视客户端不存在/未注册的数据包强制进入服务器");
+    @Config(tab = Tab.DISABLES)
     public static final ConfigBooleanHotkeyed DISABLE_PACKET_KICK_PREVENT_CUSTOM_PAYLOAD = new ConfigBooleanHotkeyed("禁用数据包踢出-拦截ServerboundCustomPayloadPacket", false, "", "开启后会阻止玩家因为数据包错误被踢出服务器\n此功能建议搭配ViaFabricPLus食用\n(此功能用于大版本跨小版本)");
     @Config(tab = {Tab.DISABLES, Tab.OPTIMIZATIONS})
     public static final ConfigBooleanHotkeyed DISABLE_PROFILER = new ConfigBooleanHotkeyed("禁用Profiler", false, "", "禁用后可提升帧数但会导致饼图不可用");
@@ -218,6 +217,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false, "", "1111");
     @Config
     public static final ConfigHotkey TEST = new ConfigHotkey("触发调试", "", "测试", "1111");
+    @Config(tab = Tab.LISTS)
+    public static final ConfigStringList DEBUG_LIST = new ConfigStringList("调试用", ImmutableList.of(), "", "");
 
     @Override
     public void load() {

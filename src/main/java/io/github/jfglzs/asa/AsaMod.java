@@ -21,6 +21,7 @@ import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.networking.v1.ClientboundPlayChannelEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -49,6 +50,9 @@ public class AsaMod implements ModInitializer {
     public void onInitialize() {
         version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
         LOGGER.info("AsaMod v{} is being loading...", version);
+        ClientboundPlayChannelEvents.REGISTER.register((listener, sender, server, channels) ->{
+            channels.forEach(System.out::println);
+        });
         this.init();
     }
 
@@ -97,9 +101,5 @@ public class AsaMod implements ModInitializer {
     }
 
     public void testOnTick(Minecraft client) {
-        Screen screen = MCUtils.getScreen();
-        if (screen != null) {
-            debugMessage(() -> "CurrentScreen: %s".formatted(screen));
-        }
     }
 }
