@@ -28,7 +28,6 @@
     "requireAnnotations": true
   },
   "client": [
-    "feature.forceJoinServer.ClientRegistrySyncHandler_Mixin",
     "event.screenEvents.ClientPacketListener_Mixin",
     "event.screenEvents.Gui_Mixin",
     "event.screenEvents.Minecraft_Mixin",
@@ -43,8 +42,11 @@
     "feature.disablePlayerArmorRendener.HumanoidArmorLayer_Mixin",
     "feature.disableSubtitle.SubtitleOverlay_Mixin",
     "feature.disableSubtitleOverlayBackGround.SubtitleOverlay_Mixin",
+    "feature.entityOptimization.ClientLevel_Mixin",
+    "feature.entityOptimization.EntityRendererDispatcher_Mixin",
     "feature.flatMining.MultiPlayerGameMode_Mixin",
     "feature.forceBlockBreakCoolDown.MultiPlayerGameMode_Mixin",
+    "feature.forceJoinServer.ClientRegistrySyncHandler_Mixin",
     "feature.lms.AbstractContainerScreen_Mixin",
     "feature.lms.CreativeModeInventoryScreen_Mixin",
     "feature.mountLoggersOnMiniHud.ClientPacketListener_Mixin",
