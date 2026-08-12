@@ -4,6 +4,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.Minecraft;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 
@@ -32,8 +33,8 @@ public class ClientTickEvent {
 
     record TickTask(IntPredicate condition, ClientTickCallback callback) {
         public static TickTask of(IntPredicate condition, ClientTickCallback callback) {
-            if (condition == null || callback == null)
-                throw new IllegalArgumentException("Condition or callback cannot be null");
+            Objects.requireNonNull(condition);
+            Objects.requireNonNull(callback);
             return new TickTask(condition, callback);
         }
     }

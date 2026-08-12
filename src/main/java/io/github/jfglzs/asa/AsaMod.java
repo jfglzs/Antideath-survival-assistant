@@ -50,9 +50,6 @@ public class AsaMod implements ModInitializer {
     public void onInitialize() {
         version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
         LOGGER.info("AsaMod v{} is being loading...", version);
-        ClientboundPlayChannelEvents.REGISTER.register((listener, sender, server, channels) ->{
-            channels.forEach(System.out::println);
-        });
         this.init();
     }
 

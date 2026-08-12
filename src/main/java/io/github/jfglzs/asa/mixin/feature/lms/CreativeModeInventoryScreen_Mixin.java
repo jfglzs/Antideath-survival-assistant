@@ -47,7 +47,7 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             ContainerInput actionType,
             CallbackInfo ci,
             @Share("type") LocalRef<ContainerInput> type
-                                 ) {
+    ) {
         if (
                 Configs.lockCreativeScreen
                         && actionType != ContainerInput.THROW
