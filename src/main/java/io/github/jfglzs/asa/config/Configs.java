@@ -193,8 +193,6 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed DISABLE_PACKET_KICK_PREVENT_CUSTOM_PAYLOAD = new ConfigBooleanHotkeyed("禁用数据包踢出-拦截ServerboundCustomPayloadPacket", false, "", "开启后会阻止玩家因为数据包错误被踢出服务器\n此功能建议搭配ViaFabricPLus食用\n(此功能用于大版本跨小版本)");
     @Config(tab = {Tab.DISABLES, Tab.OPTIMIZATIONS})
     public static final ConfigBooleanHotkeyed DISABLE_PROFILER = new ConfigBooleanHotkeyed("禁用Profiler", false, "", "禁用后可提升帧数但会导致饼图不可用");
-    @Config(tab = Tab.OPTIMIZATIONS)
-    public static final ConfigBooleanHotkeyed CLIENT_ENTITY_TICK_OPTIMIZATION = new ConfigBooleanHotkeyed("客户端实体Tick优化", false, "", "优化/剔除了一些计算 使得客户端更加流畅");
     @Config(tab = Tab.COMMAND)
     public static final ConfigBooleanHotkeyed AUTO_VAULT_COMMAND = new ConfigBooleanHotkeyed("自动宝库命令 /autovault", false, "", "自动开启宝库命令 用法 \n/autovault player <前缀> <开始值> <结束值> <方块X> <方块Y> <方块Z> <DIR> <In> 等效于:\n/player _AntiDeath_ spawn at <方块X> <方块Y> <方块Z> facing <dir> <in>\n/autovault set <宝库XYZ>");
     @Config(tab = Tab.FUNCTIONS)
