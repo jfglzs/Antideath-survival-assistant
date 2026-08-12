@@ -1,16 +1,16 @@
 package io.github.jfglzs.asa.mixin.feature.optItemFrame;
 
 //? if >= 1.21.8 {
-
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import fi.dy.masa.malilib.config.IConfigOptionListEntry;
 import io.github.jfglzs.asa.config.Configs;
-//? if >= 26.1.2 {
-/*import io.github.jfglzs.asa.config.options.ItemFrameVisibility;
+//? if >= 26.1 {
+import io.github.jfglzs.asa.config.options.ItemFrameVisibility;
 import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.block.BlockModelRenderState;
-*///?}
+//?}
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.entity.Entity;
@@ -25,8 +25,8 @@ import net.minecraft.client.renderer.entity.ItemFrameRenderer;
 
 @Mixin(ItemFrameRenderer.class)
 public class ItemFrameRenderer_Mixin {
-    //? if >= 26.1.2 {
-    /*@WrapOperation(
+    //? if >= 26.1 {
+    @WrapOperation(
             method = "extractRenderState(Lnet/minecraft/world/entity/decoration/ItemFrame;Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;F)V",
             at = @At(
                     value = "INVOKE",
@@ -41,16 +41,17 @@ public class ItemFrameRenderer_Mixin {
                                    @Local ItemStack stack
                                   ) {
         if (Configs.OPT_ITEM_FRAME.getBooleanValue()) {
-            if (Configs.ITEM_FRAME_VISIBILITY.getOptionListValue() == ItemFrameVisibility.EMPTY_ONLY) {
+            IConfigOptionListEntry visibility = Configs.ITEM_FRAME_VISIBILITY.getOptionListValue();
+            if (visibility == ItemFrameVisibility.EMPTY_ONLY) {
                 if (!stack.isEmpty()) return;
             }
-            else {
+            else if (visibility == ItemFrameVisibility.ALWAYS_INVISIBLE) {
                 return;
             }
         }
         original.call(instance, renderState, isGlowing, map);
     }
-    *///?}
+    //?}
 
     //? if >= 1.21.8 {
     @WrapOperation(
