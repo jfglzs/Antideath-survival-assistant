@@ -22,8 +22,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //? if < 1.21.8 {
-//import net.minecraft.network.PacketSendListener;
-//?}
+/*import net.minecraft.network.PacketSendListener;
+*///?}
 
 @Mixin(Connection.class)
 public class Connection_Mixin {
@@ -38,8 +38,8 @@ public class Connection_Mixin {
     //? if >= 1.21.8 {
     private void sendPacket(Packet<?> packet, ChannelFutureListener listener, boolean flush, CallbackInfo ci) {
     //?} else {
-    //private void sendPacket(Packet<?> packet, PacketSendListener sendListener, boolean flush, CallbackInfo ci) {
-    //?}
+    /*private void sendPacket(Packet<?> packet, PacketSendListener sendListener, boolean flush, CallbackInfo ci) {
+    *///?}
         if (Configs.DISABLE_PACKET_KICK_PREVENT_CUSTOM_PAYLOAD.getBooleanValue()
                 && packet.type() == CommonPacketTypes.SERVERBOUND_CUSTOM_PAYLOAD
                 && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT
