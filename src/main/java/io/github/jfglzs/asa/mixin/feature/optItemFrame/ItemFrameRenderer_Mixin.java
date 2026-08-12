@@ -7,6 +7,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import io.github.jfglzs.asa.config.Configs;
 //? if >= 26.1.2 {
+import io.github.jfglzs.asa.config.options.ItemFrameVisibility;
 import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.block.BlockModelRenderState;
 //?}
@@ -39,8 +40,13 @@ public class ItemFrameRenderer_Mixin {
                                    Operation<Void> original,
                                    @Local ItemStack stack
                                   ) {
-        if (Configs.OPT_ITEM_FRAME.getBooleanValue() && ! stack.isEmpty()) {
-            return;
+        if (Configs.OPT_ITEM_FRAME.getBooleanValue()) {
+            if (Configs.ITEM_FRAME_VISIBILITY.getOptionListValue() == ItemFrameVisibility.EMPTY_ONLY) {
+                if (!stack.isEmpty()) return;
+            }
+            else {
+                return;
+            }
         }
         original.call(instance, renderState, isGlowing, map);
     }

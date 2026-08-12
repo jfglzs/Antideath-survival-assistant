@@ -13,6 +13,7 @@ import java.nio.file.Path;
 //~}
 import io.github.jfglzs.asa.annotations.Config;
 import io.github.jfglzs.asa.config.options.AutoCleanWasteMode;
+import io.github.jfglzs.asa.config.options.ItemFrameVisibility;
 import io.github.jfglzs.asa.config.options.LowHealthSendMode;
 
 import java.io.File;
@@ -210,6 +211,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed LITEMATICA_CALCULATE_FAKE = new ConfigBooleanHotkeyed("投影材料列表-统计假人背包", false, "", "开启后材料投影材料列表会统计已缓存的假人背包");
     @Config(tab = Tab.OPTIMIZATIONS)
     public static final ConfigBooleanHotkeyed OPT_ITEM_FRAME = new ConfigBooleanHotkeyed("展示框优化", false, "", "开启后面对大量展示框、地图画时可大幅提升平均帧和百分之一low帧\n⚠⚠⚠警告⚠⚠⚠\n由于mojang不同版本间渲染代码改动较大（人话就是我懒得适配）\n仅能保证1.21.11+有满血性能\n测试数据:\nMinecraft 26.2 调优包 572地图画\n关闭优化 平均帧: 370~FPS 百分之一low: 80~FPS\n开启优化 平均帧: 900~FPS 百分之一low: 430~FPS");
+    @Config(tab = Tab.OPTIMIZATIONS)
+    public static final ConfigOptionList ITEM_FRAME_VISIBILITY = new ConfigOptionList("展示框优化-展示框边框可见性(26.1+)", ItemFrameVisibility.EMPTY_ONLY, "修改展示框边框的可见性", "");
     @Config(tab = Tab.OPTIMIZATIONS)
     public static final ConfigBooleanHotkeyed OPT_SIGN_TEXT = new ConfigBooleanHotkeyed("告示牌文本优化", false, "", "通过优化hasMessage()方法来提升告示牌的渲染性能");
 
