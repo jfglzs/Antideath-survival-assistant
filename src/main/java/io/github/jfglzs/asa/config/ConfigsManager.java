@@ -2,10 +2,12 @@ package io.github.jfglzs.asa.config;
 
 import com.google.common.collect.ImmutableList;
 import fi.dy.masa.malilib.config.IConfigBase;
+import fi.dy.masa.malilib.config.IConfigOptionListEntry;
 import fi.dy.masa.malilib.config.IHotkeyTogglable;
 import fi.dy.masa.malilib.config.options.ConfigBase;
 import fi.dy.masa.malilib.config.options.ConfigBooleanHotkeyed;
 import fi.dy.masa.malilib.config.options.ConfigHotkey;
+import fi.dy.masa.malilib.config.options.ConfigOptionList;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.annotations.Config;
 
@@ -16,7 +18,6 @@ import java.util.List;
 public class ConfigsManager {
     private static final List<IConfigBase> ALL = new ArrayList<>();
     private static final List<IConfigBase> LMS = new ArrayList<>();
-    ;
     private static final List<IConfigBase> DISABLES = new ArrayList<>();
     private static final List<IConfigBase> FUNCTIONS = new ArrayList<>();
     private static final List<IConfigBase> COMMANDS = new ArrayList<>();
@@ -60,6 +61,23 @@ public class ConfigsManager {
         }
         else if (obj instanceof ConfigBooleanHotkeyed booleanHotkeyed) {
             SWITCH_KEY.add(booleanHotkeyed);
+        }
+        else if (obj instanceof ConfigOptionList list) {
+            Class<? extends IConfigOptionListEntry> OptionClass = list.getOptionListValue().getClass();
+            StringBuilder comment = new StringBuilder(list.getComment());
+            comment.append("\n选项:\n");
+            for (IConfigOptionListEntry entry : OptionClass.getEnumConstants()) {
+                try {
+                    Field name = entry.getClass().getDeclaredField("name");
+                    name.setAccessible(true);
+                    comment.append(name.get(entry));
+                    comment.append("\n");
+                }
+                catch (NoSuchFieldException | IllegalAccessException e) {
+                    AsaMod.LOGGER.error("error while adding tab", e);
+                }
+            }
+            list.setComment(comment.toString());
         }
     }
 
