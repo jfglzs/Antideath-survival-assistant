@@ -695,3 +695,17 @@ Minecraft 26.2 调优包 572地图画
 - 默认值：`false`
 - 参考选项：`true`，`false`
 - 分类：`ALL`，`OPTIMIZATIONS`
+
+### 告示牌文本优化
+通过优化hasMessage()方法来提升告示牌的渲染性能
+- 类型：`布尔值`
+- 默认值：`false`
+- 参考选项：`true`，`false`
+- 分类：`ALL`，`OPTIMIZATIONS`
+
+### 禁用数据包踢出-强制进入服务器
+此功能可以无视客户端不存在/未注册的数据包强制进入服务器
+- 类型：`布尔值`
+- 默认值：`false`
+- 参考选项：`true`，`false`
+- 分类：`ALL`，`DISABLES`
