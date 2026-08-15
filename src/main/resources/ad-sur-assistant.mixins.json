@@ -2,7 +2,6 @@
   "required": true,
   "package": "io.github.jfglzs.asa.mixin",
   "compatibilityLevel": "${compatibility_level}",
-  "plugin": "io.github.jfglzs.asa.utils.MixinManager",
   "mixins": [
     "event.packetEvent.ClientPacketListener_Mixin",
     "feature.customBlockCollision.BlockStateBase_Mixin",

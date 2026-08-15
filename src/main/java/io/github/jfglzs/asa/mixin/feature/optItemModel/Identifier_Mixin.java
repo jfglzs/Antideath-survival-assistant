@@ -1,17 +1,19 @@
 package io.github.jfglzs.asa.mixin.feature.optItemModel;
 
 //? if >= 1.21.4 {
-import io.github.jfglzs.asa.accessor.IdentifierAccessor;
 import net.minecraft.client.renderer.item.ClientItem;
 import net.minecraft.client.renderer.item.ItemModel;
-import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
+//?}
 
+import io.github.jfglzs.asa.accessor.IdentifierAccessor;
 //~ if >= 1.21.11 'ResourceLocation' -> 'Identifier' {
 import net.minecraft.resources.Identifier;
+import org.spongepowered.asm.mixin.Mixin;
 @Mixin(Identifier.class)
 //~}
 public class Identifier_Mixin implements IdentifierAccessor {
+    //? if >= 1.21.4 {
     @Unique
     private ClientItem.Properties asa$properties;
     @Unique
@@ -48,5 +50,5 @@ public class Identifier_Mixin implements IdentifierAccessor {
     public void asa$setVersion(int version) {
         this.asa$version = version;
     }
-}
 //?}
+}
