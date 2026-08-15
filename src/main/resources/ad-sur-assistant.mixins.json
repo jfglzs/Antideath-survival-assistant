@@ -2,6 +2,7 @@
   "required": true,
   "package": "io.github.jfglzs.asa.mixin",
   "compatibilityLevel": "${compatibility_level}",
+  "plugin": "io.github.jfglzs.asa.utils.MixinManager",
   "mixins": [
     "event.packetEvent.ClientPacketListener_Mixin",
     "feature.customBlockCollision.BlockStateBase_Mixin",
@@ -19,10 +20,8 @@
     "masa.litematic.WorldUtils_Mixin",
     "masa.minihud.RenderHandler_Mixin",
     "masa.tweakeroo.InventoryUtils_Mixin",
-    //? if >= 1.21.4 {
     "feature.optItemModel.ModelManager_Mixin",
     "feature.optItemModel.Identifier_Mixin"
-    //?}
   ],
   "injectors": {
     "defaultRequire": 1
@@ -57,9 +56,7 @@
     "feature.preventIntentionalGameDesign.MultiPlayerGameMode_Mixin",
     "feature.tabFilter.PlayerTabOverlay_Mixin",
     "feature.transparentItemFrame.ItemFrameRenderer_Mixin",
-    //? if >= 26.1 {
     "feature.optItemModel.CuboidItemModelWrapper_Mixin",
     "feature.optItemModel.LayerRenderState_Mixin"
-    //?}
   ]
 }

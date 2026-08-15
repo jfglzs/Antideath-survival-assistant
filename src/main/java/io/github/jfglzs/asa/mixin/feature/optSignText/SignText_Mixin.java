@@ -29,7 +29,6 @@ public class SignText_Mixin implements SignTextAccessor {
         }
     }
 
-
     @Inject(
             method = "hasMessage",
             at = @At("HEAD"),
