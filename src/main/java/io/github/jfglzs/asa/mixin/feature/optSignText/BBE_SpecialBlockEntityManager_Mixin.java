@@ -14,7 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
         targets = {
                 "betterblockentities.client.render.immediate.blockentity.manager.SpecialBlockEntityManager",
                 "betterblockentities.client.render.immediate.blockentity.manager.SpecialBlockEntityManager$SignManager"
-        }
+        },
+        remap = false
 )
 public class BBE_SpecialBlockEntityManager_Mixin {
     @Inject(

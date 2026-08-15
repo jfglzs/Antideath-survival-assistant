@@ -31,9 +31,10 @@ import static io.github.jfglzs.asa.config.Configs.*;
 
 public class AsaMod implements ModInitializer {
     public static String version;
-    public static final String MOD_ID = "antideath-survival-assistant";
     public static final String MOD_ID_FANCY = "ASA";
+    public static final String MOD_ID = "antideath-survival-assistant";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static boolean init = false;
 
     public static void debugMessage(Supplier<String> obj) {
         if (DEBUG.getBooleanValue()) {

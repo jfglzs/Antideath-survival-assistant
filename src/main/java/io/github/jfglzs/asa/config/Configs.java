@@ -213,6 +213,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigOptionList ITEM_FRAME_VISIBILITY = new ConfigOptionList("展示框优化-展示框边框可见性(26.1+)", ItemFrameVisibility.EMPTY_ONLY, "修改展示框边框的可见性", "");
     @Config(tab = Tab.OPTIMIZATIONS)
     public static final ConfigBooleanHotkeyed OPT_SIGN_TEXT = new ConfigBooleanHotkeyed("告示牌文本优化", false, "", "通过优化hasMessage()方法来提升告示牌的渲染性能");
+    @Config(tab = Tab.OPTIMIZATIONS)
+    public static final ConfigBooleanHotkeyed OPT_ITEM_MODEL = new ConfigBooleanHotkeyed("物品模型优化(1.21.4+)", false, "", "使用Identifier来存储物品模型信息来降低Map查询开销");
 
     @Config
     public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false, "", "1111");
