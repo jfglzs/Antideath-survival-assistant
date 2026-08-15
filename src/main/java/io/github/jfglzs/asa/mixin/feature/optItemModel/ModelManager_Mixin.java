@@ -8,12 +8,13 @@ import io.github.jfglzs.asa.config.Configs;
 import net.minecraft.client.renderer.item.ClientItem;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.resources.model.ModelManager;
-import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+//~ if >= 1.21.11 'ResourceLocation' -> 'Identifier' {
+import net.minecraft.resources.Identifier;
 
 @Mixin(ModelManager.class)
 public class ModelManager_Mixin {
@@ -24,6 +25,7 @@ public class ModelManager_Mixin {
             method = "getItemProperties"
     )
     private ClientItem.Properties getItemProperties(Identifier id, Operation<ClientItem.Properties> original) {
+    //~}
         if (Configs.OPT_ITEM_MODEL.getBooleanValue()) {
             IdentifierAccessor accessor = (IdentifierAccessor) (Object) id;
             ClientItem.Properties result = accessor.asa$getItemProperties();
@@ -40,7 +42,9 @@ public class ModelManager_Mixin {
     @WrapMethod(
             method = "getItemModel"
     )
+    //~ if >= 1.21.11 'ResourceLocation' -> 'Identifier' {
     private ItemModel getItemModel(Identifier id, Operation<ItemModel> original) {
+    //~}
         if (Configs.OPT_ITEM_MODEL.getBooleanValue()) {
             IdentifierAccessor accessor = (IdentifierAccessor) (Object) id;
             ItemModel result;
