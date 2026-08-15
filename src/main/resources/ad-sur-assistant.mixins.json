@@ -3,10 +3,6 @@
   "package": "io.github.jfglzs.asa.mixin",
   "compatibilityLevel": "${compatibility_level}",
   "mixins": [
-    //? if >= 1.21.4 {
-    "feature.optItemModel.ModelManager_Mixin",
-    "feature.optItemModel.Identifier_Mixin",
-    //?}
     "event.packetEvent.ClientPacketListener_Mixin",
     "feature.customBlockCollision.BlockStateBase_Mixin",
     "feature.disableConnectionTimedOut.Connection_Mixin",
@@ -22,7 +18,11 @@
     "masa.litematic.MaterialListHudRenderer_Mixin",
     "masa.litematic.WorldUtils_Mixin",
     "masa.minihud.RenderHandler_Mixin",
-    "masa.tweakeroo.InventoryUtils_Mixin"
+    "masa.tweakeroo.InventoryUtils_Mixin",
+    //? if >= 1.21.4 {
+    "feature.optItemModel.ModelManager_Mixin",
+    "feature.optItemModel.Identifier_Mixin"
+    //?}
   ],
   "injectors": {
     "defaultRequire": 1
@@ -56,6 +56,10 @@
     "feature.optItemFrame.ItemFrameRenderer_Mixin",
     "feature.preventIntentionalGameDesign.MultiPlayerGameMode_Mixin",
     "feature.tabFilter.PlayerTabOverlay_Mixin",
-    "feature.transparentItemFrame.ItemFrameRenderer_Mixin"
+    "feature.transparentItemFrame.ItemFrameRenderer_Mixin",
+    //? if >= 26.1 {
+    "feature.optItemModel.CuboidItemModelWrapper_Mixin",
+    "feature.optItemModel.LayerRenderState_Mixin"
+    //?}
   ]
 }
