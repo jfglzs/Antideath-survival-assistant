@@ -37,7 +37,7 @@ public class BoxRestockMannager {
                     if (slot.index >= 54 && slot.index <= 62) continue;
                     Minecraft mc = MCUtils.getMinecraft();
                     LocalPlayer player = mc.player;
-                    //~ if >= 1.21.8 'selected' -> 'getSelectedSlot()' {
+                    //~ if >= 1.21.5 'selected' -> 'getSelectedSlot()' {
                     int currentSlot = context.hand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() + 54 : 45;
                     //~}
                     if (currentSlot == 45) {
@@ -45,9 +45,15 @@ public class BoxRestockMannager {
                         PlayerUtils.closeContainer();
                     }
                     else {
+                        //? if >= 26.1 {
                         mc.gameMode.handleContainerInput(menu.containerId, slot.index, 0, ContainerInput.PICKUP, player);
                         mc.gameMode.handleContainerInput(menu.containerId, currentSlot, 0, ContainerInput.PICKUP, player);
                         mc.gameMode.handleContainerInput(menu.containerId, slot.index, 0, ContainerInput.PICKUP, player);
+                        //?} else {
+                        //mc.gameMode.handleInventoryMouseClick(menu.containerId, slot.index, 0, ClickType.PICKUP, player);
+                        //mc.gameMode.handleInventoryMouseClick(menu.containerId, currentSlot, 0, ClickType.PICKUP, player);
+                        //mc.gameMode.handleInventoryMouseClick(menu.containerId, slot.index, 0, ClickType.PICKUP, player);
+                        //?}
                     }
                     PlayerUtils.closeContainer();
                     break;
