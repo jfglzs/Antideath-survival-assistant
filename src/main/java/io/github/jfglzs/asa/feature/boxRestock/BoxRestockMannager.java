@@ -5,7 +5,11 @@ import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.Mods;
 import io.github.jfglzs.asa.utils.PlayerUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +34,17 @@ public class BoxRestockMannager {
                 if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(slotItem, stackHand) && canMove(slotItem)) {
                     //过滤hotbar防止自己补自己
                     if (slot.index >= 54 && slot.index <= 62) continue;
-                    InventoryUtils.tryMoveStacks(slot, boxScreen, true, true, true);
+                    Minecraft mc = MCUtils.getMinecraft();
+                    LocalPlayer player = mc.player;
+                    int currentSlot = context.hand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() + 54 : 45;
+                    if (currentSlot == 45) {
+                        InventoryUtils.tryMoveStacks(slot, boxScreen, true, true, true);
+                    }
+                    else {
+                        mc.gameMode.handleContainerInput(menu.containerId, slot.index, 0, ContainerInput.PICKUP, player);
+                        mc.gameMode.handleContainerInput(menu.containerId, currentSlot, 0, ContainerInput.PICKUP, player);
+                        mc.gameMode.handleContainerInput(menu.containerId, slot.index, 0, ContainerInput.PICKUP, player);
+                    }
                     PlayerUtils.closeContainer();
                     break;
                 }
@@ -51,6 +65,6 @@ public class BoxRestockMannager {
         return true;
     }
 
-    public record BoxRestockContext(ItemStack stackHand) {
+    public record BoxRestockContext(ItemStack stackHand, InteractionHand hand) {
     }
 }

@@ -41,7 +41,7 @@ public class InventoryUtils_Mixin {
                     if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(itemStack, stackHand)) {
                         if (LIMITER.tryAcquire()) {
                             ShulkerUtils.open(index);
-                            BoxRestockMannager.context = new BoxRestockMannager.BoxRestockContext(stackHand);
+                            BoxRestockMannager.context = new BoxRestockMannager.BoxRestockContext(stackHand, hand);
                             break;
                         }
                     }
