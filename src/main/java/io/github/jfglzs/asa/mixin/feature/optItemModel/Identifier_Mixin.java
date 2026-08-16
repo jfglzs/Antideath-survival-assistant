@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.Unique;
 //?}
 
 import io.github.jfglzs.asa.accessor.IdentifierAccessor;
+
 //~ if >= 1.21.11 'ResourceLocation' -> 'Identifier' {
 import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
