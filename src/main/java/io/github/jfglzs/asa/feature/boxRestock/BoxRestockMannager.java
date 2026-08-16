@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.feature.boxRestock;
 
+//~ if >= 26.1 'ClickType' -> 'ContainerInput' {
 import fi.dy.masa.itemscroller.util.InventoryUtils;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
@@ -36,9 +37,12 @@ public class BoxRestockMannager {
                     if (slot.index >= 54 && slot.index <= 62) continue;
                     Minecraft mc = MCUtils.getMinecraft();
                     LocalPlayer player = mc.player;
+                    //~ if >= 1.21.8 'selected' -> 'getSelectedSlot()' {
                     int currentSlot = context.hand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() + 54 : 45;
+                    //~}
                     if (currentSlot == 45) {
                         InventoryUtils.tryMoveStacks(slot, boxScreen, true, true, true);
+                        PlayerUtils.closeContainer();
                     }
                     else {
                         mc.gameMode.handleContainerInput(menu.containerId, slot.index, 0, ContainerInput.PICKUP, player);
@@ -68,3 +72,4 @@ public class BoxRestockMannager {
     public record BoxRestockContext(ItemStack stackHand, InteractionHand hand) {
     }
 }
+//~}
