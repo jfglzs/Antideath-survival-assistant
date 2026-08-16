@@ -43,6 +43,7 @@ public class BoxRestockMannager {
                     if (currentSlot == 45) {
                         InventoryUtils.tryMoveStacks(slot, boxScreen, true, true, true);
                         PlayerUtils.closeContainer();
+                        fi.dy.masa.tweakeroo.util.InventoryUtils.preRestockHand(player, InteractionHand.OFF_HAND, true);
                     }
                     else {
                         //? if >= 26.1 {
