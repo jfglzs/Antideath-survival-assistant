@@ -17,6 +17,19 @@ import net.minecraft.world.item.ItemStack;
 
 public class BoxRestockMannager {
     public static BoxRestockContext context = null;
+    private static boolean canRestock = false;
+    private static int tickCount = 0;
+
+    public static void tick(Minecraft mc) {
+        if (canRestock && mc.player != null) {
+            tickCount++;
+            if (tickCount % 4 == 0) {
+                fi.dy.masa.tweakeroo.util.InventoryUtils.preRestockHand(mc.player, InteractionHand.OFF_HAND, true);
+                tickCount = 0;
+                canRestock = false;
+            }
+        }
+    }
 
     public static void run() {
         if (Mods.quickshulker && Mods.item_scroller) {
@@ -25,7 +38,7 @@ public class BoxRestockMannager {
     }
 
     public static void process() {
-        if (context == null || ! Configs.AUTO_BOX_RESTROKE.getBooleanValue()) return;
+        if (context == null || canRestock || ! Configs.AUTO_BOX_RESTROKE.getBooleanValue() ) return;
 
         if (MCUtils.getScreen() instanceof ShulkerBoxScreen boxScreen) {
             var menu = boxScreen.getMenu();
@@ -45,8 +58,7 @@ public class BoxRestockMannager {
 
                     if (currentSlot == 45) {
                         InventoryUtils.tryMoveStacks(slot, boxScreen, true, true, true);
-                        PlayerUtils.closeContainer();
-                        fi.dy.masa.tweakeroo.util.InventoryUtils.preRestockHand(player, InteractionHand.OFF_HAND, true);
+                        canRestock = true;
                     }
                     else {
                         PlayerUtils.clickSlot(containerId, slot.index, 0, ContainerInput.PICKUP, player);

@@ -10,6 +10,7 @@ import io.github.jfglzs.asa.config.*;
 import io.github.jfglzs.asa.events.ClientTickEvent;
 import io.github.jfglzs.asa.feature.autoVault.AutoVaultExecutor;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
+import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.asa.feature.disablePacketKick.PacketHandler;
@@ -81,6 +82,7 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(i -> true, this::testOnTick);
         ClientTickEvent.register(i -> true, client -> AutoVaultExecutor.tick());
         ClientTickEvent.register(i -> true, client -> BoxSplitter.tick());
+        ClientTickEvent.register(i -> true, BoxRestockMannager::tick);
         ClientTickEvent.register(i -> true, LowHealthSendCommandOrChat::tick);
         ClientTickEvent.register(i -> true, ItemStorageDataManager::scanMatchedPlayersAndInteract);
         ClientTickEvent.register(i -> i % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender.INSTANCE::tick);
