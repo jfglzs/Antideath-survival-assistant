@@ -11,6 +11,7 @@
     "feature.disablePacketKick.PacketDecoder_Mixin",
     "feature.disablePlayerTabOverlayBackGround.PlayerTabOverlay_Mixin",
     "feature.disableProfiler.Profiler_Mixin",
+    "feature.disableScoreBoardBackGround.Gui_Mixin",
     "feature.optItemFrame.ItemFrame_Mixin",
     "feature.optItemModel.Identifier_Mixin",
     "feature.optItemModel.ItemStack_Mixin",
