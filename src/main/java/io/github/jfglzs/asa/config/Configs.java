@@ -217,6 +217,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed OPT_ITEM_MODEL = new ConfigBooleanHotkeyed("物品模型优化(1.21.4+)", false, "", "使用Identifier来存储物品模型信息来降低Map查询开销");
     @Config(tab = Tab.DISABLES)
     public static final ConfigBooleanHotkeyed DISABLE_SCORE_BOARD_BACK_GROUND = new ConfigBooleanHotkeyed("禁用计分板背景", false, "", "开启后会禁用计分板背景");
+    @Config(tab = Tab.FUNCTIONS)
+    public static final ConfigBooleanHotkeyed FORCE_USE_FIREWORK = new ConfigBooleanHotkeyed("强制使用烟花火箭", false, "", "开启后会强制使用烟花火箭");
 
     @Config
     public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false, "", "1111");

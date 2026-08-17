@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.events;
+package io.github.jfglzs.asa.events.base;
 
 import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 
