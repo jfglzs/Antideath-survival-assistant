@@ -125,7 +125,7 @@ public class PlayerUtils {
         //? if >= 26.1 {
         mc.gameMode.handleContainerInput(containerId, slotNum, buttonNum, input, player);
         //?} else {
-        //mc.gameMode.handleInventoryMouseClick(containerId, slotNum, buttonNum, input, player);
-        //?}
+        /*mc.gameMode.handleInventoryMouseClick(containerId, slotNum, buttonNum, input, player);
+        *///?}
     }
 }
