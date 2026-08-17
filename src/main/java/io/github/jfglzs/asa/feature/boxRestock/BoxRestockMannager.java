@@ -19,7 +19,7 @@ public class BoxRestockMannager {
     public static BoxRestockContext context = null;
 
     public static void run() {
-        if (Mods.isShulkerBoxLoaded) {
+        if (Mods.quickshulker && Mods.item_scroller) {
             process();
         }
     }
@@ -35,31 +35,29 @@ public class BoxRestockMannager {
                 if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(slotItem, stackHand) && canMove(slotItem)) {
                     //过滤hotbar防止自己补自己
                     if (slot.index >= 54 && slot.index <= 62) continue;
+                    int containerId = menu.containerId;
                     Minecraft mc = MCUtils.getMinecraft();
                     LocalPlayer player = mc.player;
+
                     //~ if >= 1.21.5 'selected' -> 'getSelectedSlot()' {
                     int currentSlot = context.hand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() + 54 : 45;
                     //~}
+
                     if (currentSlot == 45) {
                         InventoryUtils.tryMoveStacks(slot, boxScreen, true, true, true);
                         PlayerUtils.closeContainer();
                         fi.dy.masa.tweakeroo.util.InventoryUtils.preRestockHand(player, InteractionHand.OFF_HAND, true);
                     }
                     else {
-                        //? if >= 26.1 {
-                        mc.gameMode.handleContainerInput(menu.containerId, slot.index, 0, ContainerInput.PICKUP, player);
-                        mc.gameMode.handleContainerInput(menu.containerId, currentSlot, 0, ContainerInput.PICKUP, player);
-                        mc.gameMode.handleContainerInput(menu.containerId, slot.index, 0, ContainerInput.PICKUP, player);
-                        //?} else {
-                        //mc.gameMode.handleInventoryMouseClick(menu.containerId, slot.index, 0, ClickType.PICKUP, player);
-                        //mc.gameMode.handleInventoryMouseClick(menu.containerId, currentSlot, 0, ClickType.PICKUP, player);
-                        //mc.gameMode.handleInventoryMouseClick(menu.containerId, slot.index, 0, ClickType.PICKUP, player);
-                        //?}
+                        PlayerUtils.clickSlot(containerId, slot.index, 0, ContainerInput.PICKUP, player);
+                        PlayerUtils.clickSlot(containerId, currentSlot, 0, ContainerInput.PICKUP, player);
+                        PlayerUtils.clickSlot(containerId, slot.index, 0, ContainerInput.PICKUP, player);
                     }
-                    PlayerUtils.closeContainer();
+
                     break;
                 }
             }
+            PlayerUtils.closeContainer();
             context = null;
         }
     }

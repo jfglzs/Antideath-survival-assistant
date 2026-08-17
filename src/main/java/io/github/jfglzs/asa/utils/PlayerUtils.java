@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.utils;
 
 import fi.dy.masa.malilib.util.InventoryUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -115,5 +116,16 @@ public class PlayerUtils {
         if (player != null) {
             player.closeContainer();
         }
+    }
+
+    //~ if >= 26.1 'ClickType' -> 'ContainerInput' {
+    public static void clickSlot(final int containerId, final int slotNum, final int buttonNum, final net.minecraft.world.inventory.ContainerInput input, final Player player) {
+    //~}
+        Minecraft mc = MCUtils.getMinecraft();
+        //? if >= 26.1 {
+        mc.gameMode.handleContainerInput(containerId, slotNum, buttonNum, input, player);
+        //?} else {
+        //mc.gameMode.handleInventoryMouseClick(containerId, slotNum, buttonNum, input, player);
+        //?}
     }
 }

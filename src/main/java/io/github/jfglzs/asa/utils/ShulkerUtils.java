@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ShulkerUtils {
     public static void open(int index) {
-        if (Mods.isShulkerBoxLoaded) {
+        if (Mods.quickshulker) {
             OpenShulkerPacket.sendOpenPacket(index);
         }
         else {
@@ -17,7 +17,7 @@ public class ShulkerUtils {
     }
 
     public static boolean findBoxToOpen(ItemStack stack) {
-        if (stack == null) return true;
+        if (stack == null || stack.isEmpty()) return false;
         List<Integer> boxes = PlayerUtils.getAllBoxIndexes(9, 36);
         for (Integer index : boxes) {
             ItemStack boxStack = PlayerUtils.getInventory().get(index);
