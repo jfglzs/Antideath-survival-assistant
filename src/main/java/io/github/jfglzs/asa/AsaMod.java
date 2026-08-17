@@ -34,7 +34,7 @@ public class AsaMod implements ModInitializer {
     public static final String MOD_ID_FANCY = "ASA";
     public static final String MOD_ID = "antideath-survival-assistant";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static final String MINECRAFT_VERSION = "{minecraft_version}";
+    public static final String MINECRAFT_VERSION = "26.2";
 
     public static void debugMessage(Supplier<String> obj) {
         if (DEBUG.getBooleanValue()) {
