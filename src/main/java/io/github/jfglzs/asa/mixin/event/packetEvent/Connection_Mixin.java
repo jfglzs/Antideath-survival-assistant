@@ -19,7 +19,7 @@ public class Connection_Mixin {
     //? if >= 1.21.8 {
     private void sendPacket(Packet<?> packet, ChannelFutureListener listener, boolean flush, Operation<Void> original) {
     //?} else {
-    /*private void sendPacket(Packet<?> packet, PacketSendListener sendListener, boolean flush, Operation<Void> original) {
+    /*private void sendPacket(Packet<?> packet, PacketSendListener listener, boolean flush, Operation<Void> original) {
     *///?}
         original.call(SendPacketEvent.INSTANCE.update(packet), listener, flush);
     }
