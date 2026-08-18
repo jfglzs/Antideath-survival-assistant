@@ -3,6 +3,7 @@ package io.github.jfglzs.asa.utils;
 import fi.dy.masa.malilib.util.InventoryUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -101,6 +102,11 @@ public class PlayerUtils {
     public static ItemStack getPlayerMainHandStack() {
         LocalPlayer player = MCUtils.getMinecraft().player;
         return player == null ? ItemStack.EMPTY : player.getMainHandItem();
+    }
+
+    public static ItemStack getPlayerHandStack(InteractionHand hand) {
+        LocalPlayer player = MCUtils.getMinecraft().player;
+        return player == null ? ItemStack.EMPTY : player.getItemInHand(hand);
     }
 
     public static boolean isSurvivalMode(Player player) {

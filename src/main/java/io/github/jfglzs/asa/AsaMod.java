@@ -14,7 +14,6 @@ import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.asa.feature.disablePacketKick.PacketHandler;
-import io.github.jfglzs.asa.feature.forceUseFireWork.UseItemPacketModifier;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.render.RemainingItemRender;
@@ -69,7 +68,6 @@ public class AsaMod implements ModInitializer {
         ThreadUtils.init();
         AutoWasteCleanProcessor.init();
         PacketHandler.init();
-        UseItemPacketModifier.init();
         Mods.init();
         this.registerEvents();
         this.registerCommands();
