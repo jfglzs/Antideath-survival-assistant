@@ -6,9 +6,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.Inject;
 //? if = 1.21.1 {
-//import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking;
-//import net.fabricmc.fabric.impl.registry.sync.SyncCompletePayload;
-//?}
+/*import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking;
+import net.fabricmc.fabric.impl.registry.sync.SyncCompletePayload;
+*///?}
 //~ if > 1.21.1 'FabricRegistryClientInit' -> 'ClientRegistrySyncHandler'{
 import net.fabricmc.fabric.impl.client.registry.sync.ClientRegistrySyncHandler;
 @Mixin(ClientRegistrySyncHandler.class)

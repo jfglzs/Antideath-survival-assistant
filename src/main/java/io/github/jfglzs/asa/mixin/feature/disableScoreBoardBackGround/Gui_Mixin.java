@@ -13,7 +13,11 @@ import org.spongepowered.asm.mixin.injection.At;
 //~}
 public class Gui_Mixin {
     @WrapOperation(
+            //? if <= 1.21.1 {
+            /*method = "method_55440",
+            *///?} else {
             method = "displayScoreboardSidebar",
+            //?}
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;fill(IIIII)V")
     )
     public void fill(GuiGraphicsExtractor instance, int x0, int y0, int x1, int y1, int col, Operation<Void> original) {
