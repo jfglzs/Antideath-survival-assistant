@@ -56,10 +56,9 @@ public class AsaMod implements ModInitializer {
         this.init();
     }
 
-    //~}
 
-    //~ if >= 26.1 'registerGameOverlayRenderer' -> 'registerInGameGuiRenderer' {
     private void init() {
+        //~ if >= 26.1 'registerGameOverlayRenderer' -> 'registerInGameGuiRenderer' {
         ConfigsManager.init();
         Configs.INSTANCE.load();
         HotkeysCallback.init();
@@ -76,6 +75,7 @@ public class AsaMod implements ModInitializer {
         Mods.init();
         this.registerEvents();
         this.registerCommands();
+        //~}
     }
 
     private void registerEvents() {
