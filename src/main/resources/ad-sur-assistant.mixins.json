@@ -47,6 +47,7 @@
     "feature.flatMining.MultiPlayerGameMode_Mixin",
     "feature.forceBlockBreakCoolDown.MultiPlayerGameMode_Mixin",
     "feature.forceJoinServer.ClientRegistrySyncHandler_Mixin",
+    "feature.forceUseFireWork.MinecraftMixin",
     "feature.lms.AbstractContainerScreen_Mixin",
     "feature.lms.CreativeModeInventoryScreen_Mixin",
     "feature.mountLoggersOnMiniHud.ClientPacketListener_Mixin",
