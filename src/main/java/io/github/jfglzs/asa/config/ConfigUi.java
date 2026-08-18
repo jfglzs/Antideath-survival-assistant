@@ -64,7 +64,8 @@ public class ConfigUi extends GuiConfigsBase {
     }
 
     @Override
-    public void onClose() {
+    protected void closeGui(boolean showParent) {
         Configs.INSTANCE.save();
+        super.closeGui(showParent);
     }
 }
