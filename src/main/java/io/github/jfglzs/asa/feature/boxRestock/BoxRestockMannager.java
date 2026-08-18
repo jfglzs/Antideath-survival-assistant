@@ -18,19 +18,6 @@ import net.minecraft.world.item.ItemStack;
 
 public class BoxRestockMannager {
     public static BoxRestockContext context = null;
-    private static boolean canRestock = false;
-    private static int tickCount = 0;
-
-    public static void tick(Minecraft mc) {
-        if (canRestock && mc.player != null) {
-            tickCount++;
-            if (tickCount % 4 == 0) {
-                fi.dy.masa.tweakeroo.util.InventoryUtils.preRestockHand(mc.player, InteractionHand.OFF_HAND, true);
-                tickCount = 0;
-                canRestock = false;
-            }
-        }
-    }
 
     public static void run() {
         if (Mods.quickshulker && Mods.item_scroller) {
@@ -39,7 +26,7 @@ public class BoxRestockMannager {
     }
 
     public static void process() {
-        if (context == null || canRestock || ! Configs.AUTO_BOX_RESTROKE.getBooleanValue()) return;
+        if (context == null || ! Configs.AUTO_BOX_RESTROKE.getBooleanValue()) return;
 
         if (MCUtils.getScreen() instanceof ShulkerBoxScreen boxScreen) {
             var menu = boxScreen.getMenu();
@@ -47,8 +34,10 @@ public class BoxRestockMannager {
                 ItemStack slotItem = slot.getItem();
                 ItemStack stackHand = context.stackHand;
                 if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(slotItem, stackHand) && canMove(slotItem)) {
-                    //过滤hotbar防止自己补自己
-                    if (slot.index >= 54 && slot.index <= 62) continue;
+                    int slotIndex = slot.index;
+
+                    if (slotIndex >= 54 && slotIndex <= 62) continue;
+
                     int containerId = menu.containerId;
                     Minecraft mc = MCUtils.getMinecraft();
                     LocalPlayer player = mc.player;
@@ -58,15 +47,13 @@ public class BoxRestockMannager {
                     //~}
 
                     if (currentSlot == 45) {
-                        InventoryUtils.tryMoveStacks(slot, boxScreen, true, true, true);
-                        canRestock = true;
+                        PlayerUtils.clickSlot(containerId, slotIndex, 40, ContainerInput.SWAP, player);
                     }
                     else {
-                        PlayerUtils.clickSlot(containerId, slot.index, 0, ContainerInput.PICKUP, player);
+                        PlayerUtils.clickSlot(containerId, slotIndex, 0, ContainerInput.PICKUP, player);
                         PlayerUtils.clickSlot(containerId, currentSlot, 0, ContainerInput.PICKUP, player);
-                        PlayerUtils.clickSlot(containerId, slot.index, 0, ContainerInput.PICKUP, player);
+                        PlayerUtils.clickSlot(containerId, slotIndex, 0, ContainerInput.PICKUP, player);
                     }
-
                     break;
                 }
             }

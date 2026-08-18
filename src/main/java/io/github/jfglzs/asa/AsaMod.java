@@ -83,7 +83,6 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(i -> true, this::testOnTick);
         ClientTickEvent.register(i -> true, client -> AutoVaultExecutor.tick());
         ClientTickEvent.register(i -> true, client -> BoxSplitter.tick());
-        ClientTickEvent.register(i -> true, BoxRestockMannager::tick);
         ClientTickEvent.register(i -> true, LowHealthSendCommandOrChat::tick);
         ClientTickEvent.register(i -> true, ItemStorageDataManager::scanMatchedPlayersAndInteract);
         ClientTickEvent.register(i -> i % 10 == 0 && DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender.INSTANCE::tick);
