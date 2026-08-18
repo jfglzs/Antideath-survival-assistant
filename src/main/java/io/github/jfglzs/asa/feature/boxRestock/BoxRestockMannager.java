@@ -2,12 +2,11 @@ package io.github.jfglzs.asa.feature.boxRestock;
 
 //~ if >= 26.1 'ClickType' -> 'ContainerInput' {
 
-import fi.dy.masa.itemscroller.util.InventoryUtils;
+import fi.dy.masa.malilib.util.InventoryUtils;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.Mods;
 import io.github.jfglzs.asa.utils.PlayerUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.InteractionHand;
@@ -33,14 +32,11 @@ public class BoxRestockMannager {
             for (Slot slot : menu.slots) {
                 ItemStack slotItem = slot.getItem();
                 ItemStack stackHand = context.stackHand;
-                if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(slotItem, stackHand) && canMove(slotItem)) {
+                if (InventoryUtils.areStacksEqualIgnoreDurability(slotItem, stackHand) && canMove(slotItem)) {
                     int slotIndex = slot.index;
-
-                    if (slotIndex >= 54 && slotIndex <= 62) continue;
-
                     int containerId = menu.containerId;
-                    Minecraft mc = MCUtils.getMinecraft();
-                    LocalPlayer player = mc.player;
+                    LocalPlayer player = MCUtils.getLocalPlayer();
+                    if (slotIndex >= 54 && slotIndex <= 62) continue;
 
                     //~ if >= 1.21.5 'selected' -> 'getSelectedSlot()' {
                     int currentSlot = context.hand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() + 54 : 45;

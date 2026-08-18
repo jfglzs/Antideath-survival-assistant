@@ -12,7 +12,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class BoxSplitter {
-    private static final RateLimiter LIMITER = RateLimiter.create(3.0);
+    private static final RateLimiter LIMITER = RateLimiter.create(2.0);
     private static ItemStack itemToSplit = ItemStack.EMPTY;
     private static boolean isRunning = false;
     private static boolean canOpenBox = false;
