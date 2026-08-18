@@ -21,6 +21,12 @@ import java.io.File;
 import static io.github.jfglzs.asa.AsaMod.MOD_ID;
 
 public class Configs implements IConfigHandler {
+    private static final String FILE_PATH = "./config/" + MOD_ID + ".json";
+    private static final File CONFIG_DIR = new File("./config");
+    public static final Configs INSTANCE = new Configs();
+    public static boolean shouldDisableTitle = false;
+    public static boolean lockCreativeScreen = false;
+
     @Config
     public static final ConfigHotkey ASA = new ConfigHotkey("打开设置菜单", "Z,K", "打开设置菜单快捷键");
     @Config(tab = Tab.FUNCTIONS)
@@ -219,11 +225,7 @@ public class Configs implements IConfigHandler {
     public static final ConfigHotkey TEST = new ConfigHotkey("触发调试", "", "测试", "1111");
     @Config(tab = Tab.LISTS)
     public static final ConfigStringList DEBUG_LIST = new ConfigStringList("调试用", ImmutableList.of(), "", "");
-    private static final String FILE_PATH = "./config/" + MOD_ID + ".json";
-    private static final File CONFIG_DIR = new File("./config");
-    public static Configs INSTANCE = new Configs();
-    public static boolean shouldDisableTitle = false;
-    public static boolean lockCreativeScreen = false;
+
 
     public static void switchMode(ConfigOptionList option) {
         option.setOptionListValue(option.getOptionListValue().cycle(true));

@@ -15,6 +15,7 @@ public class ConfigUi extends GuiConfigsBase {
 
     public ConfigUi() {
         super(10, 50, MOD_ID_FANCY, null, "%s V%s 配置界面".formatted(MOD_ID, version));
+        Configs.INSTANCE.load();
     }
 
     @Override
@@ -60,5 +61,10 @@ public class ConfigUi extends GuiConfigsBase {
             this.parent.getListWidget().resetScrollbarPosition();
             this.parent.initGui();
         }
+    }
+
+    @Override
+    public void onClose() {
+        Configs.INSTANCE.save();
     }
 }
