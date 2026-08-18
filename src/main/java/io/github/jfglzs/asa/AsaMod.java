@@ -32,11 +32,11 @@ import java.util.function.Supplier;
 import static io.github.jfglzs.asa.config.Configs.*;
 
 public class AsaMod implements ModInitializer {
-    public static String version;
     public static final String MOD_ID_FANCY = "ASA";
     public static final String MOD_ID = "antideath-survival-assistant";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final String MINECRAFT_VERSION = "26.2";
+    public static String version;
 
     public static void debugMessage(Supplier<String> obj) {
         if (DEBUG.getBooleanValue()) {
@@ -46,12 +46,17 @@ public class AsaMod implements ModInitializer {
         }
     }
 
+    public static void test() {
+    }
+
     @Override
     public void onInitialize() {
         version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
         LOGGER.info("AsaMod v{} is being loading...", version);
         this.init();
     }
+
+    //~}
 
     //~ if >= 26.1 'registerGameOverlayRenderer' -> 'registerInGameGuiRenderer' {
     private void init() {
@@ -73,8 +78,6 @@ public class AsaMod implements ModInitializer {
         this.registerCommands();
     }
 
-    //~}
-
     private void registerEvents() {
         ClientTickEvents.END_CLIENT_TICK.register(ClientTickEvent::onUpdate);
         ClientTickEvent.register(i -> true, this::testOnTick);
@@ -94,9 +97,6 @@ public class AsaMod implements ModInitializer {
             PlayerManipulateCommand.register(dispatcher);
             AutoVaultCommand.register(dispatcher);
         });
-    }
-
-    public static void test() {
     }
 
     public void testOnTick(Minecraft client) {

@@ -60,15 +60,15 @@ import net.minecraft.client.renderer.MapRenderer;
 @Mixin(value = ItemFrameRenderer.class, priority = 900)
 public abstract class ItemFrameRenderer_Mixin {
 
-    //? if > 1.21.3 {
-    @Shadow
-    protected abstract int getLightCoords(boolean isGlowFrame, int glowLight, int normalLight);
-    //?}
-
     //? if >= 1.21.3 {
     @Shadow
     @Final
     private MapRenderer mapRenderer;
+    //?}
+
+    //? if > 1.21.3 {
+    @Shadow
+    protected abstract int getLightCoords(boolean isGlowFrame, int glowLight, int normalLight);
     //?}
 
     //? if = 1.21.3 {

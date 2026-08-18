@@ -15,6 +15,7 @@ public class AutoVaultExecutor {
     private static final String SPAWN_COMMAND = "player %s spawn at %.2f %.2f %.2f facing %.1f %.1f";
     private static final String KILL_COMMAND = "player %s kill";
     private static final String USE_COMMAND = "player %s use";
+    public static boolean isRunning = false;
     private static ExecutorState executorState = ExecutorState.IDLE;
     private static BlockPos vaultPos;
     private static String prefix;
@@ -27,7 +28,6 @@ public class AutoVaultExecutor {
     private static float blockZ;
     private static float direction;
     private static float in;
-    public static boolean isRunning = false;
 
     public static boolean setBlockPos(BlockPos pos) {
         ClientLevel level = MCUtils.getLevel();

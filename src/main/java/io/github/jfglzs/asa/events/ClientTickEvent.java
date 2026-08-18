@@ -9,8 +9,8 @@ import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 
 public class ClientTickEvent {
-    private static int tickCount = 1;
     private static final List<TickTask> tickTasks = new ObjectArrayList<>();
+    private static int tickCount = 1;
 
     public static void register(IntPredicate condition, ClientTickCallback callback) {
         tickTasks.add(TickTask.of(condition, callback));

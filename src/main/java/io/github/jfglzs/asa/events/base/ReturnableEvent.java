@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 public class ReturnableEvent<T> {
-    private final Set<Function<T, T>> handlers  = new HashSet<>();
+    private final Set<Function<T, T>> handlers = new HashSet<>();
 
     public void register(Function<T, T> event) {
         this.handlers.add(event);

@@ -126,12 +126,12 @@ public class PlayerUtils {
 
     //~ if >= 26.1 'ClickType' -> 'ContainerInput' {
     public static void clickSlot(final int containerId, final int slotNum, final int buttonNum, final net.minecraft.world.inventory.ContainerInput input, final Player player) {
-    //~}
+        //~}
         Minecraft mc = MCUtils.getMinecraft();
         //? if >= 26.1 {
         mc.gameMode.handleContainerInput(containerId, slotNum, buttonNum, input, player);
         //?} else {
         /*mc.gameMode.handleInventoryMouseClick(containerId, slotNum, buttonNum, input, player);
-        *///?}
+         *///?}
     }
 }

@@ -12,7 +12,7 @@ public class ItemStack_Mixin {
     @Unique
     private boolean asa$hasCached = false;
     @Unique
-    private boolean asa$cached =  false;
+    private boolean asa$cached = false;
 
     @WrapMethod(
             method = "hasFoil"

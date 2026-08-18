@@ -11,6 +11,7 @@ import net.fabricmc.fabric.impl.registry.sync.SyncCompletePayload;
 *///?}
 //~ if > 1.21.1 'FabricRegistryClientInit' -> 'ClientRegistrySyncHandler'{
 import net.fabricmc.fabric.impl.client.registry.sync.ClientRegistrySyncHandler;
+
 @Mixin(ClientRegistrySyncHandler.class)
 //~}
 public class ClientRegistrySyncHandler_Mixin {

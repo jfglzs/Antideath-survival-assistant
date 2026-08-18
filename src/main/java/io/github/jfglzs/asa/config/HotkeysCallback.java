@@ -21,6 +21,14 @@ import static io.github.jfglzs.asa.config.Configs.*;
 public class HotkeysCallback implements IHotkeyCallback {
     Minecraft client = Minecraft.getInstance();
 
+    public static void init() {
+        HotkeysCallback hotkeysCallback = new HotkeysCallback();
+
+        for (ConfigHotkey configHotkey : ConfigsManager.KEY_LIST) {
+            configHotkey.getKeybind().setCallback(hotkeysCallback);
+        }
+    }
+
     @Override
     public boolean onKeyAction(KeyAction action, IKeybind key) {
         if (key == ASA.getKeybind()) {
@@ -59,13 +67,5 @@ public class HotkeysCallback implements IHotkeyCallback {
             ItemStorageDataManager.removeAll();
         }
         return false;
-    }
-
-    public static void init() {
-        HotkeysCallback hotkeysCallback = new HotkeysCallback();
-
-        for (ConfigHotkey configHotkey : ConfigsManager.KEY_LIST) {
-            configHotkey.getKeybind().setCallback(hotkeysCallback);
-        }
     }
 }

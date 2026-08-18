@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.optItemModel;
 //? if >= 26.1 {
+
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -20,6 +21,7 @@ import java.util.List;
 
 //~ if >= 26.1 'io.github.jfglzs.asa.utils.DummyClass' -> 'CuboidItemModelWrapper' {
 import org.spongepowered.asm.mixin.Mixin;
+
 @Mixin(CuboidItemModelWrapper.class)
 //~}
 public class CuboidItemModelWrapper_Mixin {

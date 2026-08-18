@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.feature.boxRestock;
 
 //~ if >= 26.1 'ClickType' -> 'ContainerInput' {
+
 import fi.dy.masa.itemscroller.util.InventoryUtils;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
@@ -38,7 +39,7 @@ public class BoxRestockMannager {
     }
 
     public static void process() {
-        if (context == null || canRestock || ! Configs.AUTO_BOX_RESTROKE.getBooleanValue() ) return;
+        if (context == null || canRestock || ! Configs.AUTO_BOX_RESTROKE.getBooleanValue()) return;
 
         if (MCUtils.getScreen() instanceof ShulkerBoxScreen boxScreen) {
             var menu = boxScreen.getMenu();

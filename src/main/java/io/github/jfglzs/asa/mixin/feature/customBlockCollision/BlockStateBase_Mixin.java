@@ -18,6 +18,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public class BlockStateBase_Mixin {
+    @Unique
+    private static boolean asa$shouldKeep(String s) {
+        return ! s.equals("minecraft:air") && ! s.equals("minecraft:water") && ! s.equals("minecraft:lava");
+    }
+
     @Inject(
             method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;",
             at = @At("HEAD"),
@@ -55,10 +60,5 @@ public class BlockStateBase_Mixin {
             return ctx;
         }
         return null;
-    }
-
-    @Unique
-    private static boolean asa$shouldKeep(String s) {
-        return ! s.equals("minecraft:air") && ! s.equals("minecraft:water") && ! s.equals("minecraft:lava");
     }
 }

@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.mixin.feature.optItemFrame;
 
 //? if >= 1.21.8 {
+
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -43,7 +44,7 @@ public class ItemFrameRenderer_Mixin {
         if (Configs.OPT_ITEM_FRAME.getBooleanValue()) {
             IConfigOptionListEntry visibility = Configs.ITEM_FRAME_VISIBILITY.getOptionListValue();
             if (visibility == ItemFrameVisibility.EMPTY_ONLY) {
-                if (!stack.isEmpty()) return;
+                if (! stack.isEmpty()) return;
             }
             else if (visibility == ItemFrameVisibility.ALWAYS_INVISIBLE) {
                 return;

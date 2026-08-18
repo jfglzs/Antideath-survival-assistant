@@ -23,12 +23,11 @@ import java.util.List;
 
 @Mixin(value = RenderHandler.class, priority = 1900)
 public class RenderHandler_Mixin {
+    @Unique
+    private final List<String> asa$list = new ObjectArrayList<>(32);
     @Shadow
     @Final
     private List<String> lines;
-    @Unique
-    private final List<String> asa$list = new ObjectArrayList<>(32);
-
 
     @ModifyReceiver(
             method = "updateLines",

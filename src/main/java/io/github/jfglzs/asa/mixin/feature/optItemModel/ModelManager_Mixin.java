@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.mixin.feature.optItemModel;
 
 //? if >= 1.21.4 {
+
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import io.github.jfglzs.asa.accessor.IdentifierAccessor;
@@ -17,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
+
 //~}
 @Mixin(ModelManager.class)
 public class ModelManager_Mixin {
@@ -27,9 +29,9 @@ public class ModelManager_Mixin {
     @WrapMethod(
             method = "getItemProperties"
     )
-   //~ if >= 1.21.11 'ResourceLocation' -> 'Identifier' {
+            //~ if >= 1.21.11 'ResourceLocation' -> 'Identifier' {
     private ClientItem.Properties getItemProperties(Identifier id, Operation<ClientItem.Properties> original) {
-    //~}
+        //~}
         if (Configs.OPT_ITEM_MODEL.getBooleanValue()) {
             IdentifierAccessor accessor = (IdentifierAccessor) (Object) id;
             ClientItem.Properties result = accessor.asa$getItemProperties();
@@ -46,9 +48,9 @@ public class ModelManager_Mixin {
     @WrapMethod(
             method = "getItemModel"
     )
-    //~ if >= 1.21.11 'ResourceLocation' -> 'Identifier' {
+            //~ if >= 1.21.11 'ResourceLocation' -> 'Identifier' {
     private ItemModel getItemModel(Identifier id, Operation<ItemModel> original) {
-    //~}
+        //~}
         if (Configs.OPT_ITEM_MODEL.getBooleanValue()) {
             IdentifierAccessor accessor = (IdentifierAccessor) (Object) id;
             ItemModel result;

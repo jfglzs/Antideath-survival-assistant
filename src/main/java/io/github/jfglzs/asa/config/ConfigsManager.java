@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigsManager {
+    public static final List<ConfigHotkey> KEY_LIST = new ArrayList<>();
+    public static final List<IHotkeyTogglable> SWITCH_KEY = new ArrayList<>();
     private static final List<IConfigBase> ALL = new ArrayList<>();
     private static final List<IConfigBase> LMS = new ArrayList<>();
     private static final List<IConfigBase> DISABLES = new ArrayList<>();
@@ -23,9 +25,6 @@ public class ConfigsManager {
     private static final List<IConfigBase> COMMANDS = new ArrayList<>();
     private static final List<IConfigBase> OPTIMIZATIONS = new ArrayList<>();
     private static final List<IConfigBase> LISTS = new ArrayList<>();
-
-    public static final List<ConfigHotkey> KEY_LIST = new ArrayList<>();
-    public static final List<IHotkeyTogglable> SWITCH_KEY = new ArrayList<>();
 
     public static void init() {
         for (Field field : Configs.class.getDeclaredFields()) {

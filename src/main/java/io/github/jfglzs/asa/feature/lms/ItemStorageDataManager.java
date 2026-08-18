@@ -32,15 +32,6 @@ public class ItemStorageDataManager {
     private static final Set<String> WAIT_FOR_INV = new ObjectArraySet<>();
     private static final Set<String> WAIT_FOR_KILLING = new ObjectArraySet<>();
 
-    public record PlayerInventory(ImmutableList<Slot> slots) {
-    }
-
-    record PlayerItemStorage(String name, int count, String id) {
-    }
-
-    record ItemStorage(int count, String id) {
-    }
-
     public static void init() {
         ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
             if (! Configs.LMS_FETCH_SUPPORT.getBooleanValue()) return true;
@@ -238,5 +229,14 @@ public class ItemStorageDataManager {
 
     public static Set<String> WAIT_FOR_KILLING() {
         return WAIT_FOR_KILLING;
+    }
+
+    public record PlayerInventory(ImmutableList<Slot> slots) {
+    }
+
+    record PlayerItemStorage(String name, int count, String id) {
+    }
+
+    record ItemStorage(int count, String id) {
     }
 }
