@@ -18,19 +18,19 @@ public class ShulkerUtils {
 
     public static boolean findBoxToOpen(ItemStack stack) {
         if (stack == null || stack.isEmpty()) return false;
+
         List<Integer> boxes = PlayerUtils.getAllBoxIndexes(9, 36);
-        for (Integer index : boxes) {
+        for (int index : boxes) {
             ItemStack boxStack = PlayerUtils.getInventory().get(index);
             if (PlayerUtils.isBoxEmpty(boxStack)) break;
             for (ItemStack boxItemStack : PlayerUtils.getBoxItemStacks(boxStack)) {
-                if (stack.isEmpty() || InventoryUtils.areStacksEqualIgnoreDurability(stack, boxItemStack)) {
+                if (InventoryUtils.areStacksEqualIgnoreDurability(stack, boxItemStack)) {
                     ShulkerUtils.open(index);
                     return true;
                 }
             }
         }
 
-        PlayerUtils.closeContainer();
         return false;
     }
 }

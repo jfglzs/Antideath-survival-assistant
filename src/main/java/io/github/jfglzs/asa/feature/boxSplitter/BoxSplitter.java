@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.RateLimiter;
 import fi.dy.masa.itemscroller.util.InventoryUtils;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.PlayerUtils;
 import io.github.jfglzs.asa.utils.ShulkerUtils;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
@@ -12,7 +13,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class BoxSplitter {
-    private static final RateLimiter LIMITER = RateLimiter.create(2.0);
+    private static final RateLimiter LIMITER = RateLimiter.create(4.0);
     private static ItemStack itemToSplit = ItemStack.EMPTY;
     private static boolean isRunning = false;
     private static boolean canOpenBox = false;
@@ -48,6 +49,7 @@ public class BoxSplitter {
                     InventoryUtils.dropStack(boxScreen, slot.index);
                 }
             }
+            PlayerUtils.closeContainer();
         }
         canOpenBox = true;
     }

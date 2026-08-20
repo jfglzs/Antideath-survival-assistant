@@ -33,7 +33,7 @@ public class MCUtils {
     public static void executeCommand(String command) {
         AsaMod.debugMessage(() -> "Executing command: " + command);
         if (mc.player != null && command != null) {
-            mc.player.connection.sendCommand(command);
+            mc.player.connection.sendCommand(command.replaceFirst("/", ""));
         }
     }
 

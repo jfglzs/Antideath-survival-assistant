@@ -29,7 +29,7 @@ public class UseSignRunCommand {
                         for (Component component : messages) {
                             String command = component.getString();
                             if (command.startsWith("/")) {
-                                MCUtils.executeCommand(command.replaceFirst("/", ""));
+                                MCUtils.executeCommand(command);
                             }
                         }
                         return ASAFakePacket.INSTANCE;
