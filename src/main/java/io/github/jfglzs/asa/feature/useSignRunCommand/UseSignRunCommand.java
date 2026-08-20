@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.feature.useSignRunCommand;
 
+import com.google.common.util.concurrent.RateLimiter;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.events.SendPacketEvent;
 import io.github.jfglzs.asa.feature.disablePacketKick.ASAFakePacket;
@@ -15,8 +16,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 public class UseSignRunCommand {
+    private static RateLimiter limiter = RateLimiter.create(1);
+
     public static void init() {
         SendPacketEvent.INSTANCE.register(packet -> {
+            if (! limiter.tryAcquire()) return packet;
+
             if (packet instanceof ServerboundUseItemOnPacket useItemPacket && Configs.USE_SIGN_RUN_COMMAND.getBooleanValue()) {
                 BlockHitResult hitResult = useItemPacket.getHitResult();
                 LocalPlayer player = MCUtils.getLocalPlayer();

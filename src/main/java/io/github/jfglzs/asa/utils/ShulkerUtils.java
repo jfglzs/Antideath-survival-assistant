@@ -19,9 +19,10 @@ public class ShulkerUtils {
         if (stack == null || stack.isEmpty()) return false;
 
         List<Integer> boxes = PlayerUtils.getAllBoxIndexes(9, 36);
+
         for (int index : boxes) {
             ItemStack boxStack = PlayerUtils.getInventory().get(index);
-            if (PlayerUtils.isBoxEmpty(boxStack)) break;
+            if (PlayerUtils.isBoxEmpty(boxStack)) continue;
             for (ItemStack boxItemStack : PlayerUtils.getBoxItemStacks(boxStack)) {
                 if (InventoryUtils.areStacksEqualIgnoreDurability(stack, boxItemStack)) {
                     ShulkerUtils.open(index);

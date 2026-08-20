@@ -32,8 +32,8 @@ public class BoxSplitter {
         }
 
         isRunning = true;
+        canOpenBox = true;
         itemToSplit = stack.copy();
-        run();
     }
 
     public static void run() {
@@ -51,7 +51,6 @@ public class BoxSplitter {
             }
             PlayerUtils.closeContainer();
         }
-        canOpenBox = true;
     }
 
     public static void tick() {
