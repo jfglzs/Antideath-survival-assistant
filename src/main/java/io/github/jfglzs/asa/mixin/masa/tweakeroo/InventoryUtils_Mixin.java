@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(InventoryUtils.class)
 public class InventoryUtils_Mixin {
     @Unique
-    private static final RateLimiter LIMITER = RateLimiter.create(0.3);
+    private static final RateLimiter LIMITER = RateLimiter.create(0.5);
 
     @Inject(
             method = "preRestockHand",
@@ -31,7 +31,7 @@ public class InventoryUtils_Mixin {
             CallbackInfo ci,
             @Local(name = "threshold") int threshold,
             @Local(name = "stackHand") ItemStack stackHand
-                                      ) {
+            ) {
         if (Configs.AUTO_BOX_RESTROKE.getBooleanValue() && stackHand.getCount() < threshold) {
             if (stackHand.isEmpty() || stackHand.getMaxStackSize() == 1 || ! LIMITER.tryAcquire()) return;
             if (ShulkerUtils.findBoxToOpen(stackHand)) {

@@ -51,14 +51,6 @@ public class ClientPacketListener_Mixin implements ClientPacketListenerAccessor 
             int saveDataHash = savedData.hashCode();
             int intID = id.id();
             if (intID != 0 && this.ASA$MAPS.get(intID) == saveDataHash) {
-                ItemStack handStack = PlayerUtils.getPlayerMainHandStack();
-                if (handStack.is(Items.FILLED_MAP)) {
-                    MapId mapId = handStack.get(DataComponents.MAP_ID);
-                    if (mapId != null) {
-                        this.ASA$MAPS.remove(mapId.id());
-                    }
-                    return;
-                }
                 ci.cancel();
             }
             else {
