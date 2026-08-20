@@ -10,10 +10,9 @@ public class ShulkerUtils {
     public static void open(int index) {
         if (Mods.quickshulker) {
             OpenShulkerPacket.sendOpenPacket(index);
+            return;
         }
-        else {
-            ChatUtils.actionBar(ChatUtils.c("未安装快捷潜影盒"));
-        }
+        ChatUtils.actionBar(ChatUtils.c("未安装快捷潜影盒"));
     }
 
     public static boolean findBoxToOpen(ItemStack stack) {
