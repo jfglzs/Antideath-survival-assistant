@@ -6,7 +6,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
 
-public class PacketHandler {
+public class DisablePacketKick {
     public static void init() {
         SendPacketEvent.INSTANCE.register(packet -> {
             if (packet instanceof ServerboundCustomPayloadPacket

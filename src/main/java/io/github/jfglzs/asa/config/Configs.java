@@ -219,6 +219,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed DISABLE_SCORE_BOARD_BACK_GROUND = new ConfigBooleanHotkeyed("禁用计分板背景", false, "", "开启后会禁用计分板背景");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed FORCE_USE_FIREWORK = new ConfigBooleanHotkeyed("强制使用烟花火箭", false, "", "开启后会强制使用烟花火箭");
+    @Config(tab = Tab.FUNCTIONS)
+    public static final ConfigBooleanHotkeyed USE_SIGN_RUN_COMMAND = new ConfigBooleanHotkeyed("右键告示牌执行命令", false, "", "当告示牌每一行为 / 开头时 蹲下右键告示牌自动执行命令");
     @Config
     public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false, "", "1111");
     @Config
