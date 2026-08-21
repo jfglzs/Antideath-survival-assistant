@@ -19,6 +19,10 @@ public class Gui_Mixin {
     )
     private void setScreen(Screen screen, CallbackInfo ci) {
         OpenScreenEvent.INSTANCE.update(screen);
+        if(screen == null) {
+            new RuntimeException().printStackTrace();
+
+        }
     }
     *///?}
 }

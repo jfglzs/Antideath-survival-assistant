@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa;
 
+import com.google.gson.Gson;
 import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InitializationHandler;
 import fi.dy.masa.malilib.event.InputEventHandler;
@@ -20,6 +21,7 @@ import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.render.RemainingItemRender;
 import io.github.jfglzs.asa.utils.*;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -27,19 +29,28 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.saveddata.maps.MapId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class AsaMod implements ModInitializer {
+    public static final URI UPDATE_URL = URI.create("https://api.github.com/repos/jfglzs/Antideath-survival-assistant/releases/latest");
     public static final String MOD_ID_FANCY = "ASA";
     public static final String MOD_ID = "antideath-survival-assistant";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static final String MINECRAFT_VERSION = "26.2";
     public static String version;
 
     public static void debugMessage(Supplier<String> obj) {
@@ -57,6 +68,7 @@ public class AsaMod implements ModInitializer {
     public void onInitialize() {
         version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
         LOGGER.info("AsaMod v{} is being loading...", version);
+
         this.init();
     }
 
@@ -115,5 +127,8 @@ public class AsaMod implements ModInitializer {
     }
 
     public void testOnTick(Minecraft client) {
+        boolean x = MCUtils.getScreen() != null;
+        if (x) {
+        }
     }
 }
