@@ -11,11 +11,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LevelLoadingScreen.class)
 //~}
 public abstract class ReceivingLevelScreen_Mixin {
-    //~ if >= 1.21.8 'render' -> 'extractBackground' {
+    //~ if >= 26.1.2 'render' -> 'extractBackground' {
     @Inject(
             method = "extractBackground",
             at = @At("HEAD"),
-            cancellable = true
+            cancellable = true,
+            require = 0
     )
     public void extractBackground(CallbackInfo ci) {
         if (Configs.DISABLE_LOADING_TERRAIN_SCREEN.getBooleanValue()) {
@@ -24,7 +25,7 @@ public abstract class ReceivingLevelScreen_Mixin {
     }
     //~}
 
-    //? if >= 1.21.8 {
+    //? if >= 26.1.2 {
     @Inject(
             method = "extractRenderState",
             at = @At("HEAD"),
