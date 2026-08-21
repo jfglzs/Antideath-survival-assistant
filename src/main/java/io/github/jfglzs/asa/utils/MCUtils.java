@@ -86,4 +86,16 @@ public class MCUtils {
         }
         return false;
     }
+
+    public static void disconnect() {
+        ClientLevel level = MCUtils.getLevel();
+        if (level == null) return;
+        //? if < 1.21.8 {
+        /*level.disconnect();
+         *///?} else if < 1.21.10 {
+        /*level.disconnect(ClientLevel.DEFAULT_QUIT_MESSAGE);
+         *///?} else {
+        MCUtils.getMinecraft().disconnectFromWorld(ClientLevel.DEFAULT_QUIT_MESSAGE);
+        //?}
+    }
 }

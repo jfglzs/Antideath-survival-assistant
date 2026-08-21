@@ -27,10 +27,11 @@ public abstract class ReceivingLevelScreen_Mixin {
     //? if >= 1.21.8 {
     @Inject(
             method = "extractRenderState",
-            at = @At("HEAD")
+            at = @At("HEAD"),
+            cancellable = true
     )
     public void extractRenderState(CallbackInfo ci) {
-
+        ci.cancel();
     }
     //?}
 }

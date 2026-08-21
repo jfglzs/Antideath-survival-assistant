@@ -66,6 +66,9 @@ public class HotkeysCallback implements IHotkeyCallback {
         else if (key == CLEAN_PLAYER_INV_CHACHE.getKeybind()) {
             ItemStorageDataManager.removeAll();
         }
+        else if (key == CAN_ALWAYS_DISCONNECT_TRIGGER.getKeybind()) {
+            MCUtils.disconnect();
+        }
         return false;
     }
 }

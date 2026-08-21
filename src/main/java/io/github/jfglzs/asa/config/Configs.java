@@ -7,6 +7,7 @@ import fi.dy.masa.malilib.config.ConfigUtils;
 import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.config.options.*;
 //~ if >= 26.1 '.JsonUtils' -> '.data.json.JsonUtils' {
+import fi.dy.masa.malilib.hotkeys.KeybindSettings;
 import fi.dy.masa.malilib.util.data.json.JsonUtils;
 
 import java.nio.file.Path;
@@ -126,6 +127,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed DISABLE_SUBTITLE_OVERLAY_BACKGROUND = new ConfigBooleanHotkeyed("禁用字幕背景", false, "", "禁用字幕背景");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed CAN_ALWAYS_DISCONNECT = new ConfigBooleanHotkeyed("随时可以断开连接", false, "", "为ReconfigScreen和ConnectScreen增加了退出按钮 可随时断开连接");
+    @Config(tab = Tab.FUNCTIONS)
+    public static final ConfigHotkey CAN_ALWAYS_DISCONNECT_TRIGGER = new ConfigHotkey("触发随时可以断开连接","" , "当卡死在加载地形中时可触发");
     @Config(tab = Tab.DISABLES)
     public static final ConfigBooleanHotkeyed DISABLE_CONTAINER_BACKGROUND = new ConfigBooleanHotkeyed("禁用容器背景渲染", false, "", "禁用容器背景渲染");
     @Config(tab = Tab.COMMAND)

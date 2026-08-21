@@ -47,7 +47,6 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class AsaMod implements ModInitializer {
-    public static final URI UPDATE_URL = URI.create("https://api.github.com/repos/jfglzs/Antideath-survival-assistant/releases/latest");
     public static final String MOD_ID_FANCY = "ASA";
     public static final String MOD_ID = "antideath-survival-assistant";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
