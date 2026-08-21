@@ -4,12 +4,14 @@ import fi.dy.masa.malilib.util.InventoryUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,5 +135,17 @@ public class PlayerUtils {
         //?} else {
         /*mc.gameMode.handleInventoryMouseClick(containerId, slotNum, buttonNum, input, player);
          *///?}
+    }
+
+    public static void interactWith(Entity entity, InteractionHand hand) {
+        LocalPlayer player = MCUtils.getLocalPlayer();
+        Minecraft mc = MCUtils.getMinecraft();
+        if (player != null) {
+            //? if >= 26.1 {
+            mc.gameMode.interact(player, entity, new EntityHitResult(entity), hand);
+            //?} else {
+            //mc.gameMode.interact(player, entity, hand);
+            //?}
+        }
     }
 }

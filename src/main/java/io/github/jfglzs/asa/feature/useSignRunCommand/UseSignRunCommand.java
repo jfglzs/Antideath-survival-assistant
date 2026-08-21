@@ -13,32 +13,29 @@ import net.minecraft.network.protocol.game.ServerboundUseItemOnPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 
 public class UseSignRunCommand {
-    private static RateLimiter limiter = RateLimiter.create(1);
+    private static final RateLimiter LIMITER = RateLimiter.create(1);
 
     public static void init() {
         SendPacketEvent.INSTANCE.register(packet -> {
-            if (! limiter.tryAcquire()) return packet;
+            if (! LIMITER.tryAcquire() || ! Configs.USE_SIGN_RUN_COMMAND.getBooleanValue()) return packet;
 
-            if (packet instanceof ServerboundUseItemOnPacket useItemPacket && Configs.USE_SIGN_RUN_COMMAND.getBooleanValue()) {
-                BlockHitResult hitResult = useItemPacket.getHitResult();
+            if (packet instanceof ServerboundUseItemOnPacket itemPacket) {
+                BlockHitResult hitResult = itemPacket.getHitResult();
                 LocalPlayer player = MCUtils.getLocalPlayer();
-                if (hitResult.getType() == HitResult.Type.BLOCK && player.isShiftKeyDown()) {
-                    BlockPos pos = hitResult.getBlockPos();
-                    ClientLevel level = MCUtils.getLevel();
-                    BlockEntity entity = level.getBlockEntity(pos);
-                    if (entity instanceof SignBlockEntity sign) {
-                        Component[] messages = sign.getFrontText().getMessages(false);
-                        for (Component component : messages) {
-                            String command = component.getString();
-                            if (command.startsWith("/")) {
-                                MCUtils.executeCommand(command);
-                            }
-                        }
-                        return ASAFakePacket.INSTANCE;
+                if (! player.isShiftKeyDown()) return packet;
+                BlockPos pos = hitResult.getBlockPos();
+                ClientLevel level = MCUtils.getLevel();
+                BlockEntity entity = level.getBlockEntity(pos);
+                if (entity instanceof SignBlockEntity sign) {
+                    Component[] messages = sign.getFrontText().getMessages(false);
+                    for (Component component : messages) {
+                        String command = component.getString();
+                        if (! command.startsWith("/")) continue;
+                        MCUtils.executeCommand(command);
                     }
+                    return ASAFakePacket.INSTANCE;
                 }
             }
             return packet;

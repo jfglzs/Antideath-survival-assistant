@@ -6,13 +6,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.config.options.OpenFakePlayerInvMode;
 import io.github.jfglzs.asa.utils.*;
 import it.unimi.dsi.fastutil.objects.*;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -215,7 +218,14 @@ public class ItemStorageDataManager {
                 ThreadUtils.runAsync(() -> {
                     try {
                         Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
-                        ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s inventory".formatted(name))).join();
+                        ThreadUtils.runOnClientThread(() -> {
+                            if (Configs.AUTO_OPEN_FAKE_PLAYER_INV_MODE.getOptionListValue() == OpenFakePlayerInvMode.COMMAND) {
+                                MCUtils.executeCommand("player %s inventory".formatted(name));
+                            }
+                            else {
+                                PlayerUtils.interactWith(player, InteractionHand.MAIN_HAND);
+                            }
+                        }).join();
                         WAIT_FOR_KILLING.add(name);
                     }
                     catch (Exception e) {

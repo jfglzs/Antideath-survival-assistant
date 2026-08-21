@@ -15,6 +15,7 @@ import io.github.jfglzs.asa.annotations.Config;
 import io.github.jfglzs.asa.config.options.AutoCleanWasteMode;
 import io.github.jfglzs.asa.config.options.ItemFrameVisibility;
 import io.github.jfglzs.asa.config.options.LowHealthSendMode;
+import io.github.jfglzs.asa.config.options.OpenFakePlayerInvMode;
 
 import java.io.File;
 
@@ -75,6 +76,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed MID_CLICK_TAKE_ITEM = new ConfigBooleanHotkeyed("中键投影取货", false, "", "启用后鼠标中键点击，原理图内方块(玩家背包内没有)，会立即取货（需要lms carpet addition）\n shift+中键取1盒 \n中键取1组");
     @Config(tab = Tab.LMS)
     public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV = new ConfigBooleanHotkeyed("假人取货自动打开假人背包", false, "", "自动打开假人背包");
+    @Config(tab = Tab.LMS)
+    public static final ConfigOptionList AUTO_OPEN_FAKE_PLAYER_INV_MODE = new ConfigOptionList("自动打开假人背包交互模式", OpenFakePlayerInvMode.INTERACTION, "交互模式", "");
     @Config(tab = Tab.LMS)
     public static final ConfigBooleanHotkeyed AUTO_KILL_FAKE_PLAYERS = new ConfigBooleanHotkeyed("假人远程取货自动下线假人", false, "", "");
     @Config(tab = Tab.LMS)

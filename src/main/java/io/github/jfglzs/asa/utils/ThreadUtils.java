@@ -11,7 +11,6 @@ public class ThreadUtils {
     public static final Minecraft MC = Minecraft.getInstance();
     public static final ExecutorService THREAD_POOL = Executors.newCachedThreadPool();
     public static final Queue<Runnable> TASK_QUEUE = new ConcurrentLinkedQueue<>();
-    public static final Queue<Runnable> ENTITY_TASK = new ConcurrentLinkedQueue<>();
 
     public static void init() {
         makeTaskThread();
