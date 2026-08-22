@@ -1,6 +1,5 @@
 package io.github.jfglzs.asa;
 
-import com.google.gson.Gson;
 import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InitializationHandler;
 import fi.dy.masa.malilib.event.InputEventHandler;
@@ -18,12 +17,10 @@ import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
 import io.github.jfglzs.asa.feature.disablePacketKick.DisablePacketKick;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
 import io.github.jfglzs.asa.feature.useSignRunCommand.UseSignRunCommand;
-import io.github.jfglzs.asa.render.ItemFinderRenderer;
 import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.render.RemainingItemRender;
 import io.github.jfglzs.asa.utils.*;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
-import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -31,21 +28,12 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.saveddata.maps.MapId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.time.Duration;
-import java.util.Map;
 import java.util.function.Supplier;
 
 public class AsaMod implements ModInitializer {
@@ -91,7 +79,6 @@ public class AsaMod implements ModInitializer {
         UseSignRunCommand.init();
         MaterialToDoRenderer.init();
         RemainingItemRender.init();
-        ItemFinderRenderer.init();
         Mods.init();
         this.registerEvents();
         this.registerCommands();
