@@ -110,9 +110,9 @@ public class Configs implements IConfigHandler {
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigFloat LOW_HEALTH_VALUE = new ConfigFloat("生命值阈值", 4, 1, 20, "生命值阈值");
     @Config(tab = Tab.FUNCTIONS)
-    public static final ConfigString LOW_HEALTH_SEND_CONTENT_MESSAGE = new ConfigString("发送内容-指令", "spectator","指令");
+    public static final ConfigString LOW_HEALTH_SEND_CONTENT_MESSAGE = new ConfigString("发送内容-消息", "!s","指令");
     @Config(tab = Tab.FUNCTIONS)
-    public static final ConfigString LOW_HEALTH_SEND_CONTENT_COMMAND = new ConfigString("发送内容-消息", "!s", "消息");
+    public static final ConfigString LOW_HEALTH_SEND_CONTENT_COMMAND = new ConfigString("发送内容-指令", "spectator", "消息");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed MINI_HUD_FPS_OPT = new ConfigBooleanHotkeyed("MiniHud掉帧优化", false, "", "MiniHud掉帧优化");
     @Config(tab = Tab.FUNCTIONS)
