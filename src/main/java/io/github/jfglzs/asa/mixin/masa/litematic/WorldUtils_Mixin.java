@@ -86,7 +86,7 @@ public class WorldUtils_Mixin {
             }
             else {
                 AsaMod.debugMessage(() -> "addItem %s to MaterialToDoRenderer");
-                MaterialToDoRenderer.INSTANCE.addItem(stack);
+                MaterialToDoRenderer.addItem(stack);
             }
         }
     }

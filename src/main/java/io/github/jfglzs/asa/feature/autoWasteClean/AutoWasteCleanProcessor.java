@@ -20,10 +20,7 @@ import java.util.*;
 
 public class AutoWasteCleanProcessor {
     public static void init() {
-        OpenScreenEvent.INSTANCE.register(screen -> {
-            process();
-            return false;
-        });
+        OpenScreenEvent.INSTANCE.register(screen -> process());
     }
 
     /**

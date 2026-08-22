@@ -36,7 +36,7 @@ public class HotkeysCallback implements IHotkeyCallback {
             return true;
         }
         else if (key == CLEAR_MATERIAL_TODO_OVERLAY.getKeybind()) {
-            MaterialToDoRenderer.INSTANCE.items.clear();
+            MaterialToDoRenderer.items.clear();
         }
         else if (key == LMS_TAKE_ITEM.getKeybind()) {
             Configs.lockCreativeScreen = true;

@@ -90,12 +90,13 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             CallbackInfo ci,
             @Share("type") LocalRef<ContainerInput> type
                                  ) {
-        if (Configs.lockCreativeScreen && type.get() != null && slotId == - 999) {
+        if (Configs.lockCreativeScreen && type.get() == ContainerInput.PICKUP && slotId == - 999) {
+            if (! Configs.LMS_FETCH_SUPPORT.getBooleanValue()) return;
             ItemStack stack = this.menu.getCarried();
             int count = - 1;
             int maxCount = stack.getMaxStackSize();
-            if (type.get() == ContainerInput.PICKUP && button == 0) count = maxCount;
-            else if (type.get() == ContainerInput.PICKUP && button == 1) count = maxCount * 27;
+            if (button == 0) count = maxCount;
+            else if (button == 1) count = maxCount * 27;
             ItemStorageDataManager.submit(stack.getItem(), stack.getCount() * count);
             menu.setCarried(ItemStack.EMPTY);
             Configs.lockCreativeScreen = false;

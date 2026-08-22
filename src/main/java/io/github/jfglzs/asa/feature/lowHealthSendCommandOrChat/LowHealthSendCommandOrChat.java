@@ -16,18 +16,15 @@ public class LowHealthSendCommandOrChat {
     public static void tick(Minecraft client) {
         Player player = client.player;
         if (Configs.LOW_HEALTH_EXECUTE_OR_SEND.getBooleanValue() && PlayerUtils.isSurvivalMode(player)) {
-            float health = player.getHealth();
-            if (health < Configs.LOW_HEALTH_VALUE.getFloatValue()) {
+            if (player.getHealth() < Configs.LOW_HEALTH_VALUE.getFloatValue()) {
                 if (! LIMITER.tryAcquire()) return;
-                if (Configs.LOW_HEALTH_EXECUTE_OR_SEND.getBooleanValue()) {
-                    String cmd = Configs.LOW_HEALTH_SEND_CONTENT_COMMAND.getStringValue();
-                    String message = Configs.LOW_HEALTH_SEND_CONTENT_MESSAGE.getStringValue();
-                    if (CommandUtils.canUseCommand(cmd)) {
-                        MCUtils.executeCommand(cmd);
-                        return;
-                    }
-                    ChatUtils.serverMess(message);
+                String cmd = Configs.LOW_HEALTH_SEND_CONTENT_COMMAND.getStringValue();
+                String msg = Configs.LOW_HEALTH_SEND_CONTENT_MESSAGE.getStringValue();
+                if (CommandUtils.canUseCommand(cmd)) {
+                    MCUtils.executeCommand(cmd);
+                    return;
                 }
+                ChatUtils.serverMess(msg);
             }
         }
     }

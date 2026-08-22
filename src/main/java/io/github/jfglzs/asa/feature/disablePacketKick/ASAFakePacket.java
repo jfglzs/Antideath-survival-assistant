@@ -6,7 +6,6 @@ import net.minecraft.network.protocol.common.ClientCommonPacketListener;
 import net.minecraft.network.protocol.common.CommonPacketTypes;
 
 public final class ASAFakePacket implements Packet<ClientCommonPacketListener> {
-
     public static final ASAFakePacket INSTANCE = new ASAFakePacket();
 
     public ASAFakePacket() {

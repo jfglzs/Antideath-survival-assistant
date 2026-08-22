@@ -1,44 +1,27 @@
 package io.github.jfglzs.asa.render;
 
-import fi.dy.masa.malilib.interfaces.IRenderer;
-//? >= 1.21.11
-import fi.dy.masa.malilib.render.GuiContext;
+
 import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.events.HudRenderEvent;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.Minecraft;
-//? < 1.21.11
-//import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-
 import java.util.*;
 
-public class MaterialToDoRenderer implements IRenderer {
-    public static final MaterialToDoRenderer INSTANCE = new MaterialToDoRenderer();
-    public Queue<Item> items = new LinkedList<>();
+public class MaterialToDoRenderer {
+    public static Queue<Item> items = new LinkedList<>();
 
-    private MaterialToDoRenderer() {
+    public static void init() {
+        HudRenderEvent.INSTANCE.register(MaterialToDoRenderer::render);
     }
 
-    //~ if < 1.21.11 'GuiContext' -> 'GuiGraphics' {
-    //? if < 26.1 {
-        /*@Override
-        public void onRenderGameOverlayPost(GuiContext ctx) {
-            this.render(ctx);
-        }
-        *///?} else {
-    @Override
-    public void onExtractGuiOverlayPost(GuiContext ctx, float partialTicks, ProfilerFiller profiler) {
-        this.render(ctx);
-    }
-    //?}
-
-    public void render(GuiContext ctx) {
+    public static void render(HudRenderEvent.RenderContextWrap wrap) {
         if (Configs.ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue()) {
             int xOffset = Configs.MATERIAL_TODO_OVERLAY_X_OFFSET.getIntegerValue();
             int yOffset = Configs.MATERIAL_TODO_OVERLAY_Y_OFFSET.getIntegerValue();
             for (Item item : items) {
+                var ctx = wrap.context();
                 ctx.renderItem(new ItemStack(item), xOffset, yOffset);
                 //? if <= 1.21.1 {
                 /*ctx.drawString(Minecraft.getInstance().font, item.getDescription(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
@@ -51,21 +34,20 @@ public class MaterialToDoRenderer implements IRenderer {
             }
         }
     }
-    //~}
 
-    public void tick(Minecraft mc) {
-        Queue<Item> newitems = new LinkedList<>();
+    public static void tick(Minecraft mc) {
+        Queue<Item> newItems = new LinkedList<>();
 
         for (Item stack : items) {
             if (PlayerUtils.checkRemainCount(stack) > 0) {
                 continue;
             }
-            newitems.offer(stack);
+            newItems.offer(stack);
         }
-        items = newitems;
+        items = newItems;
     }
 
-    public void addItem(ItemStack stack) {
+    public static void addItem(ItemStack stack) {
         if (items.contains(stack.getItem()) || Configs.ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue()) {
             return;
         }
