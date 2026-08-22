@@ -22,7 +22,7 @@ public class ItemFinderRenderer {
             var ctx = wrap.context();
             MaterialListHudRenderer.highlightSlotsWithItem(ctx, stackToFind, gui, COLOR_4_F, MCUtils.getMinecraft());
             //?} else {
-            //MaterialListHudRenderer.highlightSlotsWithItem(stackToFind, gui, COLOR_4_F, MCUtils.getMinecraft())
+            //MaterialListHudRenderer.highlightSlotsWithItem(stackToFind, gui, COLOR_4_F, MCUtils.getMinecraft());
             //?}
         }
     }
