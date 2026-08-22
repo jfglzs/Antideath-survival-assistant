@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.preventNetworkProtocolError;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import io.github.jfglzs.asa.config.Configs;
 import net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,4 +20,6 @@ public class ClientCommonPacketListener_Mixin {
             ci.cancel();
         }
     }
+
+
 }

@@ -17,6 +17,7 @@
     "feature.optItemModel.ItemStack_Mixin",
     "feature.optItemModel.ModelManager_Mixin",
     "feature.optSignText.SignText_Mixin",
+    "feature.preventNetworkProtocolError.Connection_Mixin",
     "masa.litematic.MaterialListEntry_Mixin",
     "masa.litematic.MaterialListHudRenderer_Mixin",
     "masa.litematic.WorldUtils_Mixin",
