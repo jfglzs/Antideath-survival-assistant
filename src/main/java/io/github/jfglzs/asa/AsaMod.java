@@ -61,7 +61,6 @@ public class AsaMod implements ModInitializer {
         this.init();
     }
 
-
     private void init() {
         //~ if >= 26.1 'registerGameOverlayRenderer' -> 'registerInGameGuiRenderer' {
         ConfigsManager.init();

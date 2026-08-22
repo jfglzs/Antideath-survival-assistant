@@ -5,6 +5,7 @@ import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.events.HudRenderEvent;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import java.util.*;
@@ -23,12 +24,13 @@ public class MaterialToDoRenderer {
             for (Item item : items) {
                 var ctx = wrap.context();
                 ctx.renderItem(new ItemStack(item), xOffset, yOffset);
+                Font font = Minecraft.getInstance().font;
                 //? if <= 1.21.1 {
-                /*ctx.drawString(Minecraft.getInstance().font, item.getDescription(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
+                /*ctx.drawString(font, item.getDescription(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
                  *///?} else if >=26.1 {
-                ctx.drawString(Minecraft.getInstance().font, item.getDescriptionId(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
+                ctx.drawString(font, item.getDescriptionId(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
                 //?} else {
-                /*ctx.drawString(Minecraft.getInstance().font, item.getName(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
+                /*ctx.drawString(font, item.getName(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
                  *///?}
                 yOffset += 18;
             }
