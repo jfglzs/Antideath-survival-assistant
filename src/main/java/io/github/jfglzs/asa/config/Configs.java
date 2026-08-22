@@ -106,13 +106,13 @@ public class Configs implements IConfigHandler {
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigStringList FAKE_PLAYER_KILL_AURA_WHITELIST = new ConfigStringList("假人杀戮光环白名单", ImmutableList.of(), "假人杀戮光环白名单（仅对名单内玩家生效，精确匹配，忽略大小写）");
     @Config(tab = Tab.FUNCTIONS)
-    public static final ConfigBooleanHotkeyed LOW_HEALTH_EXECUTE_OR_SEND = new ConfigBooleanHotkeyed("低生命值自动执行命令/发送聊天消息", false, "", "可自定义命令");
+    public static final ConfigBooleanHotkeyed LOW_HEALTH_EXECUTE_OR_SEND = new ConfigBooleanHotkeyed("低生命值自动执行命令/发送聊天消息", false, "", "可自定义命令，当指令不可用时自动发送聊天消息");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigFloat LOW_HEALTH_VALUE = new ConfigFloat("生命值阈值", 4, 1, 20, "生命值阈值");
     @Config(tab = Tab.FUNCTIONS)
-    public static final ConfigOptionList LOW_HEALTH_SEND_MODE = new ConfigOptionList("发送模式", LowHealthSendMode.SEND_CHAT_MESSAGE);
+    public static final ConfigString LOW_HEALTH_SEND_CONTENT_MESSAGE = new ConfigString("发送内容-指令", "spectator","指令");
     @Config(tab = Tab.FUNCTIONS)
-    public static final ConfigString LOW_HEALTH_SEND_CONTENT = new ConfigString("发送内容", "!s");
+    public static final ConfigString LOW_HEALTH_SEND_CONTENT_COMMAND = new ConfigString("发送内容-消息", "!s", "消息");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed MINI_HUD_FPS_OPT = new ConfigBooleanHotkeyed("MiniHud掉帧优化", false, "", "MiniHud掉帧优化");
     @Config(tab = Tab.FUNCTIONS)
