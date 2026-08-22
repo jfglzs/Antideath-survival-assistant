@@ -15,9 +15,6 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(IdDispatchCodec.class)
 public class IdDispatchCodec_Mixin<B extends ByteBuf, V> {
-    @Unique
-    private static final ASAFakePacket asa$FAKEPACKET = new ASAFakePacket();
-
     @WrapMethod(
             method = "decode(Lio/netty/buffer/ByteBuf;)Ljava/lang/Object;"
     )
@@ -30,7 +27,7 @@ public class IdDispatchCodec_Mixin<B extends ByteBuf, V> {
         catch (Exception e) {
             if (Configs.DISABLE_PACKET_KICK.getBooleanValue()) {
                 buf.skipBytes(buf.readableBytes());
-                return (V) asa$FAKEPACKET;
+                return (V) ASAFakePacket.INSTANCE;
             }
             throw e;
         }

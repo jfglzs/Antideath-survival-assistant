@@ -58,6 +58,7 @@
     "feature.optItemModel.CuboidItemModelWrapper_Mixin",
     "feature.optItemModel.LayerRenderState_Mixin",
     "feature.preventIntentionalGameDesign.MultiPlayerGameMode_Mixin",
+    "feature.preventNetworkProtocolError.ClientCommonPacketListener_Mixin",
     "feature.tabFilter.PlayerTabOverlay_Mixin",
     "feature.transparentItemFrame.ItemFrameRenderer_Mixin"
   ]

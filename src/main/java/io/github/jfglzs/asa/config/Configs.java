@@ -197,6 +197,8 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed FORCE_JOIN_SERVER_IGNORE_UNKNOWN_PACKET = new ConfigBooleanHotkeyed("禁用数据包踢出-强制进入服务器", false, "", "此功能可以无视客户端不存在/未注册的数据包强制进入服务器");
     @Config(tab = Tab.DISABLES)
     public static final ConfigBooleanHotkeyed DISABLE_PACKET_KICK_PREVENT_CUSTOM_PAYLOAD = new ConfigBooleanHotkeyed("禁用数据包踢出-拦截ServerboundCustomPayloadPacket", false, "", "开启后会阻止玩家因为数据包错误被踢出服务器\n此功能建议搭配ViaFabricPLus食用\n(此功能用于大版本跨小版本)");
+    @Config(tab = Tab.DISABLES)
+    public static final ConfigBooleanHotkeyed PREVENT_NET_PRO_ERR = new ConfigBooleanHotkeyed("禁用网络协议错误", false, "", "阻止玩家因网络协议错误被踢出服务器");
     @Config(tab = {Tab.DISABLES, Tab.OPTIMIZATIONS})
     public static final ConfigBooleanHotkeyed DISABLE_PROFILER = new ConfigBooleanHotkeyed("禁用Profiler", false, "", "禁用后可提升帧数但会导致饼图不可用");
     @Config(tab = Tab.COMMAND)

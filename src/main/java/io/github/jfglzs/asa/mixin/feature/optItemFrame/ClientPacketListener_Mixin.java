@@ -31,6 +31,7 @@ public class ClientPacketListener_Mixin implements ClientPacketListenerAccessor 
     )
     public void handleRespawn(ClientboundRespawnPacket packet, CallbackInfo ci) {
         this.ASA$MAPS.clear();
+        throw new RuntimeException();
     }
 
 
