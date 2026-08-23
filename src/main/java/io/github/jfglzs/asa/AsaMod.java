@@ -95,10 +95,10 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(i -> i % 20 == 0 && Configs.CREEPER_WARN.getBooleanValue(), CreeperCheckClient::tick);
         ClientTickEvent.register(i -> i % 40 == 0 && Configs.ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue(), MaterialToDoRenderer::tick);
         ClientTickEvent.register(i -> i % 20000 == 0 && Configs.LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client -> ItemStorageDataManager.reflushCache());
-        ClientTickEvent.register(i -> i % 20 == 0 && Configs.OPT_ITEM_FRAME.getBooleanValue(), client -> {
+        ClientTickEvent.register(i -> i % 100 == 0 && Configs.OPT_ITEM_FRAME.getBooleanValue(), client -> {
             LocalPlayer player = MCUtils.getLocalPlayer();
-            if (player != null) {
-                ItemStack stack = PlayerUtils.getPlayerMainHandStack();
+            if (player == null) return;
+            for (ItemStack stack : player.getInventory()) {
                 if (! stack.is(Items.FILLED_MAP)) return;
                 MapId mapId = stack.get(DataComponents.MAP_ID);
                 if (mapId != null) {
@@ -116,8 +116,5 @@ public class AsaMod implements ModInitializer {
     }
 
     public void testOnTick(Minecraft client) {
-        boolean x = MCUtils.getScreen() != null;
-        if (x) {
-        }
     }
 }

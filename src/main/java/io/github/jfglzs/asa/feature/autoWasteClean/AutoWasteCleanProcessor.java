@@ -43,7 +43,7 @@ public class AutoWasteCleanProcessor {
                 for (Slot slot : menu.slots) {
                     ItemStack stack = slot.getItem();
                     boolean isInv = slot.container instanceof Inventory;
-                    if (isStackEmpty(stack) || shouldKeep(stack)) continue;
+                    if (stack.isEmpty() || shouldKeep(stack)) continue;
 
                     if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
                         InventoryUtils.dropStack(container, slot.index);
@@ -62,10 +62,6 @@ public class AutoWasteCleanProcessor {
         }
     }
 
-    private static boolean isStackEmpty(ItemStack stack) {
-        return stack.isEmpty();
-    }
-
     private static boolean shouldKeep(ItemStack stack) {
         String id = MCUtils.getItemID(stack.getItem());
 
@@ -79,7 +75,7 @@ public class AutoWasteCleanProcessor {
         }
 
         for (ItemStack boxStack : PlayerUtils.getBoxItemStacks(stack)) {
-            if (isStackEmpty(boxStack)) continue;
+            if (boxStack.isEmpty()) continue;
             if (shouldKeep(boxStack)) return true;
         }
 
@@ -89,10 +85,10 @@ public class AutoWasteCleanProcessor {
     public static void saveItemToList() {
         Set<String> items = new HashSet<>();
         for (ItemStack stack : PlayerUtils.getInventory()) {
-            if (isStackEmpty(stack)) continue;
+            if (stack.isEmpty()) continue;
             if (PlayerUtils.isShulkerBox(stack)) {
                 for (ItemStack boxStack : PlayerUtils.getBoxItemStacks(stack)) {
-                    if (isStackEmpty(stack)) continue;
+                    if (stack.isEmpty()) continue;
                     items.add(MCUtils.getItemID(boxStack.getItem()));
                 }
             }
