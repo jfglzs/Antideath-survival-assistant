@@ -15,7 +15,7 @@ public abstract class Connection_Mixin {
             at = @At(value = "HEAD"),
             cancellable = true
     )
-    public void exceptionCaughtInject(ChannelHandlerContext context, Throwable ex, CallbackInfo ci) {
+    public void exceptionCaughtInject(CallbackInfo ci) {
         if (Configs.DISABLE_CONNECT_TIMED_OUT.getBooleanValue()) {
             ci.cancel();
         }

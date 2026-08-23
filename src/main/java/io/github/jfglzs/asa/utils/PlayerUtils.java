@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.utils;
 
+import com.mojang.authlib.GameProfile;
 import fi.dy.masa.malilib.util.InventoryUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -145,9 +146,13 @@ public class PlayerUtils {
         }
     }
 
+    //~ if >=1.21.10 '.getName()' -> '.name()' {
     public static String getName(Player player) {
-        //~ if >=1.21.10 '.getName()' -> '.name()' {
         return player.getGameProfile().name();
-        //~}
     }
+
+    public static String getName(GameProfile profile) {
+        return profile.name();
+    }
+    //~}
 }

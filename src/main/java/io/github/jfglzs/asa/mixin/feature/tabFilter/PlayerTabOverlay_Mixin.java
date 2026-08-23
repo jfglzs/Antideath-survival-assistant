@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.mixin.feature.tabFilter;
 
 import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.utils.PlayerUtils;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.gui.components.PlayerTabOverlay;
 import net.minecraft.client.multiplayer.PlayerInfo;
@@ -25,9 +26,9 @@ public abstract class PlayerTabOverlay_Mixin {
         if (Configs.TAP_FILTER.getBooleanValue()) {
             var list = new ObjectArrayList<PlayerInfo>();
             for (PlayerInfo entry : original) {
-                //~ if >=1.21.10 '.getName()' -> '.name()' {
-                var name = entry.getProfile().name().trim();
-                //~}
+
+                var name = PlayerUtils.getName(entry.getProfile());
+
                 if (Configs.ENABLE_TAP_FILTER_WHITELIST.getBooleanValue()) {
                     if (Configs.TAP_FILTER_WHITELIST.getStrings().contains(name)) {
                         list.add(entry);
@@ -35,7 +36,7 @@ public abstract class PlayerTabOverlay_Mixin {
                 }
                 else if (Configs.ENABLE_TAP_FILTER_PREFIX.getBooleanValue()) {
                     for (String string : Configs.TAP_FILTER_PREFIX.getStrings()) {
-                        if (name.startsWith(string)) {
+                        if (!name.startsWith(string)) {
                             list.add(entry);
                         }
                     }

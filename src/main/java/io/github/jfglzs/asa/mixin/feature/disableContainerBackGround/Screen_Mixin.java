@@ -1,9 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.disableContainerBackGround;
 
-//~ if >= 26.1 'GuiGraphics' -> 'GuiGraphicsExtractor' {
-
 import io.github.jfglzs.asa.config.Configs;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,10 +16,9 @@ public class Screen_Mixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void extractTransparentBackground(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
+    private void extractTransparentBackground(CallbackInfo ci) {
         //~}
         if (Configs.DISABLE_CONTAINER_BACKGROUND.getBooleanValue()) ci.cancel();
     }
     //?}
 }
-//~}
