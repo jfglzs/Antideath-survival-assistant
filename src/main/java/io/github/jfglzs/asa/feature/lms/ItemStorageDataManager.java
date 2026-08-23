@@ -194,10 +194,10 @@ public class ItemStorageDataManager {
         String stackId = MCUtils.getItemID(item);
         int count = 0;
         if (fake) {
-            count = Math.max(FAKE_ITEM_STORAGES.getInt(stackId), 0);
+            count += Math.max(FAKE_ITEM_STORAGES.getInt(stackId), 0);
         }
         else {
-            count = count + Math.max(ITEM_STORAGES.getInt(stackId), 0);
+            count += Math.max(ITEM_STORAGES.getInt(stackId), 0);
         }
         return count;
     }
@@ -210,9 +210,8 @@ public class ItemStorageDataManager {
         if (! Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue() || mc.level == null) return;
 
         mc.level.players().forEach(player -> {
-            //~ if >=1.21.10 '.getName()' -> '.name()' {
-            var name = player.getGameProfile().name();
-            //~}
+
+            var name = PlayerUtils.getName(player);
 
             if (WAIT_FOR_INV.remove(name)) {
                 ThreadUtils.runAsync(() -> {

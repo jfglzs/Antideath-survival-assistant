@@ -21,17 +21,15 @@ public class PlayerUtils {
     public static int getInventoryItemCount(Item item) {
         return getInventory()
                 .stream()
-                .filter(stack -> stack.getItem() == item)
+                .filter(stack -> stack.is(item))
                 .mapToInt(ItemStack::getCount)
                 .sum();
     }
 
     public static List<ItemStack> getInventory() {
-        Inventory inventory = MCUtils.getLocalPlayer().getInventory();
-        return IntStream
-                .range(0, inventory.getContainerSize())
-                .mapToObj(inventory::getItem)
-                .toList();
+        //~ if >= 1.21.5 'items' -> 'getNonEquipmentItems()' {
+        return MCUtils.getLocalPlayer().getInventory().getNonEquipmentItems();
+        //~}
     }
 
     public static Item getItem(int slotIndex) {
@@ -46,7 +44,6 @@ public class PlayerUtils {
     public static List<Integer> getAllBoxIndexes(int minIndex, int maxIndex) {
         List<Integer> results = new ArrayList<>();
         Inventory inventory = MCUtils.getLocalPlayer().getInventory();
-
 
         for (int i = minIndex; i < maxIndex; i++) {
             ItemStack stack = inventory.getItem(i);
@@ -102,8 +99,7 @@ public class PlayerUtils {
     }
 
     public static ItemStack getPlayerMainHandStack() {
-        LocalPlayer player = MCUtils.getMinecraft().player;
-        return player == null ? ItemStack.EMPTY : player.getMainHandItem();
+        return getPlayerHandStack(InteractionHand.MAIN_HAND);
     }
 
     public static ItemStack getPlayerHandStack(InteractionHand hand) {
@@ -128,7 +124,7 @@ public class PlayerUtils {
 
     //~ if >= 26.1 'ClickType' -> 'ContainerInput' {
     public static void clickSlot(final int containerId, final int slotNum, final int buttonNum, final net.minecraft.world.inventory.ContainerInput input, final Player player) {
-        //~}
+    //~}
         Minecraft mc = MCUtils.getMinecraft();
         //? if >= 26.1 {
         mc.gameMode.handleContainerInput(containerId, slotNum, buttonNum, input, player);
@@ -147,5 +143,11 @@ public class PlayerUtils {
             //mc.gameMode.interact(player, entity, hand);
             //?}
         }
+    }
+
+    public static String getName(Player player) {
+        //~ if >=1.21.10 '.getName()' -> '.name()' {
+        return player.getGameProfile().name();
+        //~}
     }
 }

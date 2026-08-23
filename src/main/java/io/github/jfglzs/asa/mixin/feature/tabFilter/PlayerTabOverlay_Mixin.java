@@ -48,9 +48,7 @@ public abstract class PlayerTabOverlay_Mixin {
             }
             return list;
         }
-        else {
-            return original;
-        }
+        return original;
     }
 }
 

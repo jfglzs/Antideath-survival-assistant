@@ -7,6 +7,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.entity.player.Inventory;
@@ -72,7 +73,6 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
         slotID -999 (从创造模式物品栏丢出物品)
         button 0 左键
         button 1 右键
-        SlotActionType QuickMove（shift）
         SlotActionType PickUp 单击
     */
     @Inject(
@@ -112,12 +112,11 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
     )
     public void getTooltipFromItem(ItemStack stack, CallbackInfoReturnable<List<Component>> cir) {
         if (Configs.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.lockCreativeScreen) {
-            if (minecraft.player != null && ! minecraft.player.isCreative() && Configs.LMS_FETCH_SUPPORT.getBooleanValue()) {
-                var texts = cir.getReturnValue();
-                var text = ItemStorageDataManager.get(stack);
-                texts.addAll(text);
-                cir.setReturnValue(texts);
-            }
+            if (! PlayerUtils.isSurvivalMode(minecraft.player)) return;
+            var texts = cir.getReturnValue();
+            var text = ItemStorageDataManager.get(stack);
+            texts.addAll(text);
+            cir.setReturnValue(texts);
         }
     }
 

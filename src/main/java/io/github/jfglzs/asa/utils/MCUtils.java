@@ -76,13 +76,12 @@ public class MCUtils {
         //~}
     }
 
-    public static boolean isPlayerOnline(String player) {
-        ClientLevel level = MCUtils.getMinecraft().level;
+    public static boolean isPlayerOnline(String playerName) {
+        ClientLevel level = MCUtils.getLevel();
         if (level == null) return false;
         for (AbstractClientPlayer clientPlayer : level.players()) {
-            if (clientPlayer.getName().getString().equalsIgnoreCase(player)) {
+            if (PlayerUtils.getName(clientPlayer).equalsIgnoreCase(playerName))
                 return true;
-            }
         }
         return false;
     }

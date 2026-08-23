@@ -1,6 +1,5 @@
 package io.github.jfglzs.asa.render;
 
-
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.events.HudRenderEvent;
 import io.github.jfglzs.asa.utils.PlayerUtils;
@@ -27,7 +26,7 @@ public class MaterialToDoRenderer {
                 Font font = Minecraft.getInstance().font;
                 //? if <= 1.21.1 {
                 /*ctx.drawString(font, item.getDescription(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
-                 *///?} else if >=26.1 {
+                 *///?} else if >= 26.1 {
                 ctx.drawString(font, item.getDescriptionId(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
                 //?} else {
                 /*ctx.drawString(font, item.getName(), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
