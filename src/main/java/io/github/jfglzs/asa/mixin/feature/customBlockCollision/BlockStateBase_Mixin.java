@@ -18,11 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public class BlockStateBase_Mixin {
-    @Unique
-    private static boolean asa$shouldKeep(String s) {
-        return ! s.equals("minecraft:air") && ! s.equals("minecraft:water") && ! s.equals("minecraft:lava");
-    }
-
     @Inject(
             method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;",
             at = @At("HEAD"),
@@ -39,12 +34,12 @@ public class BlockStateBase_Mixin {
             String blockID = MCUtils.getBlockID(state.getBlock());
 
             if (Configs.ENABLE_STRONG_BLOCK_COLLISION_WHITELIST.getBooleanValue()) {
-                if (Configs.STRONG_BLOCK_COLLISION_WHITELIST.getStrings().stream().anyMatch(blockID::equals) && asa$shouldKeep(blockID)) {
+                if (Configs.STRONG_BLOCK_COLLISION_WHITELIST.getStrings().stream().anyMatch(blockID::equals)) {
                     cir.setReturnValue(Shapes.block());
                 }
             }
             else if (Configs.ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST.getBooleanValue()) {
-                if (Configs.STRONG_BLOCK_COLLISION_BLACKLIST.getStrings().stream().noneMatch(blockID::equals) && asa$shouldKeep(blockID)) {
+                if (Configs.STRONG_BLOCK_COLLISION_BLACKLIST.getStrings().stream().noneMatch(blockID::equals)) {
                     cir.setReturnValue(Shapes.block());
                 }
             }

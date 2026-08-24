@@ -16,7 +16,7 @@ public class ClientPacketListener_Mixin {
             method = "handleOpenScreen",
             at = @At("TAIL")
     )
-    private void handleOpenScreen(ClientboundOpenScreenPacket packet, CallbackInfo ci) {
+    private void handleOpenScreen(CallbackInfo ci) {
         Screen screen = MCUtils.getScreen();
         if (screen != null) {
             OpenScreenEvent.INSTANCE.update(screen);

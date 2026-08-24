@@ -1,10 +1,8 @@
 package io.github.jfglzs.asa.mixin.event.packetEvent;
 
-import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.network.protocol.game.ClientboundContainerSetContentPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,7 +14,7 @@ public class ClientPacketListener_Mixin {
             method = "handleContainerContent",
             at = @At("TAIL")
     )
-    private void handleContainerContent(ClientboundContainerSetContentPacket packet, CallbackInfo ci) {
+    private void handleContainerContent(CallbackInfo ci) {
         BoxRestockMannager.run();
         BoxSplitter.run();
     }

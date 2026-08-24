@@ -98,7 +98,7 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(i -> i % 100 == 0 && Configs.OPT_ITEM_FRAME.getBooleanValue(), client -> {
             LocalPlayer player = MCUtils.getLocalPlayer();
             if (player == null) return;
-            for (ItemStack stack : player.getInventory()) {
+            for (ItemStack stack : PlayerUtils.getInventory()) {
                 if (! stack.is(Items.FILLED_MAP)) return;
                 MapId mapId = stack.get(DataComponents.MAP_ID);
                 if (mapId != null) {
