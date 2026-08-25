@@ -48,10 +48,6 @@ public class Configs implements IConfigHandler {
     public static final ConfigInteger DISPLAY_REMAIN_ITEM_OVERLAY_Y_OFFSET = new ConfigInteger("剩余物品显示OverLay-y偏移", 0);
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigInteger DISPLAY_REMAIN_ITEM_OVERLAY_X_OFFSET = new ConfigInteger("剩余物品显示OverLay-x偏移", 0);
-    @Config(tab = Tab.DISABLES)
-    public static final ConfigBooleanHotkeyed DISABLE_PLACE_BLOCK_NEARBY_PORTAL = new ConfigBooleanHotkeyed("禁止在地狱门周边放置方块", false, "", "开启后禁会止在地狱门周边放置方块");
-    @Config(tab = Tab.LISTS)
-    public static final ConfigStringList DISABLE_PLACE_BLOCK_NEARBY_PORTAL_WHITELIST = new ConfigStringList("禁止在地狱门周边放置方块白名单", ImmutableList.of(), "禁止在地狱门周边放置方块白名单");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed TAP_FILTER = new ConfigBooleanHotkeyed("TAB菜单过滤器", false, "", "过滤掉tab菜单无用的玩家/常驻假人");
     @Config(tab = Tab.LISTS)
@@ -86,8 +82,6 @@ public class Configs implements IConfigHandler {
     public static final ConfigInteger MATERIAL_TODO_OVERLAY_Y_OFFSET = new ConfigInteger("材料待取OverLay-y偏移", 0);
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigInteger MATERIAL_TODO_OVERLAY_X_OFFSET = new ConfigInteger("材料待取OverLay-x偏移", 0);
-    @Config(tab = Tab.DISABLES)
-    public static final ConfigBooleanHotkeyed PREVENT_INTENTIONAL_GAME_DESIGN = new ConfigBooleanHotkeyed("防止被刻意的游戏设计杀死", false, "", "防止玩家被刻意的游戏设计杀死");
     @Config(tab = Tab.DISABLES)
     public static final ConfigBooleanHotkeyed DISABLE_PLAYER_LIST_HUD_BACKGROUND = new ConfigBooleanHotkeyed("禁用TAB菜单背景", false, "", "禁用TAB菜单背景");
     @Config(tab = Tab.FUNCTIONS)

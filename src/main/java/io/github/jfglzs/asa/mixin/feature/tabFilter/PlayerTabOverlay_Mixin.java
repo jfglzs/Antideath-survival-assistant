@@ -30,21 +30,17 @@ public abstract class PlayerTabOverlay_Mixin {
                 var name = PlayerUtils.getName(entry.getProfile());
 
                 if (Configs.ENABLE_TAP_FILTER_WHITELIST.getBooleanValue()) {
-                    if (Configs.TAP_FILTER_WHITELIST.getStrings().contains(name)) {
+                    if (Configs.isInList(name, Configs.TAP_FILTER_WHITELIST.getStrings()))
                         list.add(entry);
-                    }
                 }
                 else if (Configs.ENABLE_TAP_FILTER_PREFIX.getBooleanValue()) {
                     for (String string : Configs.TAP_FILTER_PREFIX.getStrings()) {
-                        if (!name.startsWith(string)) {
-                            list.add(entry);
-                        }
+                        if (!name.startsWith(string)) list.add(entry);
                     }
                 }
                 else {
-                    if (! Configs.TAP_FILTER_BLACKLIST.getStrings().contains(name)) {
+                    if (Configs.isInList(name, Configs.TAP_FILTER_BLACKLIST.getStrings()))
                         list.add(entry);
-                    }
                 }
             }
             return list;

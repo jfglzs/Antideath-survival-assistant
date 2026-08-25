@@ -67,11 +67,9 @@ public class AutoWasteCleanProcessor {
 
         if (! PlayerUtils.isShulkerBox(stack)) {
             if (Configs.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue())
-                return Configs.AUTO_WASTE_CLEAN_BLACKLIST.getStrings().contains(id);
+                return ! Configs.isInList(id, Configs.AUTO_BOX_RESTROKE_BLACKLIST.getStrings());
             else if (Configs.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue())
-                return ! Configs.AUTO_WASTE_CLEAN_WHITELIST.getStrings().contains(id);
-
-            return false;
+                return Configs.isInList(id, Configs.AUTO_BOX_RESTROKE_WHITELIST.getStrings());
         }
 
         for (ItemStack boxStack : PlayerUtils.getBoxItemStacks(stack)) {

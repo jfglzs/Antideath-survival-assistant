@@ -78,8 +78,7 @@ public class RenderHandler_Mixin {
     private void asa$mountHudInfo() {
         if (! Configs.MOUNT_LOGGERS_ON_MINIHUD.getBooleanValue()) return;
 
-        Minecraft mc = MCUtils.getMinecraft();
-        LocalPlayer player = mc.player;
+        LocalPlayer player = MCUtils.getLocalPlayer();
         List<String> list = Configs.MINI_HUD_FPS_OPT.getBooleanValue() ? asa$list : lines;
 
         if (player != null && player.connection instanceof IClientPacketListener listener) {
@@ -88,18 +87,16 @@ public class RenderHandler_Mixin {
 
             for (String line : tabList) {
                 if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getBooleanValue()) {
-                    if (Configs.MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getStrings().stream().anyMatch(line::contains)) {
+                    if (Configs.isInList(line, Configs.MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getStrings()))
                         list.add(line);
-                    }
-                    continue;
                 }
                 else if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getBooleanValue()) {
-                    if (Configs.MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getStrings().stream().noneMatch(line::contains)) {
+                    if (!Configs.isInList(line, Configs.MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getStrings()))
                         list.add(line);
-                    }
-                    continue;
                 }
-                list.add(line);
+                else {
+                    list.add(line);
+                }
             }
         }
     }

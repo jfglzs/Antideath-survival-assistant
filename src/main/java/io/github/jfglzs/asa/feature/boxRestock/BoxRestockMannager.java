@@ -29,9 +29,9 @@ public class BoxRestockMannager {
 
         if (MCUtils.getScreen() instanceof ShulkerBoxScreen boxScreen) {
             var menu = boxScreen.getMenu();
+            ItemStack stackHand = context.stackHand;
             for (Slot slot : menu.slots) {
                 ItemStack slotItem = slot.getItem();
-                ItemStack stackHand = context.stackHand;
                 if (InventoryUtils.areStacksEqualIgnoreDurability(slotItem, stackHand) && canMove(slotItem)) {
                     int slotIndex = slot.index;
                     int containerId = menu.containerId;
@@ -61,12 +61,12 @@ public class BoxRestockMannager {
     private static boolean canMove(ItemStack stack) {
         Item item = stack.getItem();
         String itemID = MCUtils.getItemID(item);
-        if (Configs.ENABLE_AUTO_BOX_RESTROKE_BLACKLIST.getBooleanValue()) {
-            return Configs.AUTO_BOX_RESTROKE_BLACKLIST.getStrings().stream().noneMatch(itemID::equals);
-        }
-        else if (Configs.ENABLE_AUTO_BOX_RESTROKE_WHITELIST.getBooleanValue()) {
-            return Configs.AUTO_BOX_RESTROKE_WHITELIST.getStrings().stream().anyMatch(itemID::equals);
-        }
+
+        if (Configs.ENABLE_AUTO_BOX_RESTROKE_BLACKLIST.getBooleanValue())
+            return ! Configs.isInList(itemID, Configs.AUTO_BOX_RESTROKE_BLACKLIST.getStrings());
+        else if (Configs.ENABLE_AUTO_BOX_RESTROKE_WHITELIST.getBooleanValue())
+            return Configs.isInList(itemID, Configs.AUTO_BOX_RESTROKE_BLACKLIST.getStrings());
+
         return true;
     }
 
