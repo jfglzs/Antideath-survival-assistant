@@ -21,7 +21,6 @@
     "masa.litematic.MaterialListEntry_Mixin",
     "masa.litematic.MaterialListHudRenderer_Mixin",
     "masa.litematic.WorldUtils_Mixin",
-    "masa.litematic.WorldUtils_Mixin1",
     "masa.minihud.RenderHandler_Mixin",
     "masa.tweakeroo.InventoryUtils_Mixin"
   ],
