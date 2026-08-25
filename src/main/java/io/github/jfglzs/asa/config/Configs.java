@@ -7,7 +7,6 @@ import fi.dy.masa.malilib.config.ConfigUtils;
 import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.config.options.*;
 //~ if >= 26.1 '.JsonUtils' -> '.data.json.JsonUtils' {
-import fi.dy.masa.malilib.hotkeys.KeybindSettings;
 import fi.dy.masa.malilib.util.data.json.JsonUtils;
 
 import java.nio.file.Path;
@@ -15,10 +14,10 @@ import java.nio.file.Path;
 import io.github.jfglzs.asa.annotations.Config;
 import io.github.jfglzs.asa.config.options.AutoCleanWasteMode;
 import io.github.jfglzs.asa.config.options.ItemFrameVisibility;
-import io.github.jfglzs.asa.config.options.LowHealthSendMode;
 import io.github.jfglzs.asa.config.options.OpenFakePlayerInvMode;
 
 import java.io.File;
+import java.util.List;
 
 import static io.github.jfglzs.asa.AsaMod.MOD_ID;
 
@@ -176,6 +175,16 @@ public class Configs implements IConfigHandler {
     @Config(tab = Tab.LISTS)
     public static final ConfigStringList STRONG_BLOCK_COLLISION_BLACKLIST = new ConfigStringList("自定义方块碰撞箱-黑名单", ImmutableList.of(), "自定义方块碰撞箱黑名单");
     @Config(tab = Tab.FUNCTIONS)
+    public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_SHAPE = new ConfigBooleanHotkeyed("启用自定义方块交互碰撞箱", false, "", "开启后可自定义方块交互碰撞箱");
+    @Config(tab = Tab.FUNCTIONS)
+    public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_WHITELIST_SHAPE = new ConfigBooleanHotkeyed("启用自定义方块交互碰撞箱白名单", false, "", "启用自定义方块交互碰撞箱白名单");
+    @Config(tab = Tab.LISTS)
+    public static final ConfigStringList STRONG_BLOCK_COLLISION_WHITELIST_SHAPE = new ConfigStringList("自定义方块交互碰撞箱-白名单", ImmutableList.of(), "自定义方块交互交互碰撞箱白名单");
+    @Config(tab = Tab.FUNCTIONS)
+    public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST_SHAPE = new ConfigBooleanHotkeyed("启用自定义方块交互碰撞箱黑名单", false, "", "启用自定义方块交互碰撞箱黑名单");
+    @Config(tab = Tab.LISTS)
+    public static final ConfigStringList STRONG_BLOCK_COLLISION_BLACKLIST_SHAPE = new ConfigStringList("自定义方块交互碰撞箱-黑名单", ImmutableList.of(), "自定义方块交互碰撞箱黑名单");
+    @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed CUSTOM_LITEMATICA_BLOCK_REPLACE = new ConfigBooleanHotkeyed("启用自定义投影方块替换", false, "", "启用自定义方块碰撞箱白名单");
     @Config(tab = Tab.LISTS)
     public static final ConfigStringList CUSTOM_LITEMATICA_BLOCK_REPLACE_LIST = new ConfigStringList("自定义投影方块替换", ImmutableList.of(), "自定义投影方块替换名单 \n 格式: \n minecraft:item|minecraft:item1");
@@ -240,6 +249,10 @@ public class Configs implements IConfigHandler {
 
     public static void switchMode(ConfigOptionList option) {
         option.setOptionListValue(option.getOptionListValue().cycle(true));
+    }
+
+    public static boolean isInList(Object object, List<?> list) {
+        return list.contains(object);
     }
 
     @Override
