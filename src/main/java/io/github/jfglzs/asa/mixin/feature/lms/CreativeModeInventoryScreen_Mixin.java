@@ -47,14 +47,10 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             int button,
             ContainerInput actionType,
             CallbackInfo ci,
-            @Share("type") LocalRef<ContainerInput> type
+            @Share("type") LocalRef<ContainerInput> asa$type
                                  ) {
-        if (
-                Configs.lockCreativeScreen
-                        && actionType != ContainerInput.THROW
-                        && actionType != ContainerInput.QUICK_CRAFT
-        ) {
-            type.set(actionType);
+        if (Configs.lockCreativeScreen && actionType != ContainerInput.THROW && actionType != ContainerInput.QUICK_CRAFT) {
+            asa$type.set(actionType);
         }
     }
 
@@ -88,9 +84,10 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             int button,
             ContainerInput actionType,
             CallbackInfo ci,
-            @Share("type") LocalRef<ContainerInput> type
+            @Share("type") LocalRef<ContainerInput> asa$type
                                  ) {
-        if (Configs.lockCreativeScreen && type.get() == ContainerInput.PICKUP && slotId == - 999) {
+
+        if (Configs.lockCreativeScreen && asa$type.get() == ContainerInput.PICKUP && slotId == - 999) {
             if (! Configs.LMS_FETCH_SUPPORT.getBooleanValue()) return;
             ItemStack stack = this.menu.getCarried();
             int count = - 1;
@@ -103,6 +100,7 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             MCUtils.setScreen(null);
             ci.cancel();
         }
+        throw new RuntimeException();
     }
 
     @Inject(
