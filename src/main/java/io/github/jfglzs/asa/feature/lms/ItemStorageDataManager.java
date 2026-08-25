@@ -12,6 +12,7 @@ import it.unimi.dsi.fastutil.objects.*;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.sounds.SoundEvents;
@@ -209,8 +210,7 @@ public class ItemStorageDataManager {
     public static void scanMatchedPlayersAndInteract(Minecraft mc) {
         if (! Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue() || mc.level == null) return;
 
-        mc.level.players().forEach(player -> {
-
+        for (AbstractClientPlayer player : mc.level.players()) {
             var name = PlayerUtils.getName(player);
 
             if (WAIT_FOR_INV.remove(name)) {
@@ -233,7 +233,7 @@ public class ItemStorageDataManager {
                     }
                 });
             }
-        });
+        }
     }
 
     public static Set<String> WAIT_FOR_KILLING() {

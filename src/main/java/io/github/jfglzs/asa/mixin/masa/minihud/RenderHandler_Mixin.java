@@ -87,11 +87,12 @@ public class RenderHandler_Mixin {
 
             for (String line : tabList) {
                 if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getBooleanValue()) {
-                    if (Configs.isInList(line, Configs.MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST))
+                    if (Configs.MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getStrings().stream().anyMatch(line::contains))
                         list.add(line);
+
                 }
                 else if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getBooleanValue()) {
-                    if (!Configs.isInList(line, Configs.MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST))
+                    if (Configs.MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getStrings().stream().noneMatch(line::contains))
                         list.add(line);
                 }
                 else {

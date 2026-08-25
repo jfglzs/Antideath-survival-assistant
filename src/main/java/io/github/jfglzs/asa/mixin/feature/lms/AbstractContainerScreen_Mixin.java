@@ -5,10 +5,12 @@ import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.PlayerUtils;
 import io.github.jfglzs.asa.utils.ThreadUtils;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -30,6 +32,9 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
     @Final
     protected T menu;
 
+    @Shadow
+    protected abstract void init();
+
     protected AbstractContainerScreen_Mixin(Component title) {
         super(title);
     }
@@ -44,38 +49,39 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
             Set<String> fakePlayerNames = ItemStorageDataManager.WAIT_FOR_KILLING();
             for (String name : fakePlayerNames) {
                 var titleString = this.title.getString();
-                if (titleString.contains(name)) {
-                    ThreadUtils.runOnTaskThread(() -> {
-                        try {
-                            Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
-                            ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s kill".formatted(name)));
-                        }
-                        catch (Exception e) {
-                            ChatUtils.clientMess(ChatUtils.c(e.getMessage()));
-                            AsaMod.LOGGER.error(e.getMessage(), e);
-                        }
-                        finally {
-                            fakePlayerNames.remove(name);
-                        }
-                    });
-                    break;
-                }
+                if (! titleString.contains(name))
+                    continue;
+
+                ThreadUtils.runOnTaskThread(() -> {
+                    try {
+                        Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
+                        ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s kill".formatted(name)));
+                    }
+                    catch (Exception e) {
+                        ChatUtils.clientMess(ChatUtils.c(e.getMessage()));
+                        AsaMod.LOGGER.error(e.getMessage(), e);
+                    }
+                    finally {
+                        fakePlayerNames.remove(name);
+                    }
+                });
             }
         }
     }
 
     @Unique
     private void asa$cacheData() {
-        if (Configs.FAKE_PLAYER_INVENTORY_ITEM_CACHE.getBooleanValue()) {
-            String title = this.title.getString();
-            List<String> names = Configs.FAKE_PLAYER_INVENTORY_ITEM_CACHE_WHITE_LIST.getStrings();
-            for (String name : names) {
-                if (title.contains(name)) {
-                    List<Slot> slots = this.menu.slots.stream().filter(slot -> ! (slot.container instanceof Inventory)).toList();
-                    ItemStorageDataManager.addPlayerInventory(name, new ItemStorageDataManager.PlayerInventory(ImmutableList.copyOf(slots)));
-                    ChatUtils.actionBar(ChatUtils.c("已缓存 %s 的物品栏".formatted(name)));
-                    break;
-                }
+        if (! Configs.FAKE_PLAYER_INVENTORY_ITEM_CACHE.getBooleanValue() || (Object) this instanceof InventoryScreen || PlayerUtils.isSurvivalMode())
+            return;
+
+        String title = this.title.getString();
+        List<String> names = Configs.FAKE_PLAYER_INVENTORY_ITEM_CACHE_WHITE_LIST.getStrings();
+        for (String name : names) {
+            if (title.contains(name)) {
+                List<Slot> slots = this.menu.slots.stream().filter(slot -> ! (slot.container instanceof Inventory)).toList();
+                ItemStorageDataManager.addPlayerInventory(name, new ItemStorageDataManager.PlayerInventory(ImmutableList.copyOf(slots)));
+                ChatUtils.actionBar(ChatUtils.c("已缓存 %s 的物品栏".formatted(name)));
+                break;
             }
         }
     }

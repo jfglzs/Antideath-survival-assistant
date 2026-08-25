@@ -48,7 +48,8 @@ public class BoxRestockMannager {
                     else {
                         PlayerUtils.clickSlot(containerId, slotIndex, 0, ContainerInput.PICKUP, player);
                         PlayerUtils.clickSlot(containerId, currentSlot, 0, ContainerInput.PICKUP, player);
-                        PlayerUtils.clickSlot(containerId, slotIndex, 0, ContainerInput.PICKUP, player);
+                        if (stackHand.getMaxStackSize() != 1)
+                            PlayerUtils.clickSlot(containerId, slotIndex, 0, ContainerInput.PICKUP, player);
                     }
                     break;
                 }

@@ -29,10 +29,10 @@ public class MaterialListEntry_Mixin {
         int value = cir.getReturnValue();
         ItemStack stack = this.item.getStack();
         if (Configs.LITEMATICA_CALCULATE_QWP.getBooleanValue()) {
-            value = value + ItemStorageDataManager.getCount(stack.getItem(), true);
+            value = value + ItemStorageDataManager.getCount(stack.getItem(), false);
         }
         if (Configs.LITEMATICA_CALCULATE_FAKE.getBooleanValue()) {
-            value = value + ItemStorageDataManager.getCount(stack.getItem(), false);
+            value = value + ItemStorageDataManager.getCount(stack.getItem(), true);
         }
         cir.setReturnValue(value);
     }

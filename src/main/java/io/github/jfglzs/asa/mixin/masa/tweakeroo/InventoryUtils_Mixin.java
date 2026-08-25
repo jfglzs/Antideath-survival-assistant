@@ -18,22 +18,33 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(InventoryUtils.class)
 public class InventoryUtils_Mixin {
     @Unique
-    private static final RateLimiter LIMITER = RateLimiter.create(0.5);
+    private static final RateLimiter LIMITER = RateLimiter.create(0.3);
 
     @Inject(
             method = "preRestockHand",
             at = @At(value = "TAIL")
     )
-    private static void preRestockHand(
-            Player player,
-            InteractionHand hand,
-            boolean allowHotbar,
-            CallbackInfo ci,
-            @Local(name = "threshold") int threshold,
-            @Local(name = "stackHand") ItemStack stackHand
-            ) {
+    private static void preRestockHand(Player player, InteractionHand hand, boolean allowHotbar, CallbackInfo ci,
+                                       @Local(name = "threshold") int threshold, @Local(name = "stackHand") ItemStack stackHand) {
         if (Configs.AUTO_BOX_RESTROKE.getBooleanValue() && stackHand.getCount() < threshold) {
-            if (stackHand.isEmpty() || stackHand.getMaxStackSize() == 1 || ! LIMITER.tryAcquire()) return;
+            if (stackHand.isEmpty() || stackHand.getMaxStackSize() == 1 || ! LIMITER.tryAcquire())
+                return;
+            if (ShulkerUtils.findBoxToOpen(stackHand)) {
+                BoxRestockMannager.context = new BoxRestockMannager.BoxRestockContext(stackHand, hand);
+            }
+        }
+    }
+
+    @Inject(
+            method = "restockNewStackToHand",
+            at = @At("TAIL")
+    )
+    private static void restockNewStackToHand(Player player, InteractionHand hand, ItemStack stackHand, boolean allowHotbar,
+                                              CallbackInfo ci, @Local(ordinal = 0) int slotWithItem) {
+        if (Configs.AUTO_BOX_RESTROKE.getBooleanValue() && slotWithItem == -1) {
+            if (stackHand.isEmpty() || ! LIMITER.tryAcquire())
+                return;
+
             if (ShulkerUtils.findBoxToOpen(stackHand)) {
                 BoxRestockMannager.context = new BoxRestockMannager.BoxRestockContext(stackHand, hand);
             }

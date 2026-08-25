@@ -108,6 +108,10 @@ public class PlayerUtils {
         return player == null ? ItemStack.EMPTY : player.getItemInHand(hand);
     }
 
+    public static boolean isSurvivalMode() {
+        return isSurvivalMode(MCUtils.getLocalPlayer());
+    }
+
     public static boolean isSurvivalMode(Player player) {
         return player != null && ! player.isCreative() && ! player.isSpectator();
     }
