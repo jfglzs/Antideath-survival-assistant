@@ -249,6 +249,10 @@ public class Configs implements IConfigHandler {
         return list.contains(object);
     }
 
+    public static boolean isInList(String object, ConfigStringList list) {
+        return list.getStrings().contains(object);
+    }
+
     @Override
     public void load() {
         File settingFile = new File(FILE_PATH);

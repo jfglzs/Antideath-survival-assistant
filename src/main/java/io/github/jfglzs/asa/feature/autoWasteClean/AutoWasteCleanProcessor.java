@@ -43,7 +43,7 @@ public class AutoWasteCleanProcessor {
                 for (Slot slot : menu.slots) {
                     ItemStack stack = slot.getItem();
                     boolean isInv = slot.container instanceof Inventory;
-                    if (stack.isEmpty() || shouldKeep(stack)) continue;
+                    if (stack.isEmpty() || !shouldDrop(stack)) continue;
 
                     if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
                         InventoryUtils.dropStack(container, slot.index);
@@ -62,19 +62,19 @@ public class AutoWasteCleanProcessor {
         }
     }
 
-    private static boolean shouldKeep(ItemStack stack) {
+    private static boolean shouldDrop(ItemStack stack) {
         String id = MCUtils.getItemID(stack.getItem());
 
         if (! PlayerUtils.isShulkerBox(stack)) {
             if (Configs.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue())
-                return ! Configs.isInList(id, Configs.AUTO_BOX_RESTROKE_BLACKLIST.getStrings());
+                return ! Configs.isInList(id, Configs.AUTO_BOX_RESTROKE_BLACKLIST);
             else if (Configs.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue())
-                return Configs.isInList(id, Configs.AUTO_BOX_RESTROKE_WHITELIST.getStrings());
+                return Configs.isInList(id, Configs.AUTO_BOX_RESTROKE_WHITELIST);
         }
 
         for (ItemStack boxStack : PlayerUtils.getBoxItemStacks(stack)) {
             if (boxStack.isEmpty()) continue;
-            if (shouldKeep(boxStack)) return true;
+            if (shouldDrop(boxStack)) return true;
         }
 
         return false;

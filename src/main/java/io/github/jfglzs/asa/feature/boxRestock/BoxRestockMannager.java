@@ -63,9 +63,9 @@ public class BoxRestockMannager {
         String itemID = MCUtils.getItemID(item);
 
         if (Configs.ENABLE_AUTO_BOX_RESTROKE_BLACKLIST.getBooleanValue())
-            return ! Configs.isInList(itemID, Configs.AUTO_BOX_RESTROKE_BLACKLIST.getStrings());
+            return ! Configs.isInList(itemID, Configs.AUTO_BOX_RESTROKE_BLACKLIST);
         else if (Configs.ENABLE_AUTO_BOX_RESTROKE_WHITELIST.getBooleanValue())
-            return Configs.isInList(itemID, Configs.AUTO_BOX_RESTROKE_BLACKLIST.getStrings());
+            return Configs.isInList(itemID, Configs.AUTO_BOX_RESTROKE_BLACKLIST);
 
         return true;
     }

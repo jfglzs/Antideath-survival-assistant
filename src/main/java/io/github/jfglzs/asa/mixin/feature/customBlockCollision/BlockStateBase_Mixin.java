@@ -27,36 +27,38 @@ public class BlockStateBase_Mixin {
             String blockID = MCUtils.getBlockID(state.getBlock());
 
             if (Configs.ENABLE_STRONG_BLOCK_COLLISION_WHITELIST.getBooleanValue()) {
-                if (Configs.isInList(blockID, Configs.STRONG_BLOCK_COLLISION_WHITELIST.getStrings()))
+                if (Configs.isInList(blockID, Configs.STRONG_BLOCK_COLLISION_WHITELIST))
                     cir.setReturnValue(Shapes.block());
             }
 
             if (Configs.ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST.getBooleanValue()) {
-                if (! Configs.isInList(blockID, Configs.STRONG_BLOCK_COLLISION_BLACKLIST.getStrings()))
+                if (! Configs.isInList(blockID, Configs.STRONG_BLOCK_COLLISION_BLACKLIST))
                     cir.setReturnValue(Shapes.block());
             }
         }
     }
+
 
     @Inject(
             method = "getShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;",
             at = @At("HEAD"),
             cancellable = true
     )
-    public void getShape(BlockGetter level, BlockPos pos, CollisionContext context, CallbackInfoReturnable<VoxelShape> cir) {
-        if (Configs.ENABLE_STRONG_BLOCK_COLLISION_SHAPE.getBooleanValue()) {
-            BlockState state = level.getBlockState(pos);
-            String blockID = MCUtils.getBlockID(state.getBlock());
+    public void getShape(BlockGetter level, BlockPos pos, CollisionContext cctx, CallbackInfoReturnable<VoxelShape> cir) {
+        if (! Configs.ENABLE_STRONG_BLOCK_COLLISION_SHAPE.getBooleanValue())
+            return;
 
-            if (Configs.ENABLE_STRONG_BLOCK_COLLISION_WHITELIST_SHAPE.getBooleanValue()) {
-                if (Configs.isInList(blockID, Configs.STRONG_BLOCK_COLLISION_WHITELIST_SHAPE.getStrings()))
-                    cir.setReturnValue(Shapes.block());
-            }
+        BlockState state = level.getBlockState(pos);
+        String blockID = MCUtils.getBlockID(state.getBlock());
 
-            if (Configs.ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST_SHAPE.getBooleanValue()) {
-                if (! Configs.isInList(blockID, Configs.STRONG_BLOCK_COLLISION_BLACKLIST_SHAPE.getStrings()))
-                    cir.setReturnValue(Shapes.block());
-            }
+        if (Configs.ENABLE_STRONG_BLOCK_COLLISION_WHITELIST_SHAPE.getBooleanValue()) {
+            if (Configs.isInList(blockID, Configs.STRONG_BLOCK_COLLISION_WHITELIST_SHAPE))
+                cir.setReturnValue(Shapes.block());
+        }
+
+        if (Configs.ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST_SHAPE.getBooleanValue()) {
+            if (! Configs.isInList(blockID, Configs.STRONG_BLOCK_COLLISION_BLACKLIST_SHAPE))
+                cir.setReturnValue(Shapes.block());
         }
     }
 }
