@@ -24,13 +24,11 @@ public abstract class PlayerTabOverlay_Mixin {
     )
     private List<PlayerInfo> renderModify_Variable(List<PlayerInfo> original) {
         if (Configs.TAP_FILTER.getBooleanValue()) {
-            var list = new ObjectArrayList<PlayerInfo>();
+            ObjectArrayList<PlayerInfo> list = new ObjectArrayList<>();
             for (PlayerInfo entry : original) {
-
                 var name = PlayerUtils.getName(entry.getProfile());
-
                 if (Configs.ENABLE_TAP_FILTER_WHITELIST.getBooleanValue()) {
-                    if (Configs.isInList(name, Configs.TAP_FILTER_WHITELIST.getStrings()))
+                    if (Configs.isInList(name, Configs.TAP_FILTER_WHITELIST))
                         list.add(entry);
                 }
                 else if (Configs.ENABLE_TAP_FILTER_PREFIX.getBooleanValue()) {
@@ -39,7 +37,7 @@ public abstract class PlayerTabOverlay_Mixin {
                     }
                 }
                 else {
-                    if (Configs.isInList(name, Configs.TAP_FILTER_BLACKLIST.getStrings()))
+                    if (!Configs.isInList(name, Configs.TAP_FILTER_BLACKLIST))
                         list.add(entry);
                 }
             }

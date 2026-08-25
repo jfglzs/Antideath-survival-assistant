@@ -20,7 +20,7 @@ import java.util.*;
 
 public class AutoWasteCleanProcessor {
     public static void init() {
-        OpenScreenEvent.INSTANCE.register(screen -> process());
+        OpenScreenEvent.INSTANCE.register(_ -> process());
     }
 
     /**
@@ -67,9 +67,11 @@ public class AutoWasteCleanProcessor {
 
         if (! PlayerUtils.isShulkerBox(stack)) {
             if (Configs.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue())
-                return ! Configs.isInList(id, Configs.AUTO_BOX_RESTROKE_BLACKLIST);
+                return ! Configs.isInList(id, Configs.AUTO_WASTE_CLEAN_BLACKLIST);
             else if (Configs.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue())
-                return Configs.isInList(id, Configs.AUTO_BOX_RESTROKE_WHITELIST);
+                return Configs.isInList(id, Configs.AUTO_WASTE_CLEAN_WHITELIST);
+
+            return true;
         }
 
         for (ItemStack boxStack : PlayerUtils.getBoxItemStacks(stack)) {
@@ -77,7 +79,7 @@ public class AutoWasteCleanProcessor {
             if (shouldDrop(boxStack)) return true;
         }
 
-        return false;
+        return true;
     }
 
     public static void saveItemToList() {
