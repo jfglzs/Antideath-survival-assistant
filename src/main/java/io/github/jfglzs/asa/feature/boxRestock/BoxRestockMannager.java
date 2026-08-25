@@ -66,7 +66,7 @@ public class BoxRestockMannager {
         if (Configs.ENABLE_AUTO_BOX_RESTROKE_BLACKLIST.getBooleanValue())
             return ! Configs.isInList(itemID, Configs.AUTO_BOX_RESTROKE_BLACKLIST);
         else if (Configs.ENABLE_AUTO_BOX_RESTROKE_WHITELIST.getBooleanValue())
-            return Configs.isInList(itemID, Configs.AUTO_BOX_RESTROKE_BLACKLIST);
+            return Configs.isInList(itemID, Configs.AUTO_BOX_RESTROKE_WHITELIST);
 
         return true;
     }

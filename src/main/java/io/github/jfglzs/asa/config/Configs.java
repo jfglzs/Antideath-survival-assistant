@@ -1,30 +1,15 @@
 package io.github.jfglzs.asa.config;
 
 import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import fi.dy.masa.malilib.config.ConfigUtils;
-import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.config.options.*;
-//~ if >= 26.1 '.JsonUtils' -> '.data.json.JsonUtils' {
-import fi.dy.masa.malilib.util.data.json.JsonUtils;
-
-import java.nio.file.Path;
-//~}
 import io.github.jfglzs.asa.annotations.Config;
 import io.github.jfglzs.asa.config.options.AutoCleanWasteMode;
 import io.github.jfglzs.asa.config.options.ItemFrameVisibility;
 import io.github.jfglzs.asa.config.options.OpenFakePlayerInvMode;
 
-import java.io.File;
 import java.util.List;
 
-import static io.github.jfglzs.asa.AsaMod.MOD_ID;
-
-public class Configs implements IConfigHandler {
-    private static final String FILE_PATH = "./config/" + MOD_ID + ".json";
-    private static final File CONFIG_DIR = new File("./config");
-    public static final Configs INSTANCE = new Configs();
+public class Configs {
     public static boolean shouldDisableTitle = false;
     public static boolean lockCreativeScreen = false;
 
@@ -112,8 +97,6 @@ public class Configs implements IConfigHandler {
     public static final ConfigBooleanHotkeyed FORCE_BLOCK_BREAK_COOL_DOWN = new ConfigBooleanHotkeyed("强制方块挖掘冷却", false, "", "OMMC移植功能");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed FLAT_MINING = new ConfigBooleanHotkeyed("平坦挖掘", false, "", "OMMC移植功能");
-    @Config(tab = Tab.DISABLES)
-    public static final ConfigBooleanHotkeyed TRANSPARENT_ITEM_FRAME = new ConfigBooleanHotkeyed("透明展示框", false, "", "需要关闭MoreCulling的自定义展示框渲染器才能正常工作");
     @Config(tab = Tab.DISABLES)
     public static final ConfigBooleanHotkeyed DISABLE_ITEM_ENTITY_MULPOSE = new ConfigBooleanHotkeyed("禁用掉落物旋转", false, "", "禁用掉落物旋转");
     @Config(tab = Tab.DISABLES)
@@ -250,33 +233,6 @@ public class Configs implements IConfigHandler {
     }
 
     public static boolean isInList(String object, ConfigStringList list) {
-        return list.getStrings().contains(object);
-    }
-
-    @Override
-    public void load() {
-        File settingFile = new File(FILE_PATH);
-        if (settingFile.isFile() && settingFile.exists()) {
-            //~ if < 26.1 'settingFile.toPath()' -> 'settingFile' {
-            JsonElement jsonElement = JsonUtils.parseJsonFile(settingFile.toPath());
-            //~}
-            if (jsonElement != null && jsonElement.isJsonObject()) {
-                JsonObject obj = jsonElement.getAsJsonObject();
-                ConfigUtils.readConfigBase(obj, MOD_ID, ConfigsManager.getConfigs(Tab.ALL));
-            }
-        }
-    }
-
-    @Override
-    public void save() {
-        if ((CONFIG_DIR.exists() && CONFIG_DIR.isDirectory()) || CONFIG_DIR.mkdirs()) {
-            JsonObject configRoot = new JsonObject();
-            ConfigUtils.writeConfigBase(configRoot, MOD_ID, ConfigsManager.getConfigs(Tab.ALL));
-            //? if < 26.1 {
-            /*JsonUtils.writeJsonToFile(configRoot, new File(FILE_PATH));
-             *///?} else {
-            JsonUtils.writeJsonToFile(configRoot, Path.of(FILE_PATH));
-            //?}
-        }
+        return isInList(object, list.getStrings());
     }
 }
