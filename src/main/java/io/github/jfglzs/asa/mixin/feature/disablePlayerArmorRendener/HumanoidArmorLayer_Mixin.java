@@ -1,75 +1,53 @@
 package io.github.jfglzs.asa.mixin.feature.disablePlayerArmorRendener;
 
+import com.llamalad7.mixinextras.sugar.Local;
+import io.github.jfglzs.asa.config.Configs;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
-//? if >= 1.21.10 {
-import net.minecraft.client.renderer.SubmitNodeCollector;
-//~ if >= 26.2 'EntityType' -> 'EntityTypes'{
-import net.minecraft.world.entity.EntityType;
-//~}
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
-//?}
-//? if > 1.21.1 {
-import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
-//? if < 1.21.10
-//import net.minecraft.client.renderer.entity.state.PlayerRenderState;
-//?} else {
-/*import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
-*///?}
-//? if < 26.2 {
-import net.minecraft.client.renderer.MultiBufferSource;
-//?}
-import com.mojang.blaze3d.vertex.PoseStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static io.github.jfglzs.asa.config.Configs.DISABLE_PLAYER_ARMOR_RENDER;
-
 @Mixin(HumanoidArmorLayer.class)
 public class HumanoidArmorLayer_Mixin {
-    //? if > 1.21.1 {
+    //? if >= 1.21.10 {
     @Inject(
-            //? if < 1.21.10 {
-            /*method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/renderer/entity/state/HumanoidRenderState;FF)V",
-            *///?} else {
             method = "renderArmorPiece",
-            //?}
-            at = @At("HEAD"),
-            cancellable = true
+            at = @At("HEAD"), cancellable = true
     )
-            //? if < 1.21.10 {
-    /*public void render_Inject(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, HumanoidRenderState state, float f, float g, CallbackInfo ci) {
-        if (state instanceof PlayerRenderState && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
-                ci.cancel();
-            }
-    *///? } else {
-    public void render_Inject(PoseStack poseStack, SubmitNodeCollector nodeCollector, ItemStack item, EquipmentSlot slot, int packedLight, HumanoidRenderState state, CallbackInfo ci) {
-        //~ if >= 26.2 'EntityType' -> 'EntityTypes'{
-        if (state.entityType == EntityType.PLAYER && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
+    private void renderArmorPiece(CallbackInfo ci, @Local net.minecraft.client.renderer.entity.state.HumanoidRenderState state, @Local ItemStack stack) {
+        //~ if >= 26.2 'EntityType' -> 'EntityTypes' {
+        boolean bl = state.entityType == net.minecraft.world.entity.EntityType.PLAYER;
+        //~}
+        if (Configs.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue() && bl && !stack.is(Items.ELYTRA)) {
             ci.cancel();
         }
-        //~}
-
-        //?}
     }
-    //?} else {
-        /*@Inject(method = "renderArmorPiece",
-                at = @At("HEAD"),
-                cancellable = true
-        )
-        private void renderArmorInject(PoseStack matrices, MultiBufferSource vertexConsumers, LivingEntity entity, EquipmentSlot armorSlot, int light, HumanoidModel<?> model, CallbackInfo ci) {
-            if(entity instanceof Player p && DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
-                if (armorSlot.getName().equals("chest") && p.getInventory().getItem(38).getItem().equals(Items.ELYTRA)) {
-                    return;
-                }
-                ci.cancel();
-            }
-        }
-    *///?}
+    //?} else if >= 1.21.4 {
+    //    @Inject(
+    //            method = "render",
+    //            at = @At("HEAD")
+    //    )
+    //    private void render(CallbackInfo ci, @Local net.minecraft.client.renderer.entity.state.HumanoidRenderState state) {
+    //        if (state instanceof net.minecraft.client.renderer.entity.state.PlayerRenderState && Configs.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
+    //            ci.cancel();
+    //        }
+    //    }
+    //?} else if = 1.21.1 {
+    //    @Inject(
+    //            method = "renderArmorPiece",
+    //            at = @At("HEAD"),
+    //            cancellable = true
+    //    )
+    //    private void renderArmorInject(CallbackInfo ci, @Local net.minecraft.world.entity.Entity entity, @Local net.minecraft.world.entity.EquipmentSlot slot) {
+    //        if(entity instanceof net.minecraft.world.entity.player.Player p && Configs.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
+    //            if (slot == net.minecraft.world.entity.EquipmentSlot.CHEST && p.getInventory().getItem(38).is(Items.ELYTRA)) {
+    //                return;
+    //            }
+    //            ci.cancel();
+    //        }
+    //    }
+    //?}
 }

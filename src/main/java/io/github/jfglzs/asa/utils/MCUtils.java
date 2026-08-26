@@ -23,7 +23,8 @@ public class MCUtils {
     }
 
     public static LocalPlayer getLocalPlayer() {
-        return getMinecraft().player;
+        Minecraft mc = getMinecraft();
+        return mc != null ? mc.player : null;
     }
 
     public static ClientLevel getLevel() {

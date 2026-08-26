@@ -19,13 +19,13 @@ public class BoxRestockMannager {
     public static BoxRestockContext context = null;
 
     public static void run() {
-        if (Mods.quickshulker && Mods.item_scroller) {
+        if (Mods.quickshulker) {
             process();
         }
     }
 
     public static void process() {
-        if (context == null || ! Configs.AUTO_BOX_RESTROKE.getBooleanValue()) return;
+        if (! Configs.AUTO_BOX_RESTROKE.getBooleanValue() || context == null || ! PlayerUtils.isSurvivalMode()) return;
 
         if (MCUtils.getScreen() instanceof ShulkerBoxScreen boxScreen) {
             var menu = boxScreen.getMenu();
