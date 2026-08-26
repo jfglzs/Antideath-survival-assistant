@@ -1,20 +1,35 @@
 package io.github.jfglzs.asa.config;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import fi.dy.masa.malilib.config.ConfigUtils;
+import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.config.options.*;
+import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.annotations.Config;
 import io.github.jfglzs.asa.config.options.AutoCleanWasteMode;
 import io.github.jfglzs.asa.config.options.ItemFrameVisibility;
 import io.github.jfglzs.asa.config.options.OpenFakePlayerInvMode;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
 
-public class Configs {
+//~ if >= 26.1 '.JsonUtils' -> '.data.json.JsonUtils' {
+import fi.dy.masa.malilib.util.data.json.JsonUtils;
+//~}
+
+
+public class Configs implements IConfigHandler {
     public static boolean shouldDisableTitle = false;
     public static boolean lockCreativeScreen = false;
-
+    private static final String FILE_PATH = "./config/" + AsaMod.MOD_ID + ".json";
+    private static final File CONFIG_DIR = new File("./config");
+    public static final Configs INSTANCE = new Configs();
     @Config
     public static final ConfigHotkey ASA = new ConfigHotkey("打开设置菜单", "Z,K", "打开设置菜单快捷键");
+
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed CREEPER_WARN = new ConfigBooleanHotkeyed("苦力怕预警器", true, "", "当玩家8x8x8(默认)的范围存在苦力怕时 自动预警");
     @Config(tab = Tab.FUNCTIONS)
@@ -215,14 +230,13 @@ public class Configs {
     public static final ConfigBooleanHotkeyed FORCE_USE_FIREWORK = new ConfigBooleanHotkeyed("强制使用烟花火箭", false, "", "开启后会强制使用烟花火箭");
     @Config(tab = Tab.FUNCTIONS)
     public static final ConfigBooleanHotkeyed USE_SIGN_RUN_COMMAND = new ConfigBooleanHotkeyed("右键告示牌执行命令", false, "", "当告示牌每一行为 / 开头时 蹲下右键告示牌会自动执行命令");
-
     @Config
     public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false, "", "1111");
+
     @Config
     public static final ConfigHotkey TEST = new ConfigHotkey("触发调试", "", "测试", "1111");
     @Config(tab = Tab.LISTS)
     public static final ConfigStringList DEBUG_LIST = new ConfigStringList("调试用", ImmutableList.of(), "", "");
-
 
     public static void switchMode(ConfigOptionList option) {
         option.setOptionListValue(option.getOptionListValue().cycle(true));
@@ -234,5 +248,32 @@ public class Configs {
 
     public static boolean isInList(String object, ConfigStringList list) {
         return isInList(object, list.getStrings());
+    }
+
+    @Override
+    public void load() {
+        File settingFile = new File(FILE_PATH);
+        if (settingFile.isFile() && settingFile.exists()) {
+            //~ if < 26.1 'settingFile.toPath()' -> 'settingFile' {
+            JsonElement jsonElement = JsonUtils.parseJsonFile(settingFile.toPath());
+            //~}
+            if (jsonElement != null && jsonElement.isJsonObject()) {
+                JsonObject obj = jsonElement.getAsJsonObject();
+                ConfigUtils.readConfigBase(obj, AsaMod.MOD_ID, ConfigsManager.getConfigs(Tab.ALL));
+            }
+        }
+    }
+
+    @Override
+    public void save() {
+        if ((CONFIG_DIR.exists() && CONFIG_DIR.isDirectory()) || CONFIG_DIR.mkdirs()) {
+            JsonObject configRoot = new JsonObject();
+            ConfigUtils.writeConfigBase(configRoot, AsaMod.MOD_ID, ConfigsManager.getConfigs(Tab.ALL));
+            //? if < 26.1 {
+            /*JsonUtils.writeJsonToFile(configRoot, new File(FILE_PATH));
+             *///?} else {
+            JsonUtils.writeJsonToFile(configRoot, Path.of(FILE_PATH));
+            //?}
+        }
     }
 }

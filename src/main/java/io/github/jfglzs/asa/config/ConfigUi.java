@@ -1,29 +1,19 @@
 package io.github.jfglzs.asa.config;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import fi.dy.masa.malilib.config.ConfigUtils;
 import fi.dy.masa.malilib.config.IConfigBase;
-import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.gui.GuiConfigsBase;
 import fi.dy.masa.malilib.gui.button.ButtonBase;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;
 
-import java.io.File;
-import java.nio.file.Path;
 import java.util.List;
-//~ if >= 26.1 '.JsonUtils' -> '.data.json.JsonUtils' {
-import fi.dy.masa.malilib.util.data.json.JsonUtils;
-//~}
+
 
 import static io.github.jfglzs.asa.AsaMod.*;
 
-public class ConfigUi extends GuiConfigsBase implements IConfigHandler {
+public class ConfigUi extends GuiConfigsBase {
     private static Tab tab = Tab.ALL;
-    private static final String FILE_PATH = "./config/" + MOD_ID + ".json";
-    private static final File CONFIG_DIR = new File("./config");
-    public static final ConfigUi INSTANCE = new ConfigUi();
+
 
     public ConfigUi() {
         super(10, 50, MOD_ID_FANCY, null, "%s V%s 配置界面".formatted(MOD_ID, version));
@@ -56,33 +46,6 @@ public class ConfigUi extends GuiConfigsBase implements IConfigHandler {
         return ConfigOptionWrapper.createFor(configs);
     }
 
-    @Override
-    public void load() {
-        File settingFile = new File(FILE_PATH);
-        if (settingFile.isFile() && settingFile.exists()) {
-            //~ if < 26.1 'settingFile.toPath()' -> 'settingFile' {
-            JsonElement jsonElement = JsonUtils.parseJsonFile(settingFile.toPath());
-            //~}
-            if (jsonElement != null && jsonElement.isJsonObject()) {
-                JsonObject obj = jsonElement.getAsJsonObject();
-                ConfigUtils.readConfigBase(obj, MOD_ID, ConfigsManager.getConfigs(Tab.ALL));
-            }
-        }
-    }
-
-    @Override
-    public void save() {
-        if ((CONFIG_DIR.exists() && CONFIG_DIR.isDirectory()) || CONFIG_DIR.mkdirs()) {
-            JsonObject configRoot = new JsonObject();
-            ConfigUtils.writeConfigBase(configRoot, MOD_ID, ConfigsManager.getConfigs(Tab.ALL));
-            //? if < 26.1 {
-            /*JsonUtils.writeJsonToFile(configRoot, new File(FILE_PATH));
-             *///?} else {
-            JsonUtils.writeJsonToFile(configRoot, Path.of(FILE_PATH));
-            //?}
-        }
-    }
-
     private static class ButtonListener implements IButtonActionListener {
         private final ConfigUi parent;
         private final Tab tab;
@@ -103,7 +66,7 @@ public class ConfigUi extends GuiConfigsBase implements IConfigHandler {
 
     @Override
     protected void closeGui(boolean showParent) {
-        INSTANCE.save();
+        Configs.INSTANCE.save();
         super.closeGui(showParent);
     }
 }

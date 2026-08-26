@@ -105,12 +105,7 @@ loomExtension.runConfigs.configureEach {
 }
 loomExtension.runs {
     val auditVmArg = "-DmixinAuditor.audit=true"
-    register("serverMixinAudit") {
-        server()
-        vmArgs.add(auditVmArg)
-        vmArgs.remove(devVmArg)
-        isIdeConfigGenerated = false
-    }
+    loomExtension.accessWidenerPath.set(file("asa.accesswidener"))
     register("clientMixinAudit") {
         client()
         vmArgs.add(auditVmArg)
@@ -168,8 +163,6 @@ dependencies {
     autoImplementation(masaDependency("itemscroller"))
     autoImplementation(masaDependency("minihud"))
 }
-
-
 
 tasks.processResources {
     inputs.property("modver", modVersion)

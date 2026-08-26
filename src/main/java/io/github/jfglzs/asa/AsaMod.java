@@ -64,9 +64,9 @@ public class AsaMod implements ModInitializer {
     private void init() {
         //~ if >= 26.1 'registerGameOverlayRenderer' -> 'registerInGameGuiRenderer' {
         ConfigsManager.init();
-        ConfigUi.INSTANCE.load();
+        Configs.INSTANCE.load();
         HotkeysCallback.init();
-        ConfigManager.getInstance().registerConfigHandler(MOD_ID, ConfigUi.INSTANCE);
+        ConfigManager.getInstance().registerConfigHandler(MOD_ID, Configs.INSTANCE);
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
         RenderEventHandler.getInstance().registerInGameGuiRenderer(HudRenderEvent.INSTANCE);
