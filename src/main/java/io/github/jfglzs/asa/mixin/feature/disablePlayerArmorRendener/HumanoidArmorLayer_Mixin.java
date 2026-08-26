@@ -15,7 +15,8 @@ public class HumanoidArmorLayer_Mixin {
     //? if >= 1.21.10 {
     @Inject(
             method = "renderArmorPiece",
-            at = @At("HEAD"), cancellable = true
+            at = @At("HEAD"),
+            cancellable = true
     )
     private void renderArmorPiece(CallbackInfo ci, @Local net.minecraft.client.renderer.entity.state.HumanoidRenderState state, @Local ItemStack stack) {
         //~ if >= 26.2 'EntityType' -> 'EntityTypes' {
@@ -28,7 +29,8 @@ public class HumanoidArmorLayer_Mixin {
     //?} else if >= 1.21.4 {
     //    @Inject(
     //            method = "render",
-    //            at = @At("HEAD")
+    //            at = @At("HEAD"),
+    //            cancellable = true
     //    )
     //    private void render(CallbackInfo ci, @Local net.minecraft.client.renderer.entity.state.HumanoidRenderState state) {
     //        if (state instanceof net.minecraft.client.renderer.entity.state.PlayerRenderState && Configs.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
