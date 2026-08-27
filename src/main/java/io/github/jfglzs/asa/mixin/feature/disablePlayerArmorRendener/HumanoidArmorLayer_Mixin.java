@@ -43,7 +43,7 @@ public class HumanoidArmorLayer_Mixin {
     //            at = @At("HEAD"),
     //            cancellable = true
     //    )
-    //    private void renderArmorInject(CallbackInfo ci, @Local net.minecraft.world.entity.Entity entity, @Local net.minecraft.world.entity.EquipmentSlot slot) {
+    //    private void renderArmorInject(CallbackInfo ci, @Local net.minecraft.world.entity.LivingEntity entity, @Local net.minecraft.world.entity.EquipmentSlot slot) {
     //        if(entity instanceof net.minecraft.world.entity.player.Player p && Configs.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
     //            if (slot == net.minecraft.world.entity.EquipmentSlot.CHEST && p.getInventory().getItem(38).is(Items.ELYTRA)) {
     //                return;
