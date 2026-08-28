@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Gui.class)
 public class Gui_Mixin {
-    //? if >= 26.2 {
     /*@Inject(
             method = "setScreen",
             at = @At("TAIL")
