@@ -33,11 +33,12 @@ public abstract class PlayerTabOverlay_Mixin {
                 }
                 else if (Configs.ENABLE_TAP_FILTER_PREFIX.getBooleanValue()) {
                     for (String string : Configs.TAP_FILTER_PREFIX.getStrings()) {
-                        if (!name.startsWith(string)) list.add(entry);
+                        if (! name.startsWith(string))
+                            list.add(entry);
                     }
                 }
                 else {
-                    if (!Configs.isInList(name, Configs.TAP_FILTER_BLACKLIST))
+                    if (! Configs.isInList(name, Configs.TAP_FILTER_BLACKLIST))
                         list.add(entry);
                 }
             }

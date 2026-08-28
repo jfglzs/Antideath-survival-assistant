@@ -83,8 +83,9 @@ public class PlayerUtils {
         LocalPlayer localPlayer = MCUtils.getLocalPlayer();
         if (localPlayer == null)
             return 0;
-        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(0, 36)).stream().flatMap(
-                                                                                i -> getBoxItemStacks(localPlayer.getInventory().getItem(i)).stream())
+        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(0, 36)).stream()
+                                                                        .flatMap(i -> getBoxItemStacks(localPlayer
+                                                                                .getInventory().getItem(i)).stream())
                                                                         .filter(j -> j.getItem().equals(item))
                                                                         .mapToInt(ItemStack::getCount).sum();
         return storedCount + getInventoryItemCount(item);

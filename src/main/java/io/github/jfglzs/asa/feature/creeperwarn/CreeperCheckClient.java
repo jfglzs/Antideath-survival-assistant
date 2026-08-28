@@ -18,10 +18,9 @@ public class CreeperCheckClient {
     public static void tick(Minecraft mc) {
         var creepers = CreeperCheckClient.isCreeperNearby(mc);
         if (creepers != null && ! creepers.isEmpty()) {
-            ChatUtils.clientMesswithSound(
-                    ChatUtils.c("苦力怕来了，距离您 %.2f 米".formatted(creepers.getFirst().distanceTo(mc.player))).copy()
-                             .withStyle(ChatFormatting.RED), SoundEvents.TNT_PRIMED, 1, 1
-                                         );
+            ChatUtils.clientMesswithSound(ChatUtils
+                    .c("苦力怕来了，距离您 %.2f 米".formatted(creepers.getFirst().distanceTo(mc.player))).copy()
+                    .withStyle(ChatFormatting.RED), SoundEvents.TNT_PRIMED, 1, 1);
         }
     }
 

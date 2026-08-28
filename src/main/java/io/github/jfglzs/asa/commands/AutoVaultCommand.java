@@ -19,55 +19,28 @@ public class AutoVaultCommand {
         var command = CommandUtils.literal("autovault").requires(cs -> Configs.AUTO_VAULT_COMMAND.getBooleanValue())
                                   .then(CommandUtils.literal("set")
                                                     .then(CommandUtils.argument("blockX", IntegerArgumentType.integer())
-                                                                      .then(CommandUtils.argument(
-                                                                              "blockY",
-                                                                              IntegerArgumentType.integer(- 64, 320)
-                                                                                                 ).then(CommandUtils
-                                                                                                                .argument(
-                                                                                                                        "blockZ",
-                                                                                                                        IntegerArgumentType.integer()
-                                                                                                                         )
-                                                                                                                .executes(
-                                                                                                                        AutoVaultCommand::setPos)))))
+                                                                      .then(CommandUtils
+                                                                              .argument("blockY", IntegerArgumentType.integer(- 64, 320))
+                                                                              .then(CommandUtils
+                                                                                      .argument("blockZ", IntegerArgumentType.integer())
+                                                                                      .executes(AutoVaultCommand::setPos)))))
                                   .then(CommandUtils.literal("player")
                                                     .then(CommandUtils.argument("prefix", StringArgumentType.word())
-                                                                      .then(CommandUtils.argument(
-                                                                              "start",
-                                                                              IntegerArgumentType.integer(
-                                                                                      0)
-                                                                                                 ).then(CommandUtils
-                                                                                                                .argument(
-                                                                                                                        "end",
-                                                                                                                        IntegerArgumentType.integer(
-                                                                                                                                0)
-                                                                                                                         )
-                                                                                                                .then(CommandUtils
-                                                                                                                              .argument(
-                                                                                                                                      "blockX",
-                                                                                                                                      FloatArgumentType.floatArg()
-                                                                                                                                       )
-                                                                                                                              .then(CommandUtils
-                                                                                                                                            .argument(
-                                                                                                                                                    "blockY",
-                                                                                                                                                    FloatArgumentType.floatArg()
-                                                                                                                                                     )
-                                                                                                                                            .then(CommandUtils
-                                                                                                                                                          .argument(
-                                                                                                                                                                  "blockZ",
-                                                                                                                                                                  FloatArgumentType.floatArg()
-                                                                                                                                                                   )
-                                                                                                                                                          .then(CommandUtils
-                                                                                                                                                                        .argument(
-                                                                                                                                                                                "direction",
-                                                                                                                                                                                FloatArgumentType.floatArg()
-                                                                                                                                                                                 )
-                                                                                                                                                                        .then(CommandUtils
-                                                                                                                                                                                      .argument(
-                                                                                                                                                                                              "in",
-                                                                                                                                                                                              FloatArgumentType.floatArg()
-                                                                                                                                                                                               )
-                                                                                                                                                                                      .executes(
-                                                                                                                                                                                              AutoVaultCommand::setPlayer))))))))))
+                                                                      .then(CommandUtils
+                                                                              .argument("start", IntegerArgumentType.integer(0))
+                                                                              .then(CommandUtils
+                                                                                      .argument("end", IntegerArgumentType.integer(0))
+                                                                                      .then(CommandUtils
+                                                                                              .argument("blockX", FloatArgumentType.floatArg())
+                                                                                              .then(CommandUtils
+                                                                                                      .argument("blockY", FloatArgumentType.floatArg())
+                                                                                                      .then(CommandUtils
+                                                                                                              .argument("blockZ", FloatArgumentType.floatArg())
+                                                                                                              .then(CommandUtils
+                                                                                                                      .argument("direction", FloatArgumentType.floatArg())
+                                                                                                                      .then(CommandUtils
+                                                                                                                              .argument("in", FloatArgumentType.floatArg())
+                                                                                                                              .executes(AutoVaultCommand::setPlayer))))))))))
                                   .then(CommandUtils.literal("start").executes(AutoVaultCommand::start))
                                   .then(CommandUtils.literal("stop").executes(AutoVaultCommand::stop));
         dispatcher.register(command);

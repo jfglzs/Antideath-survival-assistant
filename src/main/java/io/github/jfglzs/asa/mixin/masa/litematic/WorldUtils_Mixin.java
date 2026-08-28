@@ -77,10 +77,7 @@ public class WorldUtils_Mixin {
                 .getBlockState(pos).getBlock() == Blocks.AIR) {
             if (Configs.MID_CLICK_TAKE_ITEM.getBooleanValue()) {
                 AsaMod.debugMessage(() -> "Submitted %s %d to ItemStorageDataManager");
-                ItemStorageDataManager.submit(
-                        stack.getItem(),
-                        mc.player.isShiftKeyDown() ? stack.getMaxStackSize() * 27 : stack.getMaxStackSize()
-                                             );
+                ItemStorageDataManager.submit(stack.getItem(), mc.player.isShiftKeyDown() ? stack.getMaxStackSize() * 27 : stack.getMaxStackSize());
             }
             else {
                 AsaMod.debugMessage(() -> "addItem %s to MaterialToDoRenderer");

@@ -33,8 +33,7 @@ public class PlayerManipulateCommand {
     }
 
     private static int process(CommandContext<FabricClientCommandSource> source, boolean enablePrefix) {
-        var prefix = enablePrefix ? StringArgumentType.getString(
-                source, "prefix") : Configs.PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX.getStringValue();
+        var prefix = enablePrefix ? StringArgumentType.getString(source, "prefix") : Configs.PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX.getStringValue();
         var start = IntegerArgumentType.getInteger(source, "start");
         var end = IntegerArgumentType.getInteger(source, "end");
         var action = StringArgumentType.getString(source, "action");
@@ -48,8 +47,7 @@ public class PlayerManipulateCommand {
                 Thread.sleep(Configs.PLAYER_MANIPULATE_COMMAND_WAIT_TIME.getIntegerValue());
                 var playerName = prefix == null ? i : prefix + i;
                 ChatUtils.actionBar(ProgressBar.getProgress((double) i / (end - start)));
-                ThreadUtils.runOnClientThread(
-                        () -> MCUtils.executeCommand("player %s %s".formatted(playerName, action)));
+                ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s %s".formatted(playerName, action)));
             }
             catch (Exception e) {
                 AsaMod.LOGGER.error("cant execute player action: {}", action, e);

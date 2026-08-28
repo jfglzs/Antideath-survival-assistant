@@ -18,7 +18,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class PauseScreen_Mixin {
     @Inject(
             method = "createPauseMenu",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/layouts/GridLayout;arrangeElements()V")
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/layouts/GridLayout;arrangeElements()V"
+            )
     )
     private void createPauseMenu(CallbackInfo ci, @Local GridLayout.RowHelper row) {
         if (Configs.CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING.getBooleanValue()) {

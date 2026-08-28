@@ -80,9 +80,7 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
             if (title.contains(name)) {
                 List<Slot> slots = this.menu.slots.stream().filter(slot -> ! (slot.container instanceof Inventory))
                                                   .toList();
-                ItemStorageDataManager.addPlayerInventory(name, new ItemStorageDataManager.PlayerInventory(
-                                                                  ImmutableList.copyOf(slots))
-                                                         );
+                ItemStorageDataManager.addPlayerInventory(name, new ItemStorageDataManager.PlayerInventory(ImmutableList.copyOf(slots)));
                 ChatUtils.actionBar(ChatUtils.c("已缓存 %s 的物品栏".formatted(name)));
                 break;
             }
