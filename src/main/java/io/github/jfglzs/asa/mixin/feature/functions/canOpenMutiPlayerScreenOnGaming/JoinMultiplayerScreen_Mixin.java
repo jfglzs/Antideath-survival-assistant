@@ -1,18 +1,17 @@
 package io.github.jfglzs.asa.mixin.feature.functions.canOpenMutiPlayerScreenOnGaming;
 
-import io.github.jfglzs.asa.accessor.IJoinMultiPlayerScreen;
+import io.github.jfglzs.asa.accessor.IJoinMultiPlayerScreenAccessor;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
-import net.minecraft.client.multiplayer.ClientLevel;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(JoinMultiplayerScreen.class)
-public class JoinMultiplayerScreen_Mixin implements IJoinMultiPlayerScreen {
+public class JoinMultiplayerScreen_Mixin implements IJoinMultiPlayerScreenAccessor {
     @Mutable
     @Shadow
     @Final

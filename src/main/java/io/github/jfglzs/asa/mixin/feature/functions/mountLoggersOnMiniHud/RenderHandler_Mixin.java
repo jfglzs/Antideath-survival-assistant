@@ -1,16 +1,15 @@
-package io.github.jfglzs.asa.mixin.masa.minihud;
+package io.github.jfglzs.asa.mixin.feature.functions.mountLoggersOnMiniHud;
 
 
 import com.llamalad7.mixinextras.injector.ModifyReceiver;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import fi.dy.masa.minihud.event.RenderHandler;
-import io.github.jfglzs.asa.accessor.IClientPacketListener;
+import io.github.jfglzs.asa.accessor.IClientPacketListenerAccessor;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.ThreadUtils;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +17,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(
@@ -97,7 +95,8 @@ public class RenderHandler_Mixin {
         LocalPlayer player = MCUtils.getLocalPlayer();
         List<String> list = Configs.MINI_HUD_FPS_OPT.getBooleanValue() ? asa$list : lines;
 
-        if (player != null && player.connection instanceof IClientPacketListener listener) {
+        if (player == null) return;
+        if (player.connection instanceof IClientPacketListenerAccessor listener) {
             List<String> tabList = listener.asa$TabList();
             if (tabList == null)
                 return;

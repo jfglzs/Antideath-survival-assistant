@@ -16,7 +16,7 @@ public class Connection_Mixin {
     @WrapMethod(
             method = "sendPacket"
     )
-            //? if >= 1.21.8 {
+    //? if >= 1.21.8 {
     private void sendPacket(Packet<?> packet, ChannelFutureListener listener, boolean flush, Operation<Void> original) {
         //?} else {
         /*private void sendPacket(Packet<?> packet, PacketSendListener listener, boolean flush, Operation<Void> original) {

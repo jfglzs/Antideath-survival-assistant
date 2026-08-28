@@ -4,7 +4,7 @@ import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InitializationHandler;
 import fi.dy.masa.malilib.event.InputEventHandler;
 import fi.dy.masa.malilib.event.RenderEventHandler;
-import io.github.jfglzs.asa.accessor.ClientPacketListenerAccessor;
+import io.github.jfglzs.asa.accessor.IClientPacketListenerAccessor1;
 import io.github.jfglzs.asa.commands.AutoVaultCommand;
 import io.github.jfglzs.asa.commands.PlayerManipulateCommand;
 import io.github.jfglzs.asa.config.*;
@@ -13,7 +13,7 @@ import io.github.jfglzs.asa.events.HudRenderEvent;
 import io.github.jfglzs.asa.feature.autoVault.AutoVaultExecutor;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
-import io.github.jfglzs.asa.feature.creeperwarn.CreeperCheckClient;
+import io.github.jfglzs.asa.feature.creeperWarn.CreeperCheckClient;
 import io.github.jfglzs.asa.feature.disablePacketKick.DisablePacketKick;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
 import io.github.jfglzs.asa.feature.useSignRunCommand.UseSignRunCommand;
@@ -105,7 +105,7 @@ public class AsaMod implements ModInitializer {
                     return;
                 MapId mapId = stack.get(DataComponents.MAP_ID);
                 if (mapId != null) {
-                    ((ClientPacketListenerAccessor) player.connection).asa$getMaps().remove(mapId.id());
+                    ((IClientPacketListenerAccessor1) player.connection).asa$getMaps().remove(mapId.id());
                 }
             }
         });

@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.masa.litematic;
+package io.github.jfglzs.asa.mixin.feature.lms;
 
 import fi.dy.masa.litematica.materials.MaterialListEntry;
 //~ if >= 26.1 'util.ItemType' -> 'util.data.ItemType' {

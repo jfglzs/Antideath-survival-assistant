@@ -1,6 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.functions.mountLoggersOnMiniHud;
 
-import io.github.jfglzs.asa.accessor.IClientPacketListener;
+import io.github.jfglzs.asa.accessor.IClientPacketListenerAccessor;
 import io.github.jfglzs.asa.config.Configs;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.protocol.game.ClientboundTabListPacket;
@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Mixin(ClientPacketListener.class)
-public class ClientPacketListener_Mixin implements IClientPacketListener {
+public class ClientPacketListener_Accessor_Mixin implements IClientPacketListenerAccessor {
     @Unique private List<String> asa$TabList;
 
     @Inject(

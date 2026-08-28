@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.masa.tweakeroo;
+package io.github.jfglzs.asa.mixin.feature.functions.autoBoxRestrock;
 
 import com.google.common.util.concurrent.RateLimiter;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -39,15 +39,15 @@ public class InventoryUtils_Mixin {
             method = "restockNewStackToHand",
             at = @At("TAIL")
     )
-    private static void restockNewStackToHand(Player player, InteractionHand hand, ItemStack stackHand,
+    private static void restockNewStackToHand(Player player, InteractionHand hand, ItemStack stack,
                                               boolean allowHotbar, CallbackInfo ci,
                                               @Local(ordinal = 0) int slotWithItem) {
         if (Configs.AUTO_BOX_RESTROKE.getBooleanValue() && slotWithItem == - 1) {
-            if (stackHand.isEmpty() || ! LIMITER.tryAcquire())
+            if (stack.isEmpty() || ! LIMITER.tryAcquire())
                 return;
 
-            if (ShulkerUtils.findBoxToOpen(stackHand)) {
-                BoxRestockMannager.context = new BoxRestockMannager.BoxRestockContext(stackHand, hand);
+            if (ShulkerUtils.findBoxToOpen(stack)) {
+                BoxRestockMannager.context = new BoxRestockMannager.BoxRestockContext(stack, hand);
             }
         }
     }

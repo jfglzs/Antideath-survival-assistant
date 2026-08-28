@@ -20,12 +20,17 @@ import java.util.stream.IntStream;
 
 public class PlayerUtils {
     public static int getInventoryItemCount(Item item) {
-        return getInventory().stream().filter(stack -> stack.is(item)).mapToInt(ItemStack::getCount).sum();
+        return getInventory().stream()
+                             .filter(stack -> stack.is(item))
+                             .mapToInt(ItemStack::getCount)
+                             .sum();
     }
 
     public static List<ItemStack> getInventory() {
         //~ if >= 1.21.5 'items' -> 'getNonEquipmentItems()' {
-        return MCUtils.getLocalPlayer().getInventory().getNonEquipmentItems();
+        return MCUtils.getLocalPlayer()
+                      .getInventory()
+                      .getNonEquipmentItems();
         //~}
     }
 
@@ -35,12 +40,14 @@ public class PlayerUtils {
 
     public static ItemStack getItemStack(int slotIndex) {
         Player player = MCUtils.getLocalPlayer();
-        return player == null ? ItemStack.EMPTY : player.getInventory().getItem(slotIndex);
+        return player == null ? ItemStack.EMPTY : player.getInventory()
+                                                        .getItem(slotIndex);
     }
 
     public static List<Integer> getAllBoxIndexes(int minIndex, int maxIndex) {
         List<Integer> results = new ArrayList<>();
-        Inventory inventory = MCUtils.getLocalPlayer().getInventory();
+        Inventory inventory = MCUtils.getLocalPlayer()
+                                     .getInventory();
 
         for (int i = minIndex; i < maxIndex; i++) {
             ItemStack stack = inventory.getItem(i);
@@ -57,8 +64,12 @@ public class PlayerUtils {
         List<Integer> results = new ArrayList<>();
 
         for (int i : shulkerBoxIndexes) {
-            List<ItemStack> boxStacks = getBoxItemStacks(player.getInventory().getItem(i));
-            if (! boxStacks.stream().filter(itemStack -> ! itemStack.isEmpty()).toList().isEmpty()) {
+            List<ItemStack> boxStacks = getBoxItemStacks(player.getInventory()
+                                                               .getItem(i));
+            if (! boxStacks.stream()
+                           .filter(itemStack -> ! itemStack.isEmpty())
+                           .toList()
+                           .isEmpty()) {
                 results.add(i);
             }
         }
@@ -72,7 +83,10 @@ public class PlayerUtils {
 
     public static boolean isBoxFull(ItemStack box) {
         List<ItemStack> items = getBoxItemStacks(box);
-        return items.stream().filter(stack -> stack.getMaxStackSize() - stack.getCount() != 0).toList().isEmpty();
+        return items.stream()
+                    .filter(stack -> stack.getMaxStackSize() - stack.getCount() != 0)
+                    .toList()
+                    .isEmpty();
     }
 
     public static boolean isBoxEmpty(ItemStack box) {
@@ -83,11 +97,11 @@ public class PlayerUtils {
         LocalPlayer localPlayer = MCUtils.getLocalPlayer();
         if (localPlayer == null)
             return 0;
-        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(0, 36)).stream()
-                                                                        .flatMap(i -> getBoxItemStacks(localPlayer
-                                                                                .getInventory().getItem(i)).stream())
-                                                                        .filter(j -> j.getItem().equals(item))
-                                                                        .mapToInt(ItemStack::getCount).sum();
+        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(0, 36))
+                .stream().flatMap(i -> getBoxItemStacks(getInventory().get(i)).stream())
+                .filter(j -> j.is(item))
+                .mapToInt(ItemStack::getCount)
+                .sum();
         return storedCount + getInventoryItemCount(item);
     }
 
@@ -145,7 +159,8 @@ public class PlayerUtils {
 
     //~ if >=1.21.10 '.getName()' -> '.name()' {
     public static String getName(Player player) {
-        return player.getGameProfile().name();
+        return player.getGameProfile()
+                     .name();
     }
 
     public static String getName(GameProfile profile) {

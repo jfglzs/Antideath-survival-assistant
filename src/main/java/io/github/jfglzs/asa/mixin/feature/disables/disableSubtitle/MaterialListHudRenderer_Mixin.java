@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.masa.litematic;
+package io.github.jfglzs.asa.mixin.feature.disables.disableSubtitle;
 
 import fi.dy.masa.litematica.materials.MaterialListHudRenderer;
 import io.github.jfglzs.asa.config.Configs;

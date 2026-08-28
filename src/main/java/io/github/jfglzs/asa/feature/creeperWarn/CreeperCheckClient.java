@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.feature.creeperwarn;
+package io.github.jfglzs.asa.feature.creeperWarn;
 
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;

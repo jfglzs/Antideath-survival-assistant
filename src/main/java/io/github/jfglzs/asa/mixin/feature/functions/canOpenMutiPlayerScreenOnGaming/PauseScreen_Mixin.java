@@ -1,7 +1,7 @@
 package io.github.jfglzs.asa.mixin.feature.functions.canOpenMutiPlayerScreenOnGaming;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import io.github.jfglzs.asa.accessor.IJoinMultiPlayerScreen;
+import io.github.jfglzs.asa.accessor.IJoinMultiPlayerScreenAccessor;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import net.minecraft.client.gui.components.Button;
@@ -27,7 +27,7 @@ public class PauseScreen_Mixin {
         if (Configs.CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING.getBooleanValue()) {
             row.addChild(Button.builder(Component.translatable("asa.multiplayer.screen.title"), (button) -> {
                 JoinMultiplayerScreen screen = new JoinMultiplayerScreen(null);
-                ((IJoinMultiPlayerScreen) screen).asa$setCanDisconnect();
+                ((IJoinMultiPlayerScreenAccessor) screen).asa$setCanDisconnect();
                 MCUtils.setScreen(screen);
             }).width(204).build(), 2);
         }

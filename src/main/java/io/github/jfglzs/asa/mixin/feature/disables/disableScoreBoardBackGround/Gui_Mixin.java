@@ -1,7 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.disables.disableScoreBoardBackGround;
 
 //~ if >= 26.1 'GuiGraphics' -> 'GuiGraphicsExtractor' {
-
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import io.github.jfglzs.asa.config.Configs;
@@ -14,12 +13,9 @@ import org.spongepowered.asm.mixin.injection.At;
 //~}
 public class Gui_Mixin {
     @WrapOperation(
-            //? if <= 1.21.1 {
-            /*method = "method_55440",
-            */
-//?} else {
+            //~ if <= 1.21.1 'displayScoreboardSidebar' -> 'method_55440' {
             method = "displayScoreboardSidebar",
-            //?}
+            //~}
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;fill(IIIII)V"

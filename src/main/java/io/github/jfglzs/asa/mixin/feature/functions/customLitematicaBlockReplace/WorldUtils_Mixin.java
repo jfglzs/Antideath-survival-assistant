@@ -1,27 +1,19 @@
-package io.github.jfglzs.asa.mixin.masa.litematic;
+package io.github.jfglzs.asa.mixin.feature.functions.customLitematicaBlockReplace;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.litematica.materials.MaterialCache;
 import fi.dy.masa.litematica.util.WorldUtils;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
-import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
-import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.utils.MCUtils;
-import io.github.jfglzs.asa.utils.PlayerUtils;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,12 +28,12 @@ public class WorldUtils_Mixin {
                     //? if < 1.21.11 {
                     /*target = "Lfi/dy/masa/litematica/materials/MaterialCache;getRequiredBuildItemForState(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/item/ItemStack;"
                     */
-//?} else {
+                    //?} else {
                     target = "Lfi/dy/masa/litematica/materials/MaterialCache;getRequiredBuildItemForState(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/item/ItemStack;"
                     //?}
                     )
     )
-            //? if > 1.21.10 {
+    //? if > 1.21.10 {
     private static ItemStack getRequiredBuildItemForState(MaterialCache instance, BlockState state, Level world,
                                                           BlockPos pos, Operation<ItemStack> original) {
         //?} else {
@@ -62,30 +54,6 @@ public class WorldUtils_Mixin {
         return original.call(instance, state, world, pos);
         //?}
     }
-
-    @Inject(
-            method = "doSchematicWorldPickBlock",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lfi/dy/masa/litematica/schematic/pickblock/SchematicPickBlockEventHandler;onSchematicPickBlockPrePick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/item/ItemStack;)Z"
-            )
-    )
-    private static void doSchematicWorldPickBlock_Inject(boolean closest, Minecraft mc,
-                                                         CallbackInfoReturnable<Boolean> cir, @Local ItemStack stack,
-                                                         @Local BlockPos pos) {
-        if (PlayerUtils.checkRemainCount(stack.getItem()) == 0 && PlayerUtils.isSurvivalMode(mc.player) && mc.level
-                .getBlockState(pos).getBlock() == Blocks.AIR) {
-            if (Configs.MID_CLICK_TAKE_ITEM.getBooleanValue()) {
-                AsaMod.debugMessage(() -> "Submitted %s %d to ItemStorageDataManager");
-                ItemStorageDataManager.submit(stack.getItem(), mc.player.isShiftKeyDown() ? stack.getMaxStackSize() * 27 : stack.getMaxStackSize());
-            }
-            else {
-                AsaMod.debugMessage(() -> "addItem %s to MaterialToDoRenderer");
-                MaterialToDoRenderer.addItem(stack);
-            }
-        }
-    }
-
 
     @Unique
     private static Map<String, String> asa$getBlockMappings() {

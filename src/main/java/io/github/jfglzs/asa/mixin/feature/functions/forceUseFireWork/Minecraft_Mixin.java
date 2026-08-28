@@ -52,7 +52,7 @@ public class Minecraft_Mixin {
         }
         if (hand == null)
             return;
-        //? > 1.21.1 {
+        //? if > 1.21.1 {
         if (gameMode.useItem(player, hand) instanceof InteractionResult.Success success) {
             if (success.swingSource() == InteractionResult.SwingSource.CLIENT) {
                 this.player.swing(hand);

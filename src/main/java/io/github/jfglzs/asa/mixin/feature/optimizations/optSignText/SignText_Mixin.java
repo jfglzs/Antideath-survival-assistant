@@ -1,6 +1,5 @@
 package io.github.jfglzs.asa.mixin.feature.optimizations.optSignText;
 
-import io.github.jfglzs.asa.accessor.SignTextAccessor;
 import io.github.jfglzs.asa.config.Configs;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
@@ -13,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SignText.class)
-public class SignText_Mixin implements SignTextAccessor {
+public class SignText_Mixin {
     @Unique private boolean asa$HasText = false;
 
     @Inject(
@@ -38,10 +37,5 @@ public class SignText_Mixin implements SignTextAccessor {
         if (Configs.OPT_SIGN_TEXT.getBooleanValue()) {
             cir.setReturnValue(asa$HasText);
         }
-    }
-
-    @Override
-    public boolean asa$hasText() {
-        return asa$HasText;
     }
 }

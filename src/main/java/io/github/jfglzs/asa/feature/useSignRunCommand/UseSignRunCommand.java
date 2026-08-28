@@ -19,7 +19,7 @@ public class UseSignRunCommand {
 
     public static void init() {
         SendPacketEvent.INSTANCE.register(packet -> {
-            if (! LIMITER.tryAcquire() || ! Configs.USE_SIGN_RUN_COMMAND.getBooleanValue())
+            if (!Configs.USE_SIGN_RUN_COMMAND.getBooleanValue())
                 return packet;
 
             if (packet instanceof ServerboundUseItemOnPacket itemPacket) {
@@ -30,7 +30,7 @@ public class UseSignRunCommand {
                 BlockPos pos = hitResult.getBlockPos();
                 ClientLevel level = MCUtils.getLevel();
                 BlockEntity entity = level.getBlockEntity(pos);
-                if (entity instanceof SignBlockEntity sign) {
+                if (entity instanceof SignBlockEntity sign && LIMITER.tryAcquire()) {
                     Component[] messages = sign.getFrontText().getMessages(false);
                     for (Component component : messages) {
                         String command = component.getString();

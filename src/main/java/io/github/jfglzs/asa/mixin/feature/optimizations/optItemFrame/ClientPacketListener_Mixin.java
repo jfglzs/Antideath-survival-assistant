@@ -1,17 +1,12 @@
 package io.github.jfglzs.asa.mixin.feature.optimizations.optItemFrame;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import io.github.jfglzs.asa.accessor.ClientPacketListenerAccessor;
+import io.github.jfglzs.asa.accessor.IClientPacketListenerAccessor1;
 import io.github.jfglzs.asa.config.Configs;
-import io.github.jfglzs.asa.utils.MCUtils;
-import io.github.jfglzs.asa.utils.PlayerUtils;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.game.ClientboundMapItemDataPacket;
 import net.minecraft.network.protocol.game.ClientboundRespawnPacket;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.saveddata.maps.MapId;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPacketListener.class)
-public class ClientPacketListener_Mixin implements ClientPacketListenerAccessor {
+public class ClientPacketListener_Mixin implements IClientPacketListenerAccessor1 {
     @Unique private final Int2IntArrayMap ASA$MAPS = new Int2IntArrayMap();
 
     @Inject(

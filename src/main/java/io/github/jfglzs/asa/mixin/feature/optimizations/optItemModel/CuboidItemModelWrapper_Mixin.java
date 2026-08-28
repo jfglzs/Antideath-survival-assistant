@@ -4,7 +4,7 @@ package io.github.jfglzs.asa.mixin.feature.optimizations.optItemModel;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import io.github.jfglzs.asa.accessor.LayerRenderStateAccessor;
+import io.github.jfglzs.asa.accessor.ILayerRenderStateAccessor;
 import io.github.jfglzs.asa.config.Configs;
 import net.minecraft.client.renderer.item.CuboidItemModelWrapper;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -50,7 +50,7 @@ public class CuboidItemModelWrapper_Mixin {
     )
     private void addAll(CallbackInfo ci, @Local ItemStackRenderState.LayerRenderState state) {
         if (Configs.OPT_ITEM_MODEL.getBooleanValue()) {
-            ((LayerRenderStateAccessor) state).asa$setQuads(this.quads.getAll());
+            ((ILayerRenderStateAccessor) state).asa$setQuads(this.quads.getAll());
         }
     }
     //?}

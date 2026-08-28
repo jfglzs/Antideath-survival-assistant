@@ -6,7 +6,7 @@ import net.minecraft.client.resources.model.geometry.BakedQuad;
 import java.util.List;
 //?}
 
-public interface LayerRenderStateAccessor {
+public interface ILayerRenderStateAccessor {
     //? if >= 26.1 {
     void asa$setQuads(List<BakedQuad> quads);
     //?}

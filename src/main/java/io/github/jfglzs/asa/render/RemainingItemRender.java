@@ -9,6 +9,7 @@ import net.minecraft.world.item.Items;
 
 public class RemainingItemRender {
     public static ItemStack stack;
+    private static int remainCount = 0;
 
     public static void init() {
         HudRenderEvent.INSTANCE.register(RemainingItemRender::render);
@@ -17,6 +18,7 @@ public class RemainingItemRender {
     public static void tick(Minecraft mc) {
         if (Configs.DISPLAY_REMAIN_ITEM.getBooleanValue()) {
             stack = PlayerUtils.getPlayerMainHandStack();
+            remainCount = PlayerUtils.checkRemainCount(stack.getItem());
         }
     }
 
@@ -26,8 +28,7 @@ public class RemainingItemRender {
             int yOffset = Configs.DISPLAY_REMAIN_ITEM_OVERLAY_Y_OFFSET.getIntegerValue();
             if (stack != null && ! stack.is(Items.AIR)) {
                 var ctx = wrap.context();
-                ctx.drawString(Minecraft.getInstance().font, "%s %s".formatted(stack.getHoverName()
-                                                                                    .getString(), PlayerUtils.checkRemainCount(stack.getItem())), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
+                ctx.drawString(Minecraft.getInstance().font, "%s %s".formatted(stack.getHoverName().getString(), remainCount), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
                 ctx.renderItem(stack, xOffset, yOffset);
             }
         }
