@@ -109,7 +109,7 @@ public class Configs implements IConfigHandler {
     @Config(tab = Tab.DISABLES) public static final ConfigBooleanHotkeyed FORCE_JOIN_SERVER_IGNORE_UNKNOWN_PACKET = new ConfigBooleanHotkeyed("禁用数据包踢出-强制进入服务器", false, "", "此功能可以无视客户端不存在/未注册的数据包强制进入服务器");
     @Config(tab = Tab.DISABLES) public static final ConfigBooleanHotkeyed DISABLE_PACKET_KICK_PREVENT_CUSTOM_PAYLOAD = new ConfigBooleanHotkeyed("禁用数据包踢出-拦截ServerboundCustomPayloadPacket", false, "", "开启后会阻止玩家因为数据包错误被踢出服务器\n此功能建议搭配ViaFabricPLus食用\n(此功能用于大版本跨小版本)");
     @Config(tab = Tab.DISABLES) public static final ConfigBooleanHotkeyed PREVENT_NET_PRO_ERR = new ConfigBooleanHotkeyed("禁用网络协议错误", false, "", "阻止玩家因网络协议错误被踢出服务器");
-    @Config(tab = {Tab.DISABLES, Tab.OPTIMIZATIONS}) public static final ConfigBooleanHotkeyed DISABLE_PROFILER = new ConfigBooleanHotkeyed("禁用Profiler", false, "", "禁用后可提升帧数但会导致饼图不可用");
+    @Config(tab = Tab.DISABLES) public static final ConfigBooleanHotkeyed DISABLE_PROFILER = new ConfigBooleanHotkeyed("禁用Profiler", false, "", "禁用后可提升帧数但会导致饼图不可用");
     @Config(tab = Tab.COMMAND) public static final ConfigBooleanHotkeyed AUTO_VAULT_COMMAND = new ConfigBooleanHotkeyed("自动宝库命令 /autovault", false, "", "自动开启宝库命令 用法 \n/autovault player <前缀> <开始值> <结束值> <方块X> <方块Y> <方块Z> <DIR> <In> 等效于:\n/player _AntiDeath_ spawn at <方块X> <方块Y> <方块Z> facing <dir> <in>\n/autovault set <宝库XYZ>");
     @Config(tab = Tab.FUNCTIONS) public static final ConfigHotkey TRIGGER_BOX_SPLITTER = new ConfigHotkey("触发-潜影盒物品分离器", "", "按下指定快捷见后将会保存玩家主手的物品并启用潜影盒物品分离器\n会自动打开玩家背包（除快捷栏内)的所有盒子并丢出符合的物品");
     @Config(tab = Tab.LMS) public static final ConfigBooleanHotkeyed FAKE_PLAYER_INVENTORY_ITEM_CACHE = new ConfigBooleanHotkeyed("假人背包物品缓存", false, "", "开启后会缓存假人背包内的物品 中间投影方块时优先从缓存的假人取出");
@@ -128,6 +128,7 @@ public class Configs implements IConfigHandler {
     @Config public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("调试", false, "", "1111");
     @Config public static final ConfigHotkey TEST = new ConfigHotkey("触发调试", "", "测试", "1111");
     @Config(tab = Tab.LISTS) public static final ConfigStringList DEBUG_LIST = new ConfigStringList("调试用", ImmutableList.of(), "", "");
+
     private static final String FILE_PATH = "./config/" + AsaMod.MOD_ID + ".json";
     private static final File CONFIG_DIR = new File("./config");
     public static boolean shouldDisableTitle = false;
