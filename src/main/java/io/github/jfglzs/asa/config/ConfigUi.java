@@ -46,6 +46,12 @@ public class ConfigUi extends GuiConfigsBase {
         return ConfigOptionWrapper.createFor(configs);
     }
 
+    @Override
+    protected void closeGui(boolean showParent) {
+        Configs.INSTANCE.save();
+        super.closeGui(showParent);
+    }
+
     private static class ButtonListener implements IButtonActionListener {
         private final ConfigUi parent;
         private final Tab tab;
@@ -62,11 +68,5 @@ public class ConfigUi extends GuiConfigsBase {
             this.parent.getListWidget().resetScrollbarPosition();
             this.parent.initGui();
         }
-    }
-
-    @Override
-    protected void closeGui(boolean showParent) {
-        Configs.INSTANCE.save();
-        super.closeGui(showParent);
     }
 }

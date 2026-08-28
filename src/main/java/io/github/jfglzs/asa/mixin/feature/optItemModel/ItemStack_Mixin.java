@@ -9,10 +9,8 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(ItemStack.class)
 public class ItemStack_Mixin {
-    @Unique
-    private boolean asa$hasCached = false;
-    @Unique
-    private boolean asa$cached = false;
+    @Unique private boolean asa$hasCached = false;
+    @Unique private boolean asa$cached = false;
 
     @WrapMethod(
             method = "hasFoil"

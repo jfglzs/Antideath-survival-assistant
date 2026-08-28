@@ -54,7 +54,8 @@ public class MCUtils {
 
     public static Block getBlock(String blockID) {
         String id = blockID;
-        if (id.contains("minecraft")) id = id.replace("minecraft:", "");
+        if (id.contains("minecraft"))
+            id = id.replace("minecraft:", "");
         //? if >= 1.21.11 {
         var identifier = Identifier.withDefaultNamespace(id);
         //?} else {
@@ -79,7 +80,8 @@ public class MCUtils {
 
     public static boolean isPlayerOnline(String playerName) {
         ClientLevel level = MCUtils.getLevel();
-        if (level == null) return false;
+        if (level == null)
+            return false;
         for (AbstractClientPlayer clientPlayer : level.players()) {
             if (PlayerUtils.getName(clientPlayer).equalsIgnoreCase(playerName))
                 return true;
@@ -89,7 +91,8 @@ public class MCUtils {
 
     public static void disconnect() {
         ClientLevel level = MCUtils.getLevel();
-        if (level == null) return;
+        if (level == null)
+            return;
         //? if < 1.21.8 {
         /*level.disconnect();
          *///?} else if < 1.21.10 {

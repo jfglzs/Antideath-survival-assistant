@@ -34,17 +34,13 @@ public class ItemFrameRenderer_Mixin {
                     target = "Lnet/minecraft/client/renderer/block/BlockModelResolver;updateForItemFrame(Lnet/minecraft/client/renderer/block/BlockModelRenderState;ZZ)V"
             )
     )
-    public void updateForItemFrame(BlockModelResolver instance,
-                                   BlockModelRenderState renderState,
-                                   boolean isGlowing,
-                                   boolean map,
-                                   Operation<Void> original,
-                                   @Local ItemStack stack
-                                  ) {
+    public void updateForItemFrame(BlockModelResolver instance, BlockModelRenderState renderState, boolean isGlowing,
+                                   boolean map, Operation<Void> original, @Local ItemStack stack) {
         if (Configs.OPT_ITEM_FRAME.getBooleanValue()) {
             IConfigOptionListEntry visibility = Configs.ITEM_FRAME_VISIBILITY.getOptionListValue();
             if (visibility == ItemFrameVisibility.EMPTY_ONLY) {
-                if (! stack.isEmpty()) return;
+                if (! stack.isEmpty())
+                    return;
             }
             else if (visibility == ItemFrameVisibility.ALWAYS_INVISIBLE) {
                 return;
@@ -62,13 +58,8 @@ public class ItemFrameRenderer_Mixin {
                     target = "Lnet/minecraft/client/renderer/item/ItemModelResolver;updateForNonLiving(Lnet/minecraft/client/renderer/item/ItemStackRenderState;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemDisplayContext;Lnet/minecraft/world/entity/Entity;)V"
             )
     )
-    public void updateForNonLiving(ItemModelResolver instance,
-                                   ItemStackRenderState output,
-                                   ItemStack item,
-                                   ItemDisplayContext displayContext,
-                                   Entity entity,
-                                   Operation<Void> original
-                                  ) {
+    public void updateForNonLiving(ItemModelResolver instance, ItemStackRenderState output, ItemStack item,
+                                   ItemDisplayContext displayContext, Entity entity, Operation<Void> original) {
         if (Configs.OPT_ITEM_FRAME.getBooleanValue() && item.is(Items.FILLED_MAP)) {
             return;
         }

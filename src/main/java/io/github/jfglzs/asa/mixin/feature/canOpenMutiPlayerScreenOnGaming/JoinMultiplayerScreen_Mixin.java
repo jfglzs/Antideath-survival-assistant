@@ -17,8 +17,7 @@ public class JoinMultiplayerScreen_Mixin implements IJoinMultiPlayerScreen {
     @Shadow
     @Final
     private Screen lastScreen;
-    @Unique
-    private boolean asa$canDisconnect = false;
+    @Unique private boolean asa$canDisconnect = false;
 
     @Inject(
             method = "init",

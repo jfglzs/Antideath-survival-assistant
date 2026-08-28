@@ -21,17 +21,23 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(value = RenderHandler.class, priority = 1900)
+@Mixin(
+        value = RenderHandler.class,
+        priority = 1900
+)
 public class RenderHandler_Mixin {
-    @Unique
-    private final List<String> asa$list = new ObjectArrayList<>(32);
+    @Unique private final List<String> asa$list = new ObjectArrayList<>(32);
     @Shadow
     @Final
     private List<String> lines;
 
     @ModifyReceiver(
             method = "updateLines",
-            at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 1),
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ljava/util/List;add(Ljava/lang/Object;)Z",
+                    ordinal = 1
+            ),
             remap = false
     )
     private List<String> updateLines_add(List<String> original, Object e) {
@@ -40,7 +46,11 @@ public class RenderHandler_Mixin {
 
     @ModifyReceiver(
             method = "updateLines",
-            at = @At(value = "INVOKE", target = "Ljava/util/List;clear()V", ordinal = 1),
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ljava/util/List;clear()V",
+                    ordinal = 1
+            ),
             remap = false
     )
     private List<String> updateLines_clear(List<String> original) {
@@ -52,10 +62,15 @@ public class RenderHandler_Mixin {
             method = "onExtractGuiOverlayPost",
             //?} else if > 1.21.1 {
             /*method = "onRenderGameOverlayPostAdvanced",
-            *///?} else {
+            */
+//?} else {
             /*method = "onRenderGameOverlayPost",
-            *///?}
-            at = @At(value = "INVOKE", target = "Lfi/dy/masa/minihud/event/RenderHandler;updateLines()V"),
+            */
+//?}
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lfi/dy/masa/minihud/event/RenderHandler;updateLines()V"
+            ),
             remap = false
     )
     private void onRenderGameOverlayPostAdvanced(RenderHandler instance, Operation<Void> original) {
@@ -76,14 +91,16 @@ public class RenderHandler_Mixin {
 
     @Unique
     private void asa$mountHudInfo() {
-        if (! Configs.MOUNT_LOGGERS_ON_MINIHUD.getBooleanValue()) return;
+        if (! Configs.MOUNT_LOGGERS_ON_MINIHUD.getBooleanValue())
+            return;
 
         LocalPlayer player = MCUtils.getLocalPlayer();
         List<String> list = Configs.MINI_HUD_FPS_OPT.getBooleanValue() ? asa$list : lines;
 
         if (player != null && player.connection instanceof IClientPacketListener listener) {
             List<String> tabList = listener.asa$TabList();
-            if (tabList == null) return;
+            if (tabList == null)
+                return;
 
             for (String line : tabList) {
                 if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getBooleanValue()) {

@@ -9,7 +9,8 @@ public class ChatUtils {
     private static final Minecraft client = Minecraft.getInstance();
 
     public static void clientMess(Component chat) {
-        if (client.player == null) return;
+        if (client.player == null)
+            return;
         //? if >= 26.1 {
         client.player.sendSystemMessage(chat);
         //?} else {
@@ -30,7 +31,8 @@ public class ChatUtils {
     }
 
     public static void actionBar(Component chat) {
-        if (client.player == null) return;
+        if (client.player == null)
+            return;
         //? if >= 26.1 {
         client.player.sendOverlayMessage(chat);
         //?} else {

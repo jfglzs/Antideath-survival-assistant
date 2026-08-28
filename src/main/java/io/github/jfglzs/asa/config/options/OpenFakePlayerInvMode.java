@@ -3,8 +3,7 @@ package io.github.jfglzs.asa.config.options;
 import fi.dy.masa.malilib.config.IConfigOptionListEntry;
 
 public enum OpenFakePlayerInvMode implements IConfigOptionListEntry {
-    COMMAND("指令交互"),
-    INTERACTION("右键交互");
+    COMMAND("指令交互"), INTERACTION("右键交互");
 
     private final String name;
 

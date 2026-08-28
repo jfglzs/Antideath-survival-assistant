@@ -16,13 +16,15 @@ public class ShulkerUtils {
     }
 
     public static boolean findBoxToOpen(ItemStack stack) {
-        if (stack == null || stack.isEmpty()) return false;
+        if (stack == null || stack.isEmpty())
+            return false;
 
         List<Integer> boxes = PlayerUtils.getAllBoxIndexes(9, 36);
 
         for (int index : boxes) {
             ItemStack boxStack = PlayerUtils.getInventory().get(index);
-            if (PlayerUtils.isBoxEmpty(boxStack)) continue;
+            if (PlayerUtils.isBoxEmpty(boxStack))
+                continue;
             for (ItemStack boxItemStack : PlayerUtils.getBoxItemStacks(boxStack)) {
                 if (InventoryUtils.areStacksEqualIgnoreDurability(stack, boxItemStack)) {
                     ShulkerUtils.open(index);

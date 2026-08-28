@@ -32,7 +32,10 @@ public class CuboidItemModelWrapper_Mixin {
 
     @WrapOperation(
             method = "update",
-            at = @At(value = "INVOKE", target = "Ljava/util/List;addAll(Ljava/util/Collection;)Z")
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ljava/util/List;addAll(Ljava/util/Collection;)Z"
+            )
     )
     private boolean addAll(List instance, Collection<Object> es, Operation<Boolean> original) {
         return ! Configs.OPT_ITEM_MODEL.getBooleanValue() && original.call(instance, es);
@@ -40,7 +43,10 @@ public class CuboidItemModelWrapper_Mixin {
 
     @Inject(
             method = "update",
-            at = @At(value = "INVOKE", target = "Ljava/util/List;addAll(Ljava/util/Collection;)Z")
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ljava/util/List;addAll(Ljava/util/Collection;)Z"
+            )
     )
     private void addAll(CallbackInfo ci, @Local ItemStackRenderState.LayerRenderState state) {
         if (Configs.OPT_ITEM_MODEL.getBooleanValue()) {

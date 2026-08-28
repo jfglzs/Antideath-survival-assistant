@@ -19,12 +19,14 @@ public class UseSignRunCommand {
 
     public static void init() {
         SendPacketEvent.INSTANCE.register(packet -> {
-            if (! LIMITER.tryAcquire() || ! Configs.USE_SIGN_RUN_COMMAND.getBooleanValue()) return packet;
+            if (! LIMITER.tryAcquire() || ! Configs.USE_SIGN_RUN_COMMAND.getBooleanValue())
+                return packet;
 
             if (packet instanceof ServerboundUseItemOnPacket itemPacket) {
                 BlockHitResult hitResult = itemPacket.getHitResult();
                 LocalPlayer player = MCUtils.getLocalPlayer();
-                if (! player.isShiftKeyDown()) return packet;
+                if (! player.isShiftKeyDown())
+                    return packet;
                 BlockPos pos = hitResult.getBlockPos();
                 ClientLevel level = MCUtils.getLevel();
                 BlockEntity entity = level.getBlockEntity(pos);
@@ -32,7 +34,8 @@ public class UseSignRunCommand {
                     Component[] messages = sign.getFrontText().getMessages(false);
                     for (Component component : messages) {
                         String command = component.getString();
-                        if (! command.startsWith("/")) continue;
+                        if (! command.startsWith("/"))
+                            continue;
                         MCUtils.executeCommand(command);
                     }
                     return ASAFakePacket.INSTANCE;

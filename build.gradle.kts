@@ -105,7 +105,6 @@ loomExtension.runConfigs.configureEach {
 }
 loomExtension.runs {
     val auditVmArg = "-DmixinAuditor.audit=true"
-    loomExtension.accessWidenerPath.set(file("asa.accesswidener"))
     register("clientMixinAudit") {
         client()
         vmArgs.add(auditVmArg)
@@ -132,10 +131,6 @@ dependencies {
         val mcVersion = if (minecraftVersion == "1.21.1") "1.21" else minecraftVersion
         val version = getProperty("${name}_version")
         return "fi.dy.masa.${name}:${name}-fabric-${mcVersion}:${version}"
-    }
-
-    fun autoCompileOnly(files: ConfigurableFileCollection) {
-        if (unobfuscated) "compileOnly"(files) else "modCompileOnly"(files)
     }
 
     "minecraft"("com.mojang:minecraft:${minecraftVersion}")

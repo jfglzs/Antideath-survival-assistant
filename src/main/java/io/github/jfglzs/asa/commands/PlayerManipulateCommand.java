@@ -17,27 +17,24 @@ import java.util.concurrent.CompletableFuture;
 
 public class PlayerManipulateCommand {
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
-        var command = CommandUtils.literal("pm")
-                .requires(source -> Configs.PLAYER_MANIPULATE_COMMAND.getBooleanValue())
-                .then(CommandUtils.argument("prefix", StringArgumentType.word())
-                        .suggests(PlayerManipulateCommand::getPrefixSuggestions)
-                        .then(makeCommand(true))
-                     )
-                .then(makeCommand(false));
+        var command = CommandUtils.literal("pm").requires(source -> Configs.PLAYER_MANIPULATE_COMMAND.getBooleanValue())
+                                  .then(CommandUtils.argument("prefix", StringArgumentType.word())
+                                                    .suggests(PlayerManipulateCommand::getPrefixSuggestions)
+                                                    .then(makeCommand(true))).then(makeCommand(false));
         dispatcher.register(command);
     }
 
     private static ArgumentBuilder<FabricClientCommandSource, ?> makeCommand(boolean enablePrefix) {
         return CommandUtils.argument("start", IntegerArgumentType.integer(1))
-                .then(CommandUtils.argument("end", IntegerArgumentType.integer(1, 1000))
-                        .then(CommandUtils.argument("action", StringArgumentType.greedyString())
-                                .suggests(PlayerManipulateCommand::getActionSuggestions)
-                                .executes(source -> process(source, enablePrefix)))
-                     );
+                           .then(CommandUtils.argument("end", IntegerArgumentType.integer(1, 1000))
+                                             .then(CommandUtils.argument("action", StringArgumentType.greedyString())
+                                                               .suggests(PlayerManipulateCommand::getActionSuggestions)
+                                                               .executes(source -> process(source, enablePrefix))));
     }
 
     private static int process(CommandContext<FabricClientCommandSource> source, boolean enablePrefix) {
-        var prefix = enablePrefix ? StringArgumentType.getString(source, "prefix") : Configs.PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX.getStringValue();
+        var prefix = enablePrefix ? StringArgumentType.getString(
+                source, "prefix") : Configs.PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX.getStringValue();
         var start = IntegerArgumentType.getInteger(source, "start");
         var end = IntegerArgumentType.getInteger(source, "end");
         var action = StringArgumentType.getString(source, "action");
@@ -51,7 +48,8 @@ public class PlayerManipulateCommand {
                 Thread.sleep(Configs.PLAYER_MANIPULATE_COMMAND_WAIT_TIME.getIntegerValue());
                 var playerName = prefix == null ? i : prefix + i;
                 ChatUtils.actionBar(ProgressBar.getProgress((double) i / (end - start)));
-                ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s %s".formatted(playerName, action)));
+                ThreadUtils.runOnClientThread(
+                        () -> MCUtils.executeCommand("player %s %s".formatted(playerName, action)));
             }
             catch (Exception e) {
                 AsaMod.LOGGER.error("cant execute player action: {}", action, e);
@@ -60,12 +58,14 @@ public class PlayerManipulateCommand {
         }
     }
 
-    private static CompletableFuture<Suggestions> getPrefixSuggestions(CommandContext<FabricClientCommandSource> sp, SuggestionsBuilder c) {
+    private static CompletableFuture<Suggestions> getPrefixSuggestions(CommandContext<FabricClientCommandSource> sp,
+                                                                       SuggestionsBuilder c) {
         c.suggest("bot_");
         return c.buildFuture();
     }
 
-    private static CompletableFuture<Suggestions> getActionSuggestions(CommandContext<FabricClientCommandSource> sp, SuggestionsBuilder c) {
+    private static CompletableFuture<Suggestions> getActionSuggestions(CommandContext<FabricClientCommandSource> sp,
+                                                                       SuggestionsBuilder c) {
         c.suggest("spawn");
         c.suggest("kill");
         c.suggest("use");

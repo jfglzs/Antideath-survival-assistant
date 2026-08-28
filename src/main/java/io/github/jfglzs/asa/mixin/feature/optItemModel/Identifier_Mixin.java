@@ -17,12 +17,9 @@ import org.spongepowered.asm.mixin.Mixin;
 //~}
 public class Identifier_Mixin implements IdentifierAccessor {
     //? if >= 1.21.4 {
-    @Unique
-    private ClientItem.Properties asa$properties;
-    @Unique
-    private ItemModel asa$itemModel;
-    @Unique
-    private int asa$version = 0;
+    @Unique private ClientItem.Properties asa$properties;
+    @Unique private ItemModel asa$itemModel;
+    @Unique private int asa$version = 0;
 
     @Override
     public void asa$setItemProperties(ClientItem.Properties properties) {

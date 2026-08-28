@@ -12,6 +12,7 @@
     "feature.disablePlayerTabOverlayBackGround.PlayerTabOverlay_Mixin",
     "feature.disableProfiler.Profiler_Mixin",
     "feature.disableScoreBoardBackGround.Gui_Mixin",
+    "feature.optDirection.Direction_Mixin",
     "feature.optItemFrame.ItemFrame_Mixin",
     "feature.optItemModel.Identifier_Mixin",
     "feature.optItemModel.ItemStack_Mixin",

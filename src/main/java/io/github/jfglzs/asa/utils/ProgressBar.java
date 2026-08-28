@@ -14,7 +14,8 @@ public class ProgressBar {
 
         StringBuilder builder = new StringBuilder(length + 8);
 
-        if (progressText != null) builder.append(progressText);
+        if (progressText != null)
+            builder.append(progressText);
 
         builder.repeat("█", Math.max(0, filled));
         builder.repeat("-", Math.max(0, length - filled));

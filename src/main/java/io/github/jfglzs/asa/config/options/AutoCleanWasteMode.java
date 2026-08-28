@@ -3,8 +3,7 @@ package io.github.jfglzs.asa.config.options;
 import fi.dy.masa.malilib.config.IConfigOptionListEntry;
 
 public enum AutoCleanWasteMode implements IConfigOptionListEntry {
-    DROP("丢出物品"),
-    MOVE_TO_CONTAINER("转移至容器");
+    DROP("丢出物品"), MOVE_TO_CONTAINER("转移至容器");
 
     private final String name;
 

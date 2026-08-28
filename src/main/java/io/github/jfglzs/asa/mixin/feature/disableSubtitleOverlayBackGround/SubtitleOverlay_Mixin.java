@@ -15,9 +15,13 @@ public class SubtitleOverlay_Mixin {
     @WrapOperation(
             method = "extractRenderState",
             //~}
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;fill(IIIII)V")
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;fill(IIIII)V"
+            )
     )
-    private void extractRenderStateWrap(GuiGraphicsExtractor instance, int x0, int y0, int x1, int y1, int col, Operation<Void> original) {
+    private void extractRenderStateWrap(GuiGraphicsExtractor instance, int x0, int y0, int x1, int y1, int col,
+                                        Operation<Void> original) {
         if (! Configs.DISABLE_SUBTITLE_OVERLAY_BACKGROUND.getBooleanValue())
             original.call(instance, x0, y0, x1, y1, col);
     }

@@ -39,7 +39,8 @@ public class AutoVaultExecutor {
         return false;
     }
 
-    public static void set(String prefix, int start, int end, float blockX, float blockY, float blockZ, float direction, float in) {
+    public static void set(String prefix, int start, int end, float blockX, float blockY, float blockZ, float direction,
+                           float in) {
         AutoVaultExecutor.direction = direction;
         AutoVaultExecutor.prefix = prefix;
         AutoVaultExecutor.current = start;
@@ -70,12 +71,15 @@ public class AutoVaultExecutor {
     }
 
     public static void tick() {
-        if (! Configs.AUTO_VAULT_COMMAND.getBooleanValue() || ! isRunning) return;
+        if (! Configs.AUTO_VAULT_COMMAND.getBooleanValue() || ! isRunning)
+            return;
 
         ClientLevel level = MCUtils.getLevel();
-        if (level == null) return;
+        if (level == null)
+            return;
         BlockState state = level.getBlockState(vaultPos);
-        if (vaultPos == null || state.getBlock() != Blocks.VAULT || ! LIMITER.tryAcquire()) return;
+        if (vaultPos == null || state.getBlock() != Blocks.VAULT || ! LIMITER.tryAcquire())
+            return;
         VaultState vaultState = state.getValue(VaultBlock.STATE);
 
         if (executorState == ExecutorState.IDLE && canUseVault(vaultState)) {
@@ -99,8 +103,6 @@ public class AutoVaultExecutor {
     }
 
     private enum ExecutorState {
-        IDLE(),
-        SPAWNING(),
-        ON_ACTION(),
+        IDLE(), SPAWNING(), ON_ACTION(),
     }
 }

@@ -9,10 +9,8 @@ import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
 public class DisablePacketKick {
     public static void init() {
         SendPacketEvent.INSTANCE.register(packet -> {
-            if (packet instanceof ServerboundCustomPayloadPacket
-                    && Configs.DISABLE_PACKET_KICK_PREVENT_CUSTOM_PAYLOAD.getBooleanValue()
-                    && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT
-            ) {
+            if (packet instanceof ServerboundCustomPayloadPacket && Configs.DISABLE_PACKET_KICK_PREVENT_CUSTOM_PAYLOAD.getBooleanValue() && FabricLoader
+                    .getInstance().getEnvironmentType() == EnvType.CLIENT) {
                 return ASAFakePacket.INSTANCE;
             }
             return packet;

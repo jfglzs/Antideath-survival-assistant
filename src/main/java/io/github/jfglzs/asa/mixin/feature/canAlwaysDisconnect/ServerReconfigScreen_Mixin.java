@@ -11,14 +11,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerReconfigScreen.class)
 public class ServerReconfigScreen_Mixin {
-    @Shadow
-    private Button disconnectButton;
+    @Shadow private Button disconnectButton;
 
     @Inject(
             method = "tick",
             at = @At("HEAD")
     )
     private void tick(CallbackInfo ci) {
-        if (Configs.CAN_ALWAYS_DISCONNECT.getBooleanValue()) disconnectButton.active = true;
+        if (Configs.CAN_ALWAYS_DISCONNECT.getBooleanValue())
+            disconnectButton.active = true;
     }
 }

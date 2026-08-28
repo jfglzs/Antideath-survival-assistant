@@ -36,7 +36,10 @@ public class LayerRenderState_Mixin implements LayerRenderStateAccessor {
 
     @WrapOperation(
             method = "clear",
-            at = @At(value = "INVOKE", target = "Ljava/util/List;clear()V")
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ljava/util/List;clear()V"
+            )
     )
     public void clear(List<BakedQuad> instance, Operation<Void> original) {
         if (Configs.OPT_ITEM_MODEL.getBooleanValue()) {

@@ -20,11 +20,7 @@ import java.util.stream.IntStream;
 
 public class PlayerUtils {
     public static int getInventoryItemCount(Item item) {
-        return getInventory()
-                .stream()
-                .filter(stack -> stack.is(item))
-                .mapToInt(ItemStack::getCount)
-                .sum();
+        return getInventory().stream().filter(stack -> stack.is(item)).mapToInt(ItemStack::getCount).sum();
     }
 
     public static List<ItemStack> getInventory() {
@@ -85,17 +81,12 @@ public class PlayerUtils {
 
     public static int checkRemainCount(Item item) {
         LocalPlayer localPlayer = MCUtils.getLocalPlayer();
-        if (localPlayer == null) return 0;
-        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(0, 36))
-                .stream()
-                .flatMap(i -> getBoxItemStacks(localPlayer
-                                .getInventory()
-                                .getItem(i))
-                                .stream()
-                        )
-                .filter(j -> j.getItem().equals(item))
-                .mapToInt(ItemStack::getCount)
-                .sum();
+        if (localPlayer == null)
+            return 0;
+        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(0, 36)).stream().flatMap(
+                                                                                i -> getBoxItemStacks(localPlayer.getInventory().getItem(i)).stream())
+                                                                        .filter(j -> j.getItem().equals(item))
+                                                                        .mapToInt(ItemStack::getCount).sum();
         return storedCount + getInventoryItemCount(item);
     }
 
@@ -128,8 +119,9 @@ public class PlayerUtils {
     }
 
     //~ if >= 26.1 'ClickType' -> 'ContainerInput' {
-    public static void clickSlot(final int containerId, final int slotNum, final int buttonNum, final net.minecraft.world.inventory.ContainerInput input, final Player player) {
-    //~}
+    public static void clickSlot(final int containerId, final int slotNum, final int buttonNum,
+                                 final net.minecraft.world.inventory.ContainerInput input, final Player player) {
+        //~}
         Minecraft mc = MCUtils.getMinecraft();
         //? if >= 26.1 {
         mc.gameMode.handleContainerInput(containerId, slotNum, buttonNum, input, player);

@@ -3,8 +3,7 @@ package io.github.jfglzs.asa.config.options;
 import fi.dy.masa.malilib.config.IConfigOptionListEntry;
 
 public enum LowHealthSendMode implements IConfigOptionListEntry {
-    SEND_CHAT_MESSAGE("发送聊天消息"),
-    SEND_COMMAND("发送命令");
+    SEND_CHAT_MESSAGE("发送聊天消息"), SEND_COMMAND("发送命令");
 
     private final String name;
 

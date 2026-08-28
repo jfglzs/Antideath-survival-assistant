@@ -37,14 +37,16 @@ public class BoxSplitter {
     }
 
     public static void run() {
-        if (! isRunning || itemToSplit.isEmpty()) return;
+        if (! isRunning || itemToSplit.isEmpty())
+            return;
 
         Screen screen = MCUtils.getScreen();
         if (screen instanceof ShulkerBoxScreen boxScreen) {
             var menu = boxScreen.getMenu();
             for (Slot slot : menu.slots) {
                 ItemStack item = slot.getItem();
-                if (item.isEmpty() || slot.container instanceof Inventory) continue;
+                if (item.isEmpty() || slot.container instanceof Inventory)
+                    continue;
                 if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(itemToSplit, item)) {
                     InventoryUtils.dropStack(boxScreen, slot.index);
                 }

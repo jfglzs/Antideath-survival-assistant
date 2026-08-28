@@ -25,7 +25,8 @@ public class BoxRestockMannager {
     }
 
     public static void process() {
-        if (! Configs.AUTO_BOX_RESTROKE.getBooleanValue() || context == null || ! PlayerUtils.isSurvivalMode()) return;
+        if (! Configs.AUTO_BOX_RESTROKE.getBooleanValue() || context == null || ! PlayerUtils.isSurvivalMode())
+            return;
 
         if (MCUtils.getScreen() instanceof ShulkerBoxScreen boxScreen) {
             var menu = boxScreen.getMenu();
@@ -36,10 +37,12 @@ public class BoxRestockMannager {
                     int slotIndex = slot.index;
                     int containerId = menu.containerId;
                     LocalPlayer player = MCUtils.getLocalPlayer();
-                    if (slotIndex >= 54 && slotIndex <= 62) continue;
+                    if (slotIndex >= 54 && slotIndex <= 62)
+                        continue;
 
                     //~ if >= 1.21.5 'selected' -> 'getSelectedSlot()' {
-                    int currentSlot = context.hand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() + 54 : 45;
+                    int currentSlot = context.hand == InteractionHand.MAIN_HAND ? player.getInventory()
+                                                                                        .getSelectedSlot() + 54 : 45;
                     //~}
 
                     if (currentSlot == 45) {

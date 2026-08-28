@@ -32,18 +32,21 @@ public class AutoWasteCleanProcessor {
             //兼容快捷盒子补货
             var screen = MCUtils.getScreen();
 
-            if (screen instanceof ShulkerBoxScreen && BoxRestockMannager.context != null) return;
+            if (screen instanceof ShulkerBoxScreen && BoxRestockMannager.context != null)
+                return;
 
             if (screen instanceof AbstractContainerScreen<?> container) {
                 var menu = container.getMenu();
                 var player = MCUtils.getMinecraft().player;
-                if (! PlayerUtils.isSurvivalMode(player)) return;
+                if (! PlayerUtils.isSurvivalMode(player))
+                    return;
                 String mode = Configs.AUTO_WASTE_CLEAN_MODE.getStringValue();
 
                 for (Slot slot : menu.slots) {
                     ItemStack stack = slot.getItem();
                     boolean isInv = slot.container instanceof Inventory;
-                    if (stack.isEmpty() || !shouldDrop(stack)) continue;
+                    if (stack.isEmpty() || ! shouldDrop(stack))
+                        continue;
 
                     if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
                         InventoryUtils.dropStack(container, slot.index);
@@ -75,8 +78,10 @@ public class AutoWasteCleanProcessor {
         }
 
         for (ItemStack boxStack : PlayerUtils.getBoxItemStacks(stack)) {
-            if (boxStack.isEmpty()) continue;
-            if (shouldDrop(boxStack)) return true;
+            if (boxStack.isEmpty())
+                continue;
+            if (shouldDrop(boxStack))
+                return true;
         }
 
         return true;
@@ -85,10 +90,12 @@ public class AutoWasteCleanProcessor {
     public static void saveItemToList() {
         Set<String> items = new HashSet<>();
         for (ItemStack stack : PlayerUtils.getInventory()) {
-            if (stack.isEmpty()) continue;
+            if (stack.isEmpty())
+                continue;
             if (PlayerUtils.isShulkerBox(stack)) {
                 for (ItemStack boxStack : PlayerUtils.getBoxItemStacks(stack)) {
-                    if (stack.isEmpty()) continue;
+                    if (stack.isEmpty())
+                        continue;
                     items.add(MCUtils.getItemID(boxStack.getItem()));
                 }
             }

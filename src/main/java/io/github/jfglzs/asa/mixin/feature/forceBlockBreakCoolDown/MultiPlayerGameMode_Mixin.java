@@ -13,8 +13,7 @@ import static fi.dy.masa.tweakeroo.config.Configs.Disable.DISABLE_BLOCK_BREAK_CO
 
 @Mixin(MultiPlayerGameMode.class)
 public class MultiPlayerGameMode_Mixin {
-    @Shadow
-    private int destroyDelay;
+    @Shadow private int destroyDelay;
 
     @Inject(
             //~ if >= 26.1 'method_41930' -> 'lambda$continueDestroyBlock$0' {

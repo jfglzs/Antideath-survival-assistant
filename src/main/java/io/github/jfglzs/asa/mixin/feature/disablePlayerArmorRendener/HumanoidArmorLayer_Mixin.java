@@ -18,11 +18,13 @@ public class HumanoidArmorLayer_Mixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void renderArmorPiece(CallbackInfo ci, @Local net.minecraft.client.renderer.entity.state.HumanoidRenderState state, @Local ItemStack stack) {
+    private void renderArmorPiece(CallbackInfo ci,
+                                  @Local net.minecraft.client.renderer.entity.state.HumanoidRenderState state,
+                                  @Local ItemStack stack) {
         //~ if >= 26.2 'EntityType' -> 'EntityTypes' {
         boolean bl = state.entityType == net.minecraft.world.entity.EntityType.PLAYER;
         //~}
-        if (Configs.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue() && bl && !stack.is(Items.ELYTRA)) {
+        if (Configs.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue() && bl && ! stack.is(Items.ELYTRA)) {
             ci.cancel();
         }
     }

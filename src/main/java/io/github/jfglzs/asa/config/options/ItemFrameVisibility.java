@@ -3,9 +3,7 @@ package io.github.jfglzs.asa.config.options;
 import fi.dy.masa.malilib.config.IConfigOptionListEntry;
 
 public enum ItemFrameVisibility implements IConfigOptionListEntry {
-    ALWAYS_VISIBLE("永远可见(低性能)"),
-    EMPTY_ONLY("无物品时可见(平衡)"),
-    ALWAYS_INVISIBLE("永不可见(高性能)");
+    ALWAYS_VISIBLE("永远可见(低性能)"), EMPTY_ONLY("无物品时可见(平衡)"), ALWAYS_INVISIBLE("永不可见(高性能)");
 
     private final String name;
 

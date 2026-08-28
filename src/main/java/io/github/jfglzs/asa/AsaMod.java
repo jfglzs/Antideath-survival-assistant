@@ -55,7 +55,8 @@ public class AsaMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
+        version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion()
+                              .getFriendlyString();
         LOGGER.info("AsaMod v{} is being loading...", version);
 
         this.init();
@@ -91,21 +92,30 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(i -> true, client -> BoxSplitter.tick());
         ClientTickEvent.register(i -> true, LowHealthSendCommandOrChat::tick);
         ClientTickEvent.register(i -> true, ItemStorageDataManager::scanMatchedPlayersAndInteract);
-        ClientTickEvent.register(i -> i % 10 == 0 && Configs.DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender::tick);
+        ClientTickEvent.register(
+                i -> i % 10 == 0 && Configs.DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender::tick);
         ClientTickEvent.register(i -> i % 20 == 0 && Configs.CREEPER_WARN.getBooleanValue(), CreeperCheckClient::tick);
-        ClientTickEvent.register(i -> i % 40 == 0 && Configs.ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue(), MaterialToDoRenderer::tick);
-        ClientTickEvent.register(i -> i % 20000 == 0 && Configs.LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client -> ItemStorageDataManager.reflushCache());
-        ClientTickEvent.register(i -> i % 200 == 0 && Configs.OPT_ITEM_FRAME.getBooleanValue(), client -> {
-            LocalPlayer player = MCUtils.getLocalPlayer();
-            if (player == null) return;
-            for (ItemStack stack : PlayerUtils.getInventory()) {
-                if (! stack.is(Items.FILLED_MAP)) return;
-                MapId mapId = stack.get(DataComponents.MAP_ID);
-                if (mapId != null) {
-                    ((ClientPacketListenerAccessor) player.connection).asa$getMaps().remove(mapId.id());
+        ClientTickEvent.register(
+                i -> i % 40 == 0 && Configs.ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue(), MaterialToDoRenderer::tick);
+        ClientTickEvent.register(
+                i -> i % 20000 == 0 && Configs.LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand(
+                        "getStorageData"), client -> ItemStorageDataManager.reflushCache()
+                                );
+        ClientTickEvent.register(
+                i -> i % 200 == 0 && Configs.OPT_ITEM_FRAME.getBooleanValue(), client -> {
+                    LocalPlayer player = MCUtils.getLocalPlayer();
+                    if (player == null)
+                        return;
+                    for (ItemStack stack : PlayerUtils.getInventory()) {
+                        if (! stack.is(Items.FILLED_MAP))
+                            return;
+                        MapId mapId = stack.get(DataComponents.MAP_ID);
+                        if (mapId != null) {
+                            ((ClientPacketListenerAccessor) player.connection).asa$getMaps().remove(mapId.id());
+                        }
+                    }
                 }
-            }
-        });
+                                );
     }
 
     private void registerCommands() {

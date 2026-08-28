@@ -16,7 +16,8 @@ public class ClientPacketListener_Mixin {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void onOpenSendConfirmationWindow(String command, String messageKey, Component acceptButton, Runnable onAccept, CallbackInfo ci) {
+    private void onOpenSendConfirmationWindow(String command, String messageKey, Component acceptButton,
+                                              Runnable onAccept, CallbackInfo ci) {
         if (Configs.CONFIRM_SCREEN_ALWAYS_YES.getBooleanValue()) {
             onAccept.run();
             ci.cancel();

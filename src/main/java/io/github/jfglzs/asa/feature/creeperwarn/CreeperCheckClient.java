@@ -19,12 +19,8 @@ public class CreeperCheckClient {
         var creepers = CreeperCheckClient.isCreeperNearby(mc);
         if (creepers != null && ! creepers.isEmpty()) {
             ChatUtils.clientMesswithSound(
-                    ChatUtils.c(
-                            "苦力怕来了，距离您 %.2f 米".formatted(creepers.getFirst().distanceTo(mc.player))
-                               ).copy().withStyle(ChatFormatting.RED),
-                    SoundEvents.TNT_PRIMED,
-                    1,
-                    1
+                    ChatUtils.c("苦力怕来了，距离您 %.2f 米".formatted(creepers.getFirst().distanceTo(mc.player))).copy()
+                             .withStyle(ChatFormatting.RED), SoundEvents.TNT_PRIMED, 1, 1
                                          );
         }
     }
@@ -33,8 +29,10 @@ public class CreeperCheckClient {
         LocalPlayer player = mc.player;
         Level world = mc.level;
 
-        if (world == null) return null;
-        if (! PlayerUtils.isSurvivalMode(player)) return null;
+        if (world == null)
+            return null;
+        if (! PlayerUtils.isSurvivalMode(player))
+            return null;
 
         double range = CREEPER_WARN_RANGE.getDoubleValue();
         AABB box = player.getBoundingBox().inflate(range);

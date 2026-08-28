@@ -47,12 +47,18 @@ public class ConfigsManager {
 
         ALL.add(obj);
         for (Tab tab : config.tab()) {
-            if (tab == Tab.LMS) LMS.add(obj);
-            if (tab == Tab.COMMAND) COMMANDS.add(obj);
-            if (tab == Tab.DISABLES) DISABLES.add(obj);
-            if (tab == Tab.FUNCTIONS) FUNCTIONS.add(obj);
-            if (tab == Tab.OPTIMIZATIONS) OPTIMIZATIONS.add(obj);
-            if (tab == Tab.LISTS) LISTS.add(obj);
+            if (tab == Tab.LMS)
+                LMS.add(obj);
+            if (tab == Tab.COMMAND)
+                COMMANDS.add(obj);
+            if (tab == Tab.DISABLES)
+                DISABLES.add(obj);
+            if (tab == Tab.FUNCTIONS)
+                FUNCTIONS.add(obj);
+            if (tab == Tab.OPTIMIZATIONS)
+                OPTIMIZATIONS.add(obj);
+            if (tab == Tab.LISTS)
+                LISTS.add(obj);
         }
 
         if (obj instanceof ConfigHotkey hotkey) {
@@ -90,7 +96,8 @@ public class ConfigsManager {
             case OPTIMIZATIONS -> ImmutableList.copyOf(OPTIMIZATIONS);
             case LISTS -> ImmutableList.copyOf(LISTS);
         };
-        if (list.isEmpty()) throw new IllegalStateException("Not initialized");
+        if (list.isEmpty())
+            throw new IllegalStateException("Not initialized");
         return list;
     }
 }

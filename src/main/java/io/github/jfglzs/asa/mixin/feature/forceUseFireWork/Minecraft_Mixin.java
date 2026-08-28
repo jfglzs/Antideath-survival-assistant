@@ -50,7 +50,8 @@ public class Minecraft_Mixin {
         if (PlayerUtils.getPlayerHandStack(InteractionHand.MAIN_HAND).is(Items.FIREWORK_ROCKET)) {
             hand = InteractionHand.MAIN_HAND;
         }
-        if (hand == null) return;
+        if (hand == null)
+            return;
         //? > 1.21.1 {
         if (gameMode.useItem(player, hand) instanceof InteractionResult.Success success) {
             if (success.swingSource() == InteractionResult.SwingSource.CLIENT) {

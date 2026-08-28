@@ -32,12 +32,12 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
     @Final
     protected T menu;
 
-    @Shadow
-    protected abstract void init();
-
     protected AbstractContainerScreen_Mixin(Component title) {
         super(title);
     }
+
+    @Shadow
+    protected abstract void init();
 
     @Inject(
             method = "onClose",
@@ -78,8 +78,11 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
         List<String> names = Configs.FAKE_PLAYER_INVENTORY_ITEM_CACHE_WHITE_LIST.getStrings();
         for (String name : names) {
             if (title.contains(name)) {
-                List<Slot> slots = this.menu.slots.stream().filter(slot -> ! (slot.container instanceof Inventory)).toList();
-                ItemStorageDataManager.addPlayerInventory(name, new ItemStorageDataManager.PlayerInventory(ImmutableList.copyOf(slots)));
+                List<Slot> slots = this.menu.slots.stream().filter(slot -> ! (slot.container instanceof Inventory))
+                                                  .toList();
+                ItemStorageDataManager.addPlayerInventory(name, new ItemStorageDataManager.PlayerInventory(
+                                                                  ImmutableList.copyOf(slots))
+                                                         );
                 ChatUtils.actionBar(ChatUtils.c("已缓存 %s 的物品栏".formatted(name)));
                 break;
             }

@@ -17,7 +17,8 @@ public class LowHealthSendCommandOrChat {
         Player player = client.player;
         if (Configs.LOW_HEALTH_EXECUTE_OR_SEND.getBooleanValue() && PlayerUtils.isSurvivalMode(player)) {
             if (player.getHealth() < Configs.LOW_HEALTH_VALUE.getFloatValue()) {
-                if (! LIMITER.tryAcquire()) return;
+                if (! LIMITER.tryAcquire())
+                    return;
                 String cmd = Configs.LOW_HEALTH_SEND_CONTENT_COMMAND.getStringValue();
                 String msg = Configs.LOW_HEALTH_SEND_CONTENT_MESSAGE.getStringValue();
                 if (CommandUtils.canUseCommand(cmd)) {

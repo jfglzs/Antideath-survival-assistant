@@ -35,13 +35,15 @@ public class WorldUtils_Mixin {
                     value = "INVOKE",
                     //? if < 1.21.11 {
                     /*target = "Lfi/dy/masa/litematica/materials/MaterialCache;getRequiredBuildItemForState(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/item/ItemStack;"
-                    *///?} else {
+                    */
+//?} else {
                     target = "Lfi/dy/masa/litematica/materials/MaterialCache;getRequiredBuildItemForState(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/item/ItemStack;"
                     //?}
                     )
     )
-        //? if > 1.21.10 {
-    private static ItemStack getRequiredBuildItemForState(MaterialCache instance, BlockState state, Level world, BlockPos pos, Operation<ItemStack> original) {
+            //? if > 1.21.10 {
+    private static ItemStack getRequiredBuildItemForState(MaterialCache instance, BlockState state, Level world,
+                                                          BlockPos pos, Operation<ItemStack> original) {
         //?} else {
         /*private static ItemStack getRequiredBuildItemForState(MaterialCache instance, BlockState state, Operation<ItemStack> original) {
          *///?}
@@ -68,21 +70,17 @@ public class WorldUtils_Mixin {
                     target = "Lfi/dy/masa/litematica/schematic/pickblock/SchematicPickBlockEventHandler;onSchematicPickBlockPrePick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/item/ItemStack;)Z"
             )
     )
-    private static void doSchematicWorldPickBlock_Inject(
-            boolean closest,
-            Minecraft mc,
-            CallbackInfoReturnable<Boolean> cir,
-            @Local ItemStack stack,
-            @Local BlockPos pos
-                                                        ) {
-        if (
-                PlayerUtils.checkRemainCount(stack.getItem()) == 0 &&
-                        PlayerUtils.isSurvivalMode(mc.player) &&
-                        mc.level.getBlockState(pos).getBlock() == Blocks.AIR
-        ) {
+    private static void doSchematicWorldPickBlock_Inject(boolean closest, Minecraft mc,
+                                                         CallbackInfoReturnable<Boolean> cir, @Local ItemStack stack,
+                                                         @Local BlockPos pos) {
+        if (PlayerUtils.checkRemainCount(stack.getItem()) == 0 && PlayerUtils.isSurvivalMode(mc.player) && mc.level
+                .getBlockState(pos).getBlock() == Blocks.AIR) {
             if (Configs.MID_CLICK_TAKE_ITEM.getBooleanValue()) {
                 AsaMod.debugMessage(() -> "Submitted %s %d to ItemStorageDataManager");
-                ItemStorageDataManager.submit(stack.getItem(), mc.player.isShiftKeyDown() ? stack.getMaxStackSize() * 27 : stack.getMaxStackSize());
+                ItemStorageDataManager.submit(
+                        stack.getItem(),
+                        mc.player.isShiftKeyDown() ? stack.getMaxStackSize() * 27 : stack.getMaxStackSize()
+                                             );
             }
             else {
                 AsaMod.debugMessage(() -> "addItem %s to MaterialToDoRenderer");

@@ -15,8 +15,7 @@ import java.util.List;
 
 @Mixin(ClientPacketListener.class)
 public class ClientPacketListener_Mixin implements IClientPacketListener {
-    @Unique
-    private List<String> asa$TabList;
+    @Unique private List<String> asa$TabList;
 
     @Inject(
             method = "handleTabListCustomisation",

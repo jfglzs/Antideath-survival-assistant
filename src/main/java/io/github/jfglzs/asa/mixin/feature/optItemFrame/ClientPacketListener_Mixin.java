@@ -22,8 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPacketListener.class)
 public class ClientPacketListener_Mixin implements ClientPacketListenerAccessor {
-    @Unique
-    private final Int2IntArrayMap ASA$MAPS = new Int2IntArrayMap();
+    @Unique private final Int2IntArrayMap ASA$MAPS = new Int2IntArrayMap();
 
     @Inject(
             method = "handleRespawn",
@@ -42,11 +41,8 @@ public class ClientPacketListener_Mixin implements ClientPacketListenerAccessor 
             ),
             cancellable = true
     )
-    public void handleMapItemData(ClientboundMapItemDataPacket packet,
-                                  CallbackInfo ci,
-                                  @Local MapId id,
-                                  @Local MapItemSavedData savedData
-                                 ) {
+    public void handleMapItemData(ClientboundMapItemDataPacket packet, CallbackInfo ci, @Local MapId id,
+                                  @Local MapItemSavedData savedData) {
         if (Configs.OPT_ITEM_FRAME.getBooleanValue()) {
             int saveDataHash = savedData.hashCode();
             int intID = id.id();

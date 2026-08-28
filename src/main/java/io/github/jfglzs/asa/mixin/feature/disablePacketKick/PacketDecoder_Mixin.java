@@ -15,7 +15,10 @@ import java.util.List;
 public class PacketDecoder_Mixin {
     @Inject(
             method = "decode",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/Packet;type()Lnet/minecraft/network/protocol/PacketType;"),
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/network/protocol/Packet;type()Lnet/minecraft/network/protocol/PacketType;"
+            ),
             cancellable = true
     )
     protected void decode(ChannelHandlerContext ctx, ByteBuf input, List<Object> out, CallbackInfo ci) {

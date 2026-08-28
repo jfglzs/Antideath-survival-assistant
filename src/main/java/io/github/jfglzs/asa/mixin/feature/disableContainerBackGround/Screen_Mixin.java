@@ -18,7 +18,8 @@ public class Screen_Mixin {
     )
     private void extractTransparentBackground(CallbackInfo ci) {
         //~}
-        if (Configs.DISABLE_CONTAINER_BACKGROUND.getBooleanValue()) ci.cancel();
+        if (Configs.DISABLE_CONTAINER_BACKGROUND.getBooleanValue())
+            ci.cancel();
     }
     //?}
 }

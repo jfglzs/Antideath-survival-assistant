@@ -23,8 +23,7 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(ModelManager.class)
 public class ModelManager_Mixin {
     //? if >= 1.21.4 {
-    @Unique
-    private int asa$currentVersion = 1;
+    @Unique private int asa$currentVersion = 1;
 
     @WrapMethod(
             method = "getItemProperties"
