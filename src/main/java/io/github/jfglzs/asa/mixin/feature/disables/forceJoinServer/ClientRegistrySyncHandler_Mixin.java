@@ -33,7 +33,7 @@ public class ClientRegistrySyncHandler_Mixin {
             cancellable = true
     )
     private void lambda$registerSyncPacketReceiver$1(ClientConfigurationNetworking.Context context, Boolean complete, Throwable throwable, CallbackInfo ci) {
-        if (Configs.FORCE_JOIN_SERVER_IGNORE_UNKNOWN_PACKET.getBooleanValue()) {
+        if (Configs.Disables.FORCE_JOIN_SERVER_IGNORE_UNKNOWN_PACKET.getBooleanValue()) {
             context.responseSender().sendPacket(SyncCompletePayload.INSTANCE);
             ci.cancel();
         }

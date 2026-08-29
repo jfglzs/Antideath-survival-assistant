@@ -5,11 +5,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.jfglzs.asa.config.Configs;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
-//? if >= 1.21.4 {
-import org.joml.Quaternionfc;
-//?} else {
-/*import org.joml.Quaternionf;
- *///?}
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -21,13 +16,13 @@ public class ItemEntityRenderer_Mixin {
             //?} else if = 1.21.1 {
             /*method = "render(Lnet/minecraft/world/entity/item/ItemEntity;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
             */
-//?} else if < 1.21.10 {
+            //?} else if < 1.21.10 {
             /*method = "render(Lnet/minecraft/client/renderer/entity/state/ItemEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
             */
-//?} else {
+            //?} else {
             /*method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
             */
-//?}
+            //?}
 
             //? if >= 26.1 {
             at = @At(
@@ -37,18 +32,17 @@ public class ItemEntityRenderer_Mixin {
             //?} else if <= 1.21.4 {
             /*at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionf;)V")
             */
-//?} else {
+            //?} else {
             /*at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V")
             */
-//?}
-
+            //?}
             )
             //? if >= 26.1 {
-    public void submit(PoseStack instance, Quaternionfc q, Operation<Void> original) {
+    public void submit(PoseStack instance, org.joml.Quaternionfc q, Operation<Void> original) {
         //?} else if <= 1.21.4 {
-        /*public void submit(PoseStack instance, Quaternionf q, Operation<Void> original) {
+        /*public void submit(PoseStack instance, org.joml.Quaternionf q, Operation<Void> original) {
          *///?} else  {
-        /*public void submit(PoseStack instance, Quaternionfc q, Operation<Void> original) {
+        /*public void submit(PoseStack instance, org.joml.Quaternionfc q, Operation<Void> original) {
          *///?}
         if (! Configs.Disables.DISABLE_ITEM_ENTITY_MULPOSE.getBooleanValue())
             original.call(instance, q);

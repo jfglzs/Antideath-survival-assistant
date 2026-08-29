@@ -19,7 +19,7 @@ package io.github.jfglzs.asa.mixin.feature.disables.disableContainerBackGround;
 //            )
 //    )
 //    public void renderBackground(AbstractContainerScreen instance, GuiGraphics guiGraphics, Operation<Void> original) {
-//        if (!Configs.DISABLE_CONTAINER_BACKGROUND.getBooleanValue()) original.call(instance, guiGraphics);
+//        if (!Configs.Disables.DISABLE_CONTAINER_BACKGROUND.getBooleanValue()) original.call(instance, guiGraphics);
 //    }
 //
 //}

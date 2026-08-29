@@ -35,7 +35,7 @@ public class HumanoidArmorLayer_Mixin {
     //            cancellable = true
     //    )
     //    private void render(CallbackInfo ci, @Local net.minecraft.client.renderer.entity.state.HumanoidRenderState state) {
-    //        if (state instanceof net.minecraft.client.renderer.entity.state.PlayerRenderState && Configs.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
+    //        if (state instanceof net.minecraft.client.renderer.entity.state.PlayerRenderState && Configs.Disables.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
     //            ci.cancel();
     //        }
     //    }
@@ -46,7 +46,7 @@ public class HumanoidArmorLayer_Mixin {
     //            cancellable = true
     //    )
     //    private void renderArmorInject(CallbackInfo ci, @Local net.minecraft.world.entity.LivingEntity entity, @Local net.minecraft.world.entity.EquipmentSlot slot) {
-    //        if(entity instanceof net.minecraft.world.entity.player.Player p && Configs.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
+    //        if(entity instanceof net.minecraft.world.entity.player.Player p && Configs.Disables.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
     //            if (slot == net.minecraft.world.entity.EquipmentSlot.CHEST && p.getInventory().getItem(38).is(Items.ELYTRA)) {
     //                return;
     //            }
