@@ -28,7 +28,7 @@ public class AutoWasteCleanProcessor {
      * ChestMenu(箱子末影箱)
      */
     public static void process() {
-        if (Configs.ENABLE_AUTO_WASTE_CLEAN.getBooleanValue()) {
+        if (Configs.Functions.ENABLE_AUTO_WASTE_CLEAN.getBooleanValue()) {
             //兼容快捷盒子补货
             var screen = MCUtils.getScreen();
 
@@ -40,7 +40,7 @@ public class AutoWasteCleanProcessor {
                 var player = MCUtils.getMinecraft().player;
                 if (! PlayerUtils.isSurvivalMode(player))
                     return;
-                String mode = Configs.AUTO_WASTE_CLEAN_MODE.getStringValue();
+                String mode = Configs.Functions.AUTO_WASTE_CLEAN_MODE.getStringValue();
 
                 for (Slot slot : menu.slots) {
                     ItemStack stack = slot.getItem();
@@ -69,10 +69,10 @@ public class AutoWasteCleanProcessor {
         String id = MCUtils.getItemID(stack.getItem());
 
         if (! PlayerUtils.isShulkerBox(stack)) {
-            if (Configs.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue())
-                return ! Configs.isInList(id, Configs.AUTO_WASTE_CLEAN_BLACKLIST);
-            else if (Configs.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue())
-                return Configs.isInList(id, Configs.AUTO_WASTE_CLEAN_WHITELIST);
+            if (Configs.Functions.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue())
+                return ! Configs.isInList(id, Configs.Lists.AUTO_WASTE_CLEAN_BLACKLIST);
+            else if (Configs.Functions.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue())
+                return Configs.isInList(id, Configs.Lists.AUTO_WASTE_CLEAN_WHITELIST);
 
             return true;
         }
@@ -106,12 +106,12 @@ public class AutoWasteCleanProcessor {
 
         List<String> strings = items.stream().toList();
 
-        if (Configs.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue()) {
-            Configs.AUTO_WASTE_CLEAN_BLACKLIST.setStrings(strings);
+        if (Configs.Functions.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue()) {
+            Configs.Lists.AUTO_WASTE_CLEAN_BLACKLIST.setStrings(strings);
             ChatUtils.actionBar(ChatUtils.c("成功将玩家物品栏保存至黑名单"));
         }
-        else if (Configs.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue()) {
-            Configs.AUTO_WASTE_CLEAN_WHITELIST.setStrings(strings);
+        else if (Configs.Functions.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue()) {
+            Configs.Lists.AUTO_WASTE_CLEAN_WHITELIST.setStrings(strings);
             ChatUtils.actionBar(ChatUtils.c("成功将玩家物品栏保存至白名单"));
         }
 

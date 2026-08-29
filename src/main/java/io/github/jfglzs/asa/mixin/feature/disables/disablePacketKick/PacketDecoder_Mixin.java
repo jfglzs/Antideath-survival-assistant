@@ -22,7 +22,7 @@ public class PacketDecoder_Mixin {
             cancellable = true
     )
     protected void decode(ChannelHandlerContext ctx, ByteBuf input, List<Object> out, CallbackInfo ci) {
-        if (Configs.DISABLE_PACKET_KICK.getBooleanValue()) {
+        if (Configs.Disables.DISABLE_PACKET_KICK.getBooleanValue()) {
             int readableBytes = input.readableBytes();
             if (readableBytes > 0) {
                 input.skipBytes(readableBytes);

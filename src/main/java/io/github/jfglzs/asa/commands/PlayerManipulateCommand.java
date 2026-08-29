@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class PlayerManipulateCommand {
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
-        var command = CommandUtils.literal("pm").requires(source -> Configs.PLAYER_MANIPULATE_COMMAND.getBooleanValue())
+        var command = CommandUtils.literal("pm").requires(source -> Configs.Commands.PLAYER_MANIPULATE_COMMAND.getBooleanValue())
                                   .then(CommandUtils.argument("prefix", StringArgumentType.word())
                                                     .suggests(PlayerManipulateCommand::getPrefixSuggestions)
                                                     .then(makeCommand(true))).then(makeCommand(false));
@@ -33,7 +33,7 @@ public class PlayerManipulateCommand {
     }
 
     private static int process(CommandContext<FabricClientCommandSource> source, boolean enablePrefix) {
-        var prefix = enablePrefix ? StringArgumentType.getString(source, "prefix") : Configs.PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX.getStringValue();
+        var prefix = enablePrefix ? StringArgumentType.getString(source, "prefix") : Configs.Commands.PLAYER_MANIPULATE_COMMAND_DEFAULT_PREFIX.getStringValue();
         var start = IntegerArgumentType.getInteger(source, "start");
         var end = IntegerArgumentType.getInteger(source, "end");
         var action = StringArgumentType.getString(source, "action");
@@ -44,7 +44,7 @@ public class PlayerManipulateCommand {
     private static void startWithAction(String prefix, int start, int end, String action) {
         for (int i = start; i <= end; i++) {
             try {
-                Thread.sleep(Configs.PLAYER_MANIPULATE_COMMAND_WAIT_TIME.getIntegerValue());
+                Thread.sleep(Configs.Commands.PLAYER_MANIPULATE_COMMAND_WAIT_TIME.getIntegerValue());
                 var playerName = prefix == null ? i : prefix + i;
                 ChatUtils.actionBar(ProgressBar.getProgress((double) i / (end - start)));
                 ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s %s".formatted(playerName, action)));

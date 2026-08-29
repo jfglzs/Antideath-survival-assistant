@@ -22,7 +22,7 @@ public class ClientRegistrySyncHandler_Mixin {
             cancellable = true
     )
     private static void apply(CallbackInfo ci) {
-        if (Configs.FORCE_JOIN_SERVER_IGNORE_UNKNOWN_PACKET.getBooleanValue()) {
+        if (Configs.Disables.FORCE_JOIN_SERVER_IGNORE_UNKNOWN_PACKET.getBooleanValue()) {
             ci.cancel();
         }
     }

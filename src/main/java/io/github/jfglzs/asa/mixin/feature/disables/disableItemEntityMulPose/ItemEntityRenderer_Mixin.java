@@ -6,7 +6,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.jfglzs.asa.config.Configs;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
 //? if >= 1.21.4 {
-import org.joml.Quaternionf;
 import org.joml.Quaternionfc;
 //?} else {
 /*import org.joml.Quaternionf;
@@ -51,7 +50,7 @@ public class ItemEntityRenderer_Mixin {
          *///?} else  {
         /*public void submit(PoseStack instance, Quaternionfc q, Operation<Void> original) {
          *///?}
-        if (! Configs.DISABLE_ITEM_ENTITY_MULPOSE.getBooleanValue())
+        if (! Configs.Disables.DISABLE_ITEM_ENTITY_MULPOSE.getBooleanValue())
             original.call(instance, q);
     }
 }

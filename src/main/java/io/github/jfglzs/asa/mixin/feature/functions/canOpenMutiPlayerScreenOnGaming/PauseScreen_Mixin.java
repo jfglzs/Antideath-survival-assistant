@@ -24,7 +24,7 @@ public class PauseScreen_Mixin {
             )
     )
     private void createPauseMenu(CallbackInfo ci, @Local GridLayout.RowHelper row) {
-        if (Configs.CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING.getBooleanValue()) {
+        if (Configs.Functions.CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING.getBooleanValue()) {
             row.addChild(Button.builder(Component.translatable("asa.multiplayer.screen.title"), (button) -> {
                 JoinMultiplayerScreen screen = new JoinMultiplayerScreen(null);
                 ((IJoinMultiPlayerScreenAccessor) screen).asa$setCanDisconnect();

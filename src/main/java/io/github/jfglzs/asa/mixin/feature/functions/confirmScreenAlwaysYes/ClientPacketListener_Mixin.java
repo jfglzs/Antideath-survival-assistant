@@ -19,7 +19,7 @@ public class ClientPacketListener_Mixin {
     )
     private void onOpenSendConfirmationWindow(String command, String messageKey, Component acceptButton,
                                               Runnable onAccept, CallbackInfo ci) {
-        if (Configs.CONFIRM_SCREEN_ALWAYS_YES.getBooleanValue()) {
+        if (Configs.Disables.CONFIRM_SCREEN_ALWAYS_YES.getBooleanValue()) {
             onAccept.run();
             ci.cancel();
         }

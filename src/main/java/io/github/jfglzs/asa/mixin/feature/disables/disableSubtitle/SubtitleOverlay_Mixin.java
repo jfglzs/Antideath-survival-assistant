@@ -16,7 +16,7 @@ public class SubtitleOverlay_Mixin {
             cancellable = true
     )
     private void extractRenderState(CallbackInfo ci) {
-        if (Configs.DISABLE_SUBTITLE.getBooleanValue() && Configs.shouldDisableTitle) {
+        if (Configs.Disables.DISABLE_SUBTITLE.getBooleanValue() && Configs.shouldDisableTitle) {
             ci.cancel();
         }
     }

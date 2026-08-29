@@ -31,7 +31,7 @@ public class WorldUtils_Mixin {
                                                          @Local BlockPos pos) {
         if (PlayerUtils.checkRemainCount(stack.getItem()) == 0 && PlayerUtils.isSurvivalMode(mc.player) && mc.level
                 .getBlockState(pos).getBlock() == Blocks.AIR) {
-            if (Configs.MID_CLICK_TAKE_ITEM.getBooleanValue()) {
+            if (Configs.LMS.MID_CLICK_TAKE_ITEM.getBooleanValue()) {
                 AsaMod.debugMessage(() -> "Submitted %s %d to ItemStorageDataManager");
                 ItemStorageDataManager.submit(stack.getItem(), mc.player.isShiftKeyDown() ? stack.getMaxStackSize() * 27 : stack.getMaxStackSize());
             }

@@ -25,7 +25,7 @@ public class MultiPlayerGameMode_Mixin {
             )
     )
     private void continueDestroyBlock(CallbackInfoReturnable<Packet> cir) {
-        if (Configs.FORCE_BLOCK_BREAK_COOL_DOWN.getBooleanValue()) {
+        if (Configs.Functions.FORCE_BLOCK_BREAK_COOL_DOWN.getBooleanValue()) {
             DISABLE_BLOCK_BREAK_COOLDOWN.setBooleanValue(false);
             this.destroyDelay = 5;
         }

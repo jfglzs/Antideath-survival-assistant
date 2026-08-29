@@ -16,7 +16,7 @@ public class ItemStack_Mixin {
             method = "hasFoil"
     )
     private boolean hasFoil(Operation<Boolean> original) {
-        if (Configs.OPT_ITEM_MODEL.getBooleanValue() && asa$hasCached) {
+        if (Configs.Optimizations.OPT_ITEM_MODEL.getBooleanValue() && asa$hasCached) {
             return asa$cached;
         }
         asa$hasCached = true;

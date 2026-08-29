@@ -1,7 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.disables.disableConnectionTimedOut;
 
 import io.github.jfglzs.asa.config.Configs;
-import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.network.Connection;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,7 +15,7 @@ public abstract class Connection_Mixin {
             cancellable = true
     )
     public void exceptionCaughtInject(CallbackInfo ci) {
-        if (Configs.DISABLE_CONNECT_TIMED_OUT.getBooleanValue()) {
+        if (Configs.Disables.DISABLE_CONNECT_TIMED_OUT.getBooleanValue()) {
             ci.cancel();
         }
     }

@@ -40,7 +40,7 @@ public class MultiPlayerGameMode_Mixin {
     private boolean asa$shouldFlatDigger(BlockPos pos) {
         var level = Minecraft.getInstance().level;
         var player = Minecraft.getInstance().player;
-        if (Configs.FLAT_MINING.getBooleanValue() && level != null && player != null) {
+        if (Configs.Functions.FLAT_MINING.getBooleanValue() && level != null && player != null) {
             return ! player.isShiftKeyDown() && pos.getY() < player.getBlockY();
         }
         return false;

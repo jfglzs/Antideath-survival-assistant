@@ -6,12 +6,7 @@ import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.feature.disablePacketKick.ASAFakePacket;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.IdDispatchCodec;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.PacketType;
-import net.minecraft.network.protocol.common.ClientCommonPacketListener;
-import net.minecraft.network.protocol.common.CommonPacketTypes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(IdDispatchCodec.class)
 public class IdDispatchCodec_Mixin<B extends ByteBuf, V> {
@@ -25,7 +20,7 @@ public class IdDispatchCodec_Mixin<B extends ByteBuf, V> {
             result = original.call(input);
         }
         catch (Exception e) {
-            if (Configs.DISABLE_PACKET_KICK.getBooleanValue()) {
+            if (Configs.Disables.DISABLE_PACKET_KICK.getBooleanValue()) {
                 buf.skipBytes(buf.readableBytes());
                 return (V) ASAFakePacket.INSTANCE;
             }
@@ -43,7 +38,7 @@ public class IdDispatchCodec_Mixin<B extends ByteBuf, V> {
             original.call(output, value);
         }
         catch (Exception e) {
-            if (Configs.DISABLE_PACKET_KICK.getBooleanValue()) {
+            if (Configs.Disables.DISABLE_PACKET_KICK.getBooleanValue()) {
                 buf.skipBytes(buf.readableBytes());
                 return;
             }

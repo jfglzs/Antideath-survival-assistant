@@ -20,7 +20,7 @@ public class Profiler_Mixin {
             cancellable = true
     )
     private static void onGet(CallbackInfoReturnable<ProfilerFiller> cir) {
-        if (Configs.DISABLE_PROFILER.getBooleanValue()) {
+        if (Configs.Disables.DISABLE_PROFILER.getBooleanValue()) {
             cir.setReturnValue(InactiveProfiler.INSTANCE);
         }
     }

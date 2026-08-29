@@ -88,10 +88,10 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(i -> true, client -> BoxSplitter.tick());
         ClientTickEvent.register(i -> true, LowHealthSendCommandOrChat::tick);
         ClientTickEvent.register(i -> true, ItemStorageDataManager::scanMatchedPlayersAndInteract);
-        ClientTickEvent.register(i -> i % 10 == 0 && Configs.DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender::tick);
-        ClientTickEvent.register(i -> i % 20 == 0 && Configs.CREEPER_WARN.getBooleanValue(), CreeperCheckClient::tick);
-        ClientTickEvent.register(i -> i % 20000 == 0 && Configs.LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client -> ItemStorageDataManager.reflushCache());
-        ClientTickEvent.register(i -> i % 200 == 0 && Configs.OPT_ITEM_FRAME.getBooleanValue(), client -> {
+        ClientTickEvent.register(i -> i % 10 == 0 && Configs.Functions.DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender::tick);
+        ClientTickEvent.register(i -> i % 20 == 0 && Configs.Functions.CREEPER_WARN.getBooleanValue(), CreeperCheckClient::tick);
+        ClientTickEvent.register(i -> i % 20000 == 0 && Configs.LMS.LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client -> ItemStorageDataManager.reflushCache());
+        ClientTickEvent.register(i -> i % 200 == 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue(), client -> {
             LocalPlayer player = MCUtils.getLocalPlayer();
             if (player == null)
                 return;

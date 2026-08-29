@@ -36,8 +36,8 @@ public class ItemFrameRenderer_Mixin {
     )
     public void updateForItemFrame(BlockModelResolver instance, BlockModelRenderState renderState, boolean isGlowing,
                                    boolean map, Operation<Void> original, @Local ItemStack stack) {
-        if (Configs.OPT_ITEM_FRAME.getBooleanValue()) {
-            IConfigOptionListEntry visibility = Configs.ITEM_FRAME_VISIBILITY.getOptionListValue();
+        if (Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue()) {
+            IConfigOptionListEntry visibility = Configs.Optimizations.ITEM_FRAME_VISIBILITY.getOptionListValue();
             if (visibility == ItemFrameVisibility.EMPTY_ONLY) {
                 if (! stack.isEmpty())
                     return;
@@ -60,7 +60,7 @@ public class ItemFrameRenderer_Mixin {
     )
     public void updateForNonLiving(ItemModelResolver instance, ItemStackRenderState output, ItemStack item,
                                    ItemDisplayContext displayContext, Entity entity, Operation<Void> original) {
-        if (Configs.OPT_ITEM_FRAME.getBooleanValue() && item.is(Items.FILLED_MAP)) {
+        if (Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue() && item.is(Items.FILLED_MAP)) {
             return;
         }
         original.call(instance, output, item, displayContext, entity);

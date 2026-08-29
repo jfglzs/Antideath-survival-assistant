@@ -16,16 +16,16 @@ public class RemainingItemRender {
     }
 
     public static void tick(Minecraft mc) {
-        if (Configs.DISPLAY_REMAIN_ITEM.getBooleanValue()) {
+        if (Configs.Functions.DISPLAY_REMAIN_ITEM.getBooleanValue()) {
             stack = PlayerUtils.getPlayerMainHandStack();
             remainCount = PlayerUtils.checkRemainCount(stack.getItem());
         }
     }
 
     public static void render(HudRenderEvent.RenderContextWrap wrap) {
-        if (Configs.DISPLAY_REMAIN_ITEM.getBooleanValue()) {
-            int xOffset = Configs.DISPLAY_REMAIN_ITEM_OVERLAY_X_OFFSET.getIntegerValue();
-            int yOffset = Configs.DISPLAY_REMAIN_ITEM_OVERLAY_Y_OFFSET.getIntegerValue();
+        if (Configs.Functions.DISPLAY_REMAIN_ITEM.getBooleanValue()) {
+            int xOffset = Configs.Functions.DISPLAY_REMAIN_ITEM_OVERLAY_X_OFFSET.getIntegerValue();
+            int yOffset = Configs.Functions.DISPLAY_REMAIN_ITEM_OVERLAY_Y_OFFSET.getIntegerValue();
             if (stack != null && ! stack.is(Items.AIR)) {
                 var ctx = wrap.context();
                 ctx.drawString(Minecraft.getInstance().font, "%s %s".formatted(stack.getHoverName().getString(), remainCount), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);

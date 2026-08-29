@@ -31,7 +31,7 @@ public class ModelManager_Mixin {
             //~ if >= 1.21.11 'ResourceLocation' -> 'Identifier' {
     private ClientItem.Properties getItemProperties(Identifier id, Operation<ClientItem.Properties> original) {
         //~}
-        if (Configs.OPT_ITEM_MODEL.getBooleanValue()) {
+        if (Configs.Optimizations.OPT_ITEM_MODEL.getBooleanValue()) {
             IdentifierAccessor accessor = (IdentifierAccessor) (Object) id;
             ClientItem.Properties result = accessor.asa$getItemProperties();
             if (result != null) {
@@ -50,7 +50,7 @@ public class ModelManager_Mixin {
             //~ if >= 1.21.11 'ResourceLocation' -> 'Identifier' {
     private ItemModel getItemModel(Identifier id, Operation<ItemModel> original) {
         //~}
-        if (Configs.OPT_ITEM_MODEL.getBooleanValue()) {
+        if (Configs.Optimizations.OPT_ITEM_MODEL.getBooleanValue()) {
             IdentifierAccessor accessor = (IdentifierAccessor) (Object) id;
             ItemModel result;
             if (accessor.asa$getVersion() != this.asa$currentVersion || accessor.asa$getItemModel() == null) {

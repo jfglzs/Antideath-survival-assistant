@@ -26,7 +26,7 @@ public class ClientLevel_Mixin {
             cancellable = true
     )
     public void getMapData(MapId id, CallbackInfoReturnable<MapItemSavedData> cir) {
-        if (Configs.OPT_ITEM_FRAME.getBooleanValue()) {
+        if (Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue()) {
             cir.setReturnValue(this.ASA$MAPS.get(id.id()));
         }
     }
@@ -37,7 +37,7 @@ public class ClientLevel_Mixin {
             cancellable = true
     )
     public void overrideMapData(MapId id, MapItemSavedData data, CallbackInfo ci) {
-        if (Configs.OPT_ITEM_FRAME.getBooleanValue()) {
+        if (Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue()) {
             this.ASA$MAPS.put(id.id(), data);
             ci.cancel();
         }
@@ -49,7 +49,7 @@ public class ClientLevel_Mixin {
             cancellable = true
     )
     public void addMapData(Map<MapId, MapItemSavedData> mapData, CallbackInfo ci) {
-        if (Configs.OPT_ITEM_FRAME.getBooleanValue()) {
+        if (Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue()) {
             mapData.forEach((id, data) -> this.ASA$MAPS.put(id.id(), data));
             ci.cancel();
         }
@@ -61,7 +61,7 @@ public class ClientLevel_Mixin {
             cancellable = true
     )
     public void getAllMapData(CallbackInfoReturnable<Map<MapId, MapItemSavedData>> cir) {
-        if (Configs.OPT_ITEM_FRAME.getBooleanValue()) {
+        if (Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue()) {
             Map<MapId, MapItemSavedData> map = new Object2ObjectArrayMap<>();
             this.ASA$MAPS.forEach((id, data) -> map.put(new MapId(id), data));
             cir.setReturnValue(map);

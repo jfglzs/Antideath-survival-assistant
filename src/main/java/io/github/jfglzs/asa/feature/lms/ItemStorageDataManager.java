@@ -14,7 +14,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.inventory.Slot;
@@ -38,7 +37,7 @@ public class ItemStorageDataManager {
 
     public static void init() {
         ClientReceiveMessageEvents.ALLOW_GAME.register((message, overlay) -> {
-            if (! Configs.LMS_FETCH_SUPPORT.getBooleanValue())
+            if (! Configs.LMS.LMS_FETCH_SUPPORT.getBooleanValue())
                 return true;
 
             var str = message.getString().trim();
@@ -114,7 +113,7 @@ public class ItemStorageDataManager {
     public static void submit(Item item, int count) {
         if (item == null)
             return;
-        if (Configs.FAKE_PLAYER_INVENTORY_ITEM_CACHE.getBooleanValue()) {
+        if (Configs.LMS.FAKE_PLAYER_INVENTORY_ITEM_CACHE.getBooleanValue()) {
             for (String name : PLAYER_INV.keySet()) {
                 PlayerInventory inventory = PLAYER_INV.get(name);
                 for (Slot slot : inventory.slots) {
@@ -196,7 +195,7 @@ public class ItemStorageDataManager {
                         .nullToEmpty("存货: %d (%.2f 潜影盒) ".formatted(count, (float) count / oneBoxCount)).copy()
                         .withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
             }
-            if (Configs.LITEMATICA_CALCULATE_FAKE.getBooleanValue()) {
+            if (Configs.LMS.LITEMATICA_CALCULATE_FAKE.getBooleanValue()) {
                 components.add(Component.nullToEmpty("假人存货: %d".formatted(FAKE_ITEM_STORAGES.getInt(itemID))).copy()
                                         .withStyle(ChatFormatting.BOLD, ChatFormatting.GREEN));
             }
@@ -225,7 +224,7 @@ public class ItemStorageDataManager {
     }
 
     public static void scanMatchedPlayersAndInteract(Minecraft mc) {
-        if (! Configs.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue() || mc.level == null)
+        if (! Configs.LMS.AUTO_OPEN_FAKE_PLAYER_INV.getBooleanValue() || mc.level == null)
             return;
 
         for (AbstractClientPlayer player : mc.level.players()) {
@@ -234,9 +233,9 @@ public class ItemStorageDataManager {
             if (WAIT_FOR_INV.remove(name)) {
                 ThreadUtils.runAsync(() -> {
                     try {
-                        Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
+                        Thread.sleep(Configs.LMS.AUTO_COOLDOWN.getIntegerValue());
                         ThreadUtils.runOnClientThread(() -> {
-                            if (Configs.AUTO_OPEN_FAKE_PLAYER_INV_MODE.getOptionListValue() == OpenFakePlayerInvMode.COMMAND) {
+                            if (Configs.LMS.AUTO_OPEN_FAKE_PLAYER_INV_MODE.getOptionListValue() == OpenFakePlayerInvMode.COMMAND) {
                                 MCUtils.executeCommand("player %s inventory".formatted(name));
                             }
                             else {

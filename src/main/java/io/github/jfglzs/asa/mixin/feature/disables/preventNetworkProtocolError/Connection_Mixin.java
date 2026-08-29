@@ -18,7 +18,7 @@ public class Connection_Mixin {
             original.call(packet, listener);
         }
         catch (Exception e) {
-            if (! Configs.PREVENT_NET_PRO_ERR.getBooleanValue())
+            if (! Configs.Disables.PREVENT_NET_PRO_ERR.getBooleanValue())
                 throw e;
         }
     }

@@ -45,7 +45,7 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
     )
     private void onClose(CallbackInfo ci) {
         this.asa$cacheData();
-        if (Configs.AUTO_KILL_FAKE_PLAYERS.getBooleanValue()) {
+        if (Configs.LMS.AUTO_KILL_FAKE_PLAYERS.getBooleanValue()) {
             Set<String> fakePlayerNames = ItemStorageDataManager.WAIT_FOR_KILLING();
             for (String name : fakePlayerNames) {
                 var titleString = this.title.getString();
@@ -54,7 +54,7 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
 
                 ThreadUtils.runOnTaskThread(() -> {
                     try {
-                        Thread.sleep(Configs.AUTO_COOLDOWN.getIntegerValue());
+                        Thread.sleep(Configs.LMS.AUTO_COOLDOWN.getIntegerValue());
                         ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s kill".formatted(name)));
                     }
                     catch (Exception e) {
@@ -71,11 +71,11 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
 
     @Unique
     private void asa$cacheData() {
-        if (! Configs.FAKE_PLAYER_INVENTORY_ITEM_CACHE.getBooleanValue() || (Object) this instanceof InventoryScreen || PlayerUtils.isSurvivalMode())
+        if (! Configs.LMS.FAKE_PLAYER_INVENTORY_ITEM_CACHE.getBooleanValue() || (Object) this instanceof InventoryScreen || PlayerUtils.isSurvivalMode())
             return;
 
         String title = this.title.getString();
-        List<String> names = Configs.FAKE_PLAYER_INVENTORY_ITEM_CACHE_WHITE_LIST.getStrings();
+        List<String> names = Configs.Lists.FAKE_PLAYER_INVENTORY_ITEM_CACHE_WHITE_LIST.getStrings();
         for (String name : names) {
             if (title.contains(name)) {
                 List<Slot> slots = this.menu.slots.stream().filter(slot -> ! (slot.container instanceof Inventory))

@@ -84,7 +84,7 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
                                   @Share("type") LocalRef<ContainerInput> asa$type) {
 
         if (Configs.lockCreativeScreen && asa$type.get() == ContainerInput.PICKUP && slotId == - 999) {
-            if (! Configs.LMS_FETCH_SUPPORT.getBooleanValue())
+            if (! Configs.LMS.LMS_FETCH_SUPPORT.getBooleanValue())
                 return;
             ItemStack stack = this.menu.getCarried();
             int count = - 1;
@@ -108,7 +108,7 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             cancellable = true
     )
     public void getTooltipFromItem(ItemStack stack, CallbackInfoReturnable<List<Component>> cir) {
-        if (Configs.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.lockCreativeScreen) {
+        if (Configs.LMS.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.lockCreativeScreen) {
             if (! PlayerUtils.isSurvivalMode(minecraft.player))
                 return;
             var texts = cir.getReturnValue();
@@ -137,7 +137,7 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             )
     )
     public boolean isCreativeLevelTwoOp(boolean original) {
-        if (Configs.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.lockCreativeScreen) {
+        if (Configs.LMS.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.lockCreativeScreen) {
             return true;
         }
         return original;

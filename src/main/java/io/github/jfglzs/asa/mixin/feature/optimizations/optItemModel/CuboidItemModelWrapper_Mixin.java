@@ -38,7 +38,7 @@ public class CuboidItemModelWrapper_Mixin {
             )
     )
     private boolean addAll(List instance, Collection<Object> es, Operation<Boolean> original) {
-        return ! Configs.OPT_ITEM_MODEL.getBooleanValue() && original.call(instance, es);
+        return ! Configs.Optimizations.OPT_ITEM_MODEL.getBooleanValue() && original.call(instance, es);
     }
 
     @Inject(
@@ -49,7 +49,7 @@ public class CuboidItemModelWrapper_Mixin {
             )
     )
     private void addAll(CallbackInfo ci, @Local ItemStackRenderState.LayerRenderState state) {
-        if (Configs.OPT_ITEM_MODEL.getBooleanValue()) {
+        if (Configs.Optimizations.OPT_ITEM_MODEL.getBooleanValue()) {
             ((ILayerRenderStateAccessor) state).asa$setQuads(this.quads.getAll());
         }
     }

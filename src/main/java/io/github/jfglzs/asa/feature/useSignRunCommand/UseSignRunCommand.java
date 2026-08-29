@@ -19,7 +19,7 @@ public class UseSignRunCommand {
 
     public static void init() {
         SendPacketEvent.INSTANCE.register(packet -> {
-            if (!Configs.USE_SIGN_RUN_COMMAND.getBooleanValue())
+            if (! Configs.Functions.USE_SIGN_RUN_COMMAND.getBooleanValue())
                 return packet;
 
             if (packet instanceof ServerboundUseItemOnPacket itemPacket) {

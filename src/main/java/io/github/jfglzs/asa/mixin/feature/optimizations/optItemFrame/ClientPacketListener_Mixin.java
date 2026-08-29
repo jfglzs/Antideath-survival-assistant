@@ -38,7 +38,7 @@ public class ClientPacketListener_Mixin implements IClientPacketListenerAccessor
     )
     public void handleMapItemData(ClientboundMapItemDataPacket packet, CallbackInfo ci, @Local MapId id,
                                   @Local MapItemSavedData savedData) {
-        if (Configs.OPT_ITEM_FRAME.getBooleanValue()) {
+        if (Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue()) {
             int saveDataHash = savedData.hashCode();
             int intID = id.id();
             if (intID != 0 && this.ASA$MAPS.get(intID) == saveDataHash) {

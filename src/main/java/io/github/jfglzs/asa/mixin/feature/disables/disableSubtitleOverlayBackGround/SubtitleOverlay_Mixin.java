@@ -22,7 +22,7 @@ public class SubtitleOverlay_Mixin {
     )
     private void extractRenderStateWrap(GuiGraphicsExtractor instance, int x0, int y0, int x1, int y1, int col,
                                         Operation<Void> original) {
-        if (! Configs.DISABLE_SUBTITLE_OVERLAY_BACKGROUND.getBooleanValue())
+        if (! Configs.Disables.DISABLE_SUBTITLE_OVERLAY_BACKGROUND.getBooleanValue())
             original.call(instance, x0, y0, x1, y1, col);
     }
 }

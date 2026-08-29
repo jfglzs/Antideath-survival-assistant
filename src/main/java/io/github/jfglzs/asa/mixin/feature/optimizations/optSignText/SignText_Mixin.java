@@ -34,7 +34,7 @@ public class SignText_Mixin {
             cancellable = true
     )
     private void hasMessage(CallbackInfoReturnable<Boolean> cir) {
-        if (Configs.OPT_SIGN_TEXT.getBooleanValue()) {
+        if (Configs.Optimizations.OPT_SIGN_TEXT.getBooleanValue()) {
             cir.setReturnValue(asa$HasText);
         }
     }

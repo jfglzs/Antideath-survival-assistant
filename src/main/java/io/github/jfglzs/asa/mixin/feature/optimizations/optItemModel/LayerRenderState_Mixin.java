@@ -40,7 +40,7 @@ public class LayerRenderState_Mixin implements ILayerRenderStateAccessor {
             )
     )
     public void clear(List<BakedQuad> instance, Operation<Void> original) {
-        if (Configs.OPT_ITEM_MODEL.getBooleanValue()) {
+        if (Configs.Optimizations.OPT_ITEM_MODEL.getBooleanValue()) {
             this.quads = null;
             return;
         }

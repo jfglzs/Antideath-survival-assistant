@@ -25,7 +25,7 @@ public class BoxRestockMannager {
     }
 
     public static void process() {
-        if (! Configs.AUTO_BOX_RESTROKE.getBooleanValue() || context == null || ! PlayerUtils.isSurvivalMode())
+        if (! Configs.Functions.AUTO_BOX_RESTROKE.getBooleanValue() || context == null || ! PlayerUtils.isSurvivalMode())
             return;
 
         if (MCUtils.getScreen() instanceof ShulkerBoxScreen boxScreen) {
@@ -66,10 +66,10 @@ public class BoxRestockMannager {
         Item item = stack.getItem();
         String itemID = MCUtils.getItemID(item);
 
-        if (Configs.ENABLE_AUTO_BOX_RESTROKE_BLACKLIST.getBooleanValue())
-            return ! Configs.isInList(itemID, Configs.AUTO_BOX_RESTROKE_BLACKLIST);
-        else if (Configs.ENABLE_AUTO_BOX_RESTROKE_WHITELIST.getBooleanValue())
-            return Configs.isInList(itemID, Configs.AUTO_BOX_RESTROKE_WHITELIST);
+        if (Configs.Functions.ENABLE_AUTO_BOX_RESTROKE_BLACKLIST.getBooleanValue())
+            return ! Configs.isInList(itemID, Configs.Lists.AUTO_BOX_RESTROKE_BLACKLIST);
+        else if (Configs.Functions.ENABLE_AUTO_BOX_RESTROKE_WHITELIST.getBooleanValue())
+            return Configs.isInList(itemID, Configs.Lists.AUTO_BOX_RESTROKE_WHITELIST);
 
         return true;
     }

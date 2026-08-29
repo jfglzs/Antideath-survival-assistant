@@ -16,7 +16,7 @@ public class AutoVaultCommand {
     public static final String prefix = "[AutoVault] ";
 
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
-        var command = CommandUtils.literal("autovault").requires(cs -> Configs.AUTO_VAULT_COMMAND.getBooleanValue())
+        var command = CommandUtils.literal("autovault").requires(cs -> Configs.Commands.AUTO_VAULT_COMMAND.getBooleanValue())
                                   .then(CommandUtils.literal("set")
                                                     .then(CommandUtils.argument("blockX", IntegerArgumentType.integer())
                                                                       .then(CommandUtils

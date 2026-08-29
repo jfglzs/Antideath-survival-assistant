@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-import static io.github.jfglzs.asa.config.Configs.CREEPER_WARN_RANGE;
+import static io.github.jfglzs.asa.config.Configs.Functions.CREEPER_WARN_RANGE;
 
 public class CreeperCheckClient {
     public static void tick(Minecraft mc) {

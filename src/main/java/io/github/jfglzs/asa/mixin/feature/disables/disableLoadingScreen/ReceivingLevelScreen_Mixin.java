@@ -18,7 +18,7 @@ public abstract class ReceivingLevelScreen_Mixin {
             require = 0
     )
     public void extractBackground(CallbackInfo ci) {
-        if (Configs.DISABLE_LOADING_TERRAIN_SCREEN.getBooleanValue()) {
+        if (Configs.Disables.DISABLE_LOADING_TERRAIN_SCREEN.getBooleanValue()) {
             ci.cancel();
         }
     }
@@ -31,7 +31,7 @@ public abstract class ReceivingLevelScreen_Mixin {
             cancellable = true
     )
     public void extractRenderState(CallbackInfo ci) {
-        if (Configs.DISABLE_LOADING_TERRAIN_SCREEN.getBooleanValue()) {
+        if (Configs.Disables.DISABLE_LOADING_TERRAIN_SCREEN.getBooleanValue()) {
             ci.cancel();
         }
     }

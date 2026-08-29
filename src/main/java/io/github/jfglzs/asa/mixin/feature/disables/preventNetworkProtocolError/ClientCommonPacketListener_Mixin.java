@@ -15,7 +15,7 @@ public class ClientCommonPacketListener_Mixin {
             cancellable = true
     )
     public void onPacketError(CallbackInfo ci) {
-        if (Configs.PREVENT_NET_PRO_ERR.getBooleanValue()) {
+        if (Configs.Disables.PREVENT_NET_PRO_ERR.getBooleanValue()) {
             ci.cancel();
         }
     }

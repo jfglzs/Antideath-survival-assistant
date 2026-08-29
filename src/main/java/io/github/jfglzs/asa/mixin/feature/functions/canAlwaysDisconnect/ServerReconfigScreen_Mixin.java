@@ -18,7 +18,7 @@ public class ServerReconfigScreen_Mixin {
             at = @At("HEAD")
     )
     private void tick(CallbackInfo ci) {
-        if (Configs.CAN_ALWAYS_DISCONNECT.getBooleanValue())
+        if (Configs.Functions.CAN_ALWAYS_DISCONNECT.getBooleanValue())
             disconnectButton.active = true;
     }
 }

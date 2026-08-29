@@ -24,7 +24,7 @@ public class JoinMultiplayerScreen_Mixin implements IJoinMultiPlayerScreenAccess
     )
     private void init(CallbackInfo ci) {
         //兼容viafabricplus
-        if (this.lastScreen != null && Configs.CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING.getBooleanValue()) {
+        if (this.lastScreen != null && Configs.Functions.CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING.getBooleanValue()) {
             this.lastScreen = MCUtils.getLocalPlayer() == null ? this.lastScreen : null;
         }
     }
@@ -34,7 +34,7 @@ public class JoinMultiplayerScreen_Mixin implements IJoinMultiPlayerScreenAccess
             at = @At("HEAD")
     )
     private void join(CallbackInfo ci) {
-        if (Configs.CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING.getBooleanValue() && this.asa$canDisconnect) {
+        if (Configs.Functions.CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING.getBooleanValue() && this.asa$canDisconnect) {
             MCUtils.disconnect();
             this.asa$canDisconnect = false;
         }

@@ -71,7 +71,7 @@ public class AutoVaultExecutor {
     }
 
     public static void tick() {
-        if (! Configs.AUTO_VAULT_COMMAND.getBooleanValue() || ! isRunning)
+        if (! Configs.Commands.AUTO_VAULT_COMMAND.getBooleanValue() || ! isRunning)
             return;
 
         ClientLevel level = MCUtils.getLevel();

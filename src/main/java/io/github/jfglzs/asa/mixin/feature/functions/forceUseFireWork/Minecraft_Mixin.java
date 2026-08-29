@@ -10,7 +10,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -39,7 +38,7 @@ public class Minecraft_Mixin {
             cancellable = true
     )
     private void startUseItem(CallbackInfo ci) {
-        if (player == null || gameMode == null || ! Configs.FORCE_USE_FIREWORK.getBooleanValue()) {
+        if (player == null || gameMode == null || ! Configs.Functions.FORCE_USE_FIREWORK.getBooleanValue()) {
             return;
         }
 

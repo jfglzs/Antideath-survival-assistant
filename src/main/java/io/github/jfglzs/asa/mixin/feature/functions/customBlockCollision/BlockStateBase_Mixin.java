@@ -27,7 +27,7 @@ public abstract class BlockStateBase_Mixin {
     )
     public void getCollisionShape(BlockGetter level, BlockPos pos, CollisionContext ctx,
                                   CallbackInfoReturnable<VoxelShape> cir) {
-        if (Configs.ENABLE_STRONG_BLOCK_COLLISION.getBooleanValue()) {
+        if (Configs.Functions.ENABLE_STRONG_BLOCK_COLLISION.getBooleanValue()) {
 
             EntityCollisionContext context = asa$getEntityCollisionContext(ctx);
             if (context == null || context.getEntity() != MCUtils.getLocalPlayer()) {
@@ -37,12 +37,12 @@ public abstract class BlockStateBase_Mixin {
             BlockState state = level.getBlockState(pos);
             String blockID = MCUtils.getBlockID(state.getBlock());
 
-            if (Configs.ENABLE_STRONG_BLOCK_COLLISION_WHITELIST.getBooleanValue()) {
-                if (Configs.isInList(blockID, Configs.STRONG_BLOCK_COLLISION_WHITELIST))
+            if (Configs.Functions.ENABLE_STRONG_BLOCK_COLLISION_WHITELIST.getBooleanValue()) {
+                if (Configs.isInList(blockID, Configs.Lists.STRONG_BLOCK_COLLISION_WHITELIST))
                     cir.setReturnValue(Shapes.block());
             }
-            else if (Configs.ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST.getBooleanValue()) {
-                if (! Configs.isInList(blockID, Configs.STRONG_BLOCK_COLLISION_BLACKLIST))
+            else if (Configs.Functions.ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST.getBooleanValue()) {
+                if (! Configs.isInList(blockID, Configs.Lists.STRONG_BLOCK_COLLISION_BLACKLIST))
                     cir.setReturnValue(Shapes.block());
             }
         }
@@ -55,19 +55,19 @@ public abstract class BlockStateBase_Mixin {
     )
     public void getShape(BlockGetter level, BlockPos pos, CollisionContext context,
                          CallbackInfoReturnable<VoxelShape> cir) {
-        if (! Configs.ENABLE_STRONG_BLOCK_COLLISION_SHAPE.getBooleanValue())
+        if (! Configs.Functions.ENABLE_STRONG_BLOCK_COLLISION_SHAPE.getBooleanValue())
             return;
 
         BlockState state = level.getBlockState(pos);
         String blockID = MCUtils.getBlockID(state.getBlock());
 
-        if (Configs.ENABLE_STRONG_BLOCK_COLLISION_WHITELIST_SHAPE.getBooleanValue()) {
-            if (Configs.isInList(blockID, Configs.STRONG_BLOCK_COLLISION_WHITELIST_SHAPE))
+        if (Configs.Functions.ENABLE_STRONG_BLOCK_COLLISION_WHITELIST_SHAPE.getBooleanValue()) {
+            if (Configs.isInList(blockID, Configs.Lists.STRONG_BLOCK_COLLISION_WHITELIST_SHAPE))
                 cir.setReturnValue(Shapes.block());
         }
 
-        if (Configs.ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST_SHAPE.getBooleanValue()) {
-            if (! Configs.isInList(blockID, Configs.STRONG_BLOCK_COLLISION_BLACKLIST_SHAPE))
+        if (Configs.Functions.ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST_SHAPE.getBooleanValue()) {
+            if (! Configs.isInList(blockID, Configs.Lists.STRONG_BLOCK_COLLISION_BLACKLIST_SHAPE))
                 cir.setReturnValue(Shapes.block());
         }
     }

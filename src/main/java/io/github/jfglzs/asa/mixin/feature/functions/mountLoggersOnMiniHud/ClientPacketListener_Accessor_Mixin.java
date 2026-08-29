@@ -22,7 +22,7 @@ public class ClientPacketListener_Accessor_Mixin implements IClientPacketListene
             at = @At("HEAD")
     )
     public void handleTabListCustomisation(ClientboundTabListPacket packet, CallbackInfo ci) {
-        if (Configs.MOUNT_LOGGERS_ON_MINIHUD.getBooleanValue()) {
+        if (Configs.Functions.MOUNT_LOGGERS_ON_MINIHUD.getBooleanValue()) {
             this.asa$TabList = Arrays.asList(packet.footer().getString().split("\n"));
         }
     }

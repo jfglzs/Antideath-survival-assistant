@@ -39,7 +39,7 @@ public class WorldUtils_Mixin {
         //?} else {
         /*private static ItemStack getRequiredBuildItemForState(MaterialCache instance, BlockState state, Operation<ItemStack> original) {
          *///?}
-        if (Configs.CUSTOM_LITEMATICA_BLOCK_REPLACE.getBooleanValue()) {
+        if (Configs.Functions.CUSTOM_LITEMATICA_BLOCK_REPLACE.getBooleanValue()) {
             Map<String, String> mappings = asa$getBlockMappings();
             String oriBlockID = MCUtils.getBlockID(state.getBlock());
             String replacedBlockId = mappings.get(oriBlockID);
@@ -58,7 +58,7 @@ public class WorldUtils_Mixin {
     @Unique
     private static Map<String, String> asa$getBlockMappings() {
         Map<String, String> mappings = new HashMap<>();
-        List<String> blockIdMap = Configs.CUSTOM_LITEMATICA_BLOCK_REPLACE_LIST.getStrings();
+        List<String> blockIdMap = Configs.Lists.CUSTOM_LITEMATICA_BLOCK_REPLACE_LIST.getStrings();
         for (String blocks : blockIdMap) {
             String[] strings = blocks.split("\\|", 2);
             mappings.put(strings[0], strings[1]);

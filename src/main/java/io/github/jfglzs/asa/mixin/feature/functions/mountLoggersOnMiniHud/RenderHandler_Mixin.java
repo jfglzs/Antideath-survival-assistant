@@ -39,7 +39,7 @@ public class RenderHandler_Mixin {
             remap = false
     )
     private List<String> updateLines_add(List<String> original, Object e) {
-        return Configs.MINI_HUD_FPS_OPT.getBooleanValue() ? asa$list : original;
+        return Configs.Optimizations.MINI_HUD_FPS_OPT.getBooleanValue() ? asa$list : original;
     }
 
     @ModifyReceiver(
@@ -52,7 +52,7 @@ public class RenderHandler_Mixin {
             remap = false
     )
     private List<String> updateLines_clear(List<String> original) {
-        return Configs.MINI_HUD_FPS_OPT.getBooleanValue() ? asa$list : original;
+        return Configs.Optimizations.MINI_HUD_FPS_OPT.getBooleanValue() ? asa$list : original;
     }
 
     @WrapOperation(
@@ -72,7 +72,7 @@ public class RenderHandler_Mixin {
             remap = false
     )
     private void onRenderGameOverlayPostAdvanced(RenderHandler instance, Operation<Void> original) {
-        if (Configs.MINI_HUD_FPS_OPT.getBooleanValue()) {
+        if (Configs.Optimizations.MINI_HUD_FPS_OPT.getBooleanValue()) {
             ThreadUtils.runOnTaskThread(() -> {
                 original.call(instance);
                 asa$mountHudInfo();
@@ -89,11 +89,11 @@ public class RenderHandler_Mixin {
 
     @Unique
     private void asa$mountHudInfo() {
-        if (! Configs.MOUNT_LOGGERS_ON_MINIHUD.getBooleanValue())
+        if (! Configs.Functions.MOUNT_LOGGERS_ON_MINIHUD.getBooleanValue())
             return;
 
         LocalPlayer player = MCUtils.getLocalPlayer();
-        List<String> list = Configs.MINI_HUD_FPS_OPT.getBooleanValue() ? asa$list : lines;
+        List<String> list = Configs.Optimizations.MINI_HUD_FPS_OPT.getBooleanValue() ? asa$list : lines;
 
         if (player == null) return;
         if (player.connection instanceof IClientPacketListenerAccessor listener) {
@@ -102,13 +102,13 @@ public class RenderHandler_Mixin {
                 return;
 
             for (String line : tabList) {
-                if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getBooleanValue()) {
-                    if (Configs.MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getStrings().stream().anyMatch(line::contains))
+                if (Configs.Functions.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getBooleanValue()) {
+                    if (Configs.Lists.MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST.getStrings().stream().anyMatch(line::contains))
                         list.add(line);
 
                 }
-                else if (Configs.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getBooleanValue()) {
-                    if (Configs.MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getStrings().stream().noneMatch(line::contains))
+                else if (Configs.Functions.ENABLE_MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getBooleanValue()) {
+                    if (Configs.Lists.MOUNT_LOGGERS_ON_MINIHUD_BLACK_LIST.getStrings().stream().noneMatch(line::contains))
                         list.add(line);
                 }
                 else {

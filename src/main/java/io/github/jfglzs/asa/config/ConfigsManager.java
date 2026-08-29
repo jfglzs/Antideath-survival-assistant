@@ -13,6 +13,7 @@ import io.github.jfglzs.asa.annotations.Config;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ConfigsManager {
@@ -27,16 +28,15 @@ public class ConfigsManager {
     private static final List<IConfigBase> LISTS = new ArrayList<>();
 
     public static void init() {
-        for (Field field : Configs.class.getDeclaredFields()) {
-            if (field.isAnnotationPresent(Config.class)) {
-                Config config = field.getAnnotation(Config.class);
-                addConfig(field, config);
-            }
-        }
+        Arrays.stream(Configs.classes)
+              .flatMap(clz -> Arrays.stream(clz.getDeclaredFields()))
+              .filter(field -> field.isAnnotationPresent(Config.class))
+              .forEach(ConfigsManager::addConfig);
     }
 
-    public static void addConfig(Field field, Config config) {
+    public static void addConfig(Field field) {
         ConfigBase<?> obj;
+
         try {
             obj = (ConfigBase<?>) field.get(null);
         }
@@ -46,6 +46,9 @@ public class ConfigsManager {
         }
 
         ALL.add(obj);
+
+        Config config = field.getAnnotation(Config.class);
+
         for (Tab tab : config.tab()) {
             if (tab == Tab.LMS)
                 LMS.add(obj);
@@ -66,23 +69,6 @@ public class ConfigsManager {
         }
         else if (obj instanceof ConfigBooleanHotkeyed booleanHotkeyed) {
             SWITCH_KEY.add(booleanHotkeyed);
-        }
-        else if (obj instanceof ConfigOptionList list) {
-            Class<? extends IConfigOptionListEntry> OptionClass = list.getOptionListValue().getClass();
-            StringBuilder comment = new StringBuilder(list.getComment());
-            comment.append("\n选项:\n");
-            for (IConfigOptionListEntry entry : OptionClass.getEnumConstants()) {
-                try {
-                    Field name = entry.getClass().getDeclaredField("name");
-                    name.setAccessible(true);
-                    comment.append(name.get(entry));
-                    comment.append("\n");
-                }
-                catch (NoSuchFieldException | IllegalAccessException e) {
-                    AsaMod.LOGGER.error("error while adding tab", e);
-                }
-            }
-            list.setComment(comment.toString());
         }
     }
 
