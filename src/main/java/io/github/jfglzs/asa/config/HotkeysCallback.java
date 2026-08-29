@@ -9,7 +9,6 @@ import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.feature.fakePlayerKillAura.FakePlayerKillAura;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
-import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
@@ -34,9 +33,6 @@ public class HotkeysCallback implements IHotkeyCallback {
         if (key == ASA.getKeybind()) {
             MCUtils.setScreen(new ConfigUi());
             return true;
-        }
-        else if (key == CLEAR_MATERIAL_TODO_OVERLAY.getKeybind()) {
-            MaterialToDoRenderer.items.clear();
         }
         else if (key == LMS_TAKE_ITEM.getKeybind()) {
             Configs.lockCreativeScreen = true;
@@ -66,9 +62,6 @@ public class HotkeysCallback implements IHotkeyCallback {
         }
         else if (key == CLEAN_PLAYER_INV_CHACHE.getKeybind()) {
             ItemStorageDataManager.removeAll();
-        }
-        else if (key == CAN_ALWAYS_DISCONNECT_TRIGGER.getKeybind()) {
-            MCUtils.disconnect();
         }
         return false;
     }

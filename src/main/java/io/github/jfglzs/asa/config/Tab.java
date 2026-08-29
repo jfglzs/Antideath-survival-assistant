@@ -3,7 +3,13 @@ package io.github.jfglzs.asa.config;
 import fi.dy.masa.malilib.util.StringUtils;
 
 public enum Tab {
-    ALL("所有"), FUNCTIONS("功能"), DISABLES("禁用类功能"), COMMAND("命令"), OPTIMIZATIONS("优化"), LISTS("列表"), LMS("假人全物品");
+    ALL("asa.config.cate.all"),
+    FUNCTIONS("asa.config.cate.functions"),
+    DISABLES("asa.config.cate.disables"),
+    COMMAND("asa.config.cate.cmd"),
+    OPTIMIZATIONS("asa.config.cate.opt"),
+    LISTS("asa.config.cate.lists"),
+    LMS("asa.config.cate.lms");
 
     public final String translation;
 

@@ -14,10 +14,8 @@ import io.github.jfglzs.asa.feature.autoVault.AutoVaultExecutor;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.feature.creeperWarn.CreeperCheckClient;
-import io.github.jfglzs.asa.feature.disablePacketKick.DisablePacketKick;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
 import io.github.jfglzs.asa.feature.useSignRunCommand.UseSignRunCommand;
-import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.render.RemainingItemRender;
 import io.github.jfglzs.asa.utils.*;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
@@ -38,7 +36,7 @@ import java.util.function.Supplier;
 
 public class AsaMod implements ModInitializer {
     public static final String MOD_ID_FANCY = "ASA";
-    public static final String MOD_ID = "antideath-survival-assistant";
+    public static final String MOD_ID = "asa";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static String version;
 
@@ -75,9 +73,7 @@ public class AsaMod implements ModInitializer {
         ItemStorageDataManager.init();
         ThreadUtils.init();
         AutoWasteCleanProcessor.init();
-        DisablePacketKick.init();
         UseSignRunCommand.init();
-        MaterialToDoRenderer.init();
         RemainingItemRender.init();
         Mods.init();
         this.registerEvents();
@@ -94,7 +90,6 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(i -> true, ItemStorageDataManager::scanMatchedPlayersAndInteract);
         ClientTickEvent.register(i -> i % 10 == 0 && Configs.DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender::tick);
         ClientTickEvent.register(i -> i % 20 == 0 && Configs.CREEPER_WARN.getBooleanValue(), CreeperCheckClient::tick);
-        ClientTickEvent.register(i -> i % 40 == 0 && Configs.ENABLE_MATERIAL_TODO_OVERLAY.getBooleanValue(), MaterialToDoRenderer::tick);
         ClientTickEvent.register(i -> i % 20000 == 0 && Configs.LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client -> ItemStorageDataManager.reflushCache());
         ClientTickEvent.register(i -> i % 200 == 0 && Configs.OPT_ITEM_FRAME.getBooleanValue(), client -> {
             LocalPlayer player = MCUtils.getLocalPlayer();

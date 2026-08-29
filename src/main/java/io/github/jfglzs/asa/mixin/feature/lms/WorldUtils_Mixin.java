@@ -5,7 +5,6 @@ import fi.dy.masa.litematica.util.WorldUtils;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
-import io.github.jfglzs.asa.render.MaterialToDoRenderer;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.client.Minecraft;
@@ -35,10 +34,6 @@ public class WorldUtils_Mixin {
             if (Configs.MID_CLICK_TAKE_ITEM.getBooleanValue()) {
                 AsaMod.debugMessage(() -> "Submitted %s %d to ItemStorageDataManager");
                 ItemStorageDataManager.submit(stack.getItem(), mc.player.isShiftKeyDown() ? stack.getMaxStackSize() * 27 : stack.getMaxStackSize());
-            }
-            else {
-                AsaMod.debugMessage(() -> "addItem %s to MaterialToDoRenderer");
-                MaterialToDoRenderer.addItem(stack);
             }
         }
     }
