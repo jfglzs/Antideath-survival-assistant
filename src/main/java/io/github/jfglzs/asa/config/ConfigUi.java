@@ -27,6 +27,13 @@ public class ConfigUi extends GuiConfigsBase {
         int x = 10;
         int y = 26;
         for (Tab tab : Tab.values()) {
+            // measure the auto-sized button width before placing it
+            ButtonGeneric tmp = new ButtonGeneric(0, 0, - 1, 20, tab.getTranslate());
+            int buttonWidth = tmp.getWidth() + 2;
+            if (x + buttonWidth > this.width) {
+                x = 10;
+                y += 22;
+            }
             x += this.createButton(x, y, - 1, tab);
         }
     }

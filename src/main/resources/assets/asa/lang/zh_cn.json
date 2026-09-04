@@ -7,6 +7,7 @@
   "asa.config.cate.cmd": "命令",
   "asa.config.cate.lists": "列表",
   "asa.config.cate.functions": "功能",
+  "asa.config.cate.organize": "杂物整理",
   "asa.config.all.name.openGui": "打开设置菜单",
   "asa.config.all.comment.openGui": "打开设置菜单快捷键",
   "asa.config.all.name.creeperWarner": "苦力怕预警器",
@@ -196,5 +197,17 @@
   "asa.config.all.name.forceUseFireWork": "强制使用烟花火箭",
   "asa.config.all.comment.forceUseFireWork": "开启后会强制使用烟花火箭",
   "asa.config.all.name.useSignRunCommand": "右键告示牌执行命令",
-  "asa.config.all.comment.useSignRunCommand": "当告示牌每一行以/开头时，蹲下右键告示牌会自动执行命令"
+  "asa.config.all.comment.useSignRunCommand": "当告示牌每一行以/开头时，蹲下右键告示牌会自动执行命令",
+  "asa.config.all.name.organizeBackpack": "整理背包杂物",
+  "asa.config.all.comment.organizeBackpack": "按下后开始整理背包(需要快捷潜影盒)，再次按下可停止",
+  "asa.config.all.name.organizeBackpack-IgnoreToolsArmor": "整理背包-忽略工具与盔甲",
+  "asa.config.all.comment.organizeBackpack-IgnoreToolsArmor": "开启后整理时忽略工具与盔甲(可损坏物品)",
+  "asa.config.all.name.organizeBackpack-EnableWhitelist": "整理背包-启用白名单",
+  "asa.config.all.comment.organizeBackpack-EnableWhitelist": "启用整理白名单",
+  "asa.config.all.name.organizeBackpack-Whitelist": "整理背包-白名单",
+  "asa.config.all.comment.organizeBackpack-Whitelist": "仅整理白名单中的物品ID(如 minecraft:dirt)",
+  "asa.config.all.name.organizeBackpack-EnableBlacklist": "整理背包-启用黑名单",
+  "asa.config.all.comment.organizeBackpack-EnableBlacklist": "启用整理黑名单",
+  "asa.config.all.name.organizeBackpack-Blacklist": "整理背包-黑名单",
+  "asa.config.all.comment.organizeBackpack-Blacklist": "不整理黑名单中的物品ID(如 minecraft:stone)"
 }
