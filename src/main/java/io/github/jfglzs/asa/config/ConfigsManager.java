@@ -26,6 +26,7 @@ public class ConfigsManager {
     private static final List<IConfigBase> COMMANDS = new ArrayList<>();
     private static final List<IConfigBase> OPTIMIZATIONS = new ArrayList<>();
     private static final List<IConfigBase> LISTS = new ArrayList<>();
+    private static final List<IConfigBase> ORGANIZE = new ArrayList<>();
 
     public static void init() {
         Arrays.stream(Configs.classes)
@@ -62,6 +63,8 @@ public class ConfigsManager {
                 OPTIMIZATIONS.add(obj);
             if (tab == Tab.LISTS)
                 LISTS.add(obj);
+            if (tab == Tab.ORGANIZE)
+                ORGANIZE.add(obj);
         }
 
         if (obj instanceof ConfigHotkey hotkey) {
@@ -81,6 +84,7 @@ public class ConfigsManager {
             case LMS -> ImmutableList.copyOf(LMS);
             case OPTIMIZATIONS -> ImmutableList.copyOf(OPTIMIZATIONS);
             case LISTS -> ImmutableList.copyOf(LISTS);
+            case ORGANIZE -> ImmutableList.copyOf(ORGANIZE);
         };
         if (list.isEmpty())
             throw new IllegalStateException("Not initialized");

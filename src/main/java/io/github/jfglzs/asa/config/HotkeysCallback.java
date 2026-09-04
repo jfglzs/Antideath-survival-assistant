@@ -6,6 +6,7 @@ import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.KeyAction;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
+import io.github.jfglzs.asa.feature.backpackOrganizer.BackpackOrganizer;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.feature.fakePlayerKillAura.FakePlayerKillAura;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
@@ -59,6 +60,9 @@ public class HotkeysCallback implements IHotkeyCallback {
         }
         else if (key == Functions.TRIGGER_BOX_SPLITTER.getKeybind()) {
             BoxSplitter.addTask(PlayerUtils.getPlayerMainHandStack());
+        }
+        else if (key == Organize.ORGANIZE_BACKPACK.getKeybind()) {
+            BackpackOrganizer.toggle();
         }
         else if (key == LMS.CLEAN_PLAYER_INV_CHACHE.getKeybind()) {
             ItemStorageDataManager.removeAll();

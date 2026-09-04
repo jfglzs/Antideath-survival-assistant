@@ -7,6 +7,7 @@
   "asa.config.cate.cmd":"Command",
   "asa.config.cate.lists":"Lists",
   "asa.config.cate.functions":"Functions",
+  "asa.config.cate.organize":"Organize",
   "asa.config.all.name.openGui": "openGui",
   "asa.config.all.comment.openGui": "Open Gui Key",
   "asa.config.all.name.creeperWarner": "creeperWarner",
@@ -196,5 +197,17 @@
   "asa.config.all.name.forceUseFireWork": "forceUseFireWork",
   "asa.config.all.comment.forceUseFireWork": "Force the use of fireworks when enabled",
   "asa.config.all.name.useSignRunCommand": "useSignRunCommand",
-  "asa.config.all.comment.useSignRunCommand": "When each line of a sign starts with /, sneak-right-clicking the sign will automatically execute the command"
+  "asa.config.all.comment.useSignRunCommand": "When each line of a sign starts with /, sneak-right-clicking the sign will automatically execute the command",
+  "asa.config.all.name.organizeBackpack": "Organize Backpack",
+  "asa.config.all.comment.organizeBackpack": "Press to organize the backpack (requires Quick Shulker). Press again to stop",
+  "asa.config.all.name.organizeBackpack-IgnoreToolsArmor": "Organize - Ignore Tools & Armor",
+  "asa.config.all.comment.organizeBackpack-IgnoreToolsArmor": "When enabled, tools and armor (damageable items) are ignored while organizing",
+  "asa.config.all.name.organizeBackpack-EnableWhitelist": "Organize - Enable Whitelist",
+  "asa.config.all.comment.organizeBackpack-EnableWhitelist": "Enable the organize whitelist",
+  "asa.config.all.name.organizeBackpack-Whitelist": "Organize - Whitelist",
+  "asa.config.all.comment.organizeBackpack-Whitelist": "Only organize item IDs in the whitelist (e.g. minecraft:dirt)",
+  "asa.config.all.name.organizeBackpack-EnableBlacklist": "Organize - Enable Blacklist",
+  "asa.config.all.comment.organizeBackpack-EnableBlacklist": "Enable the organize blacklist",
+  "asa.config.all.name.organizeBackpack-Blacklist": "Organize - Blacklist",
+  "asa.config.all.comment.organizeBackpack-Blacklist": "Do not organize item IDs in the blacklist (e.g. minecraft:stone)"
 }

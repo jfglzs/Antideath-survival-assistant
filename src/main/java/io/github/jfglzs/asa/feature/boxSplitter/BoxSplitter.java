@@ -19,9 +19,8 @@ public class BoxSplitter {
     private static boolean canOpenBox = false;
 
     public static void addTask(ItemStack stack) {
-        if (isRunning) {
-            isRunning = false;
-            itemToSplit = ItemStack.EMPTY;
+        if (isRunning()) {
+            stop();
             ChatUtils.actionBar(ChatUtils.c("已停止"));
             return;
         }
@@ -34,6 +33,16 @@ public class BoxSplitter {
         isRunning = true;
         canOpenBox = true;
         itemToSplit = stack.copy();
+    }
+
+    public static boolean isRunning() {
+        return isRunning;
+    }
+
+    public static void stop() {
+        isRunning = false;
+        canOpenBox = false;
+        itemToSplit = ItemStack.EMPTY;
     }
 
     public static void run() {

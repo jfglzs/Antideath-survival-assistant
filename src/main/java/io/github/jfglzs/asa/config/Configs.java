@@ -23,7 +23,7 @@ import fi.dy.masa.malilib.util.data.json.JsonUtils;
 public class Configs implements IConfigHandler {
     public static final Configs INSTANCE = new Configs();
     public static final String ALL = AsaMod.MOD_ID + ".config.all";
-    public static final Class<?>[] classes = new Class[]{Functions.class, Disables.class, Commands.class, Optimizations.class, LMS.class, Lists.class, Configs.class};
+    public static final Class<?>[] classes = new Class[]{Functions.class, Disables.class, Commands.class, Optimizations.class, LMS.class, Lists.class, Organize.class, Configs.class};
 
     public static class Disables {
         @Config(tab = Tab.DISABLES) public static final ConfigBooleanHotkeyed DISABLE_SUBTITLE = new ConfigBooleanHotkeyed("disableSubtitle", false, "", "打开投影的材料列表时禁用字幕").apply(ALL);
@@ -136,6 +136,15 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.FUNCTIONS) public static final ConfigHotkey TRIGGER_BOX_SPLITTER = new ConfigHotkey("trigger-boxItemSplitter", "", "按下指定快捷见后将会保存玩家主手的物品并启用潜影盒物品分离器\n会自动打开玩家背包（除快捷栏内)的所有盒子并丢出符合的物品").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed FORCE_USE_FIREWORK = new ConfigBooleanHotkeyed("forceUseFireWork", false, "", "开启后会强制使用烟花火箭").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed USE_SIGN_RUN_COMMAND = new ConfigBooleanHotkeyed("useSignRunCommand", false, "", "当告示牌每一行为 / 开头时 蹲下右键告示牌会自动执行命令").apply(ALL);
+    }
+
+    public static class Organize {
+        @Config(tab = Tab.ORGANIZE) public static final ConfigHotkey ORGANIZE_BACKPACK = new ConfigHotkey("organizeBackpack", "", "按下后开始整理背包杂物(需要快捷潜影盒)\n再次按下可停止").apply(ALL);
+        @Config(tab = Tab.ORGANIZE) public static final ConfigBoolean IGNORE_TOOLS_ARMOR = new ConfigBoolean("organizeBackpack-IgnoreToolsArmor", true, "开启后整理时忽略工具与盔甲").apply(ALL);
+        @Config(tab = Tab.ORGANIZE) public static final ConfigBoolean ENABLE_ORGANIZE_WHITELIST = new ConfigBoolean("organizeBackpack-EnableWhitelist", false, "启用整理白名单").apply(ALL);
+        @Config(tab = Tab.ORGANIZE) public static final ConfigStringList ORGANIZE_WHITELIST = new ConfigStringList("organizeBackpack-Whitelist", ImmutableList.of(), "仅整理白名单中的物品ID").apply(ALL);
+        @Config(tab = Tab.ORGANIZE) public static final ConfigBoolean ENABLE_ORGANIZE_BLACKLIST = new ConfigBoolean("organizeBackpack-EnableBlacklist", false, "启用整理黑名单").apply(ALL);
+        @Config(tab = Tab.ORGANIZE) public static final ConfigStringList ORGANIZE_BLACKLIST = new ConfigStringList("organizeBackpack-Blacklist", ImmutableList.of(), "不整理黑名单中的物品ID").apply(ALL);
     }
 
     @Config public static final ConfigHotkey ASA = new ConfigHotkey("openGui", "Z,K", "Open Gui Key").apply(ALL);

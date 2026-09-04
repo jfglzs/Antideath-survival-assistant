@@ -82,15 +82,42 @@ public class PlayerUtils {
     }
 
     public static boolean isBoxFull(ItemStack box) {
+        if (! isShulkerBox(box))
+            return false;
+        // getStoredItems 返回固定 27 槽(含 EMPTY), 需按非空槽判断
         List<ItemStack> items = getBoxItemStacks(box);
-        return items.stream()
-                    .filter(stack -> stack.getMaxStackSize() - stack.getCount() != 0)
-                    .toList()
-                    .isEmpty();
+        int nonEmpty = 0;
+        for (ItemStack stack : items) {
+            if (! stack.isEmpty()) {
+                nonEmpty++;
+            }
+        }
+        return nonEmpty >= 27;
     }
 
     public static boolean isBoxEmpty(ItemStack box) {
-        return getBoxItemStacks(box).isEmpty();
+        if (! isShulkerBox(box))
+            return false;
+        // getStoredItems 返回固定 27 槽(含 EMPTY), 不能用 List.isEmpty() 判断
+        for (ItemStack stack : getBoxItemStacks(box)) {
+            if (! stack.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static int getBoxFreeSlots(ItemStack box) {
+        if (! isShulkerBox(box))
+            return 0;
+        List<ItemStack> items = getBoxItemStacks(box);
+        int occupied = 0;
+        for (ItemStack stack : items) {
+            if (! stack.isEmpty()) {
+                occupied++;
+            }
+        }
+        return Math.max(0, 27 - occupied);
     }
 
     public static int checkRemainCount(Item item) {
@@ -144,6 +171,16 @@ public class PlayerUtils {
         /*mc.gameMode.handleInventoryMouseClick(containerId, slotNum, buttonNum, input, player);
          *///?}
     }
+
+    /**
+     * 通过 QUICK_MOVE (shift+点击) 把一个容器槽位的物品快速移动到另一侧
+     * 用于潜影盒整理等场景: 目标槽 = 盒子槽, 会把盒子内物品移到背包, 或把背包物品移入盒子
+     */
+    //~ if >= 26.1 'ClickType' -> 'ContainerInput' {
+    public static void quickMove(final int containerId, final int slotNum, final Player player) {
+        clickSlot(containerId, slotNum, 0, net.minecraft.world.inventory.ContainerInput.QUICK_MOVE, player);
+    }
+    //~}
 
     public static void interactWith(Entity entity, InteractionHand hand) {
         LocalPlayer player = MCUtils.getLocalPlayer();

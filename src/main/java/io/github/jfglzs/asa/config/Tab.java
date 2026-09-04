@@ -9,7 +9,8 @@ public enum Tab {
     COMMAND("asa.config.cate.cmd"),
     OPTIMIZATIONS("asa.config.cate.opt"),
     LISTS("asa.config.cate.lists"),
-    LMS("asa.config.cate.lms");
+    LMS("asa.config.cate.lms"),
+    ORGANIZE("asa.config.cate.organize");
 
     public final String translation;
 
