@@ -7,6 +7,7 @@ import fi.dy.masa.malilib.event.RenderEventHandler;
 import io.github.jfglzs.asa.accessor.IClientPacketListenerAccessor1;
 import io.github.jfglzs.asa.commands.AutoVaultCommand;
 import io.github.jfglzs.asa.commands.PlayerManipulateCommand;
+import io.github.jfglzs.asa.commands.ServerCommand;
 import io.github.jfglzs.asa.config.*;
 import io.github.jfglzs.asa.events.ClientTickEvent;
 import io.github.jfglzs.asa.events.HudRenderEvent;
@@ -110,6 +111,7 @@ public class AsaMod implements ModInitializer {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, context) -> {
             PlayerManipulateCommand.register(dispatcher);
             AutoVaultCommand.register(dispatcher);
+            ServerCommand.register(dispatcher);
         });
     }
 

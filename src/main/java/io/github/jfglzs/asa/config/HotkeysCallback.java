@@ -30,7 +30,7 @@ public class HotkeysCallback implements IHotkeyCallback {
 
     @Override
     public boolean onKeyAction(KeyAction action, IKeybind key) {
-        if (key == ASA.getKeybind()) {
+        if (key == Functions.ASA.getKeybind()) {
             MCUtils.setScreen(new ConfigUi());
             return true;
         }

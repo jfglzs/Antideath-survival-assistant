@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.vault.VaultState;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class AutoVaultExecutor {
-    private static final RateLimiter LIMITER = RateLimiter.create(0.6);
+    private static final RateLimiter LIMITER = RateLimiter.create(0.4);
     private static final String SPAWN_COMMAND = "player %s spawn at %.2f %.2f %.2f facing %.1f %.1f";
     private static final String KILL_COMMAND = "player %s kill";
     private static final String USE_COMMAND = "player %s use";
