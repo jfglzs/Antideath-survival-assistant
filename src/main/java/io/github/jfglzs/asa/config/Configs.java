@@ -101,6 +101,7 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed TAP_FILTER = new ConfigBooleanHotkeyed("tabFilter", false, "", "过滤掉tab菜单无用的玩家/常驻假人").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBoolean ENABLE_TAP_FILTER_WHITELIST = new ConfigBoolean("enableTabFilterWhiteList", false, " ").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBoolean ENABLE_TAP_FILTER_PREFIX = new ConfigBoolean("enableTabFilter-Prefix", false, " ").apply(ALL);
+        @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed SPECTATOR_TELEPORT_FAKE_PLAYER_LIST = new ConfigBooleanHotkeyed("spectatorTeleportFakePlayerList", false, "", "将延迟为 0 的玩家从普通旁观传送列表分离到假玩家列表").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigHotkey ENABLE_FAKE_PLAYER_KILL_AURA = new ConfigHotkey("triggerFakeKillAura", "", "触发假人杀戮光环").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigString FAKE_PLAYER_KILL_AURA_PREFIX = new ConfigString("fakeKillAuraPrefix", "bot_", "前缀").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigDouble FAKE_PLAYER_KILL_AURA_RANGE = new ConfigDouble("fakeKillAuraRange", 4, 0, 32, "假人杀戮光环范围(以玩家为中心)").apply(ALL);
