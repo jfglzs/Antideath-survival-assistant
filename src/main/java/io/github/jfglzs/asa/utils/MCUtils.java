@@ -4,16 +4,20 @@ package io.github.jfglzs.asa.utils;
 import io.github.jfglzs.asa.AsaMod;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
-//~ if < 1.21.11 'Identifier' -> 'ResourceLocation' {
-import net.minecraft.resources.Identifier;
-//~}
 import net.minecraft.world.item.Item;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
+//~ if < 1.21.11 'Identifier' -> 'ResourceLocation' {
+import net.minecraft.resources.Identifier;
+//~}
 
 public class MCUtils {
     private static final Minecraft mc = Minecraft.getInstance();
@@ -100,5 +104,9 @@ public class MCUtils {
          *///?} else {
         MCUtils.getMinecraft().disconnectFromWorld(ClientLevel.DEFAULT_QUIT_MESSAGE);
         //?}
+    }
+
+    public static void connectToServer(String server, ServerAddress ipAddr) {
+        ConnectScreen.startConnecting(new JoinMultiplayerScreen(null), MCUtils.getMinecraft(), ipAddr, new ServerData(server, ipAddr.getHost(), ServerData.Type.OTHER), false, null);
     }
 }

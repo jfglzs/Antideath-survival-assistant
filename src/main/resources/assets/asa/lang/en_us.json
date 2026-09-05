@@ -101,7 +101,7 @@
   "asa.config.all.comment.enableInventoryCleaner": "Automatically clean up junk items when enabled",
   "asa.config.all.name.inventoryCleanerSwitchMode": "inventoryCleanerSwitchMode",
   "asa.config.all.comment.inventoryCleanerSwitchMode": "Switch cleaning mode",
-  "asa.config.all.name.inventoryCleaner-Mode": "inventoryCleaner-Mode",
+  "asa.config.all.name.inventoryCleanerMode": "inventoryCleaner-Mode",
   "asa.config.all.comment.inventoryCleaner-Mode": "",
   "asa.config.all.name.inventoryCleaner-SaveInventoryItem": "inventoryCleaner-SaveInventoryItem",
   "asa.config.all.comment.inventoryCleaner-SaveInventoryItem": "Save player inventory items to the blacklist/whitelist",
@@ -196,5 +196,9 @@
   "asa.config.all.name.forceUseFireWork": "forceUseFireWork",
   "asa.config.all.comment.forceUseFireWork": "Force the use of fireworks when enabled",
   "asa.config.all.name.useSignRunCommand": "useSignRunCommand",
-  "asa.config.all.comment.useSignRunCommand": "When each line of a sign starts with /, sneak-right-clicking the sign will automatically execute the command"
+  "asa.config.all.comment.useSignRunCommand": "When each line of a sign starts with /, sneak-right-clicking the sign will automatically execute the command",
+  "asa.config.all.name.serverCommandMapping": "serverCommandMapping",
+  "asa.config.all.comment.serverCommandMapping": "serverCommandMapping",
+  "asa.config.all.name.enableServerCommandMapping": "enableServerCommandMapping",
+  "asa.config.all.comment.enableServerCommandMapping": "commandServerMapping"
 }

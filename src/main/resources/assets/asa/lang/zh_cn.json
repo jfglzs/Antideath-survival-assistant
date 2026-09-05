@@ -101,7 +101,7 @@
   "asa.config.all.comment.enableInventoryCleaner": "开启后可自动清理垃圾物品",
   "asa.config.all.name.inventoryCleanerSwitchMode": "启用自动垃圾清理-切换模式",
   "asa.config.all.comment.inventoryCleanerSwitchMode": "切换清理模式",
-  "asa.config.all.name.inventoryCleaner-Mode": "启用自动垃圾清理-清理模式",
+  "asa.config.all.name.inventoryCleanerMode": "启用自动垃圾清理-清理模式",
   "asa.config.all.comment.inventoryCleaner-Mode": "",
   "asa.config.all.name.inventoryCleaner-SaveInventoryItem": "启用自动垃圾清理-保存背包物品",
   "asa.config.all.comment.inventoryCleaner-SaveInventoryItem": "将玩家背包物品保存至黑名单/白名单",
@@ -196,5 +196,9 @@
   "asa.config.all.name.forceUseFireWork": "强制使用烟花火箭",
   "asa.config.all.comment.forceUseFireWork": "开启后会强制使用烟花火箭",
   "asa.config.all.name.useSignRunCommand": "右键告示牌执行命令",
-  "asa.config.all.comment.useSignRunCommand": "当告示牌每一行以/开头时，蹲下右键告示牌会自动执行命令"
+  "asa.config.all.comment.useSignRunCommand": "当告示牌每一行以/开头时，蹲下右键告示牌会自动执行命令",
+  "asa.config.all.name.serverCommandMapping": "服务器指令映射",
+  "asa.config.all.comment.serverCommandMapping": "服务器指令映射允许通过server指令进行跨服连接 格式 ip;name 或者 ip;name;proxyServer",
+  "asa.config.all.name.enableServerCommandMapping": "启用服务器指令映射",
+  "asa.config.all.comment.enableServerCommandMapping": "启用服务器指令映射"
 }
