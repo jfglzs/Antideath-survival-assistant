@@ -1,8 +1,8 @@
-package io.github.jfglzs.asa.mixin.feature.functions.spectatorTeleport;
+package io.github.jfglzs.asa.mixin.feature.functions.fakePlayerMenu;
 
 import com.llamalad7.mixinextras.injector.ModifyReceiver;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import io.github.jfglzs.asa.feature.spectatorTeleport.FakePlayerUtils;
+import io.github.jfglzs.asa.feature.spectatorTeleport.FakePlayerSplitter;
 import io.github.jfglzs.asa.feature.spectatorTeleport.TeleportToFakePlayerMenuCategory;
 import net.minecraft.client.gui.spectator.SpectatorMenuItem;
 import net.minecraft.client.gui.spectator.categories.TeleportToPlayerMenuCategory;
@@ -24,7 +24,7 @@ public abstract class TeleportToPlayerMenuCategory_Mixin {
             method = "isEnabled",
             at = @At(value = "INVOKE", target = "Ljava/util/List;isEmpty()Z")
     )
-    private List<SpectatorMenuItem> filterFakePlayersForEnabledCheck(List<SpectatorMenuItem> items) {
+    private List<SpectatorMenuItem> isEnabled(List<SpectatorMenuItem> items) {
         return filter(items);
     }
 
@@ -33,6 +33,6 @@ public abstract class TeleportToPlayerMenuCategory_Mixin {
         if (items == null) return List.of();
         return (Object) this instanceof TeleportToFakePlayerMenuCategory
                 ? items
-                : FakePlayerUtils.withoutFakePlayers(items);
+                : FakePlayerSplitter.withoutFakePlayers(items);
     }
 }

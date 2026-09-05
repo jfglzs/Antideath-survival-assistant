@@ -204,5 +204,7 @@
   "asa.config.all.name.serverCommandMapping": "serverCommandMapping",
   "asa.config.all.comment.serverCommandMapping": "serverCommandMapping",
   "asa.config.all.name.enableServerCommandMapping": "enableServerCommandMapping",
-  "asa.config.all.comment.enableServerCommandMapping": "commandServerMapping"
+  "asa.config.all.comment.enableServerCommandMapping": "commandServerMapping",
+  "asa.config.all.name.spectatorTelePortMenu": "spectatorTelePortMenu",
+  "asa.config.all.comment.spectatorTelePortMenu": "spectatorTelePortMenu"
 }

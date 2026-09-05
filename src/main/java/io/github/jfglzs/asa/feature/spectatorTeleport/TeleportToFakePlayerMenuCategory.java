@@ -8,7 +8,7 @@ public final class TeleportToFakePlayerMenuCategory extends TeleportToPlayerMenu
     private static final Component PROMPT = Component.translatable("asa.spectatorMenu.teleportFakePlayer.prompt");
 
     public TeleportToFakePlayerMenuCategory() {
-        super(FakePlayerUtils.getFakePlayers());
+        super(FakePlayerSplitter.getFakePlayers());
     }
 
     @Override

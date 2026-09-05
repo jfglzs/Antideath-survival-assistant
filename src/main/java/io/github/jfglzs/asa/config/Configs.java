@@ -139,7 +139,7 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed FORCE_USE_FIREWORK = new ConfigBooleanHotkeyed("forceUseFireWork", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed USE_SIGN_RUN_COMMAND = new ConfigBooleanHotkeyed("useSignRunCommand", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_SERVER_COMMAND_MAPPING = new ConfigBooleanHotkeyed("enableServerCommandMapping", false, "", "").apply(ALL);
-
+        @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed FAKE_PLAYER_TELEPORT_MENU = new ConfigBooleanHotkeyed("spectatorTelePortMenu", false, "", "").apply(ALL);
     }
 
     @Config public static final ConfigBooleanHotkeyed DEBUG = new ConfigBooleanHotkeyed("debug", false, "", "").apply(ALL);

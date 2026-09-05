@@ -204,5 +204,7 @@
   "asa.config.all.name.serverCommandMapping": "服务器指令映射",
   "asa.config.all.comment.serverCommandMapping": "服务器指令映射允许通过server指令进行跨服连接 格式 ip;name 或者 ip;name;proxyServer",
   "asa.config.all.name.enableServerCommandMapping": "启用服务器指令映射",
-  "asa.config.all.comment.enableServerCommandMapping": "启用服务器指令映射"
+  "asa.config.all.comment.enableServerCommandMapping": "启用服务器指令映射",
+  "asa.config.all.name.spectatorTelePortMenu": "旁观假人TP菜单",
+  "asa.config.all.comment.spectatorTelePortMenu": "旁观假人TP菜单"
 }
