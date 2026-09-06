@@ -21,6 +21,7 @@
     "feature.functions.mountLoggersOnMiniHud.RenderHandler_Mixin",
     "feature.lms.MaterialListEntry_Mixin",
     "feature.lms.WorldUtils_Mixin",
+    "feature.optimizations.fastModelRender.Group_Mixin",
     "feature.optimizations.optDirection.Direction_Mixin",
     "feature.optimizations.optItemFrame.ItemFrame_Mixin",
     "feature.optimizations.optItemModel.Identifier_Mixin",

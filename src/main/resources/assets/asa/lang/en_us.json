@@ -206,5 +206,7 @@
   "asa.config.all.name.enableServerCommandMapping": "enableServerCommandMapping",
   "asa.config.all.comment.enableServerCommandMapping": "commandServerMapping",
   "asa.config.all.name.spectatorTelePortMenu": "spectatorTelePortMenu",
-  "asa.config.all.comment.spectatorTelePortMenu": "spectatorTelePortMenu"
+  "asa.config.all.comment.spectatorTelePortMenu": "spectatorTelePortMenu",
+  "asa.config.all.name.fastModelRender": "fastModelRender(26.2+)",
+  "asa.config.all.comment.fastModelRender": "increase your fps when facing many models"
 }

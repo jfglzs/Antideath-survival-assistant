@@ -14,10 +14,12 @@ public final class FakePlayerSplitter {
 
     public static List<PlayerInfo> getFakePlayers() {
         var connection = Minecraft.getInstance().getConnection();
-        if (connection == null)
-            return List.of();
+        var players = connection.getListedOnlinePlayers();
 
-        return connection.getListedOnlinePlayers().stream().filter(PlayerUtils::isFakePlayer).toList();
+        if (!players.isEmpty())
+            return players.stream().filter(PlayerUtils::isFakePlayer).toList();
+
+        return List.of();
     }
 
     public static List<SpectatorMenuItem> withoutFakePlayers(List<SpectatorMenuItem> items) {

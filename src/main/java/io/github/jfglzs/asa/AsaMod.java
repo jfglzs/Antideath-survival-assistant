@@ -68,8 +68,8 @@ public class AsaMod implements ModInitializer {
         Configs.INSTANCE.load();
         HotkeysCallback.init();
         ConfigManager.getInstance().registerConfigHandler(MOD_ID, Configs.INSTANCE);
-        InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
-        InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
+        InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.INSTANCE);
+        InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.INSTANCE);
         RenderEventHandler.getInstance().registerInGameGuiRenderer(HudRenderEvent.INSTANCE);
         InitializationHandler.getInstance().registerInitializationHandler(InitHandler.INSTANCE);
         ItemStorageDataManager.init();
@@ -77,7 +77,6 @@ public class AsaMod implements ModInitializer {
         AutoWasteCleanProcessor.init();
         UseSignRunCommand.init();
         RemainingItemRender.init();
-        Mods.init();
         this.registerEvents();
         this.registerCommands();
         //~}

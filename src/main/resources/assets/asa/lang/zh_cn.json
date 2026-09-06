@@ -206,5 +206,7 @@
   "asa.config.all.name.enableServerCommandMapping": "启用服务器指令映射",
   "asa.config.all.comment.enableServerCommandMapping": "启用服务器指令映射",
   "asa.config.all.name.spectatorTelePortMenu": "旁观假人TP菜单",
-  "asa.config.all.comment.spectatorTelePortMenu": "旁观假人TP菜单"
+  "asa.config.all.comment.spectatorTelePortMenu": "旁观假人TP菜单",
+  "asa.config.all.name.fastModelRender": "快速模型渲染(26.2+)",
+  "asa.config.all.comment.fastModelRender": "提升物品模型的渲染效率"
 }

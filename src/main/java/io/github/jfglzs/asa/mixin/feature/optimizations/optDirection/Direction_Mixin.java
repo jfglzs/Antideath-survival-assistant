@@ -17,6 +17,7 @@ public class Direction_Mixin {
     private static void byName(String name, CallbackInfoReturnable<Direction> cir) {
         if (! Configs.Optimizations.OPT_DIRECTION.getBooleanValue())
             return;
+
         switch (name) {
             case "up" -> cir.setReturnValue(Direction.UP);
             case "down" -> cir.setReturnValue(Direction.DOWN);

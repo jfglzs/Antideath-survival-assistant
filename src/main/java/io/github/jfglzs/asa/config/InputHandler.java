@@ -6,11 +6,7 @@ import fi.dy.masa.malilib.hotkeys.IKeyboardInputHandler;
 import io.github.jfglzs.asa.AsaMod;
 
 public class InputHandler implements IKeybindProvider, IKeyboardInputHandler {
-    private static final InputHandler INSTANCE = new InputHandler();
-
-    public static InputHandler getInstance() {
-        return INSTANCE;
-    }
+    public static final InputHandler INSTANCE = new InputHandler();
 
     @Override
     public void addKeysToMap(IKeybindManager manager) {
