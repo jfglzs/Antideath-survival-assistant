@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.feature.spectatorTeleport;
+package io.github.jfglzs.asa.feature.spectatorTeleportMenu;
 
 import net.minecraft.client.gui.spectator.categories.TeleportToPlayerMenuCategory;
 import net.minecraft.network.chat.Component;

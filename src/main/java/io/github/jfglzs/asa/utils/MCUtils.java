@@ -8,10 +8,12 @@ import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.network.Connection;
 import net.minecraft.world.item.Item;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
@@ -28,7 +30,7 @@ public class MCUtils {
 
     public static LocalPlayer getLocalPlayer() {
         Minecraft mc = getMinecraft();
-        return mc != null ? mc.player : null;
+        return mc.player;
     }
 
     public static ClientLevel getLevel() {
@@ -86,8 +88,9 @@ public class MCUtils {
         ClientLevel level = MCUtils.getLevel();
         if (level == null)
             return false;
-        for (AbstractClientPlayer clientPlayer : level.players()) {
-            if (PlayerUtils.getName(clientPlayer).equalsIgnoreCase(playerName))
+
+        for (AbstractClientPlayer player : level.players()) {
+            if (PlayerUtils.getName(player).equalsIgnoreCase(playerName))
                 return true;
         }
         return false;
@@ -107,6 +110,10 @@ public class MCUtils {
     }
 
     public static void connectToServer(String server, ServerAddress ipAddr) {
-        ConnectScreen.startConnecting(new JoinMultiplayerScreen(null), MCUtils.getMinecraft(), ipAddr, new ServerData(server, ipAddr.getHost(), ServerData.Type.OTHER), false, null);
+        ConnectScreen.startConnecting(null, MCUtils.getMinecraft(), ipAddr, new ServerData(server, ipAddr.getHost(), ServerData.Type.OTHER), false, null);
+    }
+
+    public static ClientPacketListener getConnection() {
+        return MCUtils.getMinecraft().getConnection();
     }
 }

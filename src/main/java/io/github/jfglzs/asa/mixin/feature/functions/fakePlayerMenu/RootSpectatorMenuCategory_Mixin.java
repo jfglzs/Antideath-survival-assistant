@@ -1,9 +1,7 @@
 package io.github.jfglzs.asa.mixin.feature.functions.fakePlayerMenu;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import io.github.jfglzs.asa.config.Configs;
-import io.github.jfglzs.asa.feature.spectatorTeleport.TeleportToFakePlayerMenuCategory;
+import io.github.jfglzs.asa.feature.spectatorTeleportMenu.TeleportToFakePlayerMenuCategory;
 import net.minecraft.client.gui.spectator.RootSpectatorMenuCategory;
 import net.minecraft.client.gui.spectator.SpectatorMenuItem;
 import org.spongepowered.asm.mixin.Final;

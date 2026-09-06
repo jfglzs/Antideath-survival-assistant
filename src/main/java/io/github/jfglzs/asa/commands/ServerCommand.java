@@ -27,6 +27,7 @@ public class ServerCommand {
         dispatcher.register(command);
     }
 
+    //TODO 修复ConnectScreen无法显示的问题
     private static int trySwitch(CommandContext<FabricClientCommandSource> context) {
         List<ServerInfo> parsed = tryParse();
         String input = StringArgumentType.getString(context, "server");
@@ -36,9 +37,7 @@ public class ServerCommand {
             ServerAddress ipAddr = info.ipAddr();
 
             if (server.equals(input)) {
-                MCUtils.disconnect();
                 MCUtils.connectToServer(server, ipAddr);
-                MCUtils.setScreen(null);
                 return 0;
             }
             else {
@@ -50,8 +49,8 @@ public class ServerCommand {
                     else {
                         //TODO 跨服切服
                     }
+                    return 0;
                 }
-                return 0;
             }
         }
 

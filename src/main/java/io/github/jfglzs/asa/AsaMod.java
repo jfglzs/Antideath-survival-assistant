@@ -11,6 +11,7 @@ import io.github.jfglzs.asa.commands.ServerCommand;
 import io.github.jfglzs.asa.config.*;
 import io.github.jfglzs.asa.events.ClientTickEvent;
 import io.github.jfglzs.asa.events.HudRenderEvent;
+import io.github.jfglzs.asa.events.OpenScreenEvent;
 import io.github.jfglzs.asa.feature.autoVault.AutoVaultExecutor;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;

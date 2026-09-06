@@ -1,6 +1,7 @@
-package io.github.jfglzs.asa.feature.spectatorTeleport;
+package io.github.jfglzs.asa.feature.spectatorTeleportMenu;
 
 import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.spectator.SpectatorMenuItem;
 import net.minecraft.client.multiplayer.PlayerInfo;
@@ -16,7 +17,7 @@ public final class FakePlayerSplitter {
         if (connection == null)
             return List.of();
 
-        return connection.getListedOnlinePlayers().stream().filter(FakePlayerSplitter::isFakePlayer).toList();
+        return connection.getListedOnlinePlayers().stream().filter(PlayerUtils::isFakePlayer).toList();
     }
 
     public static List<SpectatorMenuItem> withoutFakePlayers(List<SpectatorMenuItem> items) {
@@ -25,24 +26,13 @@ public final class FakePlayerSplitter {
         if (! Configs.Functions.FAKE_PLAYER_TELEPORT_MENU.getBooleanValue())
             return items;
 
-        return items.stream().filter(item -> ! isFakePlayer(item)).toList();
+        return items.stream().filter(FakePlayerSplitter::isRealPlayer).toList();
     }
 
-    public static boolean isFakePlayer(PlayerInfo player) {
-        return player != null && player.getLatency() == 0;
-    }
-
-    private static boolean isFakePlayer(SpectatorMenuItem item) {
+    private static boolean isRealPlayer(SpectatorMenuItem item) {
         if (item == null)
-            return false;
-        else
-            item.getName();
+            return true;
 
-        var connection = Minecraft.getInstance().getConnection();
-
-        if (connection == null)
-            return false;
-
-        return isFakePlayer(connection.getPlayerInfo(item.getName().getString()));
+        return !PlayerUtils.isFakePlayer(item.getName().getString());
     }
 }

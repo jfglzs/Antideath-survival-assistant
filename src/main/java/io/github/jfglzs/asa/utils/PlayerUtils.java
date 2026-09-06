@@ -3,6 +3,8 @@ package io.github.jfglzs.asa.utils;
 import com.mojang.authlib.GameProfile;
 import fi.dy.masa.malilib.util.InventoryUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
@@ -167,4 +169,22 @@ public class PlayerUtils {
         return profile.name();
     }
     //~}
+
+    public static boolean isFakePlayer(String playerName) {
+        var info = getPlayerInfo(playerName);
+        return isFakePlayer(info);
+    }
+
+    public static boolean isFakePlayer(PlayerInfo info) {
+        return info != null && info.getLatency() == 0;
+    }
+
+    public static PlayerInfo getPlayerInfo(String playerName) {
+        var connection = MCUtils.getConnection();
+
+        if (connection == null)
+            return null;
+
+        return connection.getPlayerInfo(playerName);
+    }
 }
