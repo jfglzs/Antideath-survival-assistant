@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.mixin.event.screenEvents;
 
 import io.github.jfglzs.asa.events.OpenScreenEvent;
+import io.github.jfglzs.asa.feature.backpackOrganizer.BackpackOrganizer;
 import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -19,7 +20,8 @@ public class Minecraft_Mixin {
             cancellable = true
     )
     private void setScreen_1(Screen screen, CallbackInfo ci) {
-        if (screen instanceof ShulkerBoxScreen & BoxRestockMannager.context != null) {
+        if (screen instanceof ShulkerBoxScreen
+                && (BoxRestockMannager.context != null || BackpackOrganizer.shouldSuppressScreen())) {
             ci.cancel();
         }
     }

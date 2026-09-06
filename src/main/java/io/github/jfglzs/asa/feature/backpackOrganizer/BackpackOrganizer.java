@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.feature.backpackOrganizer;
 
+import fi.dy.masa.malilib.util.InventoryUtils;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
@@ -13,10 +14,12 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -77,6 +80,14 @@ public class BackpackOrganizer {
         else {
             start();
         }
+    }
+
+    /**
+     * 整理期间抑制潜影盒 GUI 显示(参考 PR#15 后台开盒方案):
+     * 等待/处理某个盒时, 服务端容器照常打开, 仅取消屏幕渲染, 用户无感。
+     */
+    public static boolean shouldSuppressScreen() {
+        return running && openedSlot != -1;
     }
 
     public static void start() {
@@ -156,21 +167,13 @@ public class BackpackOrganizer {
             return;
         }
 
-        // 等待盒子界面/内容同步
+        // 等待盒子内容同步(GUI 已被抑制, 不依赖 Screen 对象, 由 onContainerContent 驱动)
         openWaitTicks++;
-        if (MCUtils.getScreen() instanceof ShulkerBoxScreen) {
-            if (openWaitTicks > OPEN_TIMEOUT) {
-                log("tick: content sync timeout for slot " + openedSlot + ", skip");
-                SKIPPED_SLOTS.add(openedSlot);
-                PlayerUtils.closeContainer();
-                openedSlot = -1;
-                openWaitTicks = 0;
-            }
-            return;
-        }
         if (openWaitTicks > OPEN_TIMEOUT) {
-            log("tick: open timeout for slot " + openedSlot + ", skip");
+            log("tick: wait timeout for slot " + openedSlot + ", skip");
             SKIPPED_SLOTS.add(openedSlot);
+            // 容器可能已在服务端打开但内容未同步, 主动关闭防残留
+            PlayerUtils.closeContainer();
             openedSlot = -1;
             openWaitTicks = 0;
         }
@@ -179,21 +182,67 @@ public class BackpackOrganizer {
     /** 盒子内容同步后由事件钩子调用(与 BoxSplitter/BoxRestock 相同) */
     public static void onContainerContent() {
         if (! running || openedSlot == -1) {
-            log("onContainerContent ignored: running=" + running + " openedSlot=" + openedSlot);
             return;
         }
-        if (! (MCUtils.getScreen() instanceof ShulkerBoxScreen boxScreen)) {
-            log("onContainerContent: no ShulkerBoxScreen");
+        LocalPlayer player = MCUtils.getLocalPlayer();
+        if (player == null)
+            return;
+
+        // 直接使用 player.containerMenu(GUI 被抑制时 Screen 为 null, 但容器菜单照常打开)
+        AbstractContainerMenu menu = player.containerMenu;
+        if (menu == null || menu == player.inventoryMenu) {
+            log("onContainerContent: no container open, skip slot " + openedSlot);
+            SKIPPED_SLOTS.add(openedSlot);
+            openedSlot = -1;
             return;
         }
+
         if (BoxSplitter.isRunning() || BoxRestockMannager.context != null) {
             log("onContainerContent: conflict, stop");
             stop("检测到其它盒子操作, 整理已停止");
             return;
         }
 
-        log("onContainerContent: openedSlot=" + openedSlot + " drainMode=" + drainMode);
-        actOnOpenBox(boxScreen);
+        // 防串盒校验: 打开容器的前 27 槽必须与目标盒的 NBT 快照一致
+        if (! openedMenuMatchesTargetBox(player, menu)) {
+            log("onContainerContent: opened container mismatch target slot " + openedSlot + ", skip");
+            SKIPPED_SLOTS.add(openedSlot);
+            PlayerUtils.closeContainer();
+            openedSlot = -1;
+            openWaitTicks = 0;
+            return;
+        }
+
+        log("onContainerContent: acting slot=" + openedSlot + " drainMode=" + drainMode
+            + " containerId=" + menu.containerId);
+        actOnOpenBox(menu);
+    }
+
+    /** 校验当前打开的容器就是 openedSlot 槽位上那个盒(逐槽比对 NBT 快照, 参考 PR#15) */
+    private static boolean openedMenuMatchesTargetBox(LocalPlayer player, AbstractContainerMenu menu) {
+        ItemStack boxStack = player.getInventory().getItem(openedSlot);
+        if (! PlayerUtils.isShulkerBox(boxStack))
+            return false;
+        List<ItemStack> stored = PlayerUtils.getBoxItemStacks(boxStack);
+        int checked = 0;
+        for (Slot slot : menu.slots) {
+            // 只比对盒内容槽(跳过玩家背包侧)
+            if (slot.container instanceof Inventory)
+                continue;
+            if (checked >= stored.size())
+                break;
+            ItemStack a = stored.get(checked++);
+            ItemStack b = slot.getItem();
+            if (a.isEmpty() && b.isEmpty())
+                continue;
+            if (a.isEmpty() != b.isEmpty())
+                return false;
+            if (a.getCount() != b.getCount())
+                return false;
+            if (! InventoryUtils.areStacksEqualIgnoreDurability(a, b))
+                return false;
+        }
+        return checked > 0;
     }
 
     /* ---------------- 核心逻辑 ---------------- */
@@ -246,11 +295,10 @@ public class BackpackOrganizer {
     }
 
     /** 对当前打开的盒执行一步(腾空或装填), 然后关盒 */
-    private static void actOnOpenBox(ShulkerBoxScreen boxScreen) {
+    private static void actOnOpenBox(AbstractContainerMenu menu) {
         LocalPlayer player = MCUtils.getLocalPlayer();
         if (player == null)
             return;
-        var menu = boxScreen.getMenu();
         log("actOnOpenBox: mode=" + (drainMode ? "drain" : "fill")
             + " slots=" + menu.slots.size() + " containerId=" + menu.containerId);
 
