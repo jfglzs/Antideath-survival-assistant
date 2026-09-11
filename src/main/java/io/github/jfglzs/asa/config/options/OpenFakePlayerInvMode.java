@@ -1,14 +1,18 @@
 package io.github.jfglzs.asa.config.options;
 
 import fi.dy.masa.malilib.config.IConfigOptionListEntry;
+import fi.dy.masa.malilib.util.StringUtils;
 
 public enum OpenFakePlayerInvMode implements IConfigOptionListEntry {
-    COMMAND("指令交互"), INTERACTION("右键交互");
+    COMMAND("指令交互", "asa.opts.ofpm.cmd"),
+    INTERACTION("右键交互", "asa.opts.ofpm.use");
 
     private final String name;
+    private String key;
 
-    OpenFakePlayerInvMode(String name) {
+    OpenFakePlayerInvMode(String name, String key) {
         this.name = name;
+        this.key = key;
     }
 
     @Override
@@ -18,7 +22,7 @@ public enum OpenFakePlayerInvMode implements IConfigOptionListEntry {
 
     @Override
     public String getDisplayName() {
-        return this.name;
+        return StringUtils.translate(this.key);
     }
 
     @Override

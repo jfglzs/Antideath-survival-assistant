@@ -10,6 +10,7 @@ import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.annotations.Config;
 import io.github.jfglzs.asa.config.options.AutoCleanWasteMode;
 import io.github.jfglzs.asa.config.options.ItemFrameVisibility;
+import io.github.jfglzs.asa.config.options.LowHealthSendMode;
 import io.github.jfglzs.asa.config.options.OpenFakePlayerInvMode;
 
 import java.io.File;
@@ -99,8 +100,8 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed CREEPER_WARN = new ConfigBooleanHotkeyed("creeperWarner", true, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigDouble CREEPER_WARN_RANGE = new ConfigDouble("creeperWarner-Range", 8, 0, 64, "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed DISPLAY_REMAIN_ITEM = new ConfigBooleanHotkeyed("remainItemOverlay", false, "", "").apply(ALL);
-        @Config(tab = Tab.FUNCTIONS) public static final ConfigInteger DISPLAY_REMAIN_ITEM_OVERLAY_Y_OFFSET = new ConfigInteger("remainItemOverlay-yOffset", 0);
-        @Config(tab = Tab.FUNCTIONS) public static final ConfigInteger DISPLAY_REMAIN_ITEM_OVERLAY_X_OFFSET = new ConfigInteger("remainItemOverlay-xOffset", 0);
+        @Config(tab = Tab.FUNCTIONS) public static final ConfigInteger DISPLAY_REMAIN_ITEM_OVERLAY_Y_OFFSET = new ConfigInteger("remainItemOverlay-yOffset", 0).apply(ALL);
+        @Config(tab = Tab.FUNCTIONS) public static final ConfigInteger DISPLAY_REMAIN_ITEM_OVERLAY_X_OFFSET = new ConfigInteger("remainItemOverlay-xOffset", 0).apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed TAP_FILTER = new ConfigBooleanHotkeyed("tabFilter", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBoolean ENABLE_TAP_FILTER_WHITELIST = new ConfigBoolean("enableTabFilterWhiteList", false, " ").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBoolean ENABLE_TAP_FILTER_PREFIX = new ConfigBoolean("enableTabFilter-Prefix", false, " ").apply(ALL);
@@ -113,6 +114,7 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.FUNCTIONS) public static final ConfigFloat LOW_HEALTH_VALUE = new ConfigFloat("healthValve", 4, 1, 20, "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigString LOW_HEALTH_SEND_CONTENT_MESSAGE = new ConfigString("SendContent-Message", "!s", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigString LOW_HEALTH_SEND_CONTENT_COMMAND = new ConfigString("SendContent-Command", "spectator", "").apply(ALL);
+        @Config(tab = Tab.FUNCTIONS) public static final ConfigOptionList LOW_HEALTH_SEND_CONTENT_MODE = new ConfigOptionList("SendContent-Mode", LowHealthSendMode.AUTO).apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed FORCE_BLOCK_BREAK_COOL_DOWN = new ConfigBooleanHotkeyed("forceBlockMiningCoolDown", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed FLAT_MINING = new ConfigBooleanHotkeyed("flatMining", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed CAN_ALWAYS_DISCONNECT = new ConfigBooleanHotkeyed("canAlwaysDisconnect", false, "", "").apply(ALL);

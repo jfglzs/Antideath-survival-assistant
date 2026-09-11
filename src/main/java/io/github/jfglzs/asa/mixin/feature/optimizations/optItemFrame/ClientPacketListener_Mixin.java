@@ -3,6 +3,8 @@ package io.github.jfglzs.asa.mixin.feature.optimizations.optItemFrame;
 import com.llamalad7.mixinextras.sugar.Local;
 import io.github.jfglzs.asa.accessor.IClientPacketListenerAccessor1;
 import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.ThreadUtils;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.protocol.game.ClientboundMapItemDataPacket;
@@ -26,7 +28,6 @@ public class ClientPacketListener_Mixin implements IClientPacketListenerAccessor
     public void handleRespawn(ClientboundRespawnPacket packet, CallbackInfo ci) {
         this.ASA$MAPS.clear();
     }
-
 
     @Inject(
             method = "handleMapItemData",

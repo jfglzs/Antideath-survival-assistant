@@ -1,14 +1,18 @@
 package io.github.jfglzs.asa.config.options;
 
 import fi.dy.masa.malilib.config.IConfigOptionListEntry;
+import fi.dy.masa.malilib.util.StringUtils;
 
 public enum AutoCleanWasteMode implements IConfigOptionListEntry {
-    DROP("丢出物品"), MOVE_TO_CONTAINER("转移至容器");
+    DROP("丢出物品", "asa.opts.acwm.drop"),
+    MOVE_TO_CONTAINER("转移至容器", "asa.opts.acwm.transfer");
 
     private final String name;
+    private String key;
 
-    AutoCleanWasteMode(String name) {
+    AutoCleanWasteMode(String name, String key) {
         this.name = name;
+        this.key = key;
     }
 
     @Override
@@ -18,7 +22,7 @@ public enum AutoCleanWasteMode implements IConfigOptionListEntry {
 
     @Override
     public String getDisplayName() {
-        return this.name;
+        return StringUtils.translate(this.key);
     }
 
     @Override

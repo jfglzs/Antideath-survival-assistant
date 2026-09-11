@@ -2,10 +2,12 @@ package io.github.jfglzs.asa.utils;
 
 import io.github.jfglzs.asa.AsaMod;
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
 
 import java.util.Queue;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.LockSupport;
+import java.util.function.Supplier;
 
 public class ThreadUtils {
     public static final Minecraft MC = Minecraft.getInstance();
@@ -39,6 +41,23 @@ public class ThreadUtils {
         thread.setDaemon(true);
         thread.setName("ASA-TaskThread");
         thread.start();
+    }
+
+    public static <T> T runOnClientThread(Supplier<T> supplier) {
+        Minecraft mc = MCUtils.getMinecraft();
+        if (mc.isSameThread())
+            return supplier.get();
+
+        CompletableFuture<T> future = new CompletableFuture<>();
+        mc.execute(() -> {
+            try {
+                future.complete(supplier.get());
+            }
+            catch (Throwable throwable) {
+                future.completeExceptionally(throwable);
+            }
+        });
+        return future.join();
     }
 
     public static void runAsync(Runnable toRun) {

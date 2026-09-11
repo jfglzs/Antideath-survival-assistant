@@ -1,14 +1,19 @@
 package io.github.jfglzs.asa.config.options;
 
 import fi.dy.masa.malilib.config.IConfigOptionListEntry;
+import fi.dy.masa.malilib.util.StringUtils;
 
 public enum LowHealthSendMode implements IConfigOptionListEntry {
-    SEND_CHAT_MESSAGE("发送聊天消息"), SEND_COMMAND("发送命令");
+    SEND_CHAT_MESSAGE("发送聊天消息", "asa.opts.lhsm.chat"),
+    SEND_COMMAND("发送命令", "asa.opts.lhsm.cmd"),
+    AUTO("自动", "asa.opts.lhsm.auto");
 
     private final String name;
+    private final String key;
 
-    LowHealthSendMode(String name) {
+    LowHealthSendMode(String name, String key) {
         this.name = name;
+        this.key = key;
     }
 
     @Override
@@ -18,7 +23,7 @@ public enum LowHealthSendMode implements IConfigOptionListEntry {
 
     @Override
     public String getDisplayName() {
-        return this.name;
+        return StringUtils.translate(this.key);
     }
 
     @Override

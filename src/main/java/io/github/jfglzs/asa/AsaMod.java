@@ -92,19 +92,19 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(i -> i % 10 == 0 && Configs.Functions.DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender::tick);
         ClientTickEvent.register(i -> i % 20 == 0 && Configs.Functions.CREEPER_WARN.getBooleanValue(), CreeperCheckClient::tick);
         ClientTickEvent.register(i -> i % 20000 == 0 && Configs.LMS.LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client -> ItemStorageDataManager.reflushCache());
-        ClientTickEvent.register(i -> i % 200 == 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue(), client -> {
-            LocalPlayer player = MCUtils.getLocalPlayer();
-            if (player == null)
-                return;
-            for (ItemStack stack : PlayerUtils.getInventory()) {
-                if (! stack.is(Items.FILLED_MAP))
-                    return;
-                MapId mapId = stack.get(DataComponents.MAP_ID);
-                if (mapId != null) {
-                    ((IClientPacketListenerAccessor1) player.connection).asa$getMaps().remove(mapId.id());
-                }
-            }
-        });
+//        ClientTickEvent.register(i -> i % 200 == 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue(), client -> {
+//            LocalPlayer player = MCUtils.getLocalPlayer();
+//            if (player == null)
+//                return;
+//            for (ItemStack stack : PlayerUtils.getInventory()) {
+//                if (! stack.is(Items.FILLED_MAP))
+//                    return;
+//                MapId mapId = stack.get(DataComponents.MAP_ID);
+//                if (mapId != null) {
+//                    ((IClientPacketListenerAccessor1) player.connection).asa$getMaps().remove(mapId.id());
+//                }
+//            }
+//        });
     }
 
     private void registerCommands() {

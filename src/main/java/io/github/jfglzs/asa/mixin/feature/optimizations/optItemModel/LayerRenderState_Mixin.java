@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
+import java.util.ArrayList;
 import java.util.List;
 //?}
 
@@ -41,7 +42,7 @@ public class LayerRenderState_Mixin implements ILayerRenderStateAccessor {
     )
     public void clear(List<BakedQuad> instance, Operation<Void> original) {
         if (Configs.Optimizations.OPT_ITEM_MODEL.getBooleanValue()) {
-            this.quads = null;
+            this.quads = new ArrayList<>();
             return;
         }
         original.call(instance);
