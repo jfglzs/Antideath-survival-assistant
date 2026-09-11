@@ -16,14 +16,23 @@ public class ClientTickEvent {
         tickTasks.add(TickTask.of(condition, callback));
     }
 
-    ;
+    public static void register(IntPredicate condition, Runnable runnable) {
+        tickTasks.add(TickTask.of(condition, client ->  runnable.run()));
+    }
+
+    public static void register(Runnable runnable) {
+        tickTasks.add(TickTask.of(runnable));
+    }
+
+    public static void register(ClientTickCallback callback) {
+        tickTasks.add(TickTask.of(callback));
+    }
 
     public static void onUpdate(Minecraft client) {
         tickCount++;
         for (TickTask task : tickTasks) {
-            if (task.condition.test(tickCount)) {
+            if (task.condition.test(tickCount))
                 task.callback.onTick(client);
-            }
         }
     }
 
@@ -36,6 +45,14 @@ public class ClientTickEvent {
             Objects.requireNonNull(condition);
             Objects.requireNonNull(callback);
             return new TickTask(condition, callback);
+        }
+
+        public static TickTask of(Runnable runnable) {
+            return new TickTask((i) -> true, client ->  runnable.run());
+        }
+
+        public static TickTask of(ClientTickCallback callback) {
+            return new TickTask((i) -> true, callback);
         }
     }
 }

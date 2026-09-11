@@ -54,8 +54,8 @@ public class Configs implements IConfigHandler {
     }
 
     public static class LMS {
-        @Config(tab = Tab.LMS) public static final ConfigHotkey LMS_TAKE_ITEM = new ConfigHotkey("openFakeFetchGui", "", "打开假人取货菜单").apply(ALL);
-        @Config(tab = Tab.LMS) public static final ConfigBoolean LMS_FETCH_SUPPORT = new ConfigBoolean("fakeFetchSupport", false, "需要lms carpet addition").apply(ALL);
+        @Config(tab = Tab.LMS) public static final ConfigHotkey LMS_TAKE_ITEM = new ConfigHotkey("openFakeFetchGui", "", "").apply(ALL);
+        @Config(tab = Tab.LMS) public static final ConfigBoolean LMS_FETCH_SUPPORT = new ConfigBoolean("fakeFetchSupport", false, "").apply(ALL);
         @Config(tab = Tab.LMS) public static final ConfigBooleanHotkeyed MID_CLICK_TAKE_ITEM = new ConfigBooleanHotkeyed("middleClickLitematicBlockFetch", false, "", "").apply(ALL);
         @Config(tab = Tab.LMS) public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV = new ConfigBooleanHotkeyed("autoOpenFakeInv", false, "", "").apply(ALL);
         @Config(tab = Tab.LMS) public static final ConfigOptionList AUTO_OPEN_FAKE_PLAYER_INV_MODE = new ConfigOptionList("autoOpenFakeInv-Mode", OpenFakePlayerInvMode.INTERACTION, "", "").apply(ALL);
@@ -71,8 +71,8 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.LISTS) public static final ConfigStringList TAP_FILTER_WHITELIST = new ConfigStringList("tabFilterWhiteList", ImmutableList.of(), "").apply(ALL);
         @Config(tab = Tab.LISTS) public static final ConfigStringList TAP_FILTER_BLACKLIST = new ConfigStringList("tabFilterBlockList", ImmutableList.of(), " ").apply(ALL);
         @Config(tab = Tab.LISTS) public static final ConfigStringList TAP_FILTER_PREFIX = new ConfigStringList("tabFilterPrefix", ImmutableList.of(), " ").apply(ALL);
-        @Config(tab = Tab.LISTS) public static final ConfigStringList FAKE_PLAYER_KILL_AURA_BLACKLIST = new ConfigStringList("fakeKillAuraBlackList", ImmutableList.of(), "（仅对名单内玩家生效，精确匹配，忽略大小写）").apply(ALL);
-        @Config(tab = Tab.LISTS) public static final ConfigStringList FAKE_PLAYER_KILL_AURA_WHITELIST = new ConfigStringList("killAuraWhiteList", ImmutableList.of(), "（仅对名单内玩家生效，精确匹配，忽略大小写）").apply(ALL);
+        @Config(tab = Tab.LISTS) public static final ConfigStringList FAKE_PLAYER_KILL_AURA_BLACKLIST = new ConfigStringList("fakeKillAuraBlackList", ImmutableList.of(), "").apply(ALL);
+        @Config(tab = Tab.LISTS) public static final ConfigStringList FAKE_PLAYER_KILL_AURA_WHITELIST = new ConfigStringList("killAuraWhiteList", ImmutableList.of(), "").apply(ALL);
         @Config(tab = Tab.LISTS) public static final ConfigStringList AUTO_WASTE_CLEAN_WHITELIST = new ConfigStringList("inventoryCleanerWhiteList", ImmutableList.of(), "").apply(ALL);
         @Config(tab = Tab.LISTS) public static final ConfigStringList AUTO_WASTE_CLEAN_BLACKLIST = new ConfigStringList("inventoryCleanerBlackList", ImmutableList.of(), "").apply(ALL);
         @Config(tab = Tab.LISTS) public static final ConfigStringList MOUNT_LOGGERS_ON_MINIHUD_WHITE_LIST = new ConfigStringList("mountLoggerOnMinihudWhitelist", ImmutableList.of(), "").apply(ALL);

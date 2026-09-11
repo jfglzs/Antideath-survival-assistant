@@ -15,7 +15,7 @@ public class RemainingItemRender {
         HudRenderEvent.INSTANCE.register(RemainingItemRender::render);
     }
 
-    public static void tick(Minecraft mc) {
+    public static void tick() {
         if (Configs.Functions.DISPLAY_REMAIN_ITEM.getBooleanValue()) {
             stack = PlayerUtils.getPlayerMainHandStack();
             remainCount = PlayerUtils.checkRemainCount(stack.getItem());
