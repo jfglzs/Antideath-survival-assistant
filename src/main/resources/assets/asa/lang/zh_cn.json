@@ -222,5 +222,5 @@
   "asa.opts.ofpm.use": "右键交互",
   "asa.opts.lhsm.chat": "发送聊天消息",
   "asa.opts.lhsm.cmd": "发送命令",
-  "asa.opts.lhsm.auto": "自动",
+  "asa.opts.lhsm.auto": "自动"
 }
