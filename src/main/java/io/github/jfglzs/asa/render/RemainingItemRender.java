@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 public class RemainingItemRender {
-    public static ItemStack stack;
+    public static ItemStack stack = ItemStack.EMPTY;
     private static int remainCount = 0;
 
     public static void init() {
@@ -26,11 +26,13 @@ public class RemainingItemRender {
         if (Configs.Functions.DISPLAY_REMAIN_ITEM.getBooleanValue()) {
             int xOffset = Configs.Functions.DISPLAY_REMAIN_ITEM_OVERLAY_X_OFFSET.getIntegerValue();
             int yOffset = Configs.Functions.DISPLAY_REMAIN_ITEM_OVERLAY_Y_OFFSET.getIntegerValue();
-            if (stack != null && ! stack.is(Items.AIR)) {
-                var ctx = wrap.context();
-                ctx.drawString(Minecraft.getInstance().font, "%s %s".formatted(stack.getHoverName().getString(), remainCount), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
-                ctx.renderItem(stack, xOffset, yOffset);
-            }
+
+            if (stack.is(Items.AIR))
+                return;
+
+            var ctx = wrap.context();
+            ctx.drawString(Minecraft.getInstance().font, "%s %s".formatted(stack.getHoverName().getString(), remainCount), xOffset + 20, yOffset + 4, 0xFFFFFFFF, true);
+            ctx.renderItem(stack, xOffset, yOffset);
         }
     }
 }

@@ -51,6 +51,7 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed OPT_DIRECTION = new ConfigBooleanHotkeyed("optDirection", false, "", "").apply(ALL);
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed MINI_HUD_FPS_OPT = new ConfigBooleanHotkeyed("optMiniHud", false, "", "").apply(ALL);
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed FAST_MODEL_RENDER = new ConfigBooleanHotkeyed("fastModelRender", false, "", "").apply(ALL);
+        @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed OPT_SCORE_BOARD = new ConfigBooleanHotkeyed("optScoreBoard", false, "", "").apply(ALL);
     }
 
     public static class LMS {
@@ -85,7 +86,6 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.LISTS) public static final ConfigStringList AUTO_BOX_RESTROKE_WHITELIST = new ConfigStringList("autoBlockRestrok-Whitelist", ImmutableList.of(), "").apply(ALL);
         @Config(tab = Tab.LISTS) public static final ConfigStringList AUTO_BOX_RESTROKE_BLACKLIST = new ConfigStringList("autoBlockRestrok-blackList", ImmutableList.of(), "").apply(ALL);
         @Config(tab = Tab.LISTS) public static final ConfigStringList FAKE_PLAYER_INVENTORY_ITEM_CACHE_WHITE_LIST = new ConfigStringList("fakeInvCache-Whitelist", ImmutableList.of(), "", "").apply(ALL);
-        @Config(tab = Tab.LISTS) public static final ConfigStringList SERVER_COMMAND_MAPPING_LIST = new ConfigStringList("serverCommandMapping", ImmutableList.of(), "", "").apply(ALL);
     }
 
     public static class Commands {
@@ -141,7 +141,6 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.FUNCTIONS) public static final ConfigHotkey TRIGGER_BOX_SPLITTER = new ConfigHotkey("trigger-boxItemSplitter", "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed FORCE_USE_FIREWORK = new ConfigBooleanHotkeyed("forceUseFireWork", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed USE_SIGN_RUN_COMMAND = new ConfigBooleanHotkeyed("useSignRunCommand", false, "", "").apply(ALL);
-        @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_SERVER_COMMAND_MAPPING = new ConfigBooleanHotkeyed("enableServerCommandMapping", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed FAKE_PLAYER_TELEPORT_MENU = new ConfigBooleanHotkeyed("spectatorTelePortMenu", false, "", "").apply(ALL);
     }
 

@@ -3,13 +3,14 @@ package io.github.jfglzs.asa.events;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.Minecraft;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 
 public class ClientTickEvent {
-    private static final List<TickTask> tickTasks = new ObjectArrayList<>();
+    private static final List<TickTask> tickTasks = new LinkedList<>();
     private static int tickCount = 1;
 
     public static void register(IntPredicate condition, ClientTickCallback callback) {
@@ -21,7 +22,7 @@ public class ClientTickEvent {
     }
 
     public static void register(Runnable runnable) {
-        tickTasks.add(TickTask.of(runnable));
+        tickTasks.add(TickTask.of(i -> true, client ->  runnable.run()));
     }
 
     public static void register(ClientTickCallback callback) {
@@ -45,10 +46,6 @@ public class ClientTickEvent {
             Objects.requireNonNull(condition);
             Objects.requireNonNull(callback);
             return new TickTask(condition, callback);
-        }
-
-        public static TickTask of(Runnable runnable) {
-            return new TickTask((i) -> true, client ->  runnable.run());
         }
 
         public static TickTask of(ClientTickCallback callback) {

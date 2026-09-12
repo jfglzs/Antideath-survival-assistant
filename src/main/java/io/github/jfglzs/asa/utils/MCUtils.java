@@ -6,14 +6,12 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.Connection;
 import net.minecraft.world.item.Item;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
@@ -23,18 +21,26 @@ import net.minecraft.resources.Identifier;
 
 public class MCUtils {
     private static final Minecraft mc = Minecraft.getInstance();
+    private static int tickCount = 0;
+
+    public static int getTickCount() {
+        return tickCount;
+    }
+
+    public static void tick() {
+        tickCount++;
+    }
 
     public static Minecraft getMinecraft() {
-        return Minecraft.getInstance();
+        return mc;
     }
 
     public static LocalPlayer getLocalPlayer() {
-        Minecraft mc = getMinecraft();
         return mc.player;
     }
 
     public static ClientLevel getLevel() {
-        return MCUtils.getMinecraft().level;
+        return mc.level;
     }
 
     public static void executeCommand(String command) {

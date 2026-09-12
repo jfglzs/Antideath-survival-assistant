@@ -5,8 +5,10 @@
   "name": "${name}",
   "description": "masa extension mod that provides some useful features for your game.",
   "authors": [
-    "antideath",
-    "jasonxue1"
+    "Antideath",
+    "Jasonxue1",
+    "Ruo_Mo",
+    ""
   ],
   "contact": {
     "homepage": "https://github.com/jfglzs/Antideath-survival-assistant",

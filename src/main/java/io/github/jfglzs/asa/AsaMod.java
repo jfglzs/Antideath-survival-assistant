@@ -7,11 +7,9 @@ import fi.dy.masa.malilib.event.RenderEventHandler;
 import io.github.jfglzs.asa.accessor.IClientPacketListenerAccessor1;
 import io.github.jfglzs.asa.commands.AutoVaultCommand;
 import io.github.jfglzs.asa.commands.PlayerManipulateCommand;
-import io.github.jfglzs.asa.commands.ServerCommand;
 import io.github.jfglzs.asa.config.*;
 import io.github.jfglzs.asa.events.ClientTickEvent;
 import io.github.jfglzs.asa.events.HudRenderEvent;
-import io.github.jfglzs.asa.events.OpenScreenEvent;
 import io.github.jfglzs.asa.feature.autoVault.AutoVaultExecutor;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
@@ -25,7 +23,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
@@ -83,6 +80,7 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(this::testOnTick);
         ClientTickEvent.register(AutoVaultExecutor::tick);
         ClientTickEvent.register(BoxSplitter::tick);
+        ClientTickEvent.register(MCUtils::tick);
         ClientTickEvent.register(LowHealthSendCommandOrChat::tick);
         ClientTickEvent.register(ItemStorageDataManager::scanMatchedPlayersAndInteract);
         ClientTickEvent.register(i -> i % 10 == 0 && Configs.Functions.DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender::tick);
@@ -107,7 +105,6 @@ public class AsaMod implements ModInitializer {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, context) -> {
             PlayerManipulateCommand.register(dispatcher);
             AutoVaultCommand.register(dispatcher);
-            ServerCommand.register(dispatcher);
         });
     }
 

@@ -27,6 +27,7 @@
     "feature.optimizations.optItemModel.Identifier_Mixin",
     "feature.optimizations.optItemModel.ItemStack_Mixin",
     "feature.optimizations.optItemModel.ModelManager_Mixin",
+    "feature.optimizations.optScoreBoard.ScoreBoard_Mixin",
     "feature.optimizations.optSignText.SignText_Mixin"
   ],
   "injectors": {

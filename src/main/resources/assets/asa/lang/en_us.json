@@ -211,6 +211,8 @@
   "asa.config.all.comment.fastModelRender": "increase your fps when facing many models",
   "asa.config.all.name.SendContent-Mode": "SendContent-Mode",
   "asa.config.all.comment.SendContent-Mode": "SendContent-Mode",
+  "asa.config.all.name.optScoreBoard": "optScoreBoard",
+  "asa.config.all.comment.optScoreBoard": "optScoreBoard",
   "asa.opts.ifv.low": "Always Visible (Low Performance)",
   "asa.opts.ifv.mid": "Visible When Empty (Balanced)",
   "asa.opts.ifv.high": "Never Visible (High Performance)",
