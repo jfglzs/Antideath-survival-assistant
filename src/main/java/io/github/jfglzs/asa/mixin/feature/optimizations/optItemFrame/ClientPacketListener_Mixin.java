@@ -3,12 +3,16 @@ package io.github.jfglzs.asa.mixin.feature.optimizations.optItemFrame;
 import com.llamalad7.mixinextras.sugar.Local;
 import io.github.jfglzs.asa.accessor.IClientPacketListenerAccessor1;
 import io.github.jfglzs.asa.config.Configs;
-import io.github.jfglzs.asa.utils.MCUtils;
-import io.github.jfglzs.asa.utils.ThreadUtils;
+import io.github.jfglzs.asa.utils.PlayerUtils;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.protocol.game.ClientboundMapItemDataPacket;
 import net.minecraft.network.protocol.game.ClientboundRespawnPacket;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.saveddata.maps.MapId;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPacketListener.class)
 public class ClientPacketListener_Mixin implements IClientPacketListenerAccessor1 {
-    @Unique private final Int2IntArrayMap ASA$MAPS = new Int2IntArrayMap();
+    @Unique private final Int2IntArrayMap ASA$MAPS = new Int2IntArrayMap(64);
 
     @Inject(
             method = "handleRespawn",
@@ -42,12 +46,11 @@ public class ClientPacketListener_Mixin implements IClientPacketListenerAccessor
         if (Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue()) {
             int saveDataHash = savedData.hashCode();
             int intID = id.id();
-            if (intID != 0 && this.ASA$MAPS.get(intID) == saveDataHash) {
+
+            if (intID != 0 && this.ASA$MAPS.get(intID) == saveDataHash)
                 ci.cancel();
-            }
-            else {
+            else
                 this.ASA$MAPS.put(intID, saveDataHash);
-            }
         }
     }
 

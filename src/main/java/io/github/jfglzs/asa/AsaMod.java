@@ -14,6 +14,7 @@ import io.github.jfglzs.asa.feature.autoVault.AutoVaultExecutor;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.feature.creeperWarn.CreeperCheckClient;
+import io.github.jfglzs.asa.feature.itemFrameOptimization.MapItemUpdater;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
 import io.github.jfglzs.asa.feature.useSignRunCommand.UseSignRunCommand;
 import io.github.jfglzs.asa.render.RemainingItemRender;
@@ -25,6 +26,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.saveddata.maps.MapId;
@@ -86,18 +88,24 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(i -> i % 10 == 0 && Configs.Functions.DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender::tick);
         ClientTickEvent.register(i -> i % 20 == 0 && Configs.Functions.CREEPER_WARN.getBooleanValue(), CreeperCheckClient::tick);
         ClientTickEvent.register(i -> i % 20000 == 0 && Configs.LMS.LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client -> ItemStorageDataManager.reflushCache());
-        ClientTickEvent.register(i -> i % 200 == 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue(), client -> {
+        ClientTickEvent.register(MapItemUpdater::tick);
+        ClientTickEvent.register(() -> {
             LocalPlayer player = MCUtils.getLocalPlayer();
             if (player == null)
                 return;
-            for (ItemStack stack : PlayerUtils.getInventory()) {
-                if (! stack.is(Items.FILLED_MAP))
-                    return;
-                MapId mapId = stack.get(DataComponents.MAP_ID);
-                if (mapId != null) {
-                    ((IClientPacketListenerAccessor1) player.connection).asa$getMaps().remove(mapId.id());
-                }
+
+
+            if (main.is(Items.FILLED_MAP)) {
+                var mainID = main.get(DataComponents.MAP_ID);
+                if (mainID != null)
+                    ((IClientPacketListenerAccessor1) player.connection).asa$getMaps().remove(mainID.id());
             }
+            if (off.is(Items.FILLED_MAP)) {
+
+            }
+        });
+        ClientTickEvent.register(i -> i % 200 == 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue(), client -> {
+
         });
     }
 

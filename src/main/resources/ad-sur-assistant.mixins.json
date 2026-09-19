@@ -62,6 +62,7 @@
     "feature.lms.CreativeModeInventoryScreen_Mixin",
     "feature.optimizations.optItemFrame.ClientLevel_Mixin",
     "feature.optimizations.optItemFrame.ClientPacketListener_Mixin",
+    "feature.optimizations.optItemFrame.EntityRenderer_Mixin",
     "feature.optimizations.optItemFrame.ItemFrameRenderer_Mixin",
     "feature.optimizations.optItemModel.CuboidItemModelWrapper_Mixin",
     "feature.optimizations.optItemModel.LayerRenderState_Mixin"
