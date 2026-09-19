@@ -30,9 +30,8 @@ public class PlayerUtils {
 
     public static List<ItemStack> getInventory() {
         //~ if >= 1.21.5 'items' -> 'getNonEquipmentItems()' {
-        return MCUtils.getLocalPlayer()
-                      .getInventory()
-                      .getNonEquipmentItems();
+        LocalPlayer player = MCUtils.getLocalPlayer();
+        return player == null ? List.of() : player.getInventory().getNonEquipmentItems();
         //~}
     }
 

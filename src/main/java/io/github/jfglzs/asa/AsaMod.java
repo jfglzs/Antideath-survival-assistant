@@ -83,30 +83,12 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(AutoVaultExecutor::tick);
         ClientTickEvent.register(BoxSplitter::tick);
         ClientTickEvent.register(MCUtils::tick);
+        ClientTickEvent.register(MapItemUpdater::tick);
         ClientTickEvent.register(LowHealthSendCommandOrChat::tick);
         ClientTickEvent.register(ItemStorageDataManager::scanMatchedPlayersAndInteract);
         ClientTickEvent.register(i -> i % 10 == 0 && Configs.Functions.DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender::tick);
         ClientTickEvent.register(i -> i % 20 == 0 && Configs.Functions.CREEPER_WARN.getBooleanValue(), CreeperCheckClient::tick);
         ClientTickEvent.register(i -> i % 20000 == 0 && Configs.LMS.LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client -> ItemStorageDataManager.reflushCache());
-        ClientTickEvent.register(MapItemUpdater::tick);
-        ClientTickEvent.register(() -> {
-            LocalPlayer player = MCUtils.getLocalPlayer();
-            if (player == null)
-                return;
-
-
-            if (main.is(Items.FILLED_MAP)) {
-                var mainID = main.get(DataComponents.MAP_ID);
-                if (mainID != null)
-                    ((IClientPacketListenerAccessor1) player.connection).asa$getMaps().remove(mainID.id());
-            }
-            if (off.is(Items.FILLED_MAP)) {
-
-            }
-        });
-        ClientTickEvent.register(i -> i % 200 == 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue(), client -> {
-
-        });
     }
 
     private void registerCommands() {

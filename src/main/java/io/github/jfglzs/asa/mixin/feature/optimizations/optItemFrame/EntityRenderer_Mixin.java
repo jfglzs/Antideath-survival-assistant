@@ -17,8 +17,7 @@ public class EntityRenderer_Mixin {
             cancellable = true
     )
     private void getPackedLightCoords(Entity entity, float partialTickTime, CallbackInfoReturnable<Integer> cir) {
-        if (entity instanceof ItemFrame && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue()) {
-            cir.setReturnValue(0);
-        }
+        if (entity instanceof ItemFrame && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue())
+            cir.setReturnValue(128);
     }
 }
