@@ -52,26 +52,50 @@ public class ItemFrameRenderer_Mixin {
             method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
             at = @At(
                     value = "INVOKE",
+                    //? if < 26.3 {
                     target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V",
+                    //?} else {
+                    //target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V",
+                    //?}
                     ordinal = 2
             )
     )
+    //? if < 26.3 {
     public void submit(PoseStack instance, Quaternionfc by, Operation<Void> original, @Local ItemFrameRenderState state) {
+    //?} else {
+    //public void submit(PoseStack instance, Axis axis, float angle, Operation<Void> original, @Local ItemFrameRenderState state) {
+    //?}
         if (state.rotation != 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue())
+            //? if < 26.3 {
             original.call(instance, by);
+            //?} else {
+            //original.call(instance, axis, angle);
+            //?}
     }
 
     @WrapOperation(
             method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
             at = @At(
                     value = "INVOKE",
+                    //? if < 26.3 {
                     target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V",
+                    //?} else {
+                    //target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V",
+                    //?}
                     ordinal = 4
             )
     )
+    //? if < 26.3 {
     public void submit_1(PoseStack instance, Quaternionfc by, Operation<Void> original, @Local ItemFrameRenderState state) {
+    //?} else {
+    //public void submit_1(PoseStack instance, Axis axis, float angle, Operation<Void> original, @Local ItemFrameRenderState state) {
+    //?}
         if (state.rotation != 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue())
+            //? if < 26.3 {
             original.call(instance, by);
+            //?} else {
+            //original.call(instance, axis, angle);
+            //?}
     }
     //?}
 
