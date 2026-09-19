@@ -106,7 +106,6 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBoolean ENABLE_TAP_FILTER_WHITELIST = new ConfigBoolean("enableTabFilterWhiteList", false, " ").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBoolean ENABLE_TAP_FILTER_PREFIX = new ConfigBoolean("enableTabFilter-Prefix", false, " ").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigHotkey ENABLE_FAKE_PLAYER_KILL_AURA = new ConfigHotkey("triggerFakeKillAura", "", "").apply(ALL);
-        @Config(tab = Tab.FUNCTIONS) public static final ConfigString FAKE_PLAYER_KILL_AURA_PREFIX = new ConfigString("fakeKillAuraPrefix", "bot_", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigDouble FAKE_PLAYER_KILL_AURA_RANGE = new ConfigDouble("fakeKillAuraRange", 4, 0, 32, "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST = new ConfigBooleanHotkeyed("enableFakeKillAuraBlackList", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST = new ConfigBooleanHotkeyed("enableKillAuraWhiteList", false, "", "").apply(ALL);

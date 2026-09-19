@@ -1,33 +1,29 @@
 package io.github.jfglzs.asa.feature.fakePlayerKillAura;
 
-import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public class FakePlayerKillAura {
     public static void kill() {
-        var mc = Minecraft.getInstance();
-        if (mc.level != null && mc.player != null) {
-            var box = mc.player.getBoundingBox().inflate(Configs.Functions.FAKE_PLAYER_KILL_AURA_RANGE.getDoubleValue());
-            var players = mc.level.getEntitiesOfClass(Player.class, box);
-            for (Player player : players) {
-                var name = player.getName().getString().toLowerCase();
-                var prefix = Configs.Functions.FAKE_PLAYER_KILL_AURA_PREFIX.getStringValue();
-                var canKill = canKill(name);
-                AsaMod.debugMessage(() -> "Name: " + name + " Prefix: " + prefix + " Can Kill: " + canKill);
-                if (prefix == null) {
-                    if (! canKill)
-                        continue;
-                }
-                else {
-                    boolean isStartWithPrefix = name.startsWith(prefix);
-                    if (! (isStartWithPrefix && canKill))
-                        continue;
-                }
+        Minecraft mc = MCUtils.getMinecraft();
+        ClientLevel level = mc.level;
+        LocalPlayer player = mc.player;
+
+        if (level == null && player == null)
+            return;
+
+        var box = player.getBoundingBox().inflate(Configs.Functions.FAKE_PLAYER_KILL_AURA_RANGE.getDoubleValue());
+
+        for (Player target : level.getEntitiesOfClass(Player.class, box)) {
+            String name = PlayerUtils.getName(target);
+            var info = PlayerUtils.getPlayerInfo(name);
+            if (info != null && info.getLatency() == 0 && canKill(name))
                 MCUtils.executeCommand("player %s kill".formatted(name));
-            }
         }
     }
 
