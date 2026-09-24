@@ -7,7 +7,6 @@ import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -51,24 +50,7 @@ public class Minecraft_Mixin {
         }
         if (hand == null)
             return;
-        //? if > 1.21.1 {
-        if (gameMode.useItem(player, hand) instanceof InteractionResult.Success success) {
-            if (success.swingSource() == InteractionResult.SwingSource.CLIENT) {
-                this.player.swing(hand);
-            }
-            this.gameRenderer.itemInHandRenderer.itemUsed(hand);
-            ci.cancel();
-        }
-        //?} else {
-        /*var interactionResult3 = gameMode.useItem(player, hand);
-        if (interactionResult3.consumesAction()) {
-            if (interactionResult3.shouldSwing()) {
-                this.player.swing(hand);
-            }
 
-            this.gameRenderer.itemInHandRenderer.itemUsed(hand);
-            ci.cancel();
-        }
-        *///?}
+       gameMode.useItem(player, hand);
     }
 }

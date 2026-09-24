@@ -20,6 +20,7 @@ public class FakePlayerKillAura {
         var box = player.getBoundingBox().inflate(Configs.Functions.FAKE_PLAYER_KILL_AURA_RANGE.getDoubleValue());
 
         for (Player target : level.getEntitiesOfClass(Player.class, box)) {
+            if (target == player) continue;
             String name = PlayerUtils.getName(target);
             var info = PlayerUtils.getPlayerInfo(name);
             if (info != null && info.getLatency() == 0 && canKill(name))

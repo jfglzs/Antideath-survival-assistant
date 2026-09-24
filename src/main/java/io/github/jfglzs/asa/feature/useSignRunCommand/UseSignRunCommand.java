@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 
+import java.util.List;
+
 public class UseSignRunCommand {
     private static final RateLimiter LIMITER = RateLimiter.create(1);
 
@@ -23,7 +25,9 @@ public class UseSignRunCommand {
                 return packet;
 
             if (packet instanceof ServerboundUseItemOnPacket itemPacket) {
+                //~ if >= 26.3 'getHitResult()' -> 'hitResult()' {
                 BlockHitResult hitResult = itemPacket.getHitResult();
+                //~}
                 LocalPlayer player = MCUtils.getLocalPlayer();
                 if (! player.isShiftKeyDown())
                     return packet;
@@ -31,7 +35,11 @@ public class UseSignRunCommand {
                 ClientLevel level = MCUtils.getLevel();
                 BlockEntity entity = level.getBlockEntity(pos);
                 if (entity instanceof SignBlockEntity sign && LIMITER.tryAcquire()) {
+                    //? if >= 26.3 {
+                    /*List<Component> messages = sign.getText(net.minecraft.world.level.block.entity.SignTextSlot.FRONT).getMessages(false);
+                    *///?} else {
                     Component[] messages = sign.getFrontText().getMessages(false);
+                    //?}
                     for (Component component : messages) {
                         String command = component.getString();
                         if (! command.startsWith("/"))

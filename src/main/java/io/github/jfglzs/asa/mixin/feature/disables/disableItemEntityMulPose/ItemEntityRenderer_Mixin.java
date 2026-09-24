@@ -24,7 +24,12 @@ public class ItemEntityRenderer_Mixin {
             */
             //?}
 
-            //? if >= 26.1 {
+            //? if >= 26.3 {
+            /*at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotate(Lcom/mojang/math/Axis;F)V"
+            )
+            *///?} else if >= 26.1 < 26.3 {
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V"
@@ -37,14 +42,21 @@ public class ItemEntityRenderer_Mixin {
             */
             //?}
             )
-            //? if >= 26.1 {
+    //? if >= 26.3 {
+    /*public void submit(PoseStack instance, com.mojang.math.Axis axis, float v, Operation<Void> original) {
+    *///?}else if >= 26.1 < 26.3 {
     public void submit(PoseStack instance, org.joml.Quaternionfc q, Operation<Void> original) {
-        //?} else if <= 1.21.4 {
-        /*public void submit(PoseStack instance, org.joml.Quaternionf q, Operation<Void> original) {
-         *///?} else  {
-        /*public void submit(PoseStack instance, org.joml.Quaternionfc q, Operation<Void> original) {
-         *///?}
+    /*?} else if <= 1.21.4 { */
+    /*public void submit(PoseStack instance, org.joml.Quaternionf q, Operation<Void> original) {
+    *///?} else  {
+    /*public void submit(PoseStack instance, org.joml.Quaternionfc q, Operation<Void> original) {
+    *///?}
         if (! Configs.Disables.DISABLE_ITEM_ENTITY_MULPOSE.getBooleanValue())
+            //? if >= 26.3 {
+            /*original.call(instance, axis, v);
+            *///?} else {
             original.call(instance, q);
+            //?}
+
     }
 }

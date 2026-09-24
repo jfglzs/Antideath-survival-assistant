@@ -13,7 +13,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import org.joml.Quaternionfc;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.Mixin;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
@@ -55,22 +54,22 @@ public class ItemFrameRenderer_Mixin {
                     //? if < 26.3 {
                     target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V",
                     //?} else {
-                    //target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V",
-                    //?}
+                    /*target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V",
+                    *///?}
                     ordinal = 2
             )
     )
     //? if < 26.3 {
-    public void submit(PoseStack instance, Quaternionfc by, Operation<Void> original, @Local ItemFrameRenderState state) {
+    public void submit(PoseStack instance, org.joml.Quaternionfc by, Operation<Void> original, @Local ItemFrameRenderState state) {
     //?} else {
-    //public void submit(PoseStack instance, Axis axis, float angle, Operation<Void> original, @Local ItemFrameRenderState state) {
-    //?}
+    /*public void submit(PoseStack instance, com.mojang.math.Axis axis, float angle, Operation<Void> original, @Local ItemFrameRenderState state) {
+    *///?}
         if (state.rotation != 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue())
             //? if < 26.3 {
             original.call(instance, by);
             //?} else {
-            //original.call(instance, axis, angle);
-            //?}
+            /*original.call(instance, axis, angle);
+            *///?}
     }
 
     @WrapOperation(
@@ -80,22 +79,22 @@ public class ItemFrameRenderer_Mixin {
                     //? if < 26.3 {
                     target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V",
                     //?} else {
-                    //target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V",
-                    //?}
+                    /*target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V",
+                    *///?}
                     ordinal = 4
             )
     )
     //? if < 26.3 {
-    public void submit_1(PoseStack instance, Quaternionfc by, Operation<Void> original, @Local ItemFrameRenderState state) {
+    public void submit_1(PoseStack instance, org.joml.Quaternionfc by, Operation<Void> original, @Local ItemFrameRenderState state) {
     //?} else {
-    //public void submit_1(PoseStack instance, Axis axis, float angle, Operation<Void> original, @Local ItemFrameRenderState state) {
-    //?}
+    /*public void submit_1(PoseStack instance, com.mojang.math.Axis axis, float angle, Operation<Void> original, @Local ItemFrameRenderState state) {
+    *///?}
         if (state.rotation != 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue())
             //? if < 26.3 {
             original.call(instance, by);
             //?} else {
-            //original.call(instance, axis, angle);
-            //?}
+            /*original.call(instance, axis, angle);
+            *///?}
     }
     //?}
 

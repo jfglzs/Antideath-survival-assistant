@@ -11,16 +11,23 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.List;
+
 @Mixin(SignText.class)
 public class SignText_Mixin {
     @Unique private boolean asa$HasText = false;
 
     @Inject(
+            //? if >= 26.3 {
+            /*method = "<init>",
+            *///?} else {
             method = "<init>([Lnet/minecraft/network/chat/Component;[Lnet/minecraft/network/chat/Component;Lnet/minecraft/world/item/DyeColor;Z)V",
+            //?}
             at = @At("TAIL")
     )
-    private void init(Component[] messages, Component[] filteredMessages, DyeColor color, boolean hasGlowingText,
-                      CallbackInfo ci) {
+    //~ if >= 26.3 'Component[]' -> 'List<Component>' {
+    private void init(Component[] messages, Component[] filteredMessages, DyeColor color, boolean hasGlowingText, CallbackInfo ci) {
+    //~}
         for (Component message : messages) {
             if (! message.getString().isEmpty()) {
                 this.asa$HasText = true;
