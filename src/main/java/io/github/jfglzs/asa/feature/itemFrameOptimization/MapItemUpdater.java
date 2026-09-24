@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.feature.itemFrameOptimization;
 
 import io.github.jfglzs.asa.accessor.IClientPacketListenerAccessor1;
+import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.player.LocalPlayer;
@@ -11,11 +12,13 @@ import net.minecraft.world.item.Items;
 
 public class MapItemUpdater {
     public static void tick() {
-        for (InteractionHand hand : InteractionHand.values())
-            update(PlayerUtils.getPlayerHandStack(hand));
+        if (Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue()) {
+            for (InteractionHand hand : InteractionHand.values())
+                update(PlayerUtils.getPlayerHandStack(hand));
 
-        for (ItemStack stack : PlayerUtils.getInventory())
-            update(stack);
+            for (ItemStack stack : PlayerUtils.getInventory())
+                update(stack);
+        }
     }
 
     public static void update(ItemStack stack) {

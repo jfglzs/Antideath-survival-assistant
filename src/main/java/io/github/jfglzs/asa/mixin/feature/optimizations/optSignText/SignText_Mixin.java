@@ -11,8 +11,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.List;
-
 @Mixin(SignText.class)
 public class SignText_Mixin {
     @Unique private boolean asa$HasText = false;
@@ -25,7 +23,7 @@ public class SignText_Mixin {
             //?}
             at = @At("TAIL")
     )
-    //~ if >= 26.3 'Component[]' -> 'List<Component>' {
+    //~ if >= 26.3 'Component[]' -> 'java.util.List<Component>' {
     private void init(Component[] messages, Component[] filteredMessages, DyeColor color, boolean hasGlowingText, CallbackInfo ci) {
     //~}
         for (Component message : messages) {
