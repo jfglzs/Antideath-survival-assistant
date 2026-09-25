@@ -16,6 +16,7 @@ import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.Mixin;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
+
 //? if >= 26.1 {
 import io.github.jfglzs.asa.config.options.ItemFrameVisibility;
 import net.minecraft.client.renderer.block.BlockModelResolver;
@@ -70,31 +71,6 @@ public class ItemFrameRenderer_Mixin {
             //?} else {
             /*original.call(instance, axis, angle);
             *///?}
-    }
-
-    @WrapOperation(
-            method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
-            at = @At(
-                    value = "INVOKE",
-                    //? if < 26.3 {
-                    target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V",
-                    //?} else {
-                    /*target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V",
-                    *///?}
-                    ordinal = 0
-            )
-    )
-    //? if < 26.3 {
-    public void submit_2(PoseStack instance, org.joml.Quaternionfc by, Operation<Void> original, @Local(name = "xRot") float xRot) {
-    //?} else {
-    /*public void submit_2(PoseStack instance, com.mojang.math.Axis axis, float angle, Operation<Void> original, @Local(name = "xRot") float xRot) {
-    *///?}
-        if (xRot == 0.0F && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue())
-        //? if < 26.3 {
-            original.call(instance, by);
-        //?} else {
-        /*original.call(instance, axis, angle);
-         *///?}
     }
 
     @WrapOperation(
