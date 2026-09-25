@@ -213,6 +213,8 @@
   "asa.config.all.comment.SendContent-Mode": "发送模式",
   "asa.config.all.name.optScoreBoard": "计分板优化",
   "asa.config.all.comment.optScoreBoard": "通过降低计分板的更新频率来优化计分板的渲染性能",
+  "asa.config.all.name.optEntityLight": "实体光照优化",
+  "asa.config.all.comment.optEntityLight": "需要开启tweakroo的伽马覆写",
   "asa.opts.ifv.low": "永远可见(低性能)",
   "asa.opts.ifv.mid": "无物品时可见(平衡)",
   "asa.opts.ifv.high": "永不可见(高性能)",

@@ -23,6 +23,7 @@
     "feature.lms.WorldUtils_Mixin",
     "feature.optimizations.fastModelRender.Group_Mixin",
     "feature.optimizations.optDirection.Direction_Mixin",
+    "feature.optimizations.optEntityLight.LightCoordsUtil_Mixin",
     "feature.optimizations.optItemFrame.ItemFrame_Mixin",
     "feature.optimizations.optScoreBoard.ScoreBoard_Mixin",
     "feature.optimizations.optSignText.SignText_Mixin"
@@ -57,6 +58,7 @@
     "feature.functions.tabFilter.PlayerTabOverlay_Mixin",
     "feature.lms.AbstractContainerScreen_Mixin",
     "feature.lms.CreativeModeInventoryScreen_Mixin",
+    "feature.optimizations.optEntityLight.EntityRenderer_Mixin",
     "feature.optimizations.optItemFrame.ClientLevel_Mixin",
     "feature.optimizations.optItemFrame.ClientPacketListener_Mixin",
     "feature.optimizations.optItemFrame.EntityRenderer_Mixin",

@@ -80,13 +80,13 @@ public class MCUtils {
 
     public static Screen getScreen() {
         //~ if >= 26.2 '.screen' -> '.gui.screen()' {
-        return mc.screen;
+        return mc.gui.screen();
         //~}
     }
 
     public static void setScreen(Screen screen) {
         //~ if >= 26.2 'setScreen' -> 'setScreenAndShow' {
-        mc.setScreen(screen);
+        mc.setScreenAndShow(screen);
         //~}
     }
 

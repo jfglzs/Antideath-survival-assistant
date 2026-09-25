@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 //~ if >= 26.2 'Gui' -> 'Hud' {
-@Mixin(net.minecraft.client.gui.Gui.class)
+@Mixin(net.minecraft.client.gui.Hud.class)
 //~}
 public class Gui_Mixin {
     @WrapOperation(

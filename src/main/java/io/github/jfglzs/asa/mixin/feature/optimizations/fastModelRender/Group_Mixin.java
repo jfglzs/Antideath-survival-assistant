@@ -1,6 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.optimizations.fastModelRender;
 //? if >= 26.2 {
-/*import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexSorting;
@@ -51,9 +51,9 @@ public class Group_Mixin {
         return draw;
     }
 }
-*///?} else {
-@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
+//?} else {
+/*@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
 public class Group_Mixin {
 }
-//?}
+*///?}
 

@@ -22,7 +22,7 @@ public class HumanoidArmorLayer_Mixin {
                                   @Local net.minecraft.client.renderer.entity.state.HumanoidRenderState state,
                                   @Local ItemStack stack) {
         //~ if >= 26.2 'EntityType' -> 'EntityTypes' {
-        boolean bl = state.entityType == net.minecraft.world.entity.EntityType.PLAYER;
+        boolean bl = state.entityType == net.minecraft.world.entity.EntityTypes.PLAYER;
         //~}
         if (Configs.Disables.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue() && bl && ! stack.is(Items.ELYTRA)) {
             ci.cancel();

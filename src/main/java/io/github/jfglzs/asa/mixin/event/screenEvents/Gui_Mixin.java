@@ -1,7 +1,7 @@
 package io.github.jfglzs.asa.mixin.event.screenEvents;
 
 //? if >= 26.2 {
-/*import io.github.jfglzs.asa.events.OpenScreenEvent;
+import io.github.jfglzs.asa.events.OpenScreenEvent;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.screens.Screen;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,8 +19,8 @@ public class Gui_Mixin {
         OpenScreenEvent.INSTANCE.update(screen);
     }
 }
-*///?} else {
-@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
+//?} else {
+/*@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
 public class Gui_Mixin {
 }
-//?}
+*///?}

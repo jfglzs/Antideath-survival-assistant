@@ -50,6 +50,7 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed OPT_DIRECTION = new ConfigBooleanHotkeyed("optDirection", false, "", "").apply(ALL);
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed MINI_HUD_FPS_OPT = new ConfigBooleanHotkeyed("optMiniHud", false, "", "").apply(ALL);
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed OPT_SCORE_BOARD = new ConfigBooleanHotkeyed("optScoreBoard", false, "", "").apply(ALL);
+        @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed OPT_ENTITY_LIGHT = new ConfigBooleanHotkeyed("optEntityLight", false, "", "").apply(ALL);
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed FAST_MODEL_RENDER = new ConfigBooleanHotkeyed("fastModelRender", false, "", "").apply(ALL);
     }
 
