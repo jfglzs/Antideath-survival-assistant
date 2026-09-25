@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //~}
 public class LightCoordsUtil_Mixin {
     @Inject(
-            //~ if >= 26.2 'getLightColor' -> 'getLightCoords' {
+            //~ if >= 26.1 'getLightColor' -> 'getLightCoords' {
             method = "getLightCoords*",
             //~}
             at = @At("HEAD"),
