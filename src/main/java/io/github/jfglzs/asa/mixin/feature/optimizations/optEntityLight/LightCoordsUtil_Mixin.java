@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class LightCoordsUtil_Mixin {
     @Inject(
             //~ if >= 26.2 'getLightColor' -> 'getLightCoords' {
-            method = "getLightCoords(Lnet/minecraft/world/level/BlockAndLightGetter;Lnet/minecraft/core/BlockPos;)I",
+            method = "getLightCoords*",
             //~}
             at = @At("HEAD"),
             cancellable = true
