@@ -2,14 +2,14 @@ package io.github.jfglzs.asa.mixin.feature.optimizations.optEntityLight;
 
 import io.github.jfglzs.asa.config.Configs;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.world.level.BlockAndLightGetter;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-@Mixin(LightCoordsUtil.class)
+//~ if >= 26.2 'net.minecraft.client.renderer.LevelRenderer' -> 'net.minecraft.util.LightCoordsUtil' {
+@Mixin(net.minecraft.util.LightCoordsUtil.class)
+//~}
 public class LightCoordsUtil_Mixin {
     @Inject(
             //~ if >= 26.2 'getLightColor' -> 'getLightCoords' {
