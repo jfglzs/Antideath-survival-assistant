@@ -5,11 +5,9 @@ import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,17 +22,13 @@ public class Minecraft_Mixin {
     @Shadow
     @Nullable
     public MultiPlayerGameMode gameMode;
-    @Shadow
-    @Final
-    public GameRenderer gameRenderer;
 
     @Inject(
             method = "startUseItem",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/InteractionHand;values()[Lnet/minecraft/world/InteractionHand;"
-            ),
-            cancellable = true
+            )
     )
     private void startUseItem(CallbackInfo ci) {
         if (player == null || gameMode == null || ! Configs.Functions.FORCE_USE_FIREWORK.getBooleanValue()) {

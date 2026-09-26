@@ -5,16 +5,15 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientPacketListener;
 
 public class CommandUtils {
     public static boolean canUseCommand(String command) {
-        ClientPacketListener networkHandler = Minecraft.getInstance().getConnection();
+        var handler = Minecraft.getInstance().getConnection();
 
-        if (networkHandler == null)
+        if (handler == null)
             return false;
 
-        var dispatcher = networkHandler.getCommands();
+        var dispatcher = handler.getCommands();
         return dispatcher.getRoot().getChild(command) != null;
     }
 

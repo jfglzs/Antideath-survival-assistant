@@ -1,13 +1,11 @@
 package io.github.jfglzs.asa.events;
 
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.Minecraft;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.IntPredicate;
-import java.util.function.Predicate;
 
 public class ClientTickEvent {
     private static final List<TickTask> tickTasks = new LinkedList<>();

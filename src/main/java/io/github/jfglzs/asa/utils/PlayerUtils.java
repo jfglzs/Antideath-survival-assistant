@@ -3,7 +3,6 @@ package io.github.jfglzs.asa.utils;
 import com.mojang.authlib.GameProfile;
 import fi.dy.masa.malilib.util.InventoryUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.InteractionHand;
@@ -18,7 +17,6 @@ import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class PlayerUtils {
     public static int getInventoryItemCount(Item item) {
