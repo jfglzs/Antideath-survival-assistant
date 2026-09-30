@@ -32,6 +32,6 @@ public class MapItemUpdater {
         if (mapId == null)
             return;
 
-        ((IClientPacketListenerAccessor1) player.connection).asa$getMaps().remove(mapId.id());
+        IClientPacketListenerAccessor1.of(player.connection).asa$getMaps().remove(mapId.id());
     }
 }

@@ -39,7 +39,7 @@ public class Group_Mixin {
             return original.call(renderType);
         PreparedRenderType preparedRenderType = renderType.prepare();
         if (this.canReorder && renderType.canConsolidateConsecutiveGeometry()) {
-            StagedVertexBuffer.Draw result = this.FMR$map.get(preparedRenderType);
+            var result = this.FMR$map.get(preparedRenderType);
             if (result != null)
                 return result;
         }

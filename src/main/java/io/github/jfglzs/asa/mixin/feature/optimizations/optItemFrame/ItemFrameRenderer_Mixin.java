@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.mixin.feature.optimizations.optItemFrame;
 
-//? if >= 1.21.8 {
+//? if >=1.21.8 {
+
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -17,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.Mixin;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
 
-//? if >= 26.1 {
+//? if >=26.1 {
 import io.github.jfglzs.asa.config.options.ItemFrameVisibility;
 import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.block.BlockModelRenderState;
@@ -25,7 +26,7 @@ import net.minecraft.client.renderer.block.BlockModelRenderState;
 
 @Mixin(ItemFrameRenderer.class)
 public class ItemFrameRenderer_Mixin {
-    //? if >= 26.1 {
+    //? if >=26.1 {
     @WrapOperation(
             method = "extractRenderState(Lnet/minecraft/world/entity/decoration/ItemFrame;Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;F)V",
             at = @At(
@@ -56,21 +57,24 @@ public class ItemFrameRenderer_Mixin {
                     target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V",
                     //?} else {
                     /*target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V",
-                    *///?}
+                    */
+//?}
                     ordinal = 2
             )
     )
-    //? if < 26.3 {
-    public void submit(PoseStack instance, org.joml.Quaternionfc by, Operation<Void> original, @Local ItemFrameRenderState state) {
-    //?} else {
-    /*public void submit(PoseStack instance, com.mojang.math.Axis axis, float angle, Operation<Void> original, @Local ItemFrameRenderState state) {
-    *///?}
-        if (state.rotation != 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue())
-            //? if < 26.3 {
-            original.call(instance, by);
-            //?} else {
-            /*original.call(instance, axis, angle);
-            *///?}
+            //? if <26.3 {
+    public void submit(PoseStack instance, org.joml.Quaternionfc by, Operation<Void> original,
+                       @Local ItemFrameRenderState state) {
+        //?} else {
+        /*public void submit(PoseStack instance, com.mojang.math.Axis axis, float angle, Operation<Void> original, @Local ItemFrameRenderState state) {
+         *///?}
+        if (state.rotation == 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue())
+            return;
+        //? if <26.3 {
+        original.call(instance, by);
+        //?} else {
+        /*original.call(instance, axis, angle);
+         *///?}
     }
 
     @WrapOperation(
@@ -81,25 +85,28 @@ public class ItemFrameRenderer_Mixin {
                     target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V",
                     //?} else {
                     /*target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V",
-                    *///?}
+                    */
+//?}
                     ordinal = 4
             )
     )
-    //? if < 26.3 {
-    public void submit_1(PoseStack instance, org.joml.Quaternionfc by, Operation<Void> original, @Local ItemFrameRenderState state) {
-    //?} else {
-    /*public void submit_1(PoseStack instance, com.mojang.math.Axis axis, float angle, Operation<Void> original, @Local ItemFrameRenderState state) {
-    *///?}
-        if (state.rotation != 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue())
-            //? if < 26.3 {
-            original.call(instance, by);
-            //?} else {
-            /*original.call(instance, axis, angle);
-            *///?}
+            //? if <26.3 {
+    public void submit_1(PoseStack instance, org.joml.Quaternionfc by, Operation<Void> original,
+                         @Local ItemFrameRenderState state) {
+        //?} else {
+        /*public void submit_1(PoseStack instance, com.mojang.math.Axis axis, float angle, Operation<Void> original, @Local ItemFrameRenderState state) {
+         *///?}
+        if (state.rotation == 0 && Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue())
+            return;
+        //? if <26.3 {
+        original.call(instance, by);
+        //?} else {
+        /*original.call(instance, axis, angle);
+         *///?}
     }
     //?}
 
-    //? if >= 1.21.8 {
+    //? if >=1.21.8 {
     @WrapOperation(
             method = "extractRenderState(Lnet/minecraft/world/entity/decoration/ItemFrame;Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;F)V",
             at = @At(
