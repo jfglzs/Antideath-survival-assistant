@@ -229,5 +229,6 @@
   "asa.opts.lhsm.auto": "自动",
   "asa.asyncLitematicaLoad.start": "[ASA] 开始异步加载投影",
   "asa.asyncLitematicaLoad.working": "[ASA] 投影正在加载请等待加载任务执行完成",
-  "asa.asyncLitematicaLoad.complete": "[ASA] 加载完成"
+  "asa.asyncLitematicaLoad.complete": "[ASA] 加载完成",
+  "asa.asyncLitematicaLoad.err": "[ASA] 原理图加载失败 %s"
 }

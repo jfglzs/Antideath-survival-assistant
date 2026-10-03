@@ -229,6 +229,7 @@
   "asa.opts.lhsm.auto": "Auto",
   "asa.asyncLitematicaLoad.start": "[ASA] Start async load Schematica",
   "asa.asyncLitematicaLoad.working": "[ASA] Schematica is being loading on other thread",
-  "asa.asyncLitematicaLoad.complete": "[ASA] Complete"
+  "asa.asyncLitematicaLoad.complete": "[ASA] Complete",
+  "asa.asyncLitematicaLoad.err": "[ASA] An exception in async thread %s"
 
 }
