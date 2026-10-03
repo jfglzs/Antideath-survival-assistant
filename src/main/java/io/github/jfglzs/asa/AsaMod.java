@@ -13,7 +13,7 @@ import io.github.jfglzs.asa.feature.autoVault.AutoVaultExecutor;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.feature.creeperWarn.CreeperCheckClient;
-import io.github.jfglzs.asa.feature.itemFrameOptimization.MapItemUpdater;
+import io.github.jfglzs.asa.feature.optItemFrame.MapItemUpdater;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
 import io.github.jfglzs.asa.feature.useSignRunCommand.UseSignRunCommand;
 import io.github.jfglzs.asa.render.RemainingItemRender;

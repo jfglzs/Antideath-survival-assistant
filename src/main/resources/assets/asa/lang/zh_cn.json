@@ -215,6 +215,8 @@
   "asa.config.all.comment.optScoreBoard": "通过降低计分板的更新频率来优化计分板的渲染性能",
   "asa.config.all.name.optEntityLight": "实体光照优化",
   "asa.config.all.comment.optEntityLight": "需要开启tweakroo的伽马覆写",
+  "asa.config.all.name.asyncLitematicaLoad": "异步投影加载",
+  "asa.config.all.comment.asyncLitematicaLoad": "使用异步线程来加载投影",
   "asa.opts.ifv.low": "永远可见(低性能)",
   "asa.opts.ifv.mid": "无物品时可见(平衡)",
   "asa.opts.ifv.high": "永不可见(高性能)",
@@ -224,5 +226,8 @@
   "asa.opts.ofpm.use": "右键交互",
   "asa.opts.lhsm.chat": "发送聊天消息",
   "asa.opts.lhsm.cmd": "发送命令",
-  "asa.opts.lhsm.auto": "自动"
+  "asa.opts.lhsm.auto": "自动",
+  "asa.asyncLitematicaLoad.start": "[ASA] 开始异步加载投影",
+  "asa.asyncLitematicaLoad.working": "[ASA] 投影正在加载请等待加载任务执行完成",
+  "asa.asyncLitematicaLoad.complete": "[ASA] 加载完成"
 }

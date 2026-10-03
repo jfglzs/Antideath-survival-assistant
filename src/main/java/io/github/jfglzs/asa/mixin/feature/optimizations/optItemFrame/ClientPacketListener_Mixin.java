@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPacketListener.class)
 public class ClientPacketListener_Mixin implements IClientPacketListenerAccessor1 {
-    @Unique private final Int2IntArrayMap ASA$MAPS = new Int2IntArrayMap(64);
+    @Unique private final Int2IntArrayMap ASA$MAPS = new Int2IntArrayMap(256);
 
     @Inject(
             method = "handleRespawn",

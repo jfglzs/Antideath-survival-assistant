@@ -21,6 +21,7 @@
     "feature.functions.mountLoggersOnMiniHud.RenderHandler_Mixin",
     "feature.lms.MaterialListEntry_Mixin",
     "feature.lms.WorldUtils_Mixin",
+    "feature.optimizations.asyncLitematicLoad.DataManager_Mixin",
     "feature.optimizations.fastModelRender.Group_Mixin",
     "feature.optimizations.optDirection.Direction_Mixin",
     "feature.optimizations.optEntityLight.LightCoordsUtil_Mixin",
@@ -58,10 +59,12 @@
     "feature.functions.tabFilter.PlayerTabOverlay_Mixin",
     "feature.lms.AbstractContainerScreen_Mixin",
     "feature.lms.CreativeModeInventoryScreen_Mixin",
+    "feature.optimizations.asyncLitematicLoad.GuiSchematicLoad_Mixin",
     "feature.optimizations.optEntityLight.EntityRenderer_Mixin",
     "feature.optimizations.optItemFrame.ClientLevel_Mixin",
     "feature.optimizations.optItemFrame.ClientPacketListener_Mixin",
     "feature.optimizations.optItemFrame.EntityRenderer_Mixin",
-    "feature.optimizations.optItemFrame.ItemFrameRenderer_Mixin"
+    "feature.optimizations.optItemFrame.ItemFrameRenderer_Mixin",
+    "invokers.GuiListBase_Invoker"
   ]
 }

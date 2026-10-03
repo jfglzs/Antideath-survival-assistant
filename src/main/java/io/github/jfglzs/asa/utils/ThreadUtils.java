@@ -2,7 +2,6 @@ package io.github.jfglzs.asa.utils;
 
 import io.github.jfglzs.asa.AsaMod;
 import net.minecraft.client.Minecraft;
-import net.minecraft.server.MinecraftServer;
 
 import java.util.Queue;
 import java.util.concurrent.*;
@@ -60,8 +59,8 @@ public class ThreadUtils {
         return future.join();
     }
 
-    public static void runAsync(Runnable toRun) {
-        THREAD_POOL.submit(toRun);
+    public static Future<?> runAsync(Runnable toRun) {
+        return THREAD_POOL.submit(toRun);
     }
 
     public static CompletableFuture<Void> runOnClientThread(Runnable toRun) {

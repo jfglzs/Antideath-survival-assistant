@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.feature.itemFrameOptimization;
+package io.github.jfglzs.asa.feature.optItemFrame;
 
 import io.github.jfglzs.asa.accessor.IClientPacketListenerAccessor1;
 import io.github.jfglzs.asa.config.Configs;
