@@ -151,8 +151,8 @@ public class PlayerUtils {
             //? if >= 26.1 {
             mc.gameMode.interact(player, entity, new EntityHitResult(entity), hand);
             //?} else {
-            //mc.gameMode.interact(player, entity, hand);
-            //?}
+            /*mc.gameMode.interact(player, entity, hand);
+            *///?}
         }
     }
 

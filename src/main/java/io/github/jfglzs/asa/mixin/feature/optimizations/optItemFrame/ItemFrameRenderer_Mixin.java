@@ -124,7 +124,7 @@ public class ItemFrameRenderer_Mixin {
     //?}
 }
 //?} else {
-//@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
-//public class ItemFrameRenderer_Mixin {
-//}
-//?}
+/*@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
+public class ItemFrameRenderer_Mixin {
+}
+*///?}

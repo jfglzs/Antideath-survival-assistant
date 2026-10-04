@@ -60,8 +60,8 @@ public class RenderHandler_Mixin {
             method = "onExtractGuiOverlayPost",
             //?} else if > 1.21.1 {
             /*method = "onRenderGameOverlayPostAdvanced",
-            */
-//?} else {
+            
+*///?} else {
             /*method = "onRenderGameOverlayPost",
             */
 //?}

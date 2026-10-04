@@ -18,8 +18,8 @@ public class ItemEntityRenderer_Mixin {
             */
             //?} else if < 1.21.10 {
             /*method = "render(Lnet/minecraft/client/renderer/entity/state/ItemEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
-            */
-            //?} else {
+            
+            *///?} else {
             /*method = "submit(Lnet/minecraft/client/renderer/entity/state/ItemEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V",
             */
             //?}
@@ -36,8 +36,8 @@ public class ItemEntityRenderer_Mixin {
             )
             //?} else if <= 1.21.4 {
             /*at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionf;)V")
-            */
-            //?} else {
+            
+            *///?} else {
             /*at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V")
             */
             //?}

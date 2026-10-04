@@ -15,10 +15,10 @@ public class ProgressBar {
         StringBuilder builder = new StringBuilder(length + 8);
 
         if (progressText != null)
-            builder.append(progressText);
+            builder.append(progressText).append(" ");
 
-        builder.repeat("█", Math.max(0, filled));
-        builder.repeat("-", Math.max(0, length - filled));
+        builder.repeat("●", Math.max(0, filled));
+        builder.repeat("○", Math.max(0, length - filled));
         builder.append(' ').append((int) (progress * 100)).append('%');
 
         return ChatUtils.c(builder.toString());

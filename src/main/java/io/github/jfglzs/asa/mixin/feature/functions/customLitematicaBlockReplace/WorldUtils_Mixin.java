@@ -27,8 +27,8 @@ public class WorldUtils_Mixin {
                     value = "INVOKE",
                     //? if < 1.21.11 {
                     /*target = "Lfi/dy/masa/litematica/materials/MaterialCache;getRequiredBuildItemForState(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/item/ItemStack;"
-                    */
-                    //?} else {
+                    
+                    *///?} else {
                     target = "Lfi/dy/masa/litematica/materials/MaterialCache;getRequiredBuildItemForState(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/item/ItemStack;"
                     //?}
                     )

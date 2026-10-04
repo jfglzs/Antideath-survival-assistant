@@ -29,17 +29,17 @@ public class HumanoidArmorLayer_Mixin {
         }
     }
     //?} else if >= 1.21.4 {
-    //    @Inject(
-    //            method = "render",
-    //            at = @At("HEAD"),
-    //            cancellable = true
-    //    )
-    //    private void render(CallbackInfo ci, @Local net.minecraft.client.renderer.entity.state.HumanoidRenderState state) {
-    //        if (state instanceof net.minecraft.client.renderer.entity.state.PlayerRenderState && Configs.Disables.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
-    //            ci.cancel();
-    //        }
-    //    }
-    //?} else if = 1.21.1 {
+        /*@Inject(
+                method = "render",
+                at = @At("HEAD"),
+                cancellable = true
+        )
+        private void render(CallbackInfo ci, @Local net.minecraft.client.renderer.entity.state.HumanoidRenderState state) {
+            if (state instanceof net.minecraft.client.renderer.entity.state.PlayerRenderState && Configs.Disables.DISABLE_PLAYER_ARMOR_RENDER.getBooleanValue()) {
+                ci.cancel();
+            }
+        }
+    *///?} else if = 1.21.1 {
     //    @Inject(
     //            method = "renderArmorPiece",
     //            at = @At("HEAD"),

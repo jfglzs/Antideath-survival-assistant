@@ -22,6 +22,7 @@
     "feature.lms.MaterialListEntry_Mixin",
     "feature.lms.WorldUtils_Mixin",
     "feature.optimizations.asyncLitematicLoad.DataManager_Mixin",
+    "feature.optimizations.asyncLitematicLoad.LitematicaSchematic_Mixin",
     "feature.optimizations.asyncLitematicLoad.OverlayRenderer_Mixin",
     "feature.optimizations.fastModelRender.Group_Mixin",
     "feature.optimizations.optDirection.Direction_Mixin",

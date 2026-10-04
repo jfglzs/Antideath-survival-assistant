@@ -3,9 +3,12 @@ package io.github.jfglzs.asa.utils;
 import io.github.jfglzs.asa.AsaMod;
 import net.minecraft.client.Minecraft;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.LockSupport;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class ThreadUtils {
@@ -40,6 +43,32 @@ public class ThreadUtils {
         thread.setDaemon(true);
         thread.setName("ASA-TaskThread");
         thread.start();
+    }
+
+    public static <T> void parallel(List<T> list, int threads, int batchSize, Consumer<List<T>> processor) {
+
+        ExecutorService executor = Executors.newFixedThreadPool(threads);
+
+        try {
+            List<Future<?>> futures = new ArrayList<>();
+
+            for (int i = 0; i < list.size(); i += batchSize) {
+                int from = i;
+                int to = Math.min(i + batchSize, list.size());
+
+                futures.add(executor.submit(() -> processor.accept(list.subList(from, to))));
+            }
+
+            for (Future<?> future : futures) {
+                future.get();
+            }
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e.getCause());
+        }
+        finally {
+            executor.shutdown();
+        }
     }
 
     public static <T> T runOnClientThread(Supplier<T> supplier) {
