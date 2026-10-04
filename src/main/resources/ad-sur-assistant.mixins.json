@@ -28,6 +28,7 @@
     "feature.optimizations.optEntityLight.LightCoordsUtil_Mixin",
     "feature.optimizations.optItemFrame.ItemFrame_Mixin",
     "feature.optimizations.optScoreBoard.ScoreBoard_Mixin",
+    "feature.optimizations.optSignText.BoundTickingBlockEntity_Mixin",
     "feature.optimizations.optSignText.SignText_Mixin"
   ],
   "injectors": {
