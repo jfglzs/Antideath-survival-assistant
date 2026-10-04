@@ -46,7 +46,6 @@ public class ThreadUtils {
     }
 
     public static <T> void parallel(List<T> list, int threads, int batchSize, Consumer<List<T>> processor) {
-
         ExecutorService executor = Executors.newFixedThreadPool(threads);
 
         try {

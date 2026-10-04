@@ -58,9 +58,9 @@ public abstract class LitematicaSchematic_Mixin {
         Map<BlockPos, net.minecraft.nbt.CompoundTag> map = new ConcurrentHashMap<>();
         int threads = Configs.Optimizations.ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT.getIntegerValue();
         var list = new ArrayList<>(oldTE.entrySet());
-        ThreadUtils.parallel(list, threads, list.size() / threads, entries -> {
+        ThreadUtils.parallel(list, threads, Math.min(list.size() / threads, 1), entries -> {
             for (Map.Entry<BlockPos, net.minecraft.nbt.CompoundTag> entry : entries) {
-                //? if <=26.2 {
+                //? if <= 26.2 {
                 map.put(entry.getKey(), SchematicConversionMaps.updateBlockEntity(SchematicConversionMaps.checkForIdTag(entry.getValue()), minecraftDataVersion));
                  //?} else {
                 /*map.put(entry.getKey(), SchematicConversionMaps.updateBlockEntity(SchematicConversionMaps.checkForIdTag(entry.getValue(), minecraftDataVersion), minecraftDataVersion));
