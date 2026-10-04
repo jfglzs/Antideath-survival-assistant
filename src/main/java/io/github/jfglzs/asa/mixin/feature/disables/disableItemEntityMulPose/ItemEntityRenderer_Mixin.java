@@ -39,8 +39,8 @@ public class ItemEntityRenderer_Mixin {
             
             *///?} else {
             /*at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V")
-            */
-            //?}
+            
+            *///?}
             )
     //? if >= 26.3 {
     /*public void submit(PoseStack instance, com.mojang.math.Axis axis, float v, Operation<Void> original) {

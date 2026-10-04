@@ -57,8 +57,8 @@ public class ItemFrameRenderer_Mixin {
                     target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V",
                     //?} else {
                     /*target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V",
-                    */
-//?}
+                    
+*///?}
                     ordinal = 2
             )
     )
@@ -85,8 +85,8 @@ public class ItemFrameRenderer_Mixin {
                     target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V",
                     //?} else {
                     /*target = "Lcom/mojang/blaze3d/vertex/PoseStack;rotateDegrees(Lcom/mojang/math/Axis;F)V",
-                    */
-                    //?}
+                    
+                    *///?}
                     ordinal = 4
             )
     )
