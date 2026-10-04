@@ -8,7 +8,6 @@ import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.ProgressBar;
 import io.github.jfglzs.asa.utils.ThreadUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+//~ if >= 26.3 'net.minecraft.nbt.CompoundTag' -> 'fi.dy.masa.malilib.util.data.tag.CompoundData' {
+import net.minecraft.nbt.CompoundTag;
+//~}
 
 @Mixin(LitematicaSchematic.class)
 public abstract class LitematicaSchematic_Mixin {
@@ -42,7 +44,7 @@ public abstract class LitematicaSchematic_Mixin {
             ),
             cancellable = true
     )
-    private void convertTileEntities_to_1_20_5(Map<BlockPos, CompoundTag> oldTE, int minecraftDataVersion, CallbackInfoReturnable<Map<BlockPos, CompoundTag>> cir) {
+    private void convertTileEntities_to_1_20_5(Map<BlockPos, CompoundTag> oldTE, int minecraftDataVersion, CallbackInfoReturnable<Map<?, ?>> cir) {
         if (! Configs.Optimizations.ASYNC_LITEMATICA_LOAD.getBooleanValue())
             return;
 
@@ -51,7 +53,11 @@ public abstract class LitematicaSchematic_Mixin {
         var list = new ArrayList<>(oldTE.entrySet());
         ThreadUtils.parallel(list, threads, list.size() / threads, entries -> {
             for (Map.Entry<BlockPos, CompoundTag> entry : entries) {
+                //? if <= 26.2 {
                 map.put(entry.getKey(), SchematicConversionMaps.updateBlockEntity(SchematicConversionMaps.checkForIdTag(entry.getValue()), minecraftDataVersion));
+                //?} else {
+                //map.put(entry.getKey(), SchematicConversionMaps.updateBlockEntity(SchematicConversionMaps.checkForIdTag(entry.getValue(), minecraftDataVersion), minecraftDataVersion));
+                //?}
                 asa$updateProgress("ConvertTileEntities");
             }
         });
@@ -71,7 +77,9 @@ public abstract class LitematicaSchematic_Mixin {
     }
 
     @Inject(
+            //~ if >= 26.3 'readSubRegionsFromNBT' -> 'readSubRegionsFromData' {
             method = "readSubRegionsFromNBT",
+            //~}
             at = @At(
                     value = "INVOKE",
                     target = "Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
