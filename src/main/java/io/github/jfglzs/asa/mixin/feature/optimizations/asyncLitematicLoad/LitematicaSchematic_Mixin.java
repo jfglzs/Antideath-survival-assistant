@@ -1,5 +1,5 @@
 package io.github.jfglzs.asa.mixin.feature.optimizations.asyncLitematicLoad;
-
+//? if > 1.21.1 {
 import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.litematica.schematic.LitematicaSchematic;
 import fi.dy.masa.litematica.schematic.conversion.SchematicConversionMaps;
@@ -11,7 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.ticks.ScheduledTick;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -48,7 +47,9 @@ public abstract class LitematicaSchematic_Mixin {
             return;
 
         Map<BlockPos, CompoundTag> map = new ConcurrentHashMap<>();
-        ThreadUtils.parallel(new ArrayList<>(oldTE.entrySet()), 12, 400, entries -> {
+        int threads = Configs.Optimizations.ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT.getIntegerValue();
+        var list = new ArrayList<>(oldTE.entrySet());
+        ThreadUtils.parallel(list, threads, list.size() / threads, entries -> {
             for (Map.Entry<BlockPos, CompoundTag> entry : entries) {
                 map.put(entry.getKey(), SchematicConversionMaps.updateBlockEntity(SchematicConversionMaps.checkForIdTag(entry.getValue()), minecraftDataVersion));
                 asa$updateProgress("ConvertTileEntities");
@@ -116,4 +117,10 @@ public abstract class LitematicaSchematic_Mixin {
     record RegionInfo(String regionName, AtomicInteger total, AtomicInteger cur) {
     }
 }
+//?} else {
+//@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
+//public abstract class LitematicaSchematic_Mixin {
+//
+//}
+//?}
 

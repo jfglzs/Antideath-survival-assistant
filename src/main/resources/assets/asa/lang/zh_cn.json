@@ -217,6 +217,8 @@
   "asa.config.all.comment.optEntityLight": "需要开启tweakroo的伽马覆写",
   "asa.config.all.name.asyncLitematicaLoad": "多线程投影加载",
   "asa.config.all.comment.asyncLitematicaLoad": "使用多线程来加载投影",
+  "asa.config.all.name.asyncLitematicaLoadThreadAmount": "多线程投影加载线程数",
+  "asa.config.all.comment.asyncLitematicaLoadThreadAmount": "多线程投影加载线程数",
   "asa.opts.ifv.low": "永远可见(低性能)",
   "asa.opts.ifv.mid": "无物品时可见(平衡)",
   "asa.opts.ifv.high": "永不可见(高性能)",
@@ -227,7 +229,7 @@
   "asa.opts.lhsm.chat": "发送聊天消息",
   "asa.opts.lhsm.cmd": "发送命令",
   "asa.opts.lhsm.auto": "自动",
-  "asa.asyncLitematicaLoad.start": "[ASA] 开始多线程加载投影 \n 线程数: 12",
+  "asa.asyncLitematicaLoad.start": "[ASA] 开始多线程加载投影 \n 线程数: %s",
   "asa.asyncLitematicaLoad.working": "[ASA] 投影正在加载请等待加载任务执行完成",
   "asa.asyncLitematicaLoad.complete": "[ASA] 加载完成",
   "asa.asyncLitematicaLoad.err": "[ASA] 原理图加载失败 %s"
