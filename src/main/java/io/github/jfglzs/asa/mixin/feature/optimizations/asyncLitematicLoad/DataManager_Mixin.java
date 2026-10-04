@@ -17,7 +17,6 @@ public class DataManager_Mixin {
     )
     private static void load(Operation<Void> original) {
         if (Configs.Optimizations.ASYNC_LITEMATICA_LOAD.getBooleanValue()) {
-            ChatUtils.actionBar(Component.translatable("asa.asyncLitematicaLoad.start"));
             ThreadUtils.runAsync(original::call);
         }
         else {

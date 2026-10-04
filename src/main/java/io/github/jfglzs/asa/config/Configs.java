@@ -53,7 +53,7 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed OPT_ENTITY_LIGHT = new ConfigBooleanHotkeyed("optEntityLight", false, "", "").apply(ALL);
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed FAST_MODEL_RENDER = new ConfigBooleanHotkeyed("fastModelRender", false, "", "").apply(ALL);
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed ASYNC_LITEMATICA_LOAD = new ConfigBooleanHotkeyed("asyncLitematicaLoad", false, "", "").apply(ALL);
-        @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigInteger ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT = new ConfigInteger("asyncLitematicaLoadThreadAmount", 2, 12, 512, "", "").apply(ALL);
+        @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigInteger ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT = new ConfigInteger("asyncLitematicaLoadThreadAmount", 2, 2, 512, "", "").apply(ALL);
     }
 
     public static class LMS {
