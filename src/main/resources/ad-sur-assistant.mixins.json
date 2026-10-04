@@ -66,6 +66,6 @@
     "feature.optimizations.optItemFrame.ClientPacketListener_Mixin",
     "feature.optimizations.optItemFrame.EntityRenderer_Mixin",
     "feature.optimizations.optItemFrame.ItemFrameRenderer_Mixin",
-    "invokers.GuiListBase_Invoker"
+    "feature.optimizations.optSignText.LocalPlayer_Mixin"
   ]
 }
