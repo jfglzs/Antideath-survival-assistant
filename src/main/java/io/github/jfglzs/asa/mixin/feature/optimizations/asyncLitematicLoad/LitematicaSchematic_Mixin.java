@@ -1,6 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.optimizations.asyncLitematicLoad;
-//? if >1.21.1 {
 
+//? if > 1.21.1 {
 import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.litematica.schematic.LitematicaSchematic;
 import fi.dy.masa.litematica.schematic.conversion.SchematicConversionMaps;
@@ -23,17 +23,22 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-//~ if >=26.3 'net.minecraft.nbt.CompoundTag' -> 'fi.dy.masa.malilib.util.data.tag.CompoundData' {
-//~ if >= 26.3 'net.minecraft.nbt.ListTag' -> 'fi.dy.masa.malilib.util.data.tag.ListData' {
+//~ if >= 26.3 'net.minecraft.nbt.CompoundTag' -> 'fi.dy.masa.malilib.util.data.tag.CompoundData' {
 @Mixin(LitematicaSchematic.class)
 public abstract class LitematicaSchematic_Mixin {
-    //~ if >= 26.3 'readTileEntitiesFromNBT' -> 'readTileEntitiesFromData' {
+    //? if >= 26.3 {
+    //@Shadow
+    //protected abstract Map<BlockPos, net.minecraft.nbt.CompoundTag> readTileEntitiesFromData(fi.dy.masa.malilib.util.data.tag.ListData par1);
+    //
+    //@Shadow
+    //protected abstract Map<BlockPos, net.minecraft.nbt.CompoundTag> readTileEntitiesFromData_v1(fi.dy.masa.malilib.util.data.tag.ListData par1);
+    //?} else {
     @Shadow
-    protected abstract Map<BlockPos, net.minecraft.nbt.CompoundTag> readTileEntitiesFromNBT(net.minecraft.nbt.ListTag par1);
+    protected abstract Map<BlockPos, net.minecraft.nbt.CompoundTag> readTileEntitiesFromNBT(net.minecraft.nbt.ListTag tagList);
 
     @Shadow
-    protected abstract Map<BlockPos, net.minecraft.nbt.CompoundTag> readTileEntitiesFromNBT_v1(net.minecraft.nbt.ListTag par1);
-    //~}
+    protected abstract Map<BlockPos, net.minecraft.nbt.CompoundTag> readTileEntitiesFromNBT_v1(net.minecraft.nbt.ListTag tagList);
+    //?}
 
     @Unique private RegionInfo asa$curRegion = null;
 
@@ -78,8 +83,8 @@ public abstract class LitematicaSchematic_Mixin {
                     //?}
                     )
     )
-    private void convertEntities_to_1_20_5(CallbackInfoReturnable<net.minecraft.nbt.ListTag> cir) {
-        asa$updateProgress("ConvertingEntities");
+    private void convertEntities_to_1_20_5(CallbackInfoReturnable cir) {
+        asa$updateProgress("ConvertEntities");
     }
 
     @Inject(
@@ -136,7 +141,6 @@ public abstract class LitematicaSchematic_Mixin {
     record RegionInfo(String regionName, AtomicInteger total, AtomicInteger cur) {
     }
 }
-//~}
 //~}
 //?} else {
 //@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
