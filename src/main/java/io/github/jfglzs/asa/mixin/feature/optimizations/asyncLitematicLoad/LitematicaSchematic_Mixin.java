@@ -1,147 +1,102 @@
 package io.github.jfglzs.asa.mixin.feature.optimizations.asyncLitematicLoad;
 
 //? if > 1.21.1 {
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.litematica.schematic.LitematicaSchematic;
-import fi.dy.masa.litematica.schematic.conversion.SchematicConversionMaps;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.ProgressBar;
 import io.github.jfglzs.asa.utils.ThreadUtils;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-//~ if >= 26.3 'net.minecraft.nbt.CompoundTag' -> 'fi.dy.masa.malilib.util.data.tag.CompoundData' {
 @Mixin(LitematicaSchematic.class)
 public abstract class LitematicaSchematic_Mixin {
-    //? if >= 26.3 {
-    //@Shadow
-    //protected abstract Map<BlockPos, net.minecraft.nbt.CompoundTag> readTileEntitiesFromData(fi.dy.masa.malilib.util.data.tag.ListData par1);
-    //
-    //@Shadow
-    //protected abstract Map<BlockPos, net.minecraft.nbt.CompoundTag> readTileEntitiesFromData_v1(fi.dy.masa.malilib.util.data.tag.ListData par1);
-    //?} else {
-    @Shadow
-    protected abstract Map<BlockPos, net.minecraft.nbt.CompoundTag> readTileEntitiesFromNBT(net.minecraft.nbt.ListTag tagList);
+    @Unique private volatile RegionInfo asa$curRegion = null;
 
-    @Shadow
-    protected abstract Map<BlockPos, net.minecraft.nbt.CompoundTag> readTileEntitiesFromNBT_v1(net.minecraft.nbt.ListTag tagList);
-    //?}
+    @WrapMethod(
+            method = "convertTileEntities_to_1_20_5"
+    )
+    private Map<?, ?> convertTileEntities_to_1_20_5(Map<?, ?> oldTE, int minecraftDataVersion, Operation<Map<?, ?>> original) {
+        if (! Configs.Optimizations.ASYNC_LITEMATICA_LOAD.getBooleanValue())
+            return original.call(oldTE, minecraftDataVersion);
 
-    @Unique private RegionInfo asa$curRegion = null;
+        var list = new ArrayList<>(oldTE.entrySet());
+        int threads = Configs.Optimizations.ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT.getIntegerValue();
+        var results = new ConcurrentHashMap<>();
+
+        ThreadUtils.parallel(list, threads, 500, entries -> {
+            var result = new HashMap<>();
+            entries.forEach(entry -> result.put(entry.getKey(), entry.getValue()));
+            results.putAll(original.call(result, minecraftDataVersion));
+        });
+
+        return results;
+    }
+
+    @WrapOperation(
+            method = "convertTileEntities_to_1_20_5",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lorg/apache/logging/log4j/Logger;info(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V"
+            )
+    )
+    void info(Logger instance, String s, Object ob1, Object ob2, Operation<Void> original) {
+        if (! Configs.Optimizations.ASYNC_LITEMATICA_LOAD.getBooleanValue())
+            instance.info(s, ob1, ob2);
+    }
 
     @Inject(
             method = "convertTileEntities_to_1_20_5",
             at = @At(
                     value = "INVOKE",
-                    target = "Ljava/util/HashMap;<init>()V"
-            ),
-            cancellable = true
-    )
-    private void convertTileEntities_to_1_20_5(Map<BlockPos, net.minecraft.nbt.CompoundTag> oldTE,
-                                               int minecraftDataVersion, CallbackInfoReturnable<Map<?, ?>> cir) {
-        if (! Configs.Optimizations.ASYNC_LITEMATICA_LOAD.getBooleanValue())
-            return;
-
-        Map<BlockPos, net.minecraft.nbt.CompoundTag> map = new ConcurrentHashMap<>();
-        int threads = Configs.Optimizations.ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT.getIntegerValue();
-        var list = new ArrayList<>(oldTE.entrySet());
-        ThreadUtils.parallel(list, threads, 200, entries -> {
-            for (Map.Entry<BlockPos, net.minecraft.nbt.CompoundTag> entry : entries) {
-                //? if <= 26.2 {
-                map.put(entry.getKey(), SchematicConversionMaps.updateBlockEntity(SchematicConversionMaps.checkForIdTag(entry.getValue()), minecraftDataVersion));
-                 //?} else {
-                /*map.put(entry.getKey(), SchematicConversionMaps.updateBlockEntity(SchematicConversionMaps.checkForIdTag(entry.getValue(), minecraftDataVersion), minecraftDataVersion));
-                *///?}
-                asa$updateProgress("ConvertTileEntities");
-            }
-        });
-
-        cir.setReturnValue(map);
-    }
-
-    @Inject(
-            method = "convertEntities_to_1_20_5",
-            at = @At(
-                    value = "INVOKE",
-                    //? if >= 26.3 {
-                    /*target = "Lfi/dy/masa/malilib/util/data/tag/ListData;add(Lfi/dy/masa/malilib/util/data/tag/BaseData;)Z"
-                    *///?} else {
-                    target = "Lnet/minecraft/nbt/ListTag;add(Ljava/lang/Object;)Z"
-                    //?}
-                    )
-    )
-    private void convertEntities_to_1_20_5(CallbackInfoReturnable cir) {
-        asa$updateProgress("ConvertEntities");
-    }
-
-    @Inject(
-            //~ if >= 26.3 'readSubRegionsFromNBT' -> 'readSubRegionsFromData' {
-            method = "readSubRegionsFromNBT",
-            //~}
-            at = @At(
-                    value = "INVOKE",
-                    target = "Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
-                    ordinal = 0
+                    target = "Ljava/util/Map;keySet()Ljava/util/Set;",
+                    shift = At.Shift.AFTER
             )
     )
-    private void readSubRegionsFromNBT(net.minecraft.nbt.CompoundTag tag, int version,
-                                       int minecraftDataVersion, CallbackInfo ci,
-                                       @Local(ordinal = 0) BlockPos regionPos, @Local(ordinal = 1) BlockPos regionSize,
-                                       @Local(ordinal = 1) net.minecraft.nbt.CompoundTag regionTag,
-                                       @Local String regionName) {
-        if (regionPos != null && regionSize != null) {
-            int total = 0;
+    private void convertTileEntities_to_1_20_5(CallbackInfoReturnable<?> cir) {
+        asa$updateProgress("ConvertTileEntities");
+    }
 
-            if (version >= 2) {
-                //? if >= 1.21.5 < 26.3 {
-                total += this.readTileEntitiesFromNBT(regionTag.getListOrEmpty("TileEntities")).size();
-                total += regionTag.getListOrEmpty("Entities").size();
-                //?} else if < 1.21.5 {
-                /*total += this.readTileEntitiesFromNBT(regionTag.getList("TileEntities", fi.dy.masa.malilib.util.data.Constants.NBT.TAG_COMPOUND)).size();
-                total += regionTag.getList("Entities", fi.dy.masa.malilib.util.data.Constants.NBT.TAG_COMPOUND).size();
-                *///?} else {
-                /*total += this.readTileEntitiesFromData(regionTag.getList("TileEntities")).size();
-                total += regionTag.getList("Entities").size();
-                *///?}
-            }
-            else if (version == 1) {
-                //? if >= 1.21.5 < 26.3 {
-                total += this.readTileEntitiesFromNBT_v1(regionTag.getListOrEmpty("TileEntities")).size();
-                //?} else if < 1.21.5 {
-                /*total += this.readTileEntitiesFromNBT_v1(regionTag.getList("TileEntities", fi.dy.masa.malilib.util.data.Constants.NBT.TAG_COMPOUND)).size();
-                *///?} else {
-                /*total += this.readTileEntitiesFromData_v1(regionTag.getList("TileEntities")).size();
-                *///?}
-            }
-            asa$curRegion = new RegionInfo(regionName, new AtomicInteger(total), new AtomicInteger(0));
+    @SuppressWarnings("all")
+    @ModifyVariable(
+            method = {"readSubRegionsFromData", "readSubRegionsFromNBT"},
+            at = @At("STORE"),
+            name = "tiles",
+            require = 1
+    )
+    private Map<?, ?> modifyTiles(Map<?, ?> tiles, @Local(name = "regionName") String regionName) {
+        if (tiles != null) {
+            asa$curRegion = new RegionInfo(regionName, tiles.size(), new AtomicInteger(0));
         }
+
+        return tiles;
     }
 
     @Unique
     private void asa$updateProgress(String name) {
-        double progressValue = (double) asa$curRegion.cur().incrementAndGet() / asa$curRegion.total().get();
+        double progressValue = (double) asa$curRegion.cur().incrementAndGet() / asa$curRegion.total;
         String progressText = asa$curRegion.regionName() + "[" + name + "]";
         Component progress = ProgressBar.getProgress(progressValue, progressText);
         ThreadUtils.runOnClientThread(() -> ChatUtils.actionBar(progress));
     }
 
-    record RegionInfo(String regionName, AtomicInteger total, AtomicInteger cur) {
+    record RegionInfo(String regionName, int total, AtomicInteger cur) {
     }
 }
-//~}
 //?} else {
 //@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
 //public abstract class LitematicaSchematic_Mixin {

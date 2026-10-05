@@ -22,7 +22,7 @@ public abstract class PlayerTabOverlay_Mixin {
                     ordinal = 0
             )
     )
-    private List<PlayerInfo> renderModify_Variable(List<PlayerInfo> original) {
+    private List<PlayerInfo> extractRenderState(List<PlayerInfo> original) {
         if (Configs.Functions.TAP_FILTER.getBooleanValue()) {
             ObjectArrayList<PlayerInfo> list = new ObjectArrayList<>();
             for (PlayerInfo entry : original) {
