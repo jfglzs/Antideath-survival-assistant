@@ -172,7 +172,7 @@
   "asa.config.all.name.disableProfiler": "禁用Profiler",
   "asa.config.all.comment.disableProfiler": "禁用后可提升帧数，但会导致饼图不可用",
   "asa.config.all.name.commandAutoVault": "自动宝库命令 /autovault",
-  "asa.config.all.comment.commandAutoVault": "自动执行宝库命令\n用法：\n/autovault player <前缀> <开始值> <结束值> <方块X> <方块Y> <方块Z> <DIR> <In>\n等效于：\n/player _AntiDeath_ spawn at <方块X> <方块Y> <方块Z> facing <dir> <in>\n/autovault set <宝库XYZ>",
+  "asa.config.all.comment.commandAutoVault": "自动执行宝库命令\n用法：\n/autovault player <前缀> <开始值> <结束值> <方块X> <方块Y> <方块Z>\n等效于：\n/player _AntiDeath_ spawn at <方块X> <方块Y> <方块Z> facing <dir> <in>\n/autovault set <宝库XYZ>",
   "asa.config.all.name.trigger-boxItemSplitter": "触发-潜影盒物品分离器",
   "asa.config.all.comment.trigger-boxItemSplitter": "按下指定快捷键后，将会保存玩家主手的物品并启用潜影盒物品分离器\n会自动打开玩家背包（不包括快捷栏）中的所有潜影盒，并丢出符合条件的物品",
   "asa.config.all.name.fakeInvCache": "假人背包物品缓存",

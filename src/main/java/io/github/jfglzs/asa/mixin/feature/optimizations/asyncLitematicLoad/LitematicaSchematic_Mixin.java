@@ -35,8 +35,8 @@ public abstract class LitematicaSchematic_Mixin {
             return original.call(oldTE, minecraftDataVersion);
 
         var list = new ArrayList<>(oldTE.entrySet());
-        int threads = Configs.Optimizations.ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT.getIntegerValue();
         var results = new ConcurrentHashMap<>();
+        int threads = Configs.Optimizations.ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT.getIntegerValue();
 
         ThreadUtils.parallel(list, threads, 500, entries -> {
             var result = new HashMap<>();
@@ -69,6 +69,14 @@ public abstract class LitematicaSchematic_Mixin {
     private void convertTileEntities_to_1_20_5(CallbackInfoReturnable<?> cir) {
         asa$updateProgress("ConvertTileEntities");
     }
+
+    @Inject(
+            method = "convertEntities_to_1_20_5",
+            at = @At(
+                    value = "FIELD",
+                    target = ""
+            )
+    )
 
     @SuppressWarnings("all")
     @ModifyVariable(

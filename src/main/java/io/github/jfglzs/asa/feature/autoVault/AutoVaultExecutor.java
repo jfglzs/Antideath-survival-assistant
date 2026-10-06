@@ -72,11 +72,17 @@ public class AutoVaultExecutor {
             return;
 
         ClientLevel level = MCUtils.getLevel();
-        if (level == null || vaultPos == null)
+
+        if (level == null || vaultPos == null) {
+            isRunning = false;
             return;
+        }
+
         BlockState state = level.getBlockState(vaultPos);
+
         if (state.getBlock() != Blocks.VAULT || ! LIMITER.tryAcquire())
             return;
+
         VaultState vaultState = state.getValue(VaultBlock.STATE);
 
         if (executorState == ExecutorState.IDLE && canUseVault(vaultState)) {

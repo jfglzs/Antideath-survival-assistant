@@ -19,30 +19,17 @@ public class AutoVaultCommand {
         var command = CommandUtils.literal("autovault").requires(cs -> Configs.Commands.AUTO_VAULT_COMMAND.getBooleanValue())
                                   .then(CommandUtils.literal("set")
                                                     .then(CommandUtils.argument("blockX", IntegerArgumentType.integer())
-                                                                      .then(CommandUtils
-                                                                              .argument("blockY", IntegerArgumentType.integer(- 64, 320))
-                                                                              .then(CommandUtils
-                                                                                      .argument("blockZ", IntegerArgumentType.integer())
-                                                                                      .executes(AutoVaultCommand::setPos)))))
-                                  .then(CommandUtils.literal("player")
-                                                    .then(CommandUtils.argument("prefix", StringArgumentType.word())
-                                                                      .then(CommandUtils
-                                                                              .argument("start", IntegerArgumentType.integer(0))
-                                                                              .then(CommandUtils
-                                                                                      .argument("end", IntegerArgumentType.integer(0))
-                                                                                      .then(CommandUtils
-                                                                                              .argument("blockX", FloatArgumentType.floatArg())
-                                                                                              .then(CommandUtils
-                                                                                                      .argument("blockY", FloatArgumentType.floatArg())
-                                                                                                      .then(CommandUtils
-                                                                                                              .argument("blockZ", FloatArgumentType.floatArg())
-                                                                                                              .then(CommandUtils
-                                                                                                                      .argument("direction", FloatArgumentType.floatArg())
-                                                                                                                      .then(CommandUtils
-                                                                                                                              .argument("in", FloatArgumentType.floatArg())
-                                                                                                                              .executes(AutoVaultCommand::setPlayer))))))))))
+                                                                      .then(CommandUtils.argument("blockY", IntegerArgumentType.integer(- 64, 320))
+                                                                              .then(CommandUtils.argument("blockZ", IntegerArgumentType.integer()).executes(AutoVaultCommand::setPos)))))
+                                  .then(CommandUtils.literal("player").then(CommandUtils.argument("prefix", StringArgumentType.word()).then(CommandUtils
+                                          .argument("start", IntegerArgumentType.integer(0))
+                                          .then(CommandUtils.argument("end", IntegerArgumentType.integer(0))
+                                                  .then(CommandUtils.argument("blockX", FloatArgumentType.floatArg())
+                                                          .then(CommandUtils.argument("blockY", FloatArgumentType.floatArg())
+                                                                  .then(CommandUtils.argument("blockZ", FloatArgumentType.floatArg())
+                                                                          .executes(AutoVaultCommand::setPlayer))
                                   .then(CommandUtils.literal("start").executes(AutoVaultCommand::start))
-                                  .then(CommandUtils.literal("stop").executes(AutoVaultCommand::stop));
+                                  .then(CommandUtils.literal("stop").executes(AutoVaultCommand::stop))))))));
         dispatcher.register(command);
     }
 
@@ -53,8 +40,8 @@ public class AutoVaultCommand {
         float blockX = FloatArgumentType.getFloat(context, "blockX");
         float blockY = FloatArgumentType.getFloat(context, "blockY");
         float blockZ = FloatArgumentType.getFloat(context, "blockZ");
-        float direction = FloatArgumentType.getFloat(context, "direction");
-        float in = FloatArgumentType.getFloat(context, "in");
+        float direction = MCUtils.getLocalPlayer().getYRot();
+        float in = MCUtils.getLocalPlayer().getXRot();
 
         if (start > end) {
             context.getSource().sendError(ChatUtils.c(AutoVaultCommand.prefix + "无效的开始值"));
