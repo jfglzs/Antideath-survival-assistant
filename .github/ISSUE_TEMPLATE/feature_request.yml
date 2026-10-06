@@ -45,8 +45,8 @@ body:
   - type: checkboxes
     id: code-confirmation
     attributes:
-      label: Code Confirmation / 代码确认
-      description: Please confirm the following before submitting this feature request. / 提交此功能请求前，请确认以下内容。
+      label: Confirmation
+      description: Please confirm
       options:
-        - label: I confirm that more than 90% of the code in this project is handwritten. / 我已确认此PR 90% 以上的代码是手写的。
-          required: true
+        - label: do not confirm
+          required: false
