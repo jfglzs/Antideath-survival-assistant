@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.optimizations.asyncClientLightUpdate;
 
+//? if >= 26.1 {
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import io.github.jfglzs.asa.config.Configs;
@@ -19,3 +20,7 @@ public class ClientLevel_Mixin {
             original.call();
     }
 }
+//?} else {
+//@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
+//public class ClientLevel_Mixin {}
+//?}
