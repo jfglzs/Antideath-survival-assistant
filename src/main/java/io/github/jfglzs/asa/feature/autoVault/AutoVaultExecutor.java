@@ -53,14 +53,11 @@ public class AutoVaultExecutor {
     }
 
     public static String makeCommand() {
-        if (current >= start && current <= end) {
-            current++;
-        }
-        else {
-            current = start;
-        }
+        if (prefix == null)
+            return null;
 
         name = prefix + current;
+        current = current >= end ? start : current + 1;
 
         return SPAWN_COMMAND.formatted(name, blockX, blockY, blockZ, direction, in);
     }
@@ -83,7 +80,10 @@ public class AutoVaultExecutor {
         VaultState vaultState = state.getValue(VaultBlock.STATE);
 
         if (executorState == ExecutorState.IDLE && canUseVault(vaultState)) {
-            MCUtils.executeCommand(makeCommand());
+            String spawnCommand = makeCommand();
+            if (spawnCommand == null)
+                return;
+            MCUtils.executeCommand(spawnCommand);
             executorState = ExecutorState.SPAWNING;
         }
         else if (executorState == ExecutorState.SPAWNING) {
