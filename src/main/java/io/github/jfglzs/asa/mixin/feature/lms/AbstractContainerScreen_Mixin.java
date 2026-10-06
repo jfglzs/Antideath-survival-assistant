@@ -71,7 +71,7 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
 
     @Unique
     private void asa$cacheData() {
-        if (! Configs.LMS.FAKE_PLAYER_INVENTORY_ITEM_CACHE.getBooleanValue() || (Object) this instanceof InventoryScreen || PlayerUtils.isSurvivalMode())
+        if (! Configs.LMS.FAKE_PLAYER_INVENTORY_ITEM_CACHE.getBooleanValue() || (Object) this instanceof InventoryScreen || !PlayerUtils.isSurvivalMode())
             return;
 
         String title = this.title.getString();
