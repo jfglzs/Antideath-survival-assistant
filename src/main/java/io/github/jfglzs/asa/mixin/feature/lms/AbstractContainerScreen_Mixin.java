@@ -77,7 +77,7 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
         String title = this.title.getString();
         List<String> names = Configs.Lists.FAKE_PLAYER_INVENTORY_ITEM_CACHE_WHITE_LIST.getStrings();
         for (String name : names) {
-            if (title.contains(name)) {
+            if (title.startsWith(name)) {
                 List<Slot> slots = this.menu.slots.stream().filter(slot -> ! (slot.container instanceof Inventory))
                                                   .toList();
                 ItemStorageDataManager.addPlayerInventory(name, new ItemStorageDataManager.PlayerInventory(ImmutableList.copyOf(slots)));
