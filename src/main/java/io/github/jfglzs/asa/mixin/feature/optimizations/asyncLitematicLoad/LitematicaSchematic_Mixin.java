@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Mixin(LitematicaSchematic.class)
 public abstract class LitematicaSchematic_Mixin {
-    @Unique private volatile RegionInfo asa$curRegion = null;
+    @Unique private RegionInfo asa$curRegion = null;
 
     @WrapMethod(
             method = "convertTileEntities_to_1_20_5"
@@ -54,7 +54,7 @@ public abstract class LitematicaSchematic_Mixin {
                     target = "Lorg/apache/logging/log4j/Logger;info(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V"
             )
     )
-    void info(Logger instance, String s, Object ob1, Object ob2, Operation<Void> original) {
+    void info(Logger instance, String s, Object ob1, Object ob2, Operation<?> original) {
         if (! Configs.Optimizations.ASYNC_LITEMATICA_LOAD.getBooleanValue())
             instance.info(s, ob1, ob2);
     }
@@ -63,8 +63,7 @@ public abstract class LitematicaSchematic_Mixin {
             method = "convertTileEntities_to_1_20_5",
             at = @At(
                     value = "INVOKE",
-                    target = "Ljava/util/Map;keySet()Ljava/util/Set;",
-                    shift = At.Shift.AFTER
+                    target = "Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;"
             )
     )
     private void convertTileEntities_to_1_20_5(CallbackInfoReturnable<?> cir) {
@@ -80,7 +79,7 @@ public abstract class LitematicaSchematic_Mixin {
     )
     private Map<?, ?> modifyTiles(Map<?, ?> tiles, @Local(name = "regionName") String regionName) {
         if (tiles != null) {
-            asa$curRegion = new RegionInfo(regionName, tiles.size(), new AtomicInteger(0));
+            asa$curRegion = new RegionInfo(regionName, new AtomicInteger(tiles.size()), new AtomicInteger(0));
         }
 
         return tiles;
@@ -88,13 +87,13 @@ public abstract class LitematicaSchematic_Mixin {
 
     @Unique
     private void asa$updateProgress(String name) {
-        double progressValue = (double) asa$curRegion.cur().incrementAndGet() / asa$curRegion.total;
+        double progressValue = (double) asa$curRegion.cur().incrementAndGet() / asa$curRegion.total().get();
         String progressText = asa$curRegion.regionName() + "[" + name + "]";
         Component progress = ProgressBar.getProgress(progressValue, progressText);
         ThreadUtils.runOnClientThread(() -> ChatUtils.actionBar(progress));
     }
 
-    record RegionInfo(String regionName, int total, AtomicInteger cur) {
+    record RegionInfo(String regionName, AtomicInteger total, AtomicInteger cur) {
     }
 }
 //?} else {
