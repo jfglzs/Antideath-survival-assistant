@@ -5,6 +5,7 @@
   "mixins": [
     "event.packetEvent.ClientPacketListener_Mixin",
     "event.packetEvent.Connection_Mixin",
+    "feature.optimizations.asyncClientLightUpdate.ClientLevel_Mixin",
     "feature.disables.disableConnectionTimedOut.Connection_Mixin",
     "feature.disables.disablePacketKick.IdDispatchCodec_Mixin",
     "feature.disables.disablePacketKick.PacketDecoder_Mixin",

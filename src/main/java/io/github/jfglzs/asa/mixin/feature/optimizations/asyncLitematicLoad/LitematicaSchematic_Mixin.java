@@ -70,14 +70,6 @@ public abstract class LitematicaSchematic_Mixin {
         asa$updateProgress("ConvertTileEntities");
     }
 
-    @Inject(
-            method = "convertEntities_to_1_20_5",
-            at = @At(
-                    value = "FIELD",
-                    target = ""
-            )
-    )
-
     @SuppressWarnings("all")
     @ModifyVariable(
             method = {"readSubRegionsFromData", "readSubRegionsFromNBT"},

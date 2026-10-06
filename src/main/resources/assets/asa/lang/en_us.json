@@ -219,6 +219,8 @@
   "asa.config.all.comment.asyncLitematicaLoad": "Use new thread to load litematica",
   "asa.config.all.name.asyncLitematicaLoadThreadAmount": "multiThreadLitematicaLoadThreadAmount",
   "asa.config.all.comment.asyncLitematicaLoadThreadAmount": "multiThreadLitematicaLoadThreadAmount",
+  "asa.config.all.name.asyncClientLightUpdate": "asyncClientLightUpdate",
+  "asa.config.all.comment.asyncClientLightUpdate": "asyncClientLightUpdate",
   "asa.opts.ifv.low": "Always Visible (Low Performance)",
   "asa.opts.ifv.mid": "Visible When Empty (Balanced)",
   "asa.opts.ifv.high": "Never Visible (High Performance)",
@@ -233,5 +235,4 @@
   "asa.asyncLitematicaLoad.working": "[ASA] Schematica is being loading on other thread",
   "asa.asyncLitematicaLoad.complete": "[ASA] Complete",
   "asa.asyncLitematicaLoad.err": "[ASA] An exception in async thread %s"
-
 }
