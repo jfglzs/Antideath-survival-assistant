@@ -28,6 +28,7 @@ public class AutoVaultExecutor {
     private static float blockZ;
     private static float direction;
     private static float in;
+    private static String lastWorld;
 
     public static boolean setBlockPos(BlockPos pos) {
         ClientLevel level = MCUtils.getLevel();
@@ -67,7 +68,39 @@ public class AutoVaultExecutor {
         executorState = ExecutorState.IDLE;
     }
 
+    public static void resetAll() {
+        if (vaultPos == null && prefix == null && ! isRunning)
+            return;
+
+        reset();
+        vaultPos = null;
+        prefix = null;
+        name = null;
+        current = 0;
+        start = 0;
+        end = 0;
+    }
+
+    public static String currentWorld() {
+        var client = MCUtils.getMinecraft();
+        var server = client.getCurrentServer();
+        if (server != null)
+            return "server:" + server.ip;
+
+        var local = client.getSingleplayerServer();
+        if (local != null)
+            return "world:" + local.getWorldData().getLevelName();
+
+        return null;
+    }
+
     public static void tick() {
+        String world = currentWorld();
+        if (world != null && ! world.equals(lastWorld)) {
+            lastWorld = world;
+            resetAll();
+        }
+
         if (! Configs.Commands.AUTO_VAULT_COMMAND.getBooleanValue() || ! isRunning)
             return;
 
