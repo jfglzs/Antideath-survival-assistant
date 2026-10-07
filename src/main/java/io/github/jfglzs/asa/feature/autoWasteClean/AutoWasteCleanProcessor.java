@@ -7,6 +7,7 @@ import io.github.jfglzs.asa.events.OpenScreenEvent;
 import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.Mods;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
@@ -40,6 +41,12 @@ public class AutoWasteCleanProcessor {
                 var player = MCUtils.getMinecraft().player;
                 if (! PlayerUtils.isSurvivalMode(player))
                     return;
+
+                if (! Mods.item_scroller) {
+                    ChatUtils.actionBar(ChatUtils.c("未安装ItemScroller"));
+                    return;
+                }
+
                 String mode = Configs.Functions.AUTO_WASTE_CLEAN_MODE.getStringValue();
 
                 for (Slot slot : menu.slots) {
