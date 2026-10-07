@@ -32,26 +32,18 @@ public class ClientLevel_Mixin {
 
     @Inject(
             method = "overrideMapData",
-            at = @At("HEAD"),
-            cancellable = true
+            at = @At("HEAD")
     )
     public void overrideMapData(MapId id, MapItemSavedData data, CallbackInfo ci) {
-        if (Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue()) {
-            this.ASA$MAPITEMS.putMapItem(id, data);
-            ci.cancel();
-        }
+        this.ASA$MAPITEMS.putMapItem(id, data);
     }
 
     @Inject(
             method = "addMapData",
-            at = @At("HEAD"),
-            cancellable = true
+            at = @At("HEAD")
     )
     public void addMapData(Map<MapId, MapItemSavedData> mapData, CallbackInfo ci) {
-        if (Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue()) {
-            this.ASA$MAPITEMS.putAllMaps(mapData);
-            ci.cancel();
-        }
+        this.ASA$MAPITEMS.putAllMaps(mapData);
     }
 
     @Inject(
