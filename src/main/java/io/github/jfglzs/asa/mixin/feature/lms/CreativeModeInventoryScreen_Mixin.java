@@ -99,7 +99,6 @@ public abstract class CreativeModeInventoryScreen_Mixin extends AbstractContaine
             MCUtils.setScreen(null);
             ci.cancel();
         }
-        throw new RuntimeException();
     }
 
     @Inject(
