@@ -32,10 +32,10 @@ public abstract class PlayerTabOverlay_Mixin {
                         list.add(entry);
                 }
                 else if (Configs.Functions.ENABLE_TAP_FILTER_PREFIX.getBooleanValue()) {
-                    for (String string : Configs.Lists.TAP_FILTER_PREFIX.getStrings()) {
-                        if (! name.startsWith(string))
-                            list.add(entry);
-                    }
+                    if (Configs.Lists.TAP_FILTER_PREFIX.getStrings()
+                                                      .stream()
+                                                      .noneMatch(name::startsWith))
+                        list.add(entry);
                 }
                 else {
                     if (! Configs.isInList(name, Configs.Lists.TAP_FILTER_BLACKLIST))
