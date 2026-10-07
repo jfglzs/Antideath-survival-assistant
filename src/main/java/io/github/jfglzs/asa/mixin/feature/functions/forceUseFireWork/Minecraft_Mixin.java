@@ -28,7 +28,8 @@ public class Minecraft_Mixin {
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/InteractionHand;values()[Lnet/minecraft/world/InteractionHand;"
-            )
+            ),
+            cancellable = true
     )
     private void startUseItem(CallbackInfo ci) {
         if (player == null || gameMode == null || ! Configs.Functions.FORCE_USE_FIREWORK.getBooleanValue()) {
@@ -45,6 +46,7 @@ public class Minecraft_Mixin {
         if (hand == null)
             return;
 
-       gameMode.useItem(player, hand);
+        if (gameMode.useItem(player, hand).consumesAction())
+            ci.cancel();
     }
 }
