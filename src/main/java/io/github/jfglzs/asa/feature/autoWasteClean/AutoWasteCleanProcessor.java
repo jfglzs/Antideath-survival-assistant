@@ -77,14 +77,17 @@ public class AutoWasteCleanProcessor {
             return true;
         }
 
+        boolean boxHasItems = false;
+
         for (ItemStack boxStack : PlayerUtils.getBoxItemStacks(stack)) {
             if (boxStack.isEmpty())
                 continue;
-            if (shouldDrop(boxStack))
-                return true;
+            if (! shouldDrop(boxStack))
+                return false;
+            boxHasItems = true;
         }
 
-        return true;
+        return boxHasItems;
     }
 
     public static void saveItemToList() {
