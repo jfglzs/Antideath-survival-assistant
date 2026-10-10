@@ -1,6 +1,7 @@
 package io.github.jfglzs.asa.mixin.feature.functions.forceBlockBreakCoolDown;
 
 import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.utils.Mods;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.network.protocol.Packet;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,7 +27,8 @@ public class MultiPlayerGameMode_Mixin {
     )
     private void continueDestroyBlock(CallbackInfoReturnable<Packet> cir) {
         if (Configs.Functions.FORCE_BLOCK_BREAK_COOL_DOWN.getBooleanValue()) {
-            DISABLE_BLOCK_BREAK_COOLDOWN.setBooleanValue(false);
+            if (Mods.tweakeroo)
+                DISABLE_BLOCK_BREAK_COOLDOWN.setBooleanValue(false);
             this.destroyDelay = 5;
         }
     }

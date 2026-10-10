@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.RateLimiter;
 import fi.dy.masa.itemscroller.util.InventoryUtils;
 import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.Mods;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import io.github.jfglzs.asa.utils.ShulkerUtils;
 import net.minecraft.client.gui.screens.Screen;
@@ -23,6 +24,11 @@ public class BoxSplitter {
             isRunning = false;
             itemToSplit = ItemStack.EMPTY;
             ChatUtils.actionBar(ChatUtils.c("已停止"));
+            return;
+        }
+
+        if (! Mods.item_scroller) {
+            ChatUtils.actionBar(ChatUtils.c("未安装ItemScroller"));
             return;
         }
 
