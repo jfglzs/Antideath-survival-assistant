@@ -27,9 +27,9 @@ public class AutoVaultCommand {
                                                   .then(CommandUtils.argument("blockX", FloatArgumentType.floatArg())
                                                           .then(CommandUtils.argument("blockY", FloatArgumentType.floatArg())
                                                                   .then(CommandUtils.argument("blockZ", FloatArgumentType.floatArg())
-                                                                          .executes(AutoVaultCommand::setPlayer))
+                                                                          .executes(AutoVaultCommand::setPlayer))))))))
                                   .then(CommandUtils.literal("start").executes(AutoVaultCommand::start))
-                                  .then(CommandUtils.literal("stop").executes(AutoVaultCommand::stop))))))));
+                                  .then(CommandUtils.literal("stop").executes(AutoVaultCommand::stop));
         dispatcher.register(command);
     }
 
