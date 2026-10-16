@@ -106,7 +106,7 @@
   "asa.config.all.name.inventoryCleanerSwitchMode": "启用自动垃圾清理-切换模式",
   "asa.config.all.comment.inventoryCleanerSwitchMode": "切换清理模式",
   "asa.config.all.name.inventoryCleanerMode": "启用自动垃圾清理-清理模式",
-  "asa.config.all.comment.inventoryCleaner-Mode": "",
+  "asa.config.all.comment.inventoryCleanerMode": "",
   "asa.config.all.name.inventoryCleaner-SaveInventoryItem": "启用自动垃圾清理-保存背包物品",
   "asa.config.all.comment.inventoryCleaner-SaveInventoryItem": "将玩家背包物品保存至黑名单/白名单",
   "asa.config.all.name.enbaleInventoryCleanerWhiteList": "启用自动垃圾清理白名单",
