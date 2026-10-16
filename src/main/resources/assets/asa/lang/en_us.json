@@ -106,7 +106,7 @@
   "asa.config.all.name.inventoryCleanerSwitchMode": "inventoryCleanerSwitchMode",
   "asa.config.all.comment.inventoryCleanerSwitchMode": "Switch cleaning mode",
   "asa.config.all.name.inventoryCleanerMode": "inventoryCleaner-Mode",
-  "asa.config.all.comment.inventoryCleaner-Mode": "",
+  "asa.config.all.comment.inventoryCleanerMode": "",
   "asa.config.all.name.inventoryCleaner-SaveInventoryItem": "inventoryCleaner-SaveInventoryItem",
   "asa.config.all.comment.inventoryCleaner-SaveInventoryItem": "Save player inventory items to the blacklist/whitelist",
   "asa.config.all.name.enbaleInventoryCleanerWhiteList": "enbaleInventoryCleanerWhiteList",

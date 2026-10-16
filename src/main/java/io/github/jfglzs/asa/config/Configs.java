@@ -124,7 +124,7 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed CAN_ALWAYS_DISCONNECT = new ConfigBooleanHotkeyed("canAlwaysDisconnect", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN = new ConfigBooleanHotkeyed("enableInventoryCleaner", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigHotkey SWITCH_CLEAN_MODE = new ConfigHotkey("inventoryCleanerSwitchMode", "", "").apply(ALL);
-        @Config(tab = Tab.FUNCTIONS) public static final ConfigOptionList AUTO_WASTE_CLEAN_MODE = new ConfigOptionList("inventoryCleanerMode", AutoCleanWasteMode.DROP);
+        @Config(tab = Tab.FUNCTIONS) public static final ConfigOptionList AUTO_WASTE_CLEAN_MODE = new ConfigOptionList("inventoryCleanerMode", AutoCleanWasteMode.DROP).apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigHotkey SAVE_ITEMS = new ConfigHotkey("inventoryCleaner-SaveInventoryItem", "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN_WHITELIST = new ConfigBooleanHotkeyed("enbaleInventoryCleanerWhiteList", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_AUTO_WASTE_CLEAN_BLACKLIST = new ConfigBooleanHotkeyed("enbaleinventoryCleanerBlackList", false, "", "").apply(ALL);
