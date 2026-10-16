@@ -134,7 +134,7 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed CAN_OPEN_MUTI_PLAYER_SCREEN_ON_GAMING = new ConfigBooleanHotkeyed("canOpenMutilPlayerScreenOnGaming", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION = new ConfigBooleanHotkeyed("enableCustomBlockBlockShape", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_WHITELIST = new ConfigBooleanHotkeyed("enableCustomBlockBlockShapeWhiteList", false, "", "").apply(ALL);
-        @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST = new ConfigBooleanHotkeyed("enableCustomBlockBlockShapeWhiteList", false, "", "").apply(ALL);
+        @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST = new ConfigBooleanHotkeyed("enableCustomBlockBlockShapeBlackList", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_SHAPE = new ConfigBooleanHotkeyed("enableCustomBlockBlockInteractionShape", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_WHITELIST_SHAPE = new ConfigBooleanHotkeyed("enableCustomBlockBlockInteractionShape-Whtelist", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST_SHAPE = new ConfigBooleanHotkeyed("enableCustomBlockBlockInteractionShape-Blacklist", false, "", "").apply(ALL);
