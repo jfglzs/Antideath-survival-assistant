@@ -61,6 +61,9 @@ public class WorldUtils_Mixin {
         List<String> blockIdMap = Configs.Lists.CUSTOM_LITEMATICA_BLOCK_REPLACE_LIST.getStrings();
         for (String blocks : blockIdMap) {
             String[] strings = blocks.split("\\|", 2);
+            if (strings.length < 2) {
+                continue;
+            }
             mappings.put(strings[0], strings[1]);
         }
         return mappings;
