@@ -14,7 +14,7 @@ public class FakePlayerKillAura {
         ClientLevel level = mc.level;
         LocalPlayer player = mc.player;
 
-        if (level == null && player == null)
+        if (level == null || player == null)
             return;
 
         var box = player.getBoundingBox().inflate(Configs.Functions.FAKE_PLAYER_KILL_AURA_RANGE.getDoubleValue());
@@ -30,10 +30,10 @@ public class FakePlayerKillAura {
 
     private static boolean canKill(String name) {
         if (Configs.Functions.ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST.getBooleanValue()) {
-            return Configs.Lists.FAKE_PLAYER_KILL_AURA_WHITELIST.getStrings().contains(name);
+            return Configs.isInList(name, Configs.Lists.FAKE_PLAYER_KILL_AURA_WHITELIST.getStrings());
         }
         else if (Configs.Functions.ENABLE_FAKE_PLAYER_KILL_AURA_BLACKLIST.getBooleanValue()) {
-            return ! Configs.Lists.FAKE_PLAYER_KILL_AURA_BLACKLIST.getStrings().contains(name);
+            return ! Configs.isInList(name, Configs.Lists.FAKE_PLAYER_KILL_AURA_BLACKLIST.getStrings());
         }
         return true;
     }

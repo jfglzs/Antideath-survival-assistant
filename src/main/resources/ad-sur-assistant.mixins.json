@@ -5,7 +5,6 @@
   "mixins": [
     "event.packetEvent.ClientPacketListener_Mixin",
     "event.packetEvent.Connection_Mixin",
-    "feature.optimizations.asyncClientLightUpdate.ClientLevel_Mixin",
     "feature.disables.disableConnectionTimedOut.Connection_Mixin",
     "feature.disables.disablePacketKick.IdDispatchCodec_Mixin",
     "feature.disables.disablePacketKick.PacketDecoder_Mixin",
@@ -22,6 +21,7 @@
     "feature.functions.mountLoggersOnMiniHud.RenderHandler_Mixin",
     "feature.lms.MaterialListEntry_Mixin",
     "feature.lms.WorldUtils_Mixin",
+    "feature.optimizations.asyncClientLightUpdate.ClientLevel_Mixin",
     "feature.optimizations.asyncLitematicLoad.DataManager_Mixin",
     "feature.optimizations.asyncLitematicLoad.LitematicaSchematic_Mixin",
     "feature.optimizations.asyncLitematicLoad.OverlayRenderer_Mixin",
