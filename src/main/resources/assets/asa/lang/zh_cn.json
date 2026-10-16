@@ -133,6 +133,8 @@
   "asa.config.all.comment.enableCustomBlockBlockShape": "开启后可自定义方块碰撞箱",
   "asa.config.all.name.enableCustomBlockBlockShapeWhiteList": "启用自定义方块碰撞箱白名单",
   "asa.config.all.comment.enableCustomBlockBlockShapeWhiteList": "启用自定义方块碰撞箱白名单",
+  "asa.config.all.name.enableCustomBlockBlockShapeBlackList": "启用自定义方块碰撞箱黑名单",
+  "asa.config.all.comment.enableCustomBlockBlockShapeBlackList": "启用自定义方块碰撞箱黑名单",
   "asa.config.all.name.customBlockBlockShapeWhiteList": "自定义方块碰撞箱-白名单",
   "asa.config.all.comment.customBlockBlockShapeWhiteList": "自定义方块碰撞箱白名单",
   "asa.config.all.name.customBlockBlockShapeBlackList": "自定义方块碰撞箱-黑名单",

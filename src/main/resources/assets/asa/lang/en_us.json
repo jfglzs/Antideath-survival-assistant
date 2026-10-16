@@ -133,6 +133,8 @@
   "asa.config.all.comment.enableCustomBlockBlockShape": "Allows customizing block collision boxes when enabled",
   "asa.config.all.name.enableCustomBlockBlockShapeWhiteList": "enableCustomBlockBlockShapeWhiteList",
   "asa.config.all.comment.enableCustomBlockBlockShapeWhiteList": "Enable custom block collision box whitelist",
+  "asa.config.all.name.enableCustomBlockBlockShapeBlackList": "enableCustomBlockBlockShapeBlackList",
+  "asa.config.all.comment.enableCustomBlockBlockShapeBlackList": "Enable custom block collision box blacklist",
   "asa.config.all.name.customBlockBlockShapeWhiteList": "customBlockBlockShapeWhiteList",
   "asa.config.all.comment.customBlockBlockShapeWhiteList": "Custom block collision box whitelist",
   "asa.config.all.name.customBlockBlockShapeBlackList": "customBlockBlockShapeBlackList",
