@@ -55,7 +55,7 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
                 ThreadUtils.runOnTaskThread(() -> {
                     try {
                         Thread.sleep(Configs.LMS.AUTO_COOLDOWN.getIntegerValue());
-                        ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s kill".formatted(name)));
+                        MCUtils.executeTask(() -> MCUtils.executeCommand("player %s kill".formatted(name)));
                     }
                     catch (Exception e) {
                         ChatHelper.clientMess(ChatHelper.c(e.getMessage()));

@@ -91,10 +91,6 @@ public class ThreadUtils {
         return THREAD_POOL.submit(toRun);
     }
 
-    public static CompletableFuture<Void> runOnClientThread(Runnable toRun) {
-        return MC.submit(toRun);
-    }
-
     public static void runOnTaskThread(Runnable toRun) {
         TASK_QUEUE.offer(toRun);
     }

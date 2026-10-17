@@ -17,6 +17,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 //~ if < 1.21.11 'Identifier' -> 'ResourceLocation' {
 import net.minecraft.resources.Identifier;
+
+import java.util.concurrent.CompletableFuture;
 //~}
 
 public class MCUtils {
@@ -121,5 +123,9 @@ public class MCUtils {
 
     public static ClientPacketListener getConnection() {
         return MCUtils.getMinecraft().getConnection();
+    }
+
+    public static CompletableFuture<Void> executeTask(Runnable toRun) {
+        return ThreadUtils.MC.submit(toRun);
     }
 }

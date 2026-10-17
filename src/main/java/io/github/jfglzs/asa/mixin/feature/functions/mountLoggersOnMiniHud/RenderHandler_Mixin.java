@@ -76,7 +76,7 @@ public class RenderHandler_Mixin {
             ThreadUtils.runOnTaskThread(() -> {
                 original.call(instance);
                 asa$mountHudInfo();
-                ThreadUtils.runOnClientThread(() -> {
+                MCUtils.executeTask(() -> {
                     lines.clear();
                     lines.addAll(asa$list);
                 });

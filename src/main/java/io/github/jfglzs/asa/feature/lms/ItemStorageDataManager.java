@@ -128,7 +128,7 @@ public class ItemStorageDataManager {
     public static void removeAll() {
         PLAYER_INV.clear();
         FAKE_ITEM_STORAGES.clear();
-        ChatHelper.actionBar(ChatHelper.c("缓存已清空"));
+        ChatHelper.actionBar(ChatHelper.c("l 缓存已清空"));
     }
 
     public static boolean canSend(ItemStack stack, Item item) {
@@ -180,17 +180,17 @@ public class ItemStorageDataManager {
         else if (count > 0) {
             int oneBoxCount = stack.getMaxStackSize() * 27;
             if (count < oneBoxCount) {
-                components.add(ChatHelper.c("b l 存货: %s".formatted(count)));
+                components.add(ChatHelper.c("bl 存货: %s".formatted(count)));
             }
             else {
-                components.add(ChatHelper.c("b l 存货: %d (%.2f 潜影盒) ".formatted(count, (float) count / oneBoxCount)));
+                components.add(ChatHelper.c("bl 存货: %d (%.2f 潜影盒) ".formatted(count, (float) count / oneBoxCount)));
             }
             if (Configs.LMS.LITEMATICA_CALCULATE_FAKE.getBooleanValue()) {
-                components.add(ChatHelper.c("b l 假人存货: %d".formatted(FAKE_ITEM_STORAGES.getInt(itemID))));
+                components.add(ChatHelper.c("bl 假人存货: %d".formatted(FAKE_ITEM_STORAGES.getInt(itemID))));
             }
         }
         else {
-            components.add(ChatHelper.c("r l 暂无存货"));
+            components.add(ChatHelper.c("br 暂无存货"));
         }
 
         return components;
@@ -223,7 +223,7 @@ public class ItemStorageDataManager {
                 ThreadUtils.runAsync(() -> {
                     try {
                         Thread.sleep(Configs.LMS.AUTO_COOLDOWN.getIntegerValue());
-                        ThreadUtils.runOnClientThread(() -> {
+                        MCUtils.executeTask(() -> {
                             if (Configs.LMS.AUTO_OPEN_FAKE_PLAYER_INV_MODE.getOptionListValue() == OpenFakePlayerInvMode.COMMAND) {
                                 MCUtils.executeCommand("player %s inventory".formatted(name));
                             }

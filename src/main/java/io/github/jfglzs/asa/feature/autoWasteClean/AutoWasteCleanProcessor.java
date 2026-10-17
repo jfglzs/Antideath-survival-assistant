@@ -63,10 +63,9 @@ public class AutoWasteCleanProcessor {
                         InventoryUtils.tryMoveStacks(slot, container, true, true, false);
                         AsaMod.debugMessage(() -> "Moved Inventory Item to container for slot " + slot.index);
                     }
-
-                    ChatHelper.actionBar(ChatHelper.c("l 清理完成"));
                 }
 
+                ChatHelper.actionBar(ChatHelper.c("l 清理完成"));
                 player.closeContainer();
             }
         }
