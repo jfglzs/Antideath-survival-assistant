@@ -7,6 +7,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.litematica.schematic.LitematicaSchematic;
 import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.utils.AsyncLoadContext;
 import io.github.jfglzs.asa.utils.ChatHelper;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.ProgressBar;
@@ -88,8 +89,16 @@ public abstract class LitematicaSchematic_Mixin {
 
     @Unique
     private void asa$updateProgress(String name) {
-        double progressValue = (double) asa$curRegion.cur().incrementAndGet() / asa$curRegion.total().get();
-        String progressText = asa$curRegion.regionName() + "[" + name + "]";
+        if (! Configs.Optimizations.ASYNC_LITEMATICA_LOAD.getBooleanValue() || ! AsyncLoadContext.isActive())
+            return;
+
+        RegionInfo region = asa$curRegion;
+
+        if (region == null || region.total().get() <= 0)
+            return;
+
+        double progressValue = (double) region.cur().incrementAndGet() / region.total().get();
+        String progressText = region.regionName() + "[" + name + "]";
         Component progress = ProgressBar.getProgress(progressValue, progressText);
         MCUtils.executeTask(() -> ChatHelper.actionBar(progress));
     }
