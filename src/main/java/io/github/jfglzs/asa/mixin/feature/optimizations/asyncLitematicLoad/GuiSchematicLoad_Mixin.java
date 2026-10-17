@@ -59,14 +59,14 @@ public class GuiSchematicLoad_Mixin {
             });
             asa$future.whenComplete((v, e) -> {
                 if (e != null) {
-                    ThreadUtils.runOnClientThread(() -> {
+                    MCUtils.executeTask(() -> {
                         this.gui.addMessage(Message.MessageType.ERROR, "asa.asyncLitematicaLoad.err", e.getMessage());
                         ChatHelper.actionBar(Component.translatable("asa.asyncLitematicaLoad.err", e.getMessage()));
                     });
                     AsaMod.LOGGER.error("Error when load async", e);
                 }
                 else
-                    ThreadUtils.runOnClientThread(() -> ChatHelper.actionBar(Component.translatable("asa.asyncLitematicaLoad.complete")));
+                    MCUtils.executeTask(() -> ChatHelper.actionBar(Component.translatable("asa.asyncLitematicaLoad.complete")));
             });
         }
         else {

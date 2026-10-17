@@ -40,7 +40,7 @@ public abstract class LitematicaSchematic_Mixin {
         var results = new ConcurrentHashMap<>();
         int threads = Configs.Optimizations.ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT.getIntegerValue();
 
-        ThreadUtils.parallel(list, threads, 500, entries -> {
+        ThreadUtils.parallel(list, threads, Math.max(1, list.size() / threads), entries -> {
             var result = new HashMap<>();
             entries.forEach(entry -> result.put(entry.getKey(), entry.getValue()));
             results.putAll(original.call(result, minecraftDataVersion));

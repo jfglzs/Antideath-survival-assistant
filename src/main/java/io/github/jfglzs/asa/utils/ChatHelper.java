@@ -109,7 +109,7 @@ public class ChatHelper {
         LocalPlayer player = client.player;
         if (player == null)
             return;
-        //? if >=26.1 {
+        //? if >= 26.1 {
         player.sendOverlayMessage(chat);
         //?} else {
         /*player.displayClientMessage(chat, true);

@@ -20,7 +20,6 @@ import java.util.List;
 //~ if >= 26.1 '.JsonUtils' -> '.data.json.JsonUtils' {
 import fi.dy.masa.malilib.util.data.json.JsonUtils;
 import io.github.jfglzs.asa.utils.Hardware;
-import oshi.SystemInfo;
 //~}
 
 public class Configs implements IConfigHandler {
@@ -57,7 +56,7 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed OPT_ENTITY_LIGHT = new ConfigBooleanHotkeyed("optEntityLight", false, "", "").apply(ALL);
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed FAST_MODEL_RENDER = new ConfigBooleanHotkeyed("fastModelRender", false, "", "").apply(ALL);
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed ASYNC_LITEMATICA_LOAD = new ConfigBooleanHotkeyed("asyncLitematicaLoad", false, "", "").apply(ALL);
-        @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigInteger ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT = new ConfigInteger("asyncLitematicaLoadThreadAmount", 2, 1, Hardware.processor.getLogicalProcessorCount(), "", "").apply(ALL);
+        @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigInteger ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT = new ConfigInteger("asyncLitematicaLoadThreadAmount", 2, 1, Hardware.PROCESSOR.getLogicalProcessorCount(), "", "").apply(ALL);
     }
 
     public static class LMS {

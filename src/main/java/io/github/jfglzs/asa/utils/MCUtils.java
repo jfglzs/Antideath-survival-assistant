@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
 //~}
 
 public class MCUtils {
-    private static final Minecraft mc = Minecraft.getInstance();
+    private static final Minecraft MC = Minecraft.getInstance();
     private static int tickCount = 0;
 
     public static int getTickCount() {
@@ -34,21 +34,21 @@ public class MCUtils {
     }
 
     public static Minecraft getMinecraft() {
-        return mc;
+        return MC;
     }
 
     public static LocalPlayer getLocalPlayer() {
-        return mc.player;
+        return MC.player;
     }
 
     public static ClientLevel getLevel() {
-        return mc.level;
+        return MC.level;
     }
 
     public static void executeCommand(String command) {
         AsaMod.debugMessage(() -> "Executing command: " + command);
-        if (mc.player != null && command != null) {
-            mc.player.connection.sendCommand(command.replaceFirst("/", ""));
+        if (MC.player != null && command != null) {
+            MC.player.connection.sendCommand(command.replaceFirst("/", ""));
         }
     }
 
@@ -82,13 +82,13 @@ public class MCUtils {
 
     public static Screen getScreen() {
         //~ if >= 26.2 '.screen' -> '.gui.screen()' {
-        return mc.gui.screen();
+        return MC.gui.screen();
         //~}
     }
 
     public static void setScreen(Screen screen) {
         //~ if >= 26.2 'setScreen' -> 'setScreenAndShow' {
-        mc.setScreenAndShow(screen);
+        MC.setScreenAndShow(screen);
         //~}
     }
 
@@ -126,6 +126,6 @@ public class MCUtils {
     }
 
     public static CompletableFuture<Void> executeTask(Runnable toRun) {
-        return ThreadUtils.MC.submit(toRun);
+        return MC.submit(toRun);
     }
 }
