@@ -43,15 +43,15 @@ public class ItemStorageDataManager {
             var str = message.getString().trim();
 
             if (str.contains("maxCount:") && str.startsWith("{") && str.endsWith("}")) {
-                ChatHelper.clientMesswithSound(ChatHelper.c("r 请求的数量超出配置的最大上限").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH);
+                ChatHelper.clientChatWithSound(ChatHelper.c("r 请求的数量超出配置的最大上限").copy().withStyle(ChatFormatting.RED), SoundEvents.VILLAGER_DEATH);
                 return false;
             }
             else if (str.startsWith("{") && str.endsWith("}") && str.contains("waitSecond:")) {
-                ChatHelper.clientMesswithSound(ChatHelper.c("r 假人取货还在冷却中"), SoundEvents.VILLAGER_DEATH);
+                ChatHelper.clientChatWithSound(ChatHelper.c("r 假人取货还在冷却中"), SoundEvents.VILLAGER_DEATH);
                 return false;
             }
             else if (str.equals("[]")) {
-                ChatHelper.clientMesswithSound(ChatHelper.c("r 全无品: 这个物品暂时没有存货"), SoundEvents.VILLAGER_NO);
+                ChatHelper.clientChatWithSound(ChatHelper.c("r 全无品: 这个物品暂时没有存货"), SoundEvents.VILLAGER_NO);
                 return false;
             }
             else if (str.contains("id:") && str.contains("count:") && str.startsWith("[{") && str.endsWith("}]")) {
@@ -69,7 +69,7 @@ public class ItemStorageDataManager {
                                 continue;
 
                             MCUtils.executeCommand("player %s spawn".formatted(name));
-                            ChatHelper.clientMesswithSound(ChatHelper.c("g 假人: [%s] 取出数量: [%d]".formatted(name, storage.count())), SoundEvents.VILLAGER_YES);
+                            ChatHelper.clientChatWithSound(ChatHelper.c("g 假人: [%s] 取出数量: [%d]".formatted(name, storage.count())), SoundEvents.VILLAGER_YES);
 
                             WAIT_FOR_INV.add(name);
                             WAIT_FOR_KILLING.add(name);
@@ -98,7 +98,7 @@ public class ItemStorageDataManager {
                 }
             }
             else if (str.startsWith("[{") && str.endsWith("]") && str.contains("<...>")) {
-                ChatHelper.clientMesswithSound(ChatHelper.c("r 无法通过getStorageData命令查询容器数据 \n 原因: NBT被折叠 \n 请安装Antideath-carpet-addition v1.4.5以上版本并开启 fixNbtFold 规则 \n 或者将LMS 更新至 1.14.1"), SoundEvents.VILLAGER_NO);
+                ChatHelper.clientChatWithSound(ChatHelper.c("r 无法通过getStorageData命令查询容器数据 \n 原因: NBT被折叠 \n 请安装Antideath-carpet-addition v1.4.5以上版本并开启 fixNbtFold 规则 \n 或者将LMS 更新至 1.14.1"), SoundEvents.VILLAGER_NO);
                 return false;
             }
             return true;
@@ -234,7 +234,7 @@ public class ItemStorageDataManager {
                         WAIT_FOR_KILLING.add(name);
                     }
                     catch (Exception e) {
-                        ChatHelper.clientMess(ChatHelper.c(e.getMessage()));
+                        ChatHelper.clientChat(ChatHelper.c(e.getMessage()));
                         AsaMod.LOGGER.error(e.getMessage(), e);
                     }
                 });

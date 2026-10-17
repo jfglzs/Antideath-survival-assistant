@@ -28,10 +28,10 @@ public class LowHealthSendCommandOrChat {
                     if (CommandUtils.canUseCommand(cmd))
                         MCUtils.executeCommand(cmd);
                     else
-                        ChatHelper.serverMess(msg);
+                        ChatHelper.serverChat(msg);
                 }
                 else if (mode == LowHealthSendMode.SEND_CHAT_MESSAGE) {
-                    ChatHelper.serverMess(msg);
+                    ChatHelper.serverChat(msg);
                 }
                 else {
                     MCUtils.executeCommand(cmd);

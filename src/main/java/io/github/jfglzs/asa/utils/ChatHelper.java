@@ -1,7 +1,6 @@
 package io.github.jfglzs.asa.utils;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -15,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChatHelper {
-    private static final Minecraft client = Minecraft.getInstance();
+    private static final LocalPlayer PLAYER = MCUtils.getLocalPlayer();
     private static final Pattern colorExtract = Pattern.compile("#([0-9a-fA-F]{6})");
 
     //from carpet mod Messenger$CarpetFormatting
@@ -79,47 +78,44 @@ public class ChatHelper {
         }
     }
 
-    public static void clientMess(Component chat) {
-        if (client.player == null)
+    public static void clientChat(Component chat) {
+        if (PLAYER == null)
             return;
         //? if >=26.1 {
-        client.player.sendSystemMessage(chat);
+        PLAYER.sendSystemMessage(chat);
         //?} else {
         /*client.player.displayClientMessage(chat, false);
          *///?}
     }
 
-    public static void clientMesswithSound(Component chat, SoundEvent type) {
-        LocalPlayer player = client.player;
+    public static void clientChatWithSound(Component chat, SoundEvent type) {
+        LocalPlayer player = PLAYER;
         if (player != null) {
             player.playSound(type, 1f, 1f);
-            clientMess(chat);
+            clientChat(chat);
         }
     }
 
     public static void actionBarWithSound(Component chat, SoundEvent type) {
-        LocalPlayer player = client.player;
-        if (player == null)
+        if (PLAYER == null)
             return;
-        player.playSound(type, 1f, 1f);
+        PLAYER.playSound(type, 1f, 1f);
         actionBar(chat);
     }
 
     public static void actionBar(Component chat) {
-        LocalPlayer player = client.player;
-        if (player == null)
+        if (PLAYER == null)
             return;
         //? if >= 26.1 {
-        player.sendOverlayMessage(chat);
+        PLAYER.sendOverlayMessage(chat);
         //?} else {
-        /*player.displayClientMessage(chat, true);
+        /*PLAYER.displayClientMessage(chat, true);
          *///?}
     }
 
-    public static void serverMess(String chat) {
-        if (client.player != null) {
-            client.player.connection.sendChat(chat);
-        }
+    public static void serverChat(String chat) {
+        if (PLAYER != null)
+            PLAYER.connection.sendChat(chat);
     }
 
     //from carpet mod Messenger#c
@@ -127,9 +123,9 @@ public class ChatHelper {
         MutableComponent message = Component.literal("[ASA] ");
         MutableComponent previousComponent = null;
         for (Object o : fields) {
-            if (o instanceof MutableComponent) {
-                message.append((MutableComponent) o);
-                previousComponent = (MutableComponent) o;
+            if (o instanceof MutableComponent component) {
+                message.append(component);
+                previousComponent = component;
                 continue;
             }
             String txt = o.toString();
