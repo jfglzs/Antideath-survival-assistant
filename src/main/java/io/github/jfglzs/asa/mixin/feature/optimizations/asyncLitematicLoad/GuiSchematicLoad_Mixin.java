@@ -16,6 +16,7 @@ import fi.dy.masa.malilib.gui.button.ButtonBase;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.ChatHelper;
+import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.ThreadUtils;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -142,7 +143,7 @@ public class GuiSchematicLoad_Mixin {
     )
     public void actionPerformedWithButton(ButtonBase button, int mouseButton, CallbackInfo ci) {
         if (Configs.Optimizations.ASYNC_LITEMATICA_LOAD.getBooleanValue()) {
-            this.gui.addMessage(Message.MessageType.INFO, "asa.asyncLitematicaLoad.start", Configs.Optimizations.ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT.getIntegerValue());
+            ThreadUtils.runOnClientThread(() -> this.gui.addMessage(Message.MessageType.INFO, "asa.asyncLitematicaLoad.start", Configs.Optimizations.ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT.getIntegerValue()));
         }
     }
 }
