@@ -2,7 +2,7 @@ package io.github.jfglzs.asa.feature.boxSplitter;
 
 import com.google.common.util.concurrent.RateLimiter;
 import fi.dy.masa.itemscroller.util.InventoryUtils;
-import io.github.jfglzs.asa.utils.ChatUtils;
+import io.github.jfglzs.asa.utils.ChatHelper;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.Mods;
 import io.github.jfglzs.asa.utils.PlayerUtils;
@@ -23,17 +23,17 @@ public class BoxSplitter {
         if (isRunning) {
             isRunning = false;
             itemToSplit = ItemStack.EMPTY;
-            ChatUtils.actionBar(ChatUtils.c("已停止"));
+            ChatHelper.actionBar(ChatHelper.c("g 已停止"));
             return;
         }
 
         if (! Mods.item_scroller) {
-            ChatUtils.actionBar(ChatUtils.c("未安装ItemScroller"));
+            ChatHelper.actionBar(ChatHelper.c("r 未安装ItemScroller"));
             return;
         }
 
         if (stack.isEmpty()) {
-            ChatUtils.actionBar(ChatUtils.c("物品不可为空"));
+            ChatHelper.actionBar(ChatHelper.c("r 物品不可为空"));
             return;
         }
 
@@ -64,7 +64,7 @@ public class BoxSplitter {
     public static void tick() {
         if (LIMITER.tryAcquire() && canOpenBox) {
             if (! ShulkerUtils.findBoxToOpen(itemToSplit)) {
-                ChatUtils.actionBar(ChatUtils.c("分离完成"));
+                ChatHelper.actionBar(ChatHelper.c("l 分离完成"));
                 itemToSplit = ItemStack.EMPTY;
                 isRunning = false;
                 canOpenBox = false;

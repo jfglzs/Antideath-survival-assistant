@@ -7,7 +7,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.litematica.schematic.LitematicaSchematic;
 import io.github.jfglzs.asa.config.Configs;
-import io.github.jfglzs.asa.utils.ChatUtils;
+import io.github.jfglzs.asa.utils.ChatHelper;
 import io.github.jfglzs.asa.utils.ProgressBar;
 import io.github.jfglzs.asa.utils.ThreadUtils;
 import net.minecraft.network.chat.Component;
@@ -90,16 +90,16 @@ public abstract class LitematicaSchematic_Mixin {
         double progressValue = (double) asa$curRegion.cur().incrementAndGet() / asa$curRegion.total().get();
         String progressText = asa$curRegion.regionName() + "[" + name + "]";
         Component progress = ProgressBar.getProgress(progressValue, progressText);
-        ThreadUtils.runOnClientThread(() -> ChatUtils.actionBar(progress));
+        ThreadUtils.runOnClientThread(() -> ChatHelper.actionBar(progress));
     }
 
     record RegionInfo(String regionName, AtomicInteger total, AtomicInteger cur) {
     }
 }
 //?} else {
-//@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
-//public abstract class LitematicaSchematic_Mixin {
-//
-//}
-//?}
+/*@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
+public abstract class LitematicaSchematic_Mixin {
+
+}
+*///?}
 

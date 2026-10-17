@@ -37,7 +37,7 @@ public class AsaMod implements ModInitializer {
     public static void debugMessage(Supplier<String> obj) {
         if (Configs.DEBUG.getBooleanValue()) {
             String s = obj.get();
-            ChatUtils.clientMess(ChatUtils.c(s));
+            ChatHelper.clientMess(ChatHelper.c(s));
             LOGGER.info(s);
         }
     }

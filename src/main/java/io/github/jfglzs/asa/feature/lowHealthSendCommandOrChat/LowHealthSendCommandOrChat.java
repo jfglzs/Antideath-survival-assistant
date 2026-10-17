@@ -3,7 +3,7 @@ package io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat;
 import com.google.common.util.concurrent.RateLimiter;
 import fi.dy.masa.malilib.config.IConfigOptionListEntry;
 import io.github.jfglzs.asa.config.options.LowHealthSendMode;
-import io.github.jfglzs.asa.utils.ChatUtils;
+import io.github.jfglzs.asa.utils.ChatHelper;
 import io.github.jfglzs.asa.utils.CommandUtils;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
@@ -28,10 +28,10 @@ public class LowHealthSendCommandOrChat {
                     if (CommandUtils.canUseCommand(cmd))
                         MCUtils.executeCommand(cmd);
                     else
-                        ChatUtils.serverMess(msg);
+                        ChatHelper.serverMess(msg);
                 }
                 else if (mode == LowHealthSendMode.SEND_CHAT_MESSAGE) {
-                    ChatUtils.serverMess(msg);
+                    ChatHelper.serverMess(msg);
                 }
                 else {
                     MCUtils.executeCommand(cmd);

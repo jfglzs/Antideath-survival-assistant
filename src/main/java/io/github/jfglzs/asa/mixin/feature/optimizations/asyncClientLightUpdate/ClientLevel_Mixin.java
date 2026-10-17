@@ -18,6 +18,6 @@ public class ClientLevel_Mixin {
     }
 }
 //?} else {
-//@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
-//public class ClientLevel_Mixin {}
-//?}
+/*@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
+public class ClientLevel_Mixin {}
+*///?}

@@ -12,7 +12,7 @@ public class ShulkerUtils {
             OpenShulkerPacket.sendOpenPacket(index);
             return;
         }
-        ChatUtils.actionBar(ChatUtils.c("未安装快捷潜影盒"));
+        ChatHelper.actionBar(ChatHelper.c("r 未安装快捷潜影盒"));
     }
 
     public static boolean findBoxToOpen(ItemStack stack) {

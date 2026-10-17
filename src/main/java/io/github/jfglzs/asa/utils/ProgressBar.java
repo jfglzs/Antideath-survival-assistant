@@ -21,6 +21,6 @@ public class ProgressBar {
         builder.repeat("○", Math.max(0, length - filled));
         builder.append(' ').append((int) (progress * 100)).append('%');
 
-        return ChatUtils.c(builder.toString());
+        return ChatHelper.c("g " + builder);
     }
 }

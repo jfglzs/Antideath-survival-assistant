@@ -5,9 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import fi.dy.masa.litematica.data.DataManager;
 import io.github.jfglzs.asa.config.Configs;
-import io.github.jfglzs.asa.utils.ChatUtils;
 import io.github.jfglzs.asa.utils.ThreadUtils;
-import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(DataManager.class)

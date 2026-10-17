@@ -9,7 +9,7 @@ import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.feature.fakePlayerKillAura.FakePlayerKillAura;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
-import io.github.jfglzs.asa.utils.ChatUtils;
+import io.github.jfglzs.asa.utils.ChatHelper;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.Minecraft;
@@ -54,7 +54,7 @@ public class HotkeysCallback implements IHotkeyCallback {
         }
         else if (key == Functions.SWITCH_CLEAN_MODE.getKeybind()) {
             Configs.switchMode(Functions.AUTO_WASTE_CLEAN_MODE);
-            ChatUtils.actionBar(ChatUtils.c("自动垃圾清理： %s".formatted(Functions.AUTO_WASTE_CLEAN_MODE.getStringValue())));
+            ChatHelper.actionBar(ChatHelper.c("g 自动垃圾清理： %s".formatted(Functions.AUTO_WASTE_CLEAN_MODE.getStringValue())));
             return true;
         }
         else if (key == Functions.TRIGGER_BOX_SPLITTER.getKeybind()) {

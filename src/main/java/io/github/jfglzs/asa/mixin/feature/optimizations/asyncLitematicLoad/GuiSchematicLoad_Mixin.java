@@ -15,7 +15,7 @@ import fi.dy.masa.malilib.gui.Message;
 import fi.dy.masa.malilib.gui.button.ButtonBase;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
-import io.github.jfglzs.asa.utils.ChatUtils;
+import io.github.jfglzs.asa.utils.ChatHelper;
 import io.github.jfglzs.asa.utils.ThreadUtils;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -49,11 +49,11 @@ public class GuiSchematicLoad_Mixin {
             asa$future.whenComplete((v, e) -> {
                 if (e != null) {
                     this.gui.addMessage(Message.MessageType.ERROR, "asa.asyncLitematicaLoad.err", e.getMessage());
-                    ChatUtils.actionBar(Component.translatable("asa.asyncLitematicaLoad.err", e.getMessage()));
+                    ChatHelper.actionBar(Component.translatable("asa.asyncLitematicaLoad.err", e.getMessage()));
                     AsaMod.LOGGER.error("Error when load async", e);
                 }
                 else
-                    ChatUtils.actionBar(Component.translatable("asa.asyncLitematicaLoad.complete"));
+                    ChatHelper.actionBar(Component.translatable("asa.asyncLitematicaLoad.complete"));
             });
         }
         else {
@@ -147,9 +147,9 @@ public class GuiSchematicLoad_Mixin {
     }
 }
 //?} else {
-//@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
-//public class GuiSchematicLoad_Mixin {}
-//?}
+/*@org.spongepowered.asm.mixin.Mixin(io.github.jfglzs.asa.utils.DummyClass.class)
+public class GuiSchematicLoad_Mixin {}
+*///?}
 
 
 

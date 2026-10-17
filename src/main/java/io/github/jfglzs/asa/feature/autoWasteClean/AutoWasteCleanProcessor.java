@@ -5,7 +5,7 @@ import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.events.OpenScreenEvent;
 import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
-import io.github.jfglzs.asa.utils.ChatUtils;
+import io.github.jfglzs.asa.utils.ChatHelper;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.Mods;
 import io.github.jfglzs.asa.utils.PlayerUtils;
@@ -43,7 +43,7 @@ public class AutoWasteCleanProcessor {
                     return;
 
                 if (! Mods.item_scroller) {
-                    ChatUtils.actionBar(ChatUtils.c("未安装ItemScroller"));
+                    ChatHelper.actionBar(ChatHelper.c("r 未安装ItemScroller"));
                     return;
                 }
 
@@ -64,7 +64,7 @@ public class AutoWasteCleanProcessor {
                         AsaMod.debugMessage(() -> "Moved Inventory Item to container for slot " + slot.index);
                     }
 
-                    ChatUtils.actionBar(ChatUtils.c("清理完成"));
+                    ChatHelper.actionBar(ChatHelper.c("l 清理完成"));
                 }
 
                 player.closeContainer();
@@ -118,11 +118,11 @@ public class AutoWasteCleanProcessor {
 
         if (Configs.Functions.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue()) {
             Configs.Lists.AUTO_WASTE_CLEAN_BLACKLIST.setStrings(strings);
-            ChatUtils.actionBar(ChatUtils.c("成功将玩家物品栏保存至黑名单"));
+            ChatHelper.actionBar(ChatHelper.c("成功将玩家物品栏保存至黑名单"));
         }
         else if (Configs.Functions.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue()) {
             Configs.Lists.AUTO_WASTE_CLEAN_WHITELIST.setStrings(strings);
-            ChatUtils.actionBar(ChatUtils.c("成功将玩家物品栏保存至白名单"));
+            ChatHelper.actionBar(ChatHelper.c("成功将玩家物品栏保存至白名单"));
         }
 
         AsaMod.debugMessage(() -> "Saved Items to List \n " + strings);

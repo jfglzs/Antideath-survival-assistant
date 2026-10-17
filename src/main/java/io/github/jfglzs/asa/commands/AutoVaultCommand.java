@@ -44,11 +44,11 @@ public class AutoVaultCommand {
         float in = MCUtils.getLocalPlayer().getXRot();
 
         if (start > end) {
-            context.getSource().sendError(ChatUtils.c(AutoVaultCommand.prefix + "无效的开始值"));
+            context.getSource().sendError(ChatHelper.c(AutoVaultCommand.prefix + "无效的开始值"));
             return 0;
         }
 
-        context.getSource().sendFeedback(ChatUtils.c(AutoVaultCommand.prefix + "设置成功!"));
+        context.getSource().sendFeedback(ChatHelper.c(AutoVaultCommand.prefix + "设置成功!"));
 
         AutoVaultExecutor.set(prefix, start, end, blockX, blockY, blockZ, direction, in);
         return Command.SINGLE_SUCCESS;
@@ -59,21 +59,21 @@ public class AutoVaultCommand {
         int y = IntegerArgumentType.getInteger(context, "blockY");
         int z = IntegerArgumentType.getInteger(context, "blockZ");
         if (! AutoVaultExecutor.setBlockPos(new BlockPos(x, y, z))) {
-            context.getSource().sendError(ChatUtils.c(prefix + "无效的方块坐标"));
+            context.getSource().sendError(ChatHelper.c(prefix + "无效的方块坐标"));
             return 0;
         }
-        context.getSource().sendFeedback(ChatUtils.c(AutoVaultCommand.prefix + "设置成功!"));
+        context.getSource().sendFeedback(ChatHelper.c(AutoVaultCommand.prefix + "设置成功!"));
         return Command.SINGLE_SUCCESS;
     }
 
     private static int stop(CommandContext<FabricClientCommandSource> context) {
-        context.getSource().sendFeedback(ChatUtils.c(prefix + "已停止"));
+        context.getSource().sendFeedback(ChatHelper.c(prefix + "已停止"));
         AutoVaultExecutor.reset();
         return Command.SINGLE_SUCCESS;
     }
 
     private static int start(CommandContext<FabricClientCommandSource> context) {
-        context.getSource().sendFeedback(ChatUtils.c(prefix + "已启动"));
+        context.getSource().sendFeedback(ChatHelper.c(prefix + "已启动"));
         AutoVaultExecutor.isRunning = true;
         return Command.SINGLE_SUCCESS;
     }

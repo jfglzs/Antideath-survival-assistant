@@ -63,8 +63,8 @@ public class RenderHandler_Mixin {
             
 *///?} else {
             /*method = "onRenderGameOverlayPost",
-            */
-//?}
+            
+*///?}
             at = @At(
                     value = "INVOKE",
                     target = "Lfi/dy/masa/minihud/event/RenderHandler;updateLines()V"

@@ -3,7 +3,7 @@ package io.github.jfglzs.asa.mixin.feature.lms;
 import com.google.common.collect.ImmutableList;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
-import io.github.jfglzs.asa.utils.ChatUtils;
+import io.github.jfglzs.asa.utils.ChatHelper;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import io.github.jfglzs.asa.utils.ThreadUtils;
@@ -58,7 +58,7 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
                         ThreadUtils.runOnClientThread(() -> MCUtils.executeCommand("player %s kill".formatted(name)));
                     }
                     catch (Exception e) {
-                        ChatUtils.clientMess(ChatUtils.c(e.getMessage()));
+                        ChatHelper.clientMess(ChatHelper.c(e.getMessage()));
                         AsaMod.LOGGER.error(e.getMessage(), e);
                     }
                     finally {
@@ -81,7 +81,7 @@ public abstract class AbstractContainerScreen_Mixin<T extends AbstractContainerM
                 List<Slot> slots = this.menu.slots.stream().filter(slot -> ! (slot.container instanceof Inventory))
                                                   .toList();
                 ItemStorageDataManager.addPlayerInventory(name, new ItemStorageDataManager.PlayerInventory(ImmutableList.copyOf(slots)));
-                ChatUtils.actionBar(ChatUtils.c("已缓存 %s 的物品栏".formatted(name)));
+                ChatHelper.actionBar(ChatHelper.c("已缓存 %s 的物品栏".formatted(name)));
                 break;
             }
         }
