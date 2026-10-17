@@ -15,6 +15,7 @@ import fi.dy.masa.malilib.gui.Message;
 import fi.dy.masa.malilib.gui.button.ButtonBase;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.utils.AsyncLoadContext;
 import io.github.jfglzs.asa.utils.ChatHelper;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.ThreadUtils;
@@ -46,15 +47,26 @@ public class GuiSchematicLoad_Mixin {
         }
 
         if (asa$future == null || asa$future.isDone()) {
-            asa$future = CompletableFuture.supplyAsync(() -> original.call(button, mouseButton));
+            asa$future = CompletableFuture.supplyAsync(() -> {
+                AsyncLoadContext.begin();
+
+                try {
+                    return original.call(button, mouseButton);
+                }
+                finally {
+                    AsyncLoadContext.end();
+                }
+            });
             asa$future.whenComplete((v, e) -> {
                 if (e != null) {
-                    this.gui.addMessage(Message.MessageType.ERROR, "asa.asyncLitematicaLoad.err", e.getMessage());
-                    ChatHelper.actionBar(Component.translatable("asa.asyncLitematicaLoad.err", e.getMessage()));
+                    ThreadUtils.runOnClientThread(() -> {
+                        this.gui.addMessage(Message.MessageType.ERROR, "asa.asyncLitematicaLoad.err", e.getMessage());
+                        ChatHelper.actionBar(Component.translatable("asa.asyncLitematicaLoad.err", e.getMessage()));
+                    });
                     AsaMod.LOGGER.error("Error when load async", e);
                 }
                 else
-                    ChatHelper.actionBar(Component.translatable("asa.asyncLitematicaLoad.complete"));
+                    ThreadUtils.runOnClientThread(() -> ChatHelper.actionBar(Component.translatable("asa.asyncLitematicaLoad.complete")));
             });
         }
         else {
