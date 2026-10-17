@@ -63,6 +63,7 @@ public class Configs implements IConfigHandler {
     public static class LMS {
         @Config(tab = Tab.LMS) public static final ConfigHotkey LMS_TAKE_ITEM = new ConfigHotkey("openFakeFetchGui", "", "").apply(ALL);
         @Config(tab = Tab.LMS) public static final ConfigBoolean LMS_FETCH_SUPPORT = new ConfigBoolean("fakeFetchSupport", false, "").apply(ALL);
+        @Config(tab = Tab.LMS) public static final ConfigBoolean LMS_AUTO_REFRESH = new ConfigBoolean("fakeAutoRefresh", false, "").apply(ALL);
         @Config(tab = Tab.LMS) public static final ConfigBooleanHotkeyed MID_CLICK_TAKE_ITEM = new ConfigBooleanHotkeyed("middleClickLitematicBlockFetch", false, "", "").apply(ALL);
         @Config(tab = Tab.LMS) public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV = new ConfigBooleanHotkeyed("autoOpenFakeInv", false, "", "").apply(ALL);
         @Config(tab = Tab.LMS) public static final ConfigOptionList AUTO_OPEN_FAKE_PLAYER_INV_MODE = new ConfigOptionList("autoOpenFakeInv-Mode", OpenFakePlayerInvMode.INTERACTION, "", "").apply(ALL);

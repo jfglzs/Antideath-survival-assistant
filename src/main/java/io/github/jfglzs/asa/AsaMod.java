@@ -81,7 +81,7 @@ public class AsaMod implements ModInitializer {
         ClientTickEvent.register(ItemStorageDataManager::scanMatchedPlayersAndInteract);
         ClientTickEvent.register(i -> i % 10 == 0 && Configs.Functions.DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender::tick);
         ClientTickEvent.register(i -> i % 20 == 0 && Configs.Functions.CREEPER_WARN.getBooleanValue(), CreeperCheckClient::tick);
-        ClientTickEvent.register(i -> i % 20000 == 0 && Configs.LMS.LMS_FETCH_SUPPORT.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client -> ItemStorageDataManager.reflushCache());
+        ClientTickEvent.register(i -> i % 20000 == 0 && Configs.LMS.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.LMS.LMS_AUTO_REFRESH.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client -> ItemStorageDataManager.reflushCache());
     }
 
     private void registerCommands() {

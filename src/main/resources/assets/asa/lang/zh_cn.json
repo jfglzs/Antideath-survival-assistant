@@ -221,6 +221,8 @@
   "asa.config.all.comment.asyncLitematicaLoadThreadAmount": "最小值为1 最大值为电脑的逻辑处理器数量",
   "asa.config.all.name.disableClientLightUpdate": "禁用客户端光照更新(26.1+)",
   "asa.config.all.comment.disableClientLightUpdate": "大量方块更新时能显著提高帧数",
+  "asa.config.all.name.fakeAutoRefresh": "假人取货自动查询",
+  "asa.config.all.comment.fakeAutoRefresh": "开启后每隔一段时间会向服务端(LMS)请求数据",
   "asa.opts.ifv.low": "永远可见(低性能)",
   "asa.opts.ifv.mid": "无物品时可见(平衡)",
   "asa.opts.ifv.high": "永不可见(高性能)",
