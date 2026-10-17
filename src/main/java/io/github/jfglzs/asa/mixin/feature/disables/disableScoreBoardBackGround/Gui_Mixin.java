@@ -6,6 +6,7 @@ import io.github.jfglzs.asa.config.Configs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+//~ if >= 26.1 'GuiGraphics' -> 'GuiGraphicsExtractor' {
 //~ if >= 26.2 'Gui' -> 'Hud' {
 @Mixin(net.minecraft.client.gui.Hud.class)
 //~}
@@ -19,10 +20,10 @@ public class Gui_Mixin {
                     target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;fill(IIIII)V"
             )
     )
-    //~ if >= 26.1 'GuiGraphics' -> 'GuiGraphicsExtractor' {
+
     public void fill(net.minecraft.client.gui.GuiGraphicsExtractor instance, int x0, int y0, int x1, int y1, int col, Operation<Void> original) {
-    //~}
         if (! Configs.Disables.DISABLE_SCORE_BOARD_BACK_GROUND.getBooleanValue())
             original.call(instance, x0, y0, x1, y1, col);
     }
 }
+//~}
