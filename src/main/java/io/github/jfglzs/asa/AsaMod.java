@@ -19,6 +19,7 @@ import io.github.jfglzs.asa.feature.useSignRunCommand.UseSignRunCommand;
 import io.github.jfglzs.asa.render.RemainingItemRender;
 import io.github.jfglzs.asa.utils.*;
 import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -28,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.function.Supplier;
 
-public class AsaMod implements ModInitializer {
+public class AsaMod implements ClientModInitializer {
     public static final String MOD_ID_FANCY = "ASA";
     public static final String MOD_ID = "asa";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -43,7 +44,7 @@ public class AsaMod implements ModInitializer {
     }
 
     @Override
-    public void onInitialize() {
+    public void onInitializeClient() {
         version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
         LOGGER.info("AsaMod v{} is being loading...", version);
 
@@ -61,7 +62,6 @@ public class AsaMod implements ModInitializer {
         RenderEventHandler.getInstance().registerInGameGuiRenderer(HudRenderEvent.INSTANCE);
         InitializationHandler.getInstance().registerInitializationHandler(InitHandler.INSTANCE);
         ItemStorageDataManager.init();
-        ThreadUtils.init();
         AutoWasteCleanProcessor.init();
         UseSignRunCommand.init();
         RemainingItemRender.init();

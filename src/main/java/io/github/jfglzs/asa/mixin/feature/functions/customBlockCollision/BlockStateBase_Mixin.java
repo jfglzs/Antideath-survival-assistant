@@ -12,6 +12,7 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,6 +21,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public abstract class BlockStateBase_Mixin {
 
+    @Shadow
+    protected abstract BlockState asState();
+
     @Inject(
             method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;",
             at = @At("HEAD"),
@@ -27,25 +31,27 @@ public abstract class BlockStateBase_Mixin {
     )
     public void getCollisionShape(BlockGetter level, BlockPos pos, CollisionContext ctx,
                                   CallbackInfoReturnable<VoxelShape> cir) {
-        if (Configs.Functions.ENABLE_STRONG_BLOCK_COLLISION.getBooleanValue()) {
+        if (! Configs.Functions.ENABLE_STRONG_BLOCK_COLLISION.getBooleanValue())
+            return;
 
-            EntityCollisionContext context = asa$getEntityCollisionContext(ctx);
-            if (context == null || context.getEntity() != MCUtils.getLocalPlayer()) {
-                return;
-            }
+        EntityCollisionContext context = asa$getEntityCollisionContext(ctx);
 
-            BlockState state = level.getBlockState(pos);
-            String blockID = MCUtils.getBlockID(state.getBlock());
-
-            if (Configs.Functions.ENABLE_STRONG_BLOCK_COLLISION_WHITELIST.getBooleanValue()) {
-                if (Configs.isInList(blockID, Configs.Lists.STRONG_BLOCK_COLLISION_WHITELIST))
-                    cir.setReturnValue(Shapes.block());
-            }
-            else if (Configs.Functions.ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST.getBooleanValue()) {
-                if (! Configs.isInList(blockID, Configs.Lists.STRONG_BLOCK_COLLISION_BLACKLIST))
-                    cir.setReturnValue(Shapes.block());
-            }
+        if (context == null || context.getEntity() != MCUtils.getLocalPlayer()) {
+            return;
         }
+
+        BlockState state = this.asState();
+        String blockID = MCUtils.getBlockID(state.getBlock());
+
+        if (Configs.Functions.ENABLE_STRONG_BLOCK_COLLISION_WHITELIST.getBooleanValue()) {
+            if (Configs.isInList(blockID, Configs.Lists.STRONG_BLOCK_COLLISION_WHITELIST))
+                cir.setReturnValue(Shapes.block());
+        }
+        else if (Configs.Functions.ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST.getBooleanValue()) {
+            if (! Configs.isInList(blockID, Configs.Lists.STRONG_BLOCK_COLLISION_BLACKLIST))
+                cir.setReturnValue(Shapes.block());
+        }
+
     }
 
     @Inject(

@@ -1,5 +1,6 @@
 package io.github.jfglzs.asa.mixin.feature.optimizations.optSignText;
 
+import io.github.jfglzs.asa.config.Configs;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
@@ -22,7 +23,7 @@ public class BoundTickingBlockEntity_Mixin<T extends BlockEntity> {
             cancellable = true
     )
     public void tick(CallbackInfo ci) {
-        if (this.blockEntity instanceof SignBlockEntity && blockEntity.getLevel() instanceof ClientLevel) {
+        if (this.blockEntity instanceof SignBlockEntity && Configs.Optimizations.OPT_SIGN_TEXT.getBooleanValue() && blockEntity.getLevel() instanceof ClientLevel) {
             ci.cancel();
         }
     }

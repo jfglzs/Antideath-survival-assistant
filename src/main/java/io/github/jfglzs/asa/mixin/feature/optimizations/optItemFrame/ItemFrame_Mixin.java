@@ -25,6 +25,6 @@ public abstract class ItemFrame_Mixin extends Entity {
 
     @Override
     public boolean isOnFire() {
-        return ! Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue() && super.fireImmune();
+        return ! Configs.Optimizations.OPT_ITEM_FRAME.getBooleanValue() && super.isOnFire();
     }
 }

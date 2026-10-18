@@ -21,7 +21,7 @@
     "feature.functions.mountLoggersOnMiniHud.RenderHandler_Mixin",
     "feature.lms.MaterialListEntry_Mixin",
     "feature.lms.WorldUtils_Mixin",
-    "feature.optimizations.asyncClientLightUpdate.ClientLevel_Mixin",
+    "feature.optimizations.disableClientLightUpdate.ClientLevel_Mixin",
     "feature.optimizations.asyncLitematicLoad.DataManager_Mixin",
     "feature.optimizations.asyncLitematicLoad.LitematicaSchematic_Mixin",
     "feature.optimizations.asyncLitematicLoad.OverlayRenderer_Mixin",

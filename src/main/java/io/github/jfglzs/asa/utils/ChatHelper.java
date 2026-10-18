@@ -14,7 +14,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChatHelper {
-    private static final LocalPlayer PLAYER = MCUtils.getLocalPlayer();
     private static final Pattern colorExtract = Pattern.compile("#([0-9a-fA-F]{6})");
 
     //from carpet mod Messenger$CarpetFormatting
@@ -79,17 +78,18 @@ public class ChatHelper {
     }
 
     public static void clientChat(Component chat) {
-        if (PLAYER == null)
+        LocalPlayer player = MCUtils.getLocalPlayer();
+        if (player == null)
             return;
         //? if >=26.1 {
-        PLAYER.sendSystemMessage(chat);
+        player.sendSystemMessage(chat);
         //?} else {
-        /*client.player.displayClientMessage(chat, false);
+        /*player.displayClientMessage(chat, false);
          *///?}
     }
 
     public static void clientChatWithSound(Component chat, SoundEvent type) {
-        LocalPlayer player = PLAYER;
+        LocalPlayer player = MCUtils.getLocalPlayer();
         if (player != null) {
             player.playSound(type, 1f, 1f);
             clientChat(chat);
@@ -97,25 +97,29 @@ public class ChatHelper {
     }
 
     public static void actionBarWithSound(Component chat, SoundEvent type) {
-        if (PLAYER == null)
+        LocalPlayer player = MCUtils.getLocalPlayer();
+        if (player == null)
             return;
-        PLAYER.playSound(type, 1f, 1f);
+        player.playSound(type, 1f, 1f);
         actionBar(chat);
     }
 
     public static void actionBar(Component chat) {
-        if (PLAYER == null)
+        LocalPlayer player = MCUtils.getLocalPlayer();
+        if (player == null)
             return;
         //? if >= 26.1 {
-        PLAYER.sendOverlayMessage(chat);
+        player.sendOverlayMessage(chat);
         //?} else {
-        /*PLAYER.displayClientMessage(chat, true);
+        /*player.displayClientMessage(chat, true);
          *///?}
     }
 
     public static void serverChat(String chat) {
-        if (PLAYER != null)
-            PLAYER.connection.sendChat(chat);
+        LocalPlayer player = MCUtils.getLocalPlayer();
+
+        if (player != null)
+            player.connection.sendChat(chat);
     }
 
     //from carpet mod Messenger#c

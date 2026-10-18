@@ -14,12 +14,11 @@ import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.PlayerUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.client.player.LocalPlayer;
 
 import static io.github.jfglzs.asa.config.Configs.*;
 
 public class HotkeysCallback implements IHotkeyCallback {
-    Minecraft client = Minecraft.getInstance();
-
     public static void init() {
         HotkeysCallback hotkeysCallback = new HotkeysCallback();
 
@@ -36,8 +35,9 @@ public class HotkeysCallback implements IHotkeyCallback {
         }
         else if (key == LMS.LMS_TAKE_ITEM.getKeybind()) {
             Configs.lockCreativeScreen = true;
-            MCUtils.setScreen(new CreativeModeInventoryScreen(this.client.player, this.client.player.connection.enabledFeatures(), this.client.options
-                    .operatorItemsTab().get()));
+            LocalPlayer player = MCUtils.getLocalPlayer();
+            Minecraft mc = MCUtils.getMinecraft();
+            MCUtils.setScreen(new CreativeModeInventoryScreen(player, player.connection.enabledFeatures(), mc.options.operatorItemsTab().get()));
             return true;
         }
         else if (key == Functions.ENABLE_FAKE_PLAYER_KILL_AURA.getKeybind()) {
@@ -59,9 +59,11 @@ public class HotkeysCallback implements IHotkeyCallback {
         }
         else if (key == Functions.TRIGGER_BOX_SPLITTER.getKeybind()) {
             BoxSplitter.addTask(PlayerUtils.getPlayerMainHandStack());
+            return true;
         }
         else if (key == LMS.CLEAN_PLAYER_INV_CHACHE.getKeybind()) {
             ItemStorageDataManager.removeAll();
+            return true;
         }
         return false;
     }

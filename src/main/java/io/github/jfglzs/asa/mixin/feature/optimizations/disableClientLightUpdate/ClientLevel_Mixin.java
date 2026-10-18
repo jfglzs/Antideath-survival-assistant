@@ -1,4 +1,4 @@
-package io.github.jfglzs.asa.mixin.feature.optimizations.asyncClientLightUpdate;
+package io.github.jfglzs.asa.mixin.feature.optimizations.disableClientLightUpdate;
 
 //? if >= 26.1 {
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;

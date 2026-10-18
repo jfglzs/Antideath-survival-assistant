@@ -14,35 +14,18 @@ import java.util.function.Supplier;
 public class ThreadUtils {
     public static final Minecraft MC = Minecraft.getInstance();
     public static final ExecutorService THREAD_POOL = Executors.newCachedThreadPool();
-    public static final Queue<Runnable> TASK_QUEUE = new ConcurrentLinkedQueue<>();
+    private static final ScheduledExecutorService SCHEDULER = Executors.newSingleThreadScheduledExecutor(r -> {
+        Thread t = new Thread(r, "ASA-TASK");
+        t.setDaemon(true);
+        return t;
+    });
 
-    public static void init() {
-        makeTaskThread();
+    public static void schedule(int delayMs, Runnable onClient) {
+        SCHEDULER.schedule(onClient, delayMs, TimeUnit.MILLISECONDS);
     }
 
-    public static void makeTaskThread() {
-        Thread thread = new Thread(() -> {
-            AsaMod.LOGGER.info("Starting TaskThread");
-            while (true) {
-                while (! TASK_QUEUE.isEmpty()) {
-                    try {
-                        Runnable task = TASK_QUEUE.poll();
-                        if (task != null) {
-                            task.run();
-                        }
-                    }
-                    catch (Exception e) {
-                        AsaMod.LOGGER.error("Exception in {}", Thread.currentThread().getName(), e);
-                    }
-                }
-                if (! Thread.interrupted()) {
-                    LockSupport.parkNanos(10000);
-                }
-            }
-        });
-        thread.setDaemon(true);
-        thread.setName("ASA-TaskThread");
-        thread.start();
+    public static void runOnTaskThread(Runnable toRun) {
+        schedule(0, toRun);
     }
 
     public static <T> void parallel(List<T> list, int threads, int batchSize, Consumer<List<T>> processor) {
@@ -89,9 +72,5 @@ public class ThreadUtils {
 
     public static Future<?> runAsync(Runnable toRun) {
         return THREAD_POOL.submit(toRun);
-    }
-
-    public static void runOnTaskThread(Runnable toRun) {
-        TASK_QUEUE.offer(toRun);
     }
 }
