@@ -3,6 +3,7 @@ package io.github.jfglzs.asa.feature.autoWasteClean;
 import fi.dy.masa.itemscroller.util.InventoryUtils;
 import io.github.jfglzs.asa.AsaMod;
 import io.github.jfglzs.asa.config.Configs;
+import io.github.jfglzs.asa.config.options.AutoCleanWasteMode;
 import io.github.jfglzs.asa.events.OpenScreenEvent;
 import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
 import io.github.jfglzs.asa.utils.ChatHelper;
@@ -47,7 +48,7 @@ public class AutoWasteCleanProcessor {
                     return;
                 }
 
-                String mode = Configs.Functions.AUTO_WASTE_CLEAN_MODE.getStringValue();
+                var mode = Configs.Functions.AUTO_WASTE_CLEAN_MODE.getOptionListValue();
 
                 for (Slot slot : menu.slots) {
                     ItemStack stack = slot.getItem();
@@ -55,11 +56,11 @@ public class AutoWasteCleanProcessor {
                     if (stack.isEmpty() || ! shouldDrop(stack))
                         continue;
 
-                    if (menu instanceof InventoryMenu && mode.equals("丢出物品")) {
+                    if (menu instanceof InventoryMenu && mode == AutoCleanWasteMode.DROP) {
                         InventoryUtils.dropStack(container, slot.index);
                         AsaMod.debugMessage(() -> "Dropped Inventory container for slot " + slot.index);
                     }
-                    else if (menu instanceof ChestMenu && mode.equals("转移至容器") && isInv) {
+                    else if (menu instanceof ChestMenu && isInv) {
                         InventoryUtils.tryMoveStacks(slot, container, true, true, false);
                         AsaMod.debugMessage(() -> "Moved Inventory Item to container for slot " + slot.index);
                     }
@@ -83,17 +84,14 @@ public class AutoWasteCleanProcessor {
             return true;
         }
 
-        boolean boxHasItems = false;
-
         for (ItemStack boxStack : PlayerUtils.getBoxItemStacks(stack)) {
             if (boxStack.isEmpty())
                 continue;
             if (! shouldDrop(boxStack))
                 return false;
-            boxHasItems = true;
         }
 
-        return boxHasItems;
+        return true;
     }
 
     public static void saveItemToList() {
@@ -117,11 +115,11 @@ public class AutoWasteCleanProcessor {
 
         if (Configs.Functions.ENABLE_AUTO_WASTE_CLEAN_BLACKLIST.getBooleanValue()) {
             Configs.Lists.AUTO_WASTE_CLEAN_BLACKLIST.setStrings(strings);
-            ChatHelper.actionBar(ChatHelper.c("成功将玩家物品栏保存至黑名单"));
+            ChatHelper.actionBar(ChatHelper.c("r 成功将玩家物品栏保存至黑名单"));
         }
         else if (Configs.Functions.ENABLE_AUTO_WASTE_CLEAN_WHITELIST.getBooleanValue()) {
             Configs.Lists.AUTO_WASTE_CLEAN_WHITELIST.setStrings(strings);
-            ChatHelper.actionBar(ChatHelper.c("成功将玩家物品栏保存至白名单"));
+            ChatHelper.actionBar(ChatHelper.c("r 成功将玩家物品栏保存至白名单"));
         }
 
         AsaMod.debugMessage(() -> "Saved Items to List \n " + strings);

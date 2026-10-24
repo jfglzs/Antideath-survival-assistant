@@ -33,10 +33,6 @@ public class PlayerUtils {
         //~}
     }
 
-    public static Item getItem(int slotIndex) {
-        return getItemStack(slotIndex).getItem();
-    }
-
     public static ItemStack getItemStack(int slotIndex) {
         Player player = MCUtils.getLocalPlayer();
         return player == null ? ItemStack.EMPTY : player.getInventory()
