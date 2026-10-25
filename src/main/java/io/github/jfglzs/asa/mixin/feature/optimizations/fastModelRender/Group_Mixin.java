@@ -6,6 +6,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexSorting;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import io.github.jfglzs.asa.config.Configs;
+import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 import net.minecraft.client.renderer.StagedVertexBuffer;
 import net.minecraft.client.renderer.rendertype.PreparedRenderType;
 import net.minecraft.client.renderer.rendertype.RenderType;
@@ -29,7 +30,7 @@ public class Group_Mixin {
     @Shadow
     @Final
     private List<PreparedRenderType> drawRenderTypes;
-    @Unique public final Object2ObjectOpenHashMap<PreparedRenderType, StagedVertexBuffer.Draw> FMR$map = new Object2ObjectOpenHashMap<>();
+    @Unique public final Reference2ObjectOpenHashMap<PreparedRenderType, StagedVertexBuffer.Draw> FMR$map = new Reference2ObjectOpenHashMap<>();
 
     @WrapMethod(
             method = "getOrAddDraw"
