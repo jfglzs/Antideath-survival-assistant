@@ -5,10 +5,12 @@ import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.tweakeroo.util.InventoryUtils;
 import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.feature.boxRestock.BoxRestockMannager;
+import io.github.jfglzs.asa.utils.PlayerUtils;
 import io.github.jfglzs.asa.utils.ShulkerUtils;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,7 +32,7 @@ public class InventoryUtils_Mixin {
         if (Configs.Functions.AUTO_BOX_RESTROKE.getBooleanValue() && stack.getCount() < threshold) {
             if (stack.isEmpty() || stack.getMaxStackSize() == 1 || ! LIMITER_MAIN.tryAcquire())
                 return;
-            tryRestrock(stack, hand);
+            tryRestrock(player, stack, hand);
         }
     }
 
@@ -44,14 +46,24 @@ public class InventoryUtils_Mixin {
         if (Configs.Functions.AUTO_BOX_RESTROKE.getBooleanValue() && slotWithItem == - 1) {
             if (stack.isEmpty() || ! LIMITER_OFF.tryAcquire())
                 return;
-            tryRestrock(stack, hand);
+            tryRestrock(player, stack, hand);
         }
     }
 
     @Unique
-    private static void tryRestrock(ItemStack stack, InteractionHand hand) {
+    private static void tryRestrock(Player player,ItemStack stack, InteractionHand hand) {
         if (ShulkerUtils.findBoxToOpen(stack)) {
             BoxRestockMannager.context = new BoxRestockMannager.BoxRestockContext(stack, hand);
         }
+//        else if (Configs.Functions.AUTO_BOX_RESTROKE_ENDERCHEST_SUPPORT.getBooleanValue()) {
+//            for (ItemStack item : player.getEnderChestInventory().items) {
+//                if (fi.dy.masa.malilib.util.InventoryUtils.areStacksEqualIgnoreDurability(stack, item)) {
+//                    for (ItemStack itemStack : PlayerUtils.getInventory()) {
+//                        if (itemStack.is(Items.ENDER_CHEST))
+//
+//                    }
+//                }
+//            }
+//        }
     }
 }

@@ -7,6 +7,7 @@ import io.github.jfglzs.asa.config.Configs;
 import io.github.jfglzs.asa.utils.MCUtils;
 import io.github.jfglzs.asa.utils.Mods;
 import io.github.jfglzs.asa.utils.PlayerUtils;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.InteractionHand;
@@ -28,7 +29,7 @@ public class BoxRestockMannager {
         if (! Configs.Functions.AUTO_BOX_RESTROKE.getBooleanValue() || context == null || ! PlayerUtils.isSurvivalMode())
             return;
 
-        if (MCUtils.getScreen() instanceof ShulkerBoxScreen boxScreen) {
+        if (MCUtils.getScreen() instanceof AbstractContainerScreen<?> boxScreen) {
             var menu = boxScreen.getMenu();
             ItemStack stackHand = context.stackHand;
             for (Slot slot : menu.slots) {

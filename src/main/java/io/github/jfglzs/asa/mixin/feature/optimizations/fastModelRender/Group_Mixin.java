@@ -30,7 +30,8 @@ public class Group_Mixin {
     @Shadow
     @Final
     private List<PreparedRenderType> drawRenderTypes;
-    @Unique public final Reference2ObjectOpenHashMap<PreparedRenderType, StagedVertexBuffer.Draw> FMR$map = new Reference2ObjectOpenHashMap<>();
+    @Unique
+    public final Reference2ObjectOpenHashMap<PreparedRenderType, StagedVertexBuffer.Draw> FMR$map = new Reference2ObjectOpenHashMap<>();
 
     @WrapMethod(
             method = "getOrAddDraw"

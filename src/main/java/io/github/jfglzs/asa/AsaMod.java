@@ -92,8 +92,10 @@ public class AsaMod implements ClientModInitializer {
     }
 
     public void testOnTick() {
+
     }
 
     public static void test() {
+        ShulkerUtils.open(1);
     }
 }

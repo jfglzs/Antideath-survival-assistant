@@ -141,6 +141,7 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_STRONG_BLOCK_COLLISION_BLACKLIST_SHAPE = new ConfigBooleanHotkeyed("enableCustomBlockBlockInteractionShape-Blacklist", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed CUSTOM_LITEMATICA_BLOCK_REPLACE = new ConfigBooleanHotkeyed("enableCustomLitematicaBlockReplace", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed AUTO_BOX_RESTROKE = new ConfigBooleanHotkeyed("enableAutoBlockRestrok", false, "", "").apply(ALL);
+        @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed AUTO_BOX_RESTROKE_ENDERCHEST_SUPPORT = new ConfigBooleanHotkeyed("enableAutoBlockRestrokEnderChestSupport", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_AUTO_BOX_RESTROKE_WHITELIST = new ConfigBooleanHotkeyed("enableAutoBlockRestrok-Whitelist", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_AUTO_BOX_RESTROKE_BLACKLIST = new ConfigBooleanHotkeyed("enableAutoBlockRestrok-blackList", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigHotkey TRIGGER_BOX_SPLITTER = new ConfigHotkey("trigger-boxItemSplitter", "", "").apply(ALL);
