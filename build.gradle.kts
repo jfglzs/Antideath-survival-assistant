@@ -97,19 +97,21 @@ val commonVmArgs = listOf(
 )
 //val devVmArg = "-XX:+AllowEnhancedClassRedefinition"
 val devVmArg = ""
+
 loomExtension.runConfigs.configureEach {
     // to make sure it generates all "Minecraft Client (:subproject_name)" applications
-    isIdeConfigGenerated = true
-    runDir = if (unobfuscated) "../../run" else "../../run-obsuscated"
-    vmArgs(commonVmArgs + devVmArg)
+    generateRunConfig = true
+    runDirectory = file(if (unobfuscated) "../../run" else "../../run-obsuscated")
+    jvmArguments.addAll(commonVmArgs)
+    jvmArguments.add(devVmArg)
 }
+
 loomExtension.runs {
     val auditVmArg = "-DmixinAuditor.audit=true"
     register("clientMixinAudit") {
         client()
-        vmArgs.add(auditVmArg)
-        vmArgs.remove(devVmArg)
-        isIdeConfigGenerated = false
+        jvmArguments.add(auditVmArg)
+        generateRunConfig = false
     }
 }
 
