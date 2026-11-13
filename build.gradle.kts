@@ -147,7 +147,7 @@ dependencies {
             }
         )
     }
-    autoRuntimeOnly("me.fallenbreath:mixin-auditor:0.2.0-${if (unobfuscated) "u" else "o"}")
+    autoRuntimeOnly("me.fallenbreath:mixin-auditor:0.3.0-${if (unobfuscated) "u" else "o"}")
     autoImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
     autoImplementation("com.terraformersmc:modmenu:${property("modmenu_version")}")
     autoImplementation("net.fabricmc.fabric-api:fabric-api:${getProperty("fabric_api_version")}")
@@ -194,7 +194,7 @@ java {
     val javaVersion = if (unobfuscated) JavaVersion.VERSION_25 else JavaVersion.VERSION_21
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
-    withSourcesJar()
+//    withSourcesJar()
 }
 
 tasks.jar {
