@@ -3,6 +3,7 @@ package io.github.jfglzs.asa.utils;
 import fi.dy.masa.malilib.util.InventoryUtils;
 import net.kyrptonaught.quickshulker.network.OpenShulkerPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class ShulkerUtils {
         if (stack == null || stack.isEmpty())
             return false;
 
-        List<Integer> boxes = PlayerUtils.getAllBoxIndexes(9, 36);
+        List<Integer> boxes = PlayerUtils.getAllBoxIndex(9, 36);
 
         for (int index : boxes) {
             ItemStack boxStack = PlayerUtils.getInventory().get(index);
@@ -31,6 +32,17 @@ public class ShulkerUtils {
                     return true;
                 }
             }
+        }
+
+        return false;
+    }
+
+    public static boolean findEnderToOpen() {
+        List<Integer> index = PlayerUtils.getAllItemIndex(9, 36, s -> s.is(Items.ENDER_CHEST));
+
+        if (! index.isEmpty()) {
+            ShulkerUtils.open(index.getFirst());
+            return true;
         }
 
         return false;

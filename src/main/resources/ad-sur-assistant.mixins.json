@@ -64,7 +64,6 @@
     "feature.lms.AbstractContainerScreen_Mixin",
     "feature.lms.CreativeModeInventoryScreen_Mixin",
     "feature.optimizations.asyncLitematicLoad.GuiSchematicLoad_Mixin",
-    "feature.optimizations.multiThreadedClientEntityTick.ClientLevel_Mixin",
     "feature.optimizations.optEntityLight.EntityRenderer_Mixin",
     "feature.optimizations.optItemFrame.ClientLevel_Mixin",
     "feature.optimizations.optItemFrame.ClientPacketListener_Mixin",

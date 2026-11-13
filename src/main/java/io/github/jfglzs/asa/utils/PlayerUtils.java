@@ -17,6 +17,7 @@ import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class PlayerUtils {
     public static int getInventoryItemCount(Item item) {
@@ -39,16 +40,19 @@ public class PlayerUtils {
                                                         .getItem(slotIndex);
     }
 
-    public static List<Integer> getAllBoxIndexes(int minIndex, int maxIndex) {
+    public static List<Integer> getAllBoxIndex(int minIndex, int maxIndex) {
+        return getAllItemIndex(minIndex, maxIndex, PlayerUtils::isShulkerBox);
+    }
+
+    public static List<Integer> getAllItemIndex(int minIndex, int maxIndex, Predicate<ItemStack> filter) {
         List<Integer> results = new ArrayList<>();
         Inventory inventory = MCUtils.getLocalPlayer()
                                      .getInventory();
 
         for (int i = minIndex; i < maxIndex; i++) {
             ItemStack stack = inventory.getItem(i);
-            if (isShulkerBox(stack)) {
+            if (filter.test(stack))
                 results.add(i);
-            }
         }
 
         return results;
@@ -92,7 +96,7 @@ public class PlayerUtils {
         LocalPlayer localPlayer = MCUtils.getLocalPlayer();
         if (localPlayer == null)
             return 0;
-        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndexes(0, 36))
+        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndex(0, 36))
                 .stream().flatMap(i -> getBoxItemStacks(getInventory().get(i)).stream())
                 .filter(j -> j.is(item))
                 .mapToInt(ItemStack::getCount)
