@@ -103,7 +103,11 @@ loomExtension.runConfigs.configureEach {
     generateRunConfig = true
     runDirectory = file(if (unobfuscated) "../../run" else "../../run-obsuscated")
     jvmArguments.addAll(commonVmArgs)
-    jvmArguments.add(devVmArg)
+    // Never add an empty JVM argument: the JVM would treat it as the main class name
+    // and fail with "Could not find or load main class" / ClassNotFoundException
+    if (devVmArg.isNotBlank()) {
+        jvmArguments.add(devVmArg)
+    }
 }
 
 loomExtension.runs {
@@ -111,7 +115,13 @@ loomExtension.runs {
     register("clientMixinAudit") {
         client()
         jvmArguments.add(auditVmArg)
-        generateRunConfig = false
+        // Generate an IDE run configuration per version that invokes this Gradle task with its
+        // fully qualified name, e.g. ":1.21.1:runClientMixinAudit". Every version shares the same
+        // run directory, so invoking the bare task name (as "gradlew runClientMixinAudit" or an
+        // unqualified Gradle run configuration does) would select the task in ALL subprojects at
+        // once and fail Gradle's cross-project "implicit dependency" validation.
+        generateRunConfig = true
+        preferGradleTask = true
     }
 }
 

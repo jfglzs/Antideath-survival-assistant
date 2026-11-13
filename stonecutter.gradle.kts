@@ -5,6 +5,29 @@ plugins {
 }
 stonecutter active "26.2"
 
+gradle.projectsEvaluated {
+    val auditTasks = project.subprojects
+        .mapNotNull { sub -> sub.tasks.findByName("runClientMixinAudit") }
+        .sortedBy { it.path }
+
+    fun runDirectoryOf(task: Task): File? = (task.project.extensions
+        .findByName("loom") as? net.fabricmc.loom.api.LoomGradleExtensionAPI)
+        ?.runConfigs
+        ?.findByName("clientMixinAudit")
+        ?.runDirectory?.get()?.asFile
+
+    for (task in auditTasks) {
+        val runDirectory = runDirectoryOf(task) ?: continue
+        for (other in auditTasks) {
+            if (other !== task && runDirectoryOf(other) == runDirectory) {
+                task.mustRunAfter("${other.project.path}:downloadAssets")
+            }
+        }
+    }
+
+    auditTasks.zipWithNext { previous, next -> next.mustRunAfter(previous) }
+}
+
 tasks.register("buildAndGather") {
     group = "build"
     dependsOn(project.subprojects.map { it.tasks.named("build") })
