@@ -21,14 +21,11 @@ import java.util.function.Predicate;
 
 public class PlayerUtils {
     public static int getInventoryItemCount(Item item) {
-        return getInventory().stream()
-                             .filter(stack -> stack.is(item))
-                             .mapToInt(ItemStack::getCount)
-                             .sum();
+        return getInventory().stream().filter(stack -> stack.is(item)).mapToInt(ItemStack::getCount).sum();
     }
 
     public static List<ItemStack> getInventory() {
-        //~ if >= 1.21.5 'items' -> 'getNonEquipmentItems()' {
+        //~ if >=1.21.5 'items' -> 'getNonEquipmentItems()' {
         LocalPlayer player = MCUtils.getLocalPlayer();
         return player == null ? List.of() : player.getInventory().getNonEquipmentItems();
         //~}
@@ -36,8 +33,7 @@ public class PlayerUtils {
 
     public static ItemStack getItemStack(int slotIndex) {
         Player player = MCUtils.getLocalPlayer();
-        return player == null ? ItemStack.EMPTY : player.getInventory()
-                                                        .getItem(slotIndex);
+        return player == null ? ItemStack.EMPTY : player.getInventory().getItem(slotIndex);
     }
 
     public static List<Integer> getAllBoxIndex(int minIndex, int maxIndex) {
@@ -46,8 +42,7 @@ public class PlayerUtils {
 
     public static List<Integer> getAllItemIndex(int minIndex, int maxIndex, Predicate<ItemStack> filter) {
         List<Integer> results = new ArrayList<>();
-        Inventory inventory = MCUtils.getLocalPlayer()
-                                     .getInventory();
+        Inventory inventory = MCUtils.getLocalPlayer().getInventory();
 
         for (int i = minIndex; i < maxIndex; i++) {
             ItemStack stack = inventory.getItem(i);
@@ -63,12 +58,8 @@ public class PlayerUtils {
         List<Integer> results = new ArrayList<>();
 
         for (int i : shulkerBoxIndexes) {
-            List<ItemStack> boxStacks = getBoxItemStacks(player.getInventory()
-                                                               .getItem(i));
-            if (! boxStacks.stream()
-                           .filter(itemStack -> ! itemStack.isEmpty())
-                           .toList()
-                           .isEmpty()) {
+            List<ItemStack> boxStacks = getBoxItemStacks(player.getInventory().getItem(i));
+            if (! boxStacks.stream().filter(itemStack -> ! itemStack.isEmpty()).toList().isEmpty()) {
                 results.add(i);
             }
         }
@@ -82,10 +73,7 @@ public class PlayerUtils {
 
     public static boolean isBoxFull(ItemStack box) {
         List<ItemStack> items = getBoxItemStacks(box);
-        return items.stream()
-                    .filter(stack -> stack.getMaxStackSize() - stack.getCount() != 0)
-                    .toList()
-                    .isEmpty();
+        return items.stream().filter(stack -> stack.getMaxStackSize() - stack.getCount() != 0).toList().isEmpty();
     }
 
     public static boolean isBoxEmpty(ItemStack box) {
@@ -96,11 +84,7 @@ public class PlayerUtils {
         LocalPlayer localPlayer = MCUtils.getLocalPlayer();
         if (localPlayer == null)
             return 0;
-        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndex(0, 36))
-                .stream().flatMap(i -> getBoxItemStacks(getInventory().get(i)).stream())
-                .filter(j -> j.is(item))
-                .mapToInt(ItemStack::getCount)
-                .sum();
+        int storedCount = getNotEmptyBoxIndexes(getAllBoxIndex(0, 36)).stream().flatMap(i -> getBoxItemStacks(getInventory().get(i)).stream()).filter(j -> j.is(item)).mapToInt(ItemStack::getCount).sum();
         return storedCount + getInventoryItemCount(item);
     }
 
@@ -132,12 +116,12 @@ public class PlayerUtils {
         }
     }
 
-    //~ if >= 26.1 'ClickType' -> 'ContainerInput' {
+    //~ if >=26.1 'ClickType' -> 'ContainerInput' {
     public static void clickSlot(final int containerId, final int slotNum, final int buttonNum,
                                  final net.minecraft.world.inventory.ContainerInput input, final Player player) {
         //~}
         Minecraft mc = MCUtils.getMinecraft();
-        //? if >= 26.1 {
+        //? if >=26.1 {
         mc.gameMode.handleContainerInput(containerId, slotNum, buttonNum, input, player);
         //?} else {
         /*mc.gameMode.handleInventoryMouseClick(containerId, slotNum, buttonNum, input, player);
@@ -148,18 +132,17 @@ public class PlayerUtils {
         LocalPlayer player = MCUtils.getLocalPlayer();
         Minecraft mc = MCUtils.getMinecraft();
         if (player != null) {
-            //? if >= 26.1 {
+            //? if >=26.1 {
             mc.gameMode.interact(player, entity, new EntityHitResult(entity), hand);
             //?} else {
             /*mc.gameMode.interact(player, entity, hand);
-            *///?}
+             *///?}
         }
     }
 
     //~ if >=1.21.10 '.getName()' -> '.name()' {
     public static String getName(Player player) {
-        return player.getGameProfile()
-                     .name();
+        return player.getGameProfile().name();
     }
 
     public static String getName(GameProfile profile) {
