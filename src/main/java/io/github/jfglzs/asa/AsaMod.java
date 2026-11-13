@@ -13,14 +13,16 @@ import io.github.jfglzs.asa.feature.autoVault.AutoVaultExecutor;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.feature.creeperWarn.CreeperCheckClient;
-import io.github.jfglzs.asa.feature.optItemFrame.MapItemUpdater;
+import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
+import io.github.jfglzs.asa.feature.optItemFrame.MapItemUpdater;
 import io.github.jfglzs.asa.feature.useSignRunCommand.UseSignRunCommand;
 import io.github.jfglzs.asa.render.RemainingItemRender;
-import io.github.jfglzs.asa.utils.*;
-import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
+import io.github.jfglzs.asa.utils.ChatHelper;
+import io.github.jfglzs.asa.utils.CommandUtils;
+import io.github.jfglzs.asa.utils.MCUtils;
+import io.github.jfglzs.asa.utils.ShulkerUtils;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
@@ -52,7 +54,7 @@ public class AsaMod implements ClientModInitializer {
     }
 
     private void init() {
-        //~ if >= 26.1 'registerGameOverlayRenderer' -> 'registerInGameGuiRenderer' {
+        //~ if >=26.1 'registerGameOverlayRenderer' -> 'registerInGameGuiRenderer' {
         ConfigsManager.init();
         Configs.INSTANCE.load();
         HotkeysCallback.init();
