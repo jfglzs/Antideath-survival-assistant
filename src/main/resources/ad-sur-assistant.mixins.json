@@ -63,6 +63,7 @@
     "feature.functions.tabFilter.PlayerTabOverlay_Mixin",
     "feature.lms.AbstractContainerScreen_Mixin",
     "feature.lms.CreativeModeInventoryScreen_Mixin",
+    "feature.optimizations.asyncLitematicLoad.GuiBase_Mixin",
     "feature.optimizations.asyncLitematicLoad.GuiSchematicLoad_Mixin",
     "feature.optimizations.optEntityLight.EntityRenderer_Mixin",
     "feature.optimizations.optItemFrame.ClientLevel_Mixin",

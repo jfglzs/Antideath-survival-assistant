@@ -155,7 +155,7 @@ public class GuiSchematicLoad_Mixin {
     )
     public void actionPerformedWithButton(ButtonBase button, int mouseButton, CallbackInfo ci) {
         if (Configs.Optimizations.ASYNC_LITEMATICA_LOAD.getBooleanValue()) {
-            MCUtils.executeTask(() -> this.gui.addMessage(Message.MessageType.INFO, "asa.asyncLitematicaLoad.start", Configs.Optimizations.ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT.getIntegerValue()));
+            this.gui.addMessage(Message.MessageType.INFO, "asa.asyncLitematicaLoad.start", Configs.Optimizations.ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT.getIntegerValue());
         }
     }
 }
