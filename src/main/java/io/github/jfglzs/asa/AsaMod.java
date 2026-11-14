@@ -18,13 +18,11 @@ import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendComm
 import io.github.jfglzs.asa.feature.optItemFrame.MapItemUpdater;
 import io.github.jfglzs.asa.feature.useSignRunCommand.UseSignRunCommand;
 import io.github.jfglzs.asa.render.RemainingItemRender;
-import io.github.jfglzs.asa.utils.ChatHelper;
-import io.github.jfglzs.asa.utils.CommandUtils;
-import io.github.jfglzs.asa.utils.MCUtils;
-import io.github.jfglzs.asa.utils.ShulkerUtils;
+import io.github.jfglzs.asa.utils.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +47,6 @@ public class AsaMod implements ClientModInitializer {
     public void onInitializeClient() {
         version = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
         LOGGER.info("AsaMod v{} is being loading...", version);
-
         this.init();
     }
 
@@ -84,6 +81,9 @@ public class AsaMod implements ClientModInitializer {
         ClientTickEvent.register(i -> i % 10 == 0 && Configs.Functions.DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender::tick);
         ClientTickEvent.register(i -> i % 20 == 0 && Configs.Functions.CREEPER_WARN.getBooleanValue(), CreeperCheckClient::tick);
         ClientTickEvent.register(i -> i % 20000 == 0 && Configs.LMS.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.LMS.LMS_AUTO_REFRESH.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client -> ItemStorageDataManager.reflushCache());
+        ClientPlayConnectionEvents.JOIN.register((listener, sender, client) -> {
+            UpdateChecker.sendUpdateMessage();
+        });
     }
 
     private void registerCommands() {
