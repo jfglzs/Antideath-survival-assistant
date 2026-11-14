@@ -227,7 +227,7 @@
   "asa.config.all.comment.enableAutoBlockRestrokEnderChestSupport": "enableAutoBlockRestrokEnderChestSupport",
   "asa.config.all.name.fakeAutoRefresh": "fakeAutoRefresh",
   "asa.config.all.comment.fakeAutoRefresh": "fakeAutoRefresh",
-  "asa.checkupdate.available": "Update available new version: %s current version: %s",
+  "asa.checkupdate.available": "Ciallo～(∠・ω< )⌒★ Update available new version: %s current version: %s",
   "asa.opts.ifv.low": "Always Visible (Low Performance)",
   "asa.opts.ifv.mid": "Visible When Empty (Balanced)",
   "asa.opts.ifv.high": "Never Visible (High Performance)",
