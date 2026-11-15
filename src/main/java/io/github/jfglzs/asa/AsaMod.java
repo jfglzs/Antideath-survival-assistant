@@ -13,7 +13,6 @@ import io.github.jfglzs.asa.feature.autoVault.AutoVaultExecutor;
 import io.github.jfglzs.asa.feature.autoWasteClean.AutoWasteCleanProcessor;
 import io.github.jfglzs.asa.feature.boxSplitter.BoxSplitter;
 import io.github.jfglzs.asa.feature.creeperWarn.CreeperCheckClient;
-import io.github.jfglzs.asa.feature.lms.ItemStorageDataManager;
 import io.github.jfglzs.asa.feature.lowHealthSendCommandOrChat.LowHealthSendCommandOrChat;
 import io.github.jfglzs.asa.feature.optItemFrame.MapItemUpdater;
 import io.github.jfglzs.asa.feature.useSignRunCommand.UseSignRunCommand;
@@ -60,7 +59,6 @@ public class AsaMod implements ClientModInitializer {
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.INSTANCE);
         RenderEventHandler.getInstance().registerInGameGuiRenderer(HudRenderEvent.INSTANCE);
         InitializationHandler.getInstance().registerInitializationHandler(InitHandler.INSTANCE);
-        ItemStorageDataManager.init();
         AutoWasteCleanProcessor.init();
         UseSignRunCommand.init();
         RemainingItemRender.init();
@@ -77,10 +75,8 @@ public class AsaMod implements ClientModInitializer {
         ClientTickEvent.register(MCUtils::tick);
         ClientTickEvent.register(MapItemUpdater::tick);
         ClientTickEvent.register(LowHealthSendCommandOrChat::tick);
-        ClientTickEvent.register(ItemStorageDataManager::scanMatchedPlayersAndInteract);
         ClientTickEvent.register(i -> i % 10 == 0 && Configs.Functions.DISPLAY_REMAIN_ITEM.getBooleanValue(), RemainingItemRender::tick);
         ClientTickEvent.register(i -> i % 20 == 0 && Configs.Functions.CREEPER_WARN.getBooleanValue(), CreeperCheckClient::tick);
-        ClientTickEvent.register(i -> i % 20000 == 0 && Configs.LMS.LMS_FETCH_SUPPORT.getBooleanValue() && Configs.LMS.LMS_AUTO_REFRESH.getBooleanValue() && CommandUtils.canUseCommand("getStorageData"), client -> ItemStorageDataManager.reflushCache());
         ClientPlayConnectionEvents.JOIN.register((listener, sender, client) -> {
             UpdateChecker.sendUpdateMessage();
         });

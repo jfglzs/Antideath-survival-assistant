@@ -16,6 +16,7 @@ public class GuiBase_Mixin {
     public void syncAddGuiMessage(Message.MessageType type, int displayTimeMs, String messageKey, Object[] args, Operation<Void> original) {
         if (Configs.Optimizations.ASYNC_LITEMATICA_LOAD.getBooleanValue()) {
             MCUtils.executeTask(() -> original.call(type, displayTimeMs, messageKey, args));
+            return;
         }
         original.call(type, displayTimeMs, messageKey, args);
     }

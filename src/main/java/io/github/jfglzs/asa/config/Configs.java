@@ -11,7 +11,6 @@ import io.github.jfglzs.asa.annotations.Config;
 import io.github.jfglzs.asa.config.options.AutoCleanWasteMode;
 import io.github.jfglzs.asa.config.options.ItemFrameVisibility;
 import io.github.jfglzs.asa.config.options.LowHealthSendMode;
-import io.github.jfglzs.asa.config.options.OpenFakePlayerInvMode;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -25,7 +24,7 @@ import io.github.jfglzs.asa.utils.Hardware;
 public class Configs implements IConfigHandler {
     public static final Configs INSTANCE = new Configs();
     public static final String ALL = AsaMod.MOD_ID + ".config.all";
-    public static final Class<?>[] classes = new Class[]{Functions.class, Disables.class, Commands.class, Optimizations.class, LMS.class, Lists.class, Configs.class};
+    public static final Class<?>[] classes = new Class[]{Functions.class, Disables.class, Commands.class, Optimizations.class, Lists.class, Configs.class};
 
     public static class Disables {
         @Config(tab = Tab.DISABLES) public static final ConfigBooleanHotkeyed DISABLE_SUBTITLE = new ConfigBooleanHotkeyed("disableSubtitle", false, "", "").apply(ALL);
@@ -57,21 +56,6 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed FAST_MODEL_RENDER = new ConfigBooleanHotkeyed("fastModelRender", false, "", "").apply(ALL);
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigBooleanHotkeyed ASYNC_LITEMATICA_LOAD = new ConfigBooleanHotkeyed("asyncLitematicaLoad", false, "", "").apply(ALL);
         @Config(tab = Tab.OPTIMIZATIONS) public static final ConfigInteger ASYNC_LITEMATICA_LOAD_THREAD_AMOUNT = new ConfigInteger("asyncLitematicaLoadThreadAmount", 2, 1, Hardware.PROCESSOR.getLogicalProcessorCount(), "", "").apply(ALL);
-    }
-
-    public static class LMS {
-        @Config(tab = Tab.LMS) public static final ConfigHotkey LMS_TAKE_ITEM = new ConfigHotkey("openFakeFetchGui", "", "").apply(ALL);
-        @Config(tab = Tab.LMS) public static final ConfigBoolean LMS_FETCH_SUPPORT = new ConfigBoolean("fakeFetchSupport", false, "").apply(ALL);
-        @Config(tab = Tab.LMS) public static final ConfigBoolean LMS_AUTO_REFRESH = new ConfigBoolean("fakeAutoRefresh", false, "").apply(ALL);
-        @Config(tab = Tab.LMS) public static final ConfigBooleanHotkeyed MID_CLICK_TAKE_ITEM = new ConfigBooleanHotkeyed("middleClickLitematicBlockFetch", false, "", "").apply(ALL);
-        @Config(tab = Tab.LMS) public static final ConfigBooleanHotkeyed AUTO_OPEN_FAKE_PLAYER_INV = new ConfigBooleanHotkeyed("autoOpenFakeInv", false, "", "").apply(ALL);
-        @Config(tab = Tab.LMS) public static final ConfigOptionList AUTO_OPEN_FAKE_PLAYER_INV_MODE = new ConfigOptionList("autoOpenFakeInv-Mode", OpenFakePlayerInvMode.INTERACTION, "", "").apply(ALL);
-        @Config(tab = Tab.LMS) public static final ConfigBooleanHotkeyed AUTO_KILL_FAKE_PLAYERS = new ConfigBooleanHotkeyed("autoKillFake", false, "", "").apply(ALL);
-        @Config(tab = Tab.LMS) public static final ConfigInteger AUTO_COOLDOWN = new ConfigInteger("autoActionCooldown", 100, 100, 1000, "", "").apply(ALL);
-        @Config(tab = Tab.LMS) public static final ConfigBooleanHotkeyed FAKE_PLAYER_INVENTORY_ITEM_CACHE = new ConfigBooleanHotkeyed("fakeInvCache", false, "", "").apply(ALL);
-        @Config(tab = Tab.LMS) public static final ConfigHotkey CLEAN_PLAYER_INV_CHACHE = new ConfigHotkey("fakeInvCache-clear", "", "", "").apply(ALL);
-        @Config(tab = Tab.LMS) public static final ConfigBooleanHotkeyed LITEMATICA_CALCULATE_QWP = new ConfigBooleanHotkeyed("MaterialList-CaculateLMS", false, "", "").apply(ALL);
-        @Config(tab = Tab.LMS) public static final ConfigBooleanHotkeyed LITEMATICA_CALCULATE_FAKE = new ConfigBooleanHotkeyed("MaterialList-CaculateInv", false, "", "").apply(ALL);
     }
 
     public static class Lists {

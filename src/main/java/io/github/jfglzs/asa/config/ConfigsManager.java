@@ -50,8 +50,6 @@ public class ConfigsManager {
         Config config = field.getAnnotation(Config.class);
 
         for (Tab tab : config.tab()) {
-            if (tab == Tab.LMS)
-                LMS.add(obj);
             if (tab == Tab.COMMAND)
                 COMMANDS.add(obj);
             if (tab == Tab.DISABLES)
@@ -78,7 +76,6 @@ public class ConfigsManager {
             case FUNCTIONS -> ImmutableList.copyOf(FUNCTIONS);
             case DISABLES -> ImmutableList.copyOf(DISABLES);
             case COMMAND -> ImmutableList.copyOf(COMMANDS);
-            case LMS -> ImmutableList.copyOf(LMS);
             case OPTIMIZATIONS -> ImmutableList.copyOf(OPTIMIZATIONS);
             case LISTS -> ImmutableList.copyOf(LISTS);
         };

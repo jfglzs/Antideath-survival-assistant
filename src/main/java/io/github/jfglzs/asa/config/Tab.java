@@ -8,8 +8,7 @@ public enum Tab {
     DISABLES("asa.config.cate.disables"),
     COMMAND("asa.config.cate.cmd"),
     OPTIMIZATIONS("asa.config.cate.opt"),
-    LISTS("asa.config.cate.lists"),
-    LMS("asa.config.cate.lms");
+    LISTS("asa.config.cate.lists");
 
     public final String translation;
 
