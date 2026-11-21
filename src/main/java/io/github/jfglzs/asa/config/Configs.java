@@ -75,7 +75,6 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.LISTS) public static final ConfigStringList CUSTOM_LITEMATICA_BLOCK_REPLACE_LIST = new ConfigStringList("customLitematicaBlockReplaceList", ImmutableList.of(), "").apply(ALL);
         @Config(tab = Tab.LISTS) public static final ConfigStringList AUTO_BOX_RESTROKE_WHITELIST = new ConfigStringList("autoBlockRestrok-Whitelist", ImmutableList.of(), "").apply(ALL);
         @Config(tab = Tab.LISTS) public static final ConfigStringList AUTO_BOX_RESTROKE_BLACKLIST = new ConfigStringList("autoBlockRestrok-blackList", ImmutableList.of(), "").apply(ALL);
-        @Config(tab = Tab.LISTS) public static final ConfigStringList FAKE_PLAYER_INVENTORY_ITEM_CACHE_WHITE_LIST = new ConfigStringList("fakeInvCache-Whitelist", ImmutableList.of(), "", "").apply(ALL);
     }
 
     public static class Commands {
