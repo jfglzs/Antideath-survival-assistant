@@ -13,13 +13,20 @@ import net.minecraft.world.entity.player.Player;
 import io.github.jfglzs.asa.config.Configs;
 
 public class LowHealthSendCommandOrChat {
-    public static final RateLimiter LIMITER = RateLimiter.create(0.02);
+    private static int lastCooldownSeconds = Configs.Functions.LOW_HEALTH_SEND_COOLDOWN.getIntegerValue();
+    public static final RateLimiter LIMITER = RateLimiter.create(1.0 / Math.max(1, lastCooldownSeconds));
 
     public static void tick(Minecraft client) {
         Player player = client.player;
         if (Configs.Functions.LOW_HEALTH_EXECUTE_OR_SEND.getBooleanValue() && PlayerUtils.isSurvivalMode(player)) {
             if (player.getHealth() < Configs.Functions.LOW_HEALTH_VALUE.getFloatValue()) {
-                if (! LIMITER.tryAcquire())
+                int cooldownSeconds = Configs.Functions.LOW_HEALTH_SEND_COOLDOWN.getIntegerValue();
+                if (cooldownSeconds != lastCooldownSeconds) {
+                    if (cooldownSeconds > 0)
+                        LIMITER.setRate(1.0 / cooldownSeconds);
+                    lastCooldownSeconds = cooldownSeconds;
+                }
+                if (cooldownSeconds > 0 && ! LIMITER.tryAcquire())
                     return;
                 String cmd = Configs.Functions.LOW_HEALTH_SEND_CONTENT_COMMAND.getStringValue();
                 String msg = Configs.Functions.LOW_HEALTH_SEND_CONTENT_MESSAGE.getStringValue();

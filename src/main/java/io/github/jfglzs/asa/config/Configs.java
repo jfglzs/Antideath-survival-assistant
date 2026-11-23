@@ -100,6 +100,7 @@ public class Configs implements IConfigHandler {
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed ENABLE_FAKE_PLAYER_KILL_AURA_WHITELIST = new ConfigBooleanHotkeyed("enableKillAuraWhiteList", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigBooleanHotkeyed LOW_HEALTH_EXECUTE_OR_SEND = new ConfigBooleanHotkeyed("lowHealthAutoSendMessageOrCmd", false, "", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigFloat LOW_HEALTH_VALUE = new ConfigFloat("healthValve", 4, 1, 20, "").apply(ALL);
+        @Config(tab = Tab.FUNCTIONS) public static final ConfigInteger LOW_HEALTH_SEND_COOLDOWN = new ConfigInteger("lowHealthSendCooldown", 50, 0, 3600, "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigString LOW_HEALTH_SEND_CONTENT_MESSAGE = new ConfigString("SendContent-Message", "!s", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigString LOW_HEALTH_SEND_CONTENT_COMMAND = new ConfigString("SendContent-Command", "spectator", "").apply(ALL);
         @Config(tab = Tab.FUNCTIONS) public static final ConfigOptionList LOW_HEALTH_SEND_CONTENT_MODE = new ConfigOptionList("SendContent-Mode", LowHealthSendMode.AUTO).apply(ALL);

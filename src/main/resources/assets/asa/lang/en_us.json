@@ -77,6 +77,8 @@
   "asa.config.all.comment.lowHealthAutoSendMessageOrCmd": "Execute a customizable command; automatically send a chat message when the command is unavailable",
   "asa.config.all.name.healthValve": "healthValve",
   "asa.config.all.comment.healthValve": "Health threshold",
+  "asa.config.all.name.lowHealthSendCooldown": "Low-health send cooldown",
+  "asa.config.all.comment.lowHealthSendCooldown": "Cooldown between automatic commands or chat messages, in seconds; 0 disables the cooldown (0–3600)",
   "asa.config.all.name.SendContent-Message": "SendContent-Message",
   "asa.config.all.comment.SendContent-Message": "Command",
   "asa.config.all.name.SendContent-Command": "SendContent-Command",

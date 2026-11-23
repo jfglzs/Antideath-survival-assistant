@@ -77,6 +77,8 @@
   "asa.config.all.comment.lowHealthAutoSendMessageOrCmd": "可自定义命令，当指令不可用时自动发送聊天消息",
   "asa.config.all.name.healthValve": "生命值阈值",
   "asa.config.all.comment.healthValve": "生命值阈值",
+  "asa.config.all.name.lowHealthSendCooldown": "低生命值发送冷却",
+  "asa.config.all.comment.lowHealthSendCooldown": "两次自动执行命令或发送消息之间的冷却时间，单位：秒；0 为关闭冷却，范围：0–3600",
   "asa.config.all.name.SendContent-Message": "发送内容-消息",
   "asa.config.all.comment.SendContent-Message": "指令",
   "asa.config.all.name.SendContent-Command": "发送内容-指令",
