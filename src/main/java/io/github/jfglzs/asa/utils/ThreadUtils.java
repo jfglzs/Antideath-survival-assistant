@@ -13,7 +13,11 @@ import java.util.function.Supplier;
 
 public class ThreadUtils {
     public static final Minecraft MC = Minecraft.getInstance();
-    public static final ExecutorService THREAD_POOL = Executors.newCachedThreadPool();
+    public static final ExecutorService THREAD_POOL = Executors.newCachedThreadPool(r -> {
+        Thread t = new Thread(r);
+        t.setDaemon(true);
+        return t;
+    });
     private static final ScheduledExecutorService SCHEDULER = Executors.newSingleThreadScheduledExecutor(r -> {
         Thread t = new Thread(r, "ASA-TASK");
         t.setDaemon(true);
